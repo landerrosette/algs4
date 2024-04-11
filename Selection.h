@@ -10,10 +10,11 @@ public:
     static void sort(std::vector<T> &a) {
         int N = a.size();
         for (int i = 0; i < N; ++i) {
-            // Exchange a[i] with smallest entry in a[i+1...N).
+            // 将a[i]和a[i+1..N]中最小的元素交换
             int min = i;
-            for (int j = i + 1; j < N; ++j)
+            for (int j = i + 1; j < N; ++j) {
                 if (less(a[j], a[min])) min = j;
+            }
             exch(a, i, min);
         }
     }

@@ -22,15 +22,17 @@ protected:
 public:
     template<typename T>
     static void show(const std::vector<T> &a) {
-        for (const auto &item: a)
+        for (const auto &item: a) {
             std::cout << item << " ";
+        }
         std::cout << "\n";
     }
 
     template<typename T>
     static bool isSorted(const std::vector<T> &a) {
-        for (int i = 1; i < a.size(); ++i)
+        for (int i = 1; i < a.size(); ++i) {
             if (less(a[i], a[i - 1])) return false;
+        }
         return true;
     }
 };
