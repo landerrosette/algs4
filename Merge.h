@@ -5,7 +5,7 @@
 #include "Sorting.h"
 
 class Merge : public Sorting {
-private:
+protected:
     template<typename T>
     static void merge(std::vector<T> &a, std::vector<T> &aux, int lo, int mid, int hi) {
         int i = lo, j = mid + 1;

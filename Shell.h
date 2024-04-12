@@ -13,7 +13,7 @@ public:
         while (h < N / 3) h = h * 3 + 1;
         while (h >= 1) {
             for (int i = h; i < N; ++i) {
-                // 将a[i]插入到a[i-h], a[i-2*h], a[i-3*h]... 之中
+                // 将a[i]插入到a[i-h]、a[i-2h]、a[i-3h]...之中
                 for (int j = i; j >= h && less(a[j], a[j - h]); j -= h) {
                     exch(a, j, j - h);
                 }

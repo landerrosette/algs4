@@ -5,14 +5,16 @@
 #include "Insertion.h"
 #include "Shell.h"
 #include "Merge.h"
+#include "MergeBU.h"
 
 int main() {
-    std::vector<char> a = {'S', 'O', 'R', 'T', 'E', 'X', 'A', 'M', 'P', 'L', 'E'};
+    std::vector<char> a = {'L', 'O', 'N', 'G', 'S', 'O', 'R', 'T', 'E', 'X', 'A', 'M', 'P', 'L', 'E'};
     Sorting::show(a);
 //    Selection::sort(a);
 //    Insertion::sort(a);
 //    Shell::sort(a);
-    Merge::sort(a);
+//    Merge::sort(a);
+    MergeBU::sort(a);
     assert(Sorting::isSorted(a));
     Sorting::show(a);
     return 0;
