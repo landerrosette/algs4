@@ -6,6 +6,7 @@
 #include "Shell.h"
 #include "Merge.h"
 #include "MergeBU.h"
+#include "Quick.h"
 
 int main() {
     std::vector<char> a = {'L', 'O', 'N', 'G', 'S', 'O', 'R', 'T', 'E', 'X', 'A', 'M', 'P', 'L', 'E'};
@@ -14,7 +15,8 @@ int main() {
 //    Insertion::sort(a);
 //    Shell::sort(a);
 //    Merge::sort(a);
-    MergeBU::sort(a);
+//    MergeBU::sort(a);
+    Quick::sort(a);
     assert(Sorting::isSorted(a));
     Sorting::show(a);
     return 0;

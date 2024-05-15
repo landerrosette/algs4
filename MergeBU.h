@@ -3,6 +3,7 @@
 
 
 #include "Merge.h"
+#include <algorithm>
 
 class MergeBU : public Merge {
 public:
