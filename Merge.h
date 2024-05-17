@@ -23,6 +23,7 @@ protected:
         }
     }
 
+private:
     template<typename T>
     static void sort(std::vector<T> &a, std::vector<T> &aux, int lo, int hi) {
         if (lo >= hi) return;

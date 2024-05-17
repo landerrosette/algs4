@@ -24,7 +24,7 @@ private:
             exch(a, i, j);
         }
         exch(a, lo, j);
-        return j;  // a[lo..j-1] <= a[j] <= a[j+1..hi] 达成
+        return j;   // a[lo..j-1] <= a[j] <= a[j+1..hi] 达成
     }
 
     template<typename T>
