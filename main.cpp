@@ -11,6 +11,7 @@
 #include "MergeBU.h"
 #include "Quick.h"
 #include "Quick3way.h"
+#include "Heap.h"
 
 int main(int argc, char *argv[]) {
     std::ifstream file(argv[1]);
@@ -26,7 +27,8 @@ int main(int argc, char *argv[]) {
 //    Merge::sort(a);
 //    MergeBU::sort(a);
 //    Quick::sort(a);
-    Quick3way::sort(a);
+//    Quick3way::sort(a);
+    Heap::sort(a);
     assert(Sorting::isSorted(a));
     Sorting::show(a);
 
