@@ -3,6 +3,8 @@
 
 
 #include <vector>
+#include <iostream>
+#include <string>
 
 template<typename T>
 class MaxPQ {
@@ -60,6 +62,20 @@ public:
         exch(1, N--);
         sink(1);
         return max;
+    }
+
+    // % algs4 < tinyPQ.txt
+    static int main() {
+        MaxPQ<std::string> pq(1);
+        std::string word;
+        while (std::cin >> word) {
+            if (word != "-") {
+                pq.insert(word);
+            } else if (!pq.isEmpty()) {
+                std::cout << pq.delMax() << " ";
+            }
+        }
+        std::cout << "(" << pq.size() << " left on pq)" << "\n";
     }
 };
 

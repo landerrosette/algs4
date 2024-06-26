@@ -30,6 +30,9 @@ public:
         std::shuffle(a.begin(), a.end(), g);
         sort(a, 0, a.size() - 1);
     }
+
+    // % algs4 words3.txt
+    static int main();
 };
 
 

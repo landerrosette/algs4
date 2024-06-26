@@ -1,8 +1,4 @@
 #include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
-#include <cassert>
 #include "Sorting.h"
 #include "Selection.h"
 #include "Insertion.h"
@@ -12,25 +8,17 @@
 #include "Quick.h"
 #include "Quick3way.h"
 #include "Heap.h"
+#include "MaxPQ.h"
+#include <string>
 
-int main(int argc, char *argv[]) {
-    std::ifstream file(argv[1]);
-    std::vector<std::string> a;
-    std::string word;
-    while (file >> word) a.push_back(word);
-    file.close();
-
-    Sorting::show(a);
-//    Selection::sort(a);
-//    Insertion::sort(a);
-//    Shell::sort(a);
-//    Merge::sort(a);
-//    MergeBU::sort(a);
-//    Quick::sort(a);
-//    Quick3way::sort(a);
-    Heap::sort(a);
-    assert(Sorting::isSorted(a));
-    Sorting::show(a);
-
-    return 0;
+int main() {
+//    return Selection::main();
+//    return Insertion::main();
+//    return Shell::main();
+//    return Merge::main();
+//    return MergeBU::main();
+//    return Quick::main();
+//    return Quick3way::main();
+//    return Heap::main();
+    return MaxPQ<std::string>::main();
 }

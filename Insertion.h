@@ -16,6 +16,9 @@ public:
             }
         }
     }
+
+    // % algs4 words3.txt
+    static int main();
 };
 
 

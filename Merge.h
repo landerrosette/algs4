@@ -39,6 +39,9 @@ public:
         std::vector<T> aux(a.size());
         sort(a, aux, 0, a.size() - 1);
     }
+
+    // % algs4 words3.txt
+    static int main();
 };
 
 
