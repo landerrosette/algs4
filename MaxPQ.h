@@ -65,7 +65,7 @@ public:
     }
 
     // % algs4 < tinyPQ.txt
-    static int main() {
+    static void main() {
         MaxPQ<std::string> pq(1);
         std::string word;
         while (std::cin >> word) {

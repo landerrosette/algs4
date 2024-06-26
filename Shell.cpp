@@ -4,7 +4,7 @@
 #include <string>
 #include <cassert>
 
-int Shell::main() {
+void Shell::main() {
     std::vector<std::string> a;
     std::string word;
     while (std::cin >> word) a.push_back(word);
@@ -13,6 +13,4 @@ int Shell::main() {
     sort(a);
     assert(isSorted(a));
     show(a);
-
-    return 0;
 }
