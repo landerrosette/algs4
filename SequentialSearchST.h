@@ -39,12 +39,12 @@ public:
         first = new Node(key, val, first);
     }
 
-    std::vector<Key> keys() override {
-        std::vector<Key> keys;
+    std::deque<Key> getKeys() override {
+        std::deque<Key> queue;
         for (Node *x = first; x != nullptr; x = x->next) {
-            keys.push_back(x->key);
+            queue.push_back(x->key);
         }
-        return keys;
+        return queue;
     }
 
     ~SequentialSearchST() override {
@@ -63,7 +63,7 @@ public:
         for (int i = 0; std::cin >> key; ++i) {
             st.put(key, i);
         }
-        for (const auto &s: st.keys()) {
+        for (const auto &s: st.getKeys()) {
             std::cout << s << " " << st.get(s) << "\n";
         }
     }

@@ -2,7 +2,7 @@
 #define ALGS4_ST_H
 
 
-#include <vector>
+#include <deque>
 
 template<typename Key, typename Value>
 class ST {
@@ -11,7 +11,7 @@ public:
 
     virtual void put(Key key, Value val) = 0;
 
-    virtual std::vector<Key> keys() = 0;
+    virtual std::deque<Key> getKeys() = 0;
 
     virtual ~ST() = default;
 };

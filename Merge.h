@@ -11,15 +11,10 @@ protected:
         int i = lo, j = mid + 1;
         for (int k = lo; k <= hi; ++k) aux[k] = a[k];
         for (int k = lo; k <= hi; ++k) {
-            if (i > mid) {
-                a[k] = aux[j++];
-            } else if (j > hi) {
-                a[k] = aux[i++];
-            } else if (less(aux[j], aux[i])) {
-                a[k] = aux[j++];
-            } else {
-                a[k] = aux[i++];
-            }
+            if (i > mid) a[k] = aux[j++];
+            else if (j > hi) a[k] = aux[i++];
+            else if (less(aux[j], aux[i])) a[k] = aux[j++];
+            else a[k] = aux[i++];
         }
     }
 
@@ -40,7 +35,7 @@ public:
         sort(a, aux, 0, a.size() - 1);
     }
 
-    // % algs4 words3.txt
+    // % algs4 < words3.txt
     static void main();
 };
 

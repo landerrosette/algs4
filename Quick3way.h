@@ -31,7 +31,7 @@ public:
         sort(a, 0, a.size() - 1);
     }
 
-    // % algs4 words3.txt
+    // % algs4 < words3.txt
     static void main();
 };
 

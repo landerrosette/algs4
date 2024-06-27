@@ -10,7 +10,7 @@ template<typename T>
 class MaxPQ {
 private:
     std::vector<T> pq;
-    int N = 0;
+    int N;
 
     bool less(int i, int j) {
         return pq[i] < pq[j];
@@ -40,9 +40,7 @@ private:
     }
 
 public:
-    MaxPQ(int maxN) {
-        pq.resize(maxN + 1);
-    }
+    MaxPQ(int maxN) : pq(maxN + 1), N(0) {}
 
     bool isEmpty() {
         return N == 0;
@@ -61,12 +59,13 @@ public:
         T max = pq[1];
         exch(1, N--);
         sink(1);
+        pq[N + 1] = T();
         return max;
     }
 
     // % algs4 < tinyPQ.txt
     static void main() {
-        MaxPQ<std::string> pq(1);
+        MaxPQ<std::string> pq(10);
         std::string word;
         while (std::cin >> word) {
             if (word != "-") {

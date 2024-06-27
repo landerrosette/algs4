@@ -10,6 +10,7 @@
 #include "MaxPQ.h"
 #include <string>
 #include "SequentialSearchST.h"
+#include "BinarySearchST.h"
 
 int main() {
 //    Selection::main();
@@ -21,6 +22,7 @@ int main() {
 //    Quick3way::main();
 //    Heap::main();
 //    MaxPQ<std::string>::main();
-    SequentialSearchST<std::string, int>::main();
+//    SequentialSearchST<std::string, int>::main();
+    BinarySearchST<std::string, int>::main();
     return 0;
 }

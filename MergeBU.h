@@ -18,7 +18,7 @@ public:
         }
     }
 
-    // % algs4 words3.txt
+    // % algs4 < words3.txt
     static void main();
 };
 
