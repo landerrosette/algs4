@@ -21,9 +21,6 @@ public:
             h /= 3;
         }
     }
-
-    // % algs4 < words3.txt
-    static void main();
 };
 
 

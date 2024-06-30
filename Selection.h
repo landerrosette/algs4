@@ -18,9 +18,6 @@ public:
             exch(a, i, min);
         }
     }
-
-    // % algs4 < words3.txt
-    static void main();
 };
 
 

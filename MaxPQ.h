@@ -6,18 +6,18 @@
 #include <iostream>
 #include <string>
 
-template<typename T>
+template<typename Key>
 class MaxPQ {
 private:
-    std::vector<T> pq;
-    int N;
+    std::vector<Key> pq;
+    int N = 0;
 
     bool less(int i, int j) {
         return pq[i] < pq[j];
     }
 
     void exch(int i, int j) {
-        T t = pq[i];
+        Key t = pq[i];
         pq[i] = pq[j];
         pq[j] = t;
     }
@@ -40,7 +40,7 @@ private:
     }
 
 public:
-    MaxPQ(int maxN) : pq(maxN + 1), N(0) {}
+    MaxPQ(int maxN) : pq(maxN + 1) {}
 
     bool isEmpty() {
         return N == 0;
@@ -50,31 +50,17 @@ public:
         return N;
     }
 
-    void insert(T v) {
+    void insert(Key v) {
         pq[++N] = v;
         swim(N);
     }
 
-    T delMax() {
-        T max = pq[1];
+    Key delMax() {
+        Key max = pq[1];
         exch(1, N--);
+        pq[N + 1] = Key();
         sink(1);
-        pq[N + 1] = T();
         return max;
-    }
-
-    // % algs4 < tinyPQ.txt
-    static void main() {
-        MaxPQ<std::string> pq(10);
-        std::string word;
-        while (std::cin >> word) {
-            if (word != "-") {
-                pq.insert(word);
-            } else if (!pq.isEmpty()) {
-                std::cout << pq.delMax() << " ";
-            }
-        }
-        std::cout << "(" << pq.size() << " left on pq)" << "\n";
     }
 };
 

@@ -41,9 +41,6 @@ public:
             sink(a, 1, N);
         }
     }
-
-    // % algs4 < words3.txt
-    static void main();
 };
 
 
