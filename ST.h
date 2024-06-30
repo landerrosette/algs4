@@ -6,6 +6,9 @@
 
 template<typename Key, typename Value>
 class ST {
+protected:
+    int N = 0;
+
 public:
     virtual Value get(Key key) = 0;
 
@@ -13,7 +16,15 @@ public:
 
     virtual std::deque<Key> getKeys() = 0;
 
-    virtual ~ST() = default;
+    virtual void remove(Key key) = 0;
+
+    bool isEmpty() {
+        return N == 0;
+    }
+
+    int size() {
+        return N;
+    }
 };
 
 
