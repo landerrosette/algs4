@@ -1,7 +1,5 @@
 #include <iostream>
 #include <string>
-#include <cassert>
-#include <fstream>
 #include <filesystem>
 #include "Selection.h"
 #include "Insertion.h"
@@ -13,75 +11,10 @@
 #include "Heap.h"
 #include "MaxPQ.h"
 #include "SequentialSearchST.h"
-
-template<class SortAlgorithm>
-void testSort(const std::filesystem::path &dataFilePath) {
-    std::ifstream dataFile(dataFilePath);
-    std::vector<std::string> a;
-    std::string word;
-    while (dataFile >> word) a.push_back(word);
-    std::cout << "Before: ";
-    SortAlgorithm::show(a);
-    SortAlgorithm::sort(a);
-    assert(SortAlgorithm::isSorted(a));
-    std::cout << "After:  ";
-    SortAlgorithm::show(a);
-}
-
-void testPQ(MaxPQ<std::string> &&pq, const std::filesystem::path &dataFilePath) {
-    std::ifstream dataFile(dataFilePath);
-    std::string word;
-    while (dataFile >> word) {
-        if (word != "-") {
-            pq.insert(word);
-        } else if (!pq.isEmpty()) {
-            std::cout << pq.delMax() << " ";
-        }
-    }
-    std::cout << "(" << pq.size() << " left on pq)" << "\n";
-}
-
-void testST(ST<std::string, int> &&st, const std::filesystem::path &dataFilePath) {
-    std::ifstream dataFile(dataFilePath);
-    std::string word;
-    int i = 0;
-    while (dataFile >> word) {
-        st.put(word, i);
-        ++i;
-    }
-
-    // print keys using getKeys()
-    std::cout << "Testing getKeys()\n";
-    std::cout << "--------------------------------\n";
-    for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << st.get(s) << "\n";
-    }
-    std::cout << "--------------------------------\n\n";
-
-    // remove the first few keys
-    int size = st.size();
-    for (int j = 0; j < size / 2; ++j) {
-        st.remove(st.getKeys()[0]);
-    }
-    std::cout << "After removing the first " << size / 2 << " keys" << "\n";
-    std::cout << "--------------------------------\n";
-    for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << st.get(s) << "\n";
-    }
-    std::cout << "--------------------------------\n\n";
-
-    // remove all the remaining keys
-    while (!st.isEmpty()) {
-        std::cout << "Removing " << st.getKeys()[st.size() / 2] << "\n";
-        st.remove(st.getKeys()[st.size() / 2]);
-    }
-    std::cout << "After removing the remaining keys\n";
-    std::cout << "--------------------------------\n";
-    for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << st.get(s) << "\n";
-    }
-    std::cout << "--------------------------------\n\n";
-}
+#include "BinarySearchST.h"
+#include "tests/testSort.h"
+#include "tests/testPQ.h"
+#include "tests/testST.h"
 
 int main(int argc, char *argv[]) {
     std::filesystem::path dataFilePath(argv[1]);
@@ -132,9 +65,9 @@ int main(int argc, char *argv[]) {
         // 测试搜索算法
         // % algs4 tinyST.txt
         std::cout << "Testing sequential search symbol table\n";
-        testST(SequentialSearchST<std::string, int>(), dataFilePath);
-        std::cout << "\n";
+        testBasicST(SequentialSearchST<std::string, int>(), dataFilePath);
         std::cout << "Testing binary search symbol table\n";
+        testOrderedST(BinarySearchST<std::string, int>(20), dataFilePath);
     }
     return 0;
 }
