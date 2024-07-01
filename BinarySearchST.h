@@ -2,42 +2,27 @@
 #define ALGS4_BINARYSEARCHST_H
 
 
-#include "ST.h"
+#include "OrderedST.h"
 #include <vector>
 
 template<typename Key, typename Value>
-class BinarySearchST : public ST<Key, Value> {
+class BinarySearchST : public OrderedST<Key, Value> {
 private:
     std::vector<Key> keys;
     std::vector<Value> vals;
-    int N;
+    int N = 0;
 
 public:
-    BinarySearchST(int capacity) : keys(capacity), vals(capacity), N(0) {}
+    BinarySearchST(int capacity) : keys(capacity), vals(capacity) {}
 
-    bool isEmpty() {
-        return N == 0;
-    }
-
-    int rank(Key key) {
-        int lo = 0, hi = N - 1;
-        while (lo <= hi) {
-            int mid = (lo + hi) / 2;
-            if (key < keys[mid]) hi = mid - 1;
-            else if (key > keys[mid]) lo = mid + 1;
-            else return mid;
-        }
-        return lo;
-    }
-
-    Value get(Key key) override {
-        if (isEmpty()) return Value();
+    Value get(const Key &key) const override {
+        if (this->isEmpty()) return Value();
         int i = rank(key);
         if (i < N && keys[i] == key) return vals[i];
         else return Value();
     }
 
-    void put(Key key, Value val) override {
+    void put(const Key &key, const Value &val) override {
         int i = rank(key);
         if (i < N && keys[i] == key) {
             vals[i] = val;
@@ -52,20 +37,86 @@ public:
         ++N;
     }
 
-    std::deque<Key> getKeys() override {
-        return std::deque<Key>(keys.begin(), keys.begin() + N);
+    void remove(const Key &key) override {
+        if (this->isEmpty()) return;
+        int i = rank(key);
+        if (i < N && keys[i] == key) {
+            for (int j = i; j < N - 1; ++j) {
+                keys[j] = keys[j + 1];
+                vals[j] = vals[j + 1];
+            }
+        }
+        --N;
+        keys[N] = Key();    // 置空
+        vals[N] = Value();  // 置空
     }
 
-    // % algs4 < tinyST.txt
-    static void main() {
-        BinarySearchST<std::string, int> st(10);
-        std::string key;
-        for (int i = 0; std::cin >> key; ++i) {
-            st.put(key, i);
+    int size() const override {
+        return N;
+    }
+
+    Key min() const override {
+        return keys[0];
+    }
+
+    Key max() const override {
+        return keys[N - 1];
+    }
+
+    Key floor(const Key &key) const override {
+        int i = rank(key);
+        if (i < N && keys[i] == key) return keys[i];
+        else return keys[i - 1];
+    }
+
+    Key ceiling(const Key &key) const override {
+        int i = rank(key);
+        return keys[i];
+    }
+
+    int rank(const Key &key) const override {
+        int lo = 0, hi = N - 1;
+        while (lo <= hi) {
+            int mid = (lo + hi) / 2;
+            if (key < keys[mid]) hi = mid - 1;
+            else if (key > keys[mid]) lo = mid + 1;
+            else return mid;
         }
-        for (const auto &s: st.getKeys()) {
-            std::cout << s << " " << st.get(s) << "\n";
+        return lo;
+    }
+
+    Key select(int k) const override {
+        return keys[k];
+    }
+
+    void removeMin() override {
+        if (this->isEmpty()) return;
+        remove(min());
+    }
+
+    void removeMax() override {
+        if (this->isEmpty()) return;
+        remove(max());
+    }
+
+    std::deque<Key> getKeys() const override {
+        return getKeys(min(), max());
+    }
+
+    int size(const Key &lo, const Key &hi) const override {
+        if (hi < lo) return 0;
+        if (this->contains(hi)) return rank(hi) - rank(lo) + 1;
+        else return rank(hi) - rank(lo);
+    }
+
+    std::deque<Key> getKeys(const Key &lo, const Key &hi) const override {
+        std::deque<Key> queue;
+        if (hi < lo) return queue;
+        for (int i = rank(lo); i < rank(hi); ++i) {
+            queue.push_back(keys[i]);
         }
+        if (this->contains(hi)) queue.push_back(keys[rank(hi)]);
+        return queue;
     }
 };
 

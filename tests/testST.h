@@ -3,9 +3,12 @@
 
 
 #include "ST.h"
+#include "OrderedST.h"
 #include <string>
 #include <filesystem>
 
-void testST(ST<std::string, int> &&st, const std::filesystem::path &dataFilePath);
+void testBasicST(ST<std::string, int> &&st, const std::filesystem::path &dataFilePath);
+
+void testOrderedST(OrderedST<std::string, int> &&st, const std::filesystem::path &dataFilePath);
 
 #endif //ALGS4_TESTST_H
