@@ -12,6 +12,8 @@ void testBasicST(ST<std::string, int> &&st, const std::filesystem::path &dataFil
         ++i;
     }
 
+    std::cout << "size = " << st.size() << "\n";
+
     // print keys using getKeys()
     std::cout << "Testing getKeys()\n";
     std::cout << "--------------------------------\n";
