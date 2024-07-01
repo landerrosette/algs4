@@ -1,5 +1,6 @@
 #include "testPQ.h"
 #include <fstream>
+#include <iostream>
 
 void testPQ(MaxPQ<std::string> &&pq, const std::filesystem::path &dataFilePath) {
     std::ifstream dataFile(dataFilePath);

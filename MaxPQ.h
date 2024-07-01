@@ -3,8 +3,6 @@
 
 
 #include <vector>
-#include <iostream>
-#include <string>
 
 template<typename Key>
 class MaxPQ {
@@ -42,15 +40,15 @@ private:
 public:
     MaxPQ(int maxN) : pq(maxN + 1) {}
 
-    bool isEmpty() {
+    bool isEmpty() const {
         return N == 0;
     }
 
-    int size() {
+    int size() const {
         return N;
     }
 
-    void insert(Key v) {
+    void insert(const Key &v) {
         pq[++N] = v;
         swim(N);
     }
@@ -58,7 +56,7 @@ public:
     Key delMax() {
         Key max = pq[1];
         exch(1, N--);
-        pq[N + 1] = Key();
+        pq[N + 1] = Key();  // 置空
         sink(1);
         return max;
     }
