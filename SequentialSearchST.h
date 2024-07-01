@@ -3,8 +3,6 @@
 
 
 #include "ST.h"
-#include <string>
-#include <iostream>
 #include <memory>
 
 template<typename Key, typename Value>
@@ -18,12 +16,13 @@ private:
         Node(Key key, Value val, std::shared_ptr<Node> next) : key(key), val(val), next(next) {}
     };
 
+    int N = 0;
     std::shared_ptr<Node> first = nullptr;
 
     std::shared_ptr<Node> remove(std::shared_ptr<Node> x, Key key) {
         if (x == nullptr) return nullptr; // 基准情况：如果当前节点为空，返回 null
         if (key == x->key) {
-            --ST<Key, Value>::N;
+            --N;
             return x->next;
         }
         x->next = remove(x->next, key);     // 递归调用，在下一个节点中继续删除指定的键
@@ -31,14 +30,14 @@ private:
     }
 
 public:
-    Value get(Key key) override {
+    Value get(const Key &key) const override {
         for (auto x = first; x != nullptr; x = x->next) {
             if (key == x->key) return x->val;
         }
         return Value();
     }
 
-    void put(Key key, Value val) override {
+    void put(const Key &key, const Value &val) override {
         for (auto x = first; x != nullptr; x = x->next) {
             if (key == x->key) {
                 x->val = val;
@@ -46,19 +45,23 @@ public:
             }
         }
         first = std::make_shared<Node>(key, val, first);
-        ++ST<Key, Value>::N;
+        ++N;
     }
 
-    std::deque<Key> getKeys() override {
+    void remove(const Key &key) override {
+        first = remove(first, key);
+    }
+
+    int size() const override {
+        return N;
+    }
+
+    std::deque<Key> getKeys() const override {
         std::deque<Key> queue;
         for (auto x = first; x != nullptr; x = x->next) {
             queue.push_back(x->key);
         }
         return queue;
-    }
-
-    void remove(Key key) override {
-        first = remove(first, key);
     }
 };
 
