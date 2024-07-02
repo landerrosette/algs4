@@ -27,7 +27,11 @@ public:
 
     virtual void removeMax() = 0;
 
-    virtual int size(const Key &lo, const Key &hi) const = 0;
+    virtual int size(const Key &lo, const Key &hi) const {
+        if (hi < lo) return 0;
+        if (this->contains(hi)) return rank(hi) - rank(lo) + 1;
+        else return rank(hi) - rank(lo);
+    };
 
     virtual std::deque<Key> getKeys(const Key &lo, const Key &hi) const = 0;
 };

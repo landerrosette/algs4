@@ -103,12 +103,6 @@ public:
         return getKeys(min(), max());
     }
 
-    int size(const Key &lo, const Key &hi) const override {
-        if (hi < lo) return 0;
-        if (this->contains(hi)) return rank(hi) - rank(lo) + 1;
-        else return rank(hi) - rank(lo);
-    }
-
     std::deque<Key> getKeys(const Key &lo, const Key &hi) const override {
         std::deque<Key> queue;
         if (hi < lo) return queue;
