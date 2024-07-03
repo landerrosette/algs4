@@ -12,6 +12,7 @@
 #include "MaxPQ.h"
 #include "SequentialSearchST.h"
 #include "BinarySearchST.h"
+#include "BST.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
 #include "tests/testST.h"
@@ -68,6 +69,8 @@ int main(int argc, char *argv[]) {
         testBasicST(SequentialSearchST<std::string, int>(), dataFilePath);
         std::cout << "Testing binary search symbol table" << "\n";
         testOrderedST(BinarySearchST<std::string, int>(20), dataFilePath);
+        std::cout << "Testing binary search tree" << "\n";
+        testOrderedST(BST<std::string, int>(), dataFilePath);
     }
     return 0;
 }
