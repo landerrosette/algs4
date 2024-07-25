@@ -13,6 +13,7 @@
 #include "SequentialSearchST.h"
 #include "BinarySearchST.h"
 #include "BST.h"
+#include "RedBlackBST.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
 #include "tests/testST.h"
@@ -71,6 +72,8 @@ int main(int argc, char *argv[]) {
         testOrderedST(BinarySearchST<std::string, int>(20), dataFilePath);
         std::cout << "Testing binary search tree" << "\n";
         testOrderedST(BST<std::string, int>(), dataFilePath);
+        std::cout << "Testing red-black binary search tree" << "\n";
+        testOrderedST(RedBlackBST<std::string, int>(), dataFilePath);
     }
     return 0;
 }

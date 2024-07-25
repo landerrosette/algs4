@@ -7,7 +7,7 @@
 
 template<typename Key, typename Value>
 class BST : public OrderedST<Key, Value> {
-private:
+protected:
     struct Node {
         Key key;
         Value val;
@@ -16,6 +16,8 @@ private:
 
         Node(Key key, Value val, int N) :
                 key(key), val(val), left(nullptr), right(nullptr), N(N) {}
+
+        virtual ~Node() = default;
     };
 
     std::shared_ptr<Node> root = nullptr;
