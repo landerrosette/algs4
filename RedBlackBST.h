@@ -9,8 +9,6 @@ template<typename Key, typename Value>
 class RedBlackBST : public BST<Key, Value> {
 private:
     static constexpr bool RED = true, BLACK = false;
-    using BST<Key, Value>::root;
-    using BST<Key, Value>::size;
 
     struct Node : public BST<Key, Value>::Node {
         bool color;  // 由其父结点指向它的链接的颜色
@@ -31,7 +29,7 @@ private:
         x->color = h->color;
         h->color = RED;
         x->N = h->N;
-        h->N = 1 + size(h->left) + size(h->right);
+        h->N = this->size(h->left) + this->size(h->right) + 1;
         return x;
     }
 
@@ -42,7 +40,7 @@ private:
         x->color = h->color;
         h->color = RED;
         x->N = h->N;
-        h->N = 1 + size(h->left) + size(h->right);
+        h->N = this->size(h->left) + this->size(h->right) + 1;
         return x;
     }
 
@@ -68,14 +66,14 @@ private:
             && isRed(std::dynamic_pointer_cast<Node>(h->right)))
             flipColors(h);
 
-        h->N = size(h->left) + size(h->right) + 1;
+        h->N = this->size(h->left) + this->size(h->right) + 1;
         return h;
     }
 
 public:
     void put(const Key &key, const Value &val) override {
-        root = put(std::dynamic_pointer_cast<Node>(root), key, val);
-        std::dynamic_pointer_cast<Node>(root)->color = BLACK;
+        this->root = put(std::dynamic_pointer_cast<Node>(this->root), key, val);
+        std::dynamic_pointer_cast<Node>(this->root)->color = BLACK;
     }
 };
 
