@@ -19,7 +19,7 @@ private:
                 BST<Key, Value>::Node(key, val, N), color(color) {}
     };
 
-    bool isRed(std::shared_ptr<Node> x) {
+    bool isRed(std::shared_ptr<Node> x) const {
         if (x == nullptr) return false;
         return x->color;
     }

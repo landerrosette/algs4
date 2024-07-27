@@ -10,7 +10,7 @@ private:
     std::vector<Key> pq;
     int N = 0;
 
-    bool less(int i, int j) {
+    bool less(int i, int j) const {
         return pq[i] < pq[j];
     }
 
