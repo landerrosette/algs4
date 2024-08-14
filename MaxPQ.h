@@ -3,11 +3,12 @@
 
 
 #include <vector>
+#include <optional>
 
 template<typename Key>
 class MaxPQ {
 private:
-    std::vector<Key> pq;
+    std::vector<std::optional<Key>> pq;
     int N = 0;
 
     bool less(int i, int j) const {
@@ -15,7 +16,7 @@ private:
     }
 
     void exch(int i, int j) {
-        Key t = pq[i];
+        auto t = pq[i];
         pq[i] = pq[j];
         pq[j] = t;
     }
@@ -53,10 +54,10 @@ public:
         swim(N);
     }
 
-    Key delMax() {
-        Key max = pq[1];
+    std::optional<Key> delMax() {
+        auto max = pq[1];
         exch(1, N--);
-        pq[N + 1] = Key();  // 置空
+        pq[N + 1] = std::nullopt;  // 置空
         sink(1);
         return max;
     }

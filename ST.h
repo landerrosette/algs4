@@ -3,18 +3,19 @@
 
 
 #include <deque>
+#include <optional>
 
 template<typename Key, typename Value>
 class ST {
 public:
-    virtual Value get(const Key &key) const = 0;
+    virtual std::optional<Value> get(const Key &key) const = 0;
 
     virtual void put(const Key &key, const Value &val) = 0;
 
     virtual void remove(const Key &key) = 0;
 
     bool contains(const Key &key) const {
-        return get(key) != Value();
+        return get(key) != std::nullopt;
     }
 
     bool isEmpty() const {

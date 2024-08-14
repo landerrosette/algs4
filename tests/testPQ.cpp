@@ -9,7 +9,7 @@ void testPQ(MaxPQ<std::string> &&pq, const std::filesystem::path &dataFilePath) 
         if (word != "-") {
             pq.insert(word);
         } else if (!pq.isEmpty()) {
-            std::cout << pq.delMax() << " ";
+            std::cout << *pq.delMax() << " ";
         }
     }
     std::cout << "(" << pq.size() << " left on pq)" << "\n";

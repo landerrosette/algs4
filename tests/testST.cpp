@@ -18,7 +18,7 @@ void testBasicST(ST<std::string, int> &&st, const std::filesystem::path &dataFil
     std::cout << "Testing getKeys()" << "\n";
     std::cout << "--------------------------------" << "\n";
     for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << st.get(s) << "\n";
+        std::cout << s << " " << *st.get(s) << "\n";
     }
     std::cout << "--------------------------------" << "\n" << "\n";
 
@@ -29,7 +29,7 @@ void testBasicST(ST<std::string, int> &&st, const std::filesystem::path &dataFil
     std::cout << "After removing the first " << st.size() / 2 << " keys" << "\n";
     std::cout << "--------------------------------" << "\n";
     for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << st.get(s) << "\n";
+        std::cout << s << " " << *st.get(s) << "\n";
     }
     std::cout << "--------------------------------" << "\n" << "\n";
 
@@ -41,7 +41,7 @@ void testBasicST(ST<std::string, int> &&st, const std::filesystem::path &dataFil
     std::cout << "After removing the remaining keys" << "\n";
     std::cout << "--------------------------------" << "\n";
     for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << st.get(s) << "\n";
+        std::cout << s << " " << *st.get(s) << "\n";
     }
     std::cout << "--------------------------------" << "\n" << "\n";
 }
@@ -56,14 +56,14 @@ void testOrderedST(OrderedST<std::string, int> &&st, const std::filesystem::path
     }
 
     std::cout << "size = " << st.size() << "\n";
-    std::cout << "min = " << st.min() << "\n";
-    std::cout << "max = " << st.max() << "\n";
+    std::cout << "min = " << *st.min() << "\n";
+    std::cout << "max = " << *st.max() << "\n";
 
     // print keys in order using getKeys()
     std::cout << "Testing getKeys()" << "\n";
     std::cout << "--------------------------------" << "\n";
     for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << st.get(s) << "\n";
+        std::cout << s << " " << *st.get(s) << "\n";
     }
     std::cout << "--------------------------------" << "\n" << "\n";
 
@@ -71,7 +71,7 @@ void testOrderedST(OrderedST<std::string, int> &&st, const std::filesystem::path
     std::cout << "Testing select()" << "\n";
     std::cout << "--------------------------------" << "\n";
     for (int i = 0; i < st.size(); ++i) {
-        std::cout << i << " " << st.select(i) << "\n";
+        std::cout << i << " " << *st.select(i) << "\n";
     }
     std::cout << "--------------------------------" << "\n" << "\n";
 
@@ -82,8 +82,8 @@ void testOrderedST(OrderedST<std::string, int> &&st, const std::filesystem::path
         std::string s(1, i);
         std::cout << std::setw(2) << s << " "
                   << std::setw(4) << st.rank(s) << " "
-                  << std::setw(4) << st.floor(s) << " "
-                  << std::setw(4) << st.ceiling(s) << "\n";
+                << std::setw(4) << *st.floor(s) << " "
+                << std::setw(4) << *st.ceiling(s) << "\n";
     }
     std::cout << "-------------------" << "\n" << "\n";
 
@@ -109,19 +109,19 @@ void testOrderedST(OrderedST<std::string, int> &&st, const std::filesystem::path
     std::cout << "After removing the smallest " << st.size() / 2 << " keys" << "\n";
     std::cout << "--------------------------------" << "\n";
     for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << st.get(s) << "\n";
+        std::cout << s << " " << *st.get(s) << "\n";
     }
     std::cout << "--------------------------------" << "\n" << "\n";
 
     // remove all the remaining keys
     while (!st.isEmpty()) {
-        std::cout << "Removing " << st.select(st.size() / 2) << "\n";
-        st.remove(st.select(st.size() / 2));
+        std::cout << "Removing " << *st.select(st.size() / 2) << "\n";
+        st.remove(*st.select(st.size() / 2));
     }
     std::cout << "After removing the remaining keys" << "\n";
     std::cout << "--------------------------------" << "\n";
     for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << st.get(s) << "\n";
+        std::cout << s << " " << *st.get(s) << "\n";
     }
     std::cout << "--------------------------------" << "\n" << "\n";
 }

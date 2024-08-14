@@ -30,11 +30,11 @@ private:
     }
 
 public:
-    Value get(const Key &key) const override {
+    std::optional<Value> get(const Key &key) const override {
         for (auto x = first; x != nullptr; x = x->next) {
             if (key == x->key) return x->val;
         }
-        return Value();
+        return std::nullopt;
     }
 
     void put(const Key &key, const Value &val) override {

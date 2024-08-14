@@ -8,18 +8,18 @@
 template<typename Key, typename Value>
 class BinarySearchST : public OrderedST<Key, Value> {
 private:
-    std::vector<Key> keys;
-    std::vector<Value> vals;
+    std::vector<std::optional<Key>> keys;
+    std::vector<std::optional<Value>> vals;
     int N = 0;
 
 public:
     BinarySearchST(int capacity) : keys(capacity), vals(capacity) {}
 
-    Value get(const Key &key) const override {
-        if (this->isEmpty()) return Value();
+    std::optional<Value> get(const Key &key) const override {
+        if (this->isEmpty()) return std::nullopt;
         int i = rank(key);
         if (i < N && keys[i] == key) return vals[i];
-        else return Value();
+        else return std::nullopt;
     }
 
     void put(const Key &key, const Value &val) override {
@@ -47,29 +47,29 @@ public:
             }
         }
         --N;
-        keys[N] = Key();    // 置空
-        vals[N] = Value();  // 置空
+        keys[N] = std::nullopt;  // 置空
+        vals[N] = std::nullopt;  // 置空
     }
 
     int size() const override {
         return N;
     }
 
-    Key min() const override {
+    std::optional<Key> min() const override {
         return keys[0];
     }
 
-    Key max() const override {
+    std::optional<Key> max() const override {
         return keys[N - 1];
     }
 
-    Key floor(const Key &key) const override {
+    std::optional<Key> floor(const Key &key) const override {
         int i = rank(key);
         if (i < N && keys[i] == key) return keys[i];
         else return keys[i - 1];
     }
 
-    Key ceiling(const Key &key) const override {
+    std::optional<Key> ceiling(const Key &key) const override {
         int i = rank(key);
         return keys[i];
     }
@@ -85,31 +85,31 @@ public:
         return lo;
     }
 
-    Key select(int k) const override {
+    std::optional<Key> select(int k) const override {
         return keys[k];
     }
 
     void removeMin() override {
         if (this->isEmpty()) return;
-        remove(min());
+        remove(*min());
     }
 
     void removeMax() override {
         if (this->isEmpty()) return;
-        remove(max());
+        remove(*max());
     }
 
     std::deque<Key> getKeys() const override {
-        return getKeys(min(), max());
+        return getKeys(*min(), *max());
     }
 
     std::deque<Key> getKeys(const Key &lo, const Key &hi) const override {
         std::deque<Key> queue;
         if (hi < lo) return queue;
         for (int i = rank(lo); i < rank(hi); ++i) {
-            queue.push_back(keys[i]);
+            queue.push_back(*keys[i]);
         }
-        if (this->contains(hi)) queue.push_back(keys[rank(hi)]);
+        if (this->contains(hi)) queue.push_back(*keys[rank(hi)]);
         return queue;
     }
 };

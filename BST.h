@@ -22,8 +22,8 @@ protected:
 
     std::shared_ptr<Node> root = nullptr;
 
-    Value get(std::shared_ptr<Node> x, const Key &key) const {
-        if (x == nullptr) return Value();
+    std::optional<Value> get(std::shared_ptr<Node> x, const Key &key) const {
+        if (x == nullptr) return std::nullopt;
         if (key < x->key) return get(x->left, key);
         else if (key > x->key) return get(x->right, key);
         else return x->val;
@@ -129,7 +129,7 @@ protected:
     }
 
 public:
-    Value get(const Key &key) const override {
+    std::optional<Value> get(const Key &key) const override {
         return get(root, key);
     }
 
@@ -145,25 +145,25 @@ public:
         return size(root);
     }
 
-    Key min() const override {
-        if (this->isEmpty()) return Key();
+    std::optional<Key> min() const override {
+        if (this->isEmpty()) return std::nullopt;
         return min(root)->key;
     }
 
-    Key max() const override {
-        if (this->isEmpty()) return Key();
+    std::optional<Key> max() const override {
+        if (this->isEmpty()) return std::nullopt;
         return max(root)->key;
     }
 
-    Key floor(const Key &key) const override {
+    std::optional<Key> floor(const Key &key) const override {
         std::shared_ptr<Node> x = floor(root, key);
-        if (x == nullptr) return Key();
+        if (x == nullptr) return std::nullopt;
         return x->key;
     }
 
-    Key ceiling(const Key &key) const override {
+    std::optional<Key> ceiling(const Key &key) const override {
         std::shared_ptr<Node> x = ceiling(root, key);
-        if (x == nullptr) return Key();
+        if (x == nullptr) return std::nullopt;
         return x->key;
     }
 
@@ -171,8 +171,8 @@ public:
         return rank(root, key);
     }
 
-    Key select(int k) const override {
-        if (this->isEmpty()) return Key();
+    std::optional<Key> select(int k) const override {
+        if (this->isEmpty()) return std::nullopt;
         return select(root, k)->key;
     }
 
@@ -187,7 +187,7 @@ public:
     }
 
     std::deque<Key> getKeys() const override {
-        return getKeys(min(), max());
+        return getKeys(*min(), *max());
     }
 
     std::deque<Key> getKeys(const Key &lo, const Key &hi) const override {
