@@ -15,6 +15,7 @@
 #include "BST.h"
 #include "RedBlackBST.h"
 #include "SeparateChainingHashST.h"
+#include "LinearProbingHashST.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
 #include "tests/testST.h"
@@ -77,6 +78,8 @@ int main(int argc, char *argv[]) {
         testOrderedST(RedBlackBST<std::string, int>(), dataFilePath);
         std::cout << "Testing separate chaining hash symbol table" << "\n";
         testBasicST(SeparateChainingHashST<std::string, int>(3), dataFilePath);
+        std::cout << "Testing linear probing hash symbol table" << "\n";
+        testBasicST(LinearProbingHashST<std::string, int>(), dataFilePath);
     }
     return 0;
 }
