@@ -16,9 +16,12 @@
 #include "RedBlackBST.h"
 #include "SeparateChainingHashST.h"
 #include "LinearProbingHashST.h"
+#include "Graph.h"
+#include "DepthFirstPaths.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
 #include "tests/testST.h"
+#include "tests/testPaths.h"
 
 int main(int argc, char *argv[]) {
     std::filesystem::path dataFilePath(argv[1]);
@@ -80,6 +83,19 @@ int main(int argc, char *argv[]) {
         testBasicST(SeparateChainingHashST<std::string, int>(3), dataFilePath);
         std::cout << "Testing linear probing hash symbol table" << "\n";
         testBasicST(LinearProbingHashST<std::string, int>(), dataFilePath);
+    } else if (dataFileName == "tinyCG.txt") {
+        // 测试路径算法
+        // % algs4 tinyCG.txt [input]
+        int s;
+        std::cout << "% algs4 " << dataFileName << " ";
+        std::cin >> s;
+        std::cout << "Reading graph from file" << "\n";
+        std::ifstream dataFile(dataFilePath);
+        Graph G(dataFile);
+        std::cout << "Testing depth first paths" << "\n";
+        std::cout << "--------------------------------" << "\n";
+        testPaths(G, DepthFirstPaths(G, s), s);
+        std::cout << "--------------------------------" << "\n" << "\n";
     }
     return 0;
 }
