@@ -3,7 +3,7 @@
 
 
 #include "Graph.h"
-#include <forward_list>
+#include <deque>
 
 class Paths {
 protected:
@@ -16,7 +16,7 @@ public:
 
     bool hasPathTo(int v) const { return marked[v]; }
 
-    std::forward_list<int> pathTo(int v) const;
+    std::deque<int> pathTo(int v) const;
 
     virtual ~Paths() {
         delete[] marked;

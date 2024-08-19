@@ -18,6 +18,7 @@
 #include "LinearProbingHashST.h"
 #include "Graph.h"
 #include "DepthFirstPaths.h"
+#include "BreadthFirstPaths.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
 #include "tests/testST.h"
@@ -95,6 +96,10 @@ int main(int argc, char *argv[]) {
         std::cout << "Testing depth first paths" << "\n";
         std::cout << "--------------------------------" << "\n";
         testPaths(G, DepthFirstPaths(G, s), s);
+        std::cout << "--------------------------------" << "\n" << "\n";
+        std::cout << "Testing breadth first paths" << "\n";
+        std::cout << "--------------------------------" << "\n";
+        testPaths(G, BreadthFirstPaths(G, s), s);
         std::cout << "--------------------------------" << "\n" << "\n";
     }
     return 0;
