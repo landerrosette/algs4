@@ -6,7 +6,7 @@
 #include <iostream>
 
 class Graph {
-private:
+protected:
     const int V;                    // 顶点数目
     int E;                          // 边的数目
     std::forward_list<int> *adj;    // 邻接表
