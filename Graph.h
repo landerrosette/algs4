@@ -26,9 +26,10 @@ public:
 
     std::forward_list<int> getAdj(int v) const { return adj[v]; }
 
+    friend std::ostream &operator<<(std::ostream &os, const Graph &G);
+
     ~Graph() { delete[] adj; }
 };
 
-std::ostream &operator<<(std::ostream &os, const Graph &G);
 
 #endif //ALGS4_GRAPH_H

@@ -19,10 +19,11 @@
 #include "Graph.h"
 #include "DepthFirstPaths.h"
 #include "BreadthFirstPaths.h"
+#include "CC.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
 #include "tests/testST.h"
-#include "tests/testPaths.h"
+#include "tests/testGraph.h"
 
 int main(int argc, char *argv[]) {
     std::filesystem::path dataFilePath(argv[1]);
@@ -84,9 +85,9 @@ int main(int argc, char *argv[]) {
         testBasicST(SeparateChainingHashST<std::string, int>(3), dataFilePath);
         std::cout << "Testing linear probing hash symbol table" << "\n";
         testBasicST(LinearProbingHashST<std::string, int>(), dataFilePath);
-    } else if (dataFileName == "tinyCG.txt") {
-        // 测试路径算法
-        // % algs4 tinyCG.txt [input]
+    } else if (dataFileName == "tinyG.txt") {
+        // 测试无向图相关算法
+        // % algs4 tinyG.txt [input]
         int s;
         std::cout << "% algs4 " << dataFileName << " ";
         std::cin >> s;
@@ -101,6 +102,10 @@ int main(int argc, char *argv[]) {
         std::cout << "Testing breadth first paths" << "\n";
         std::cout << "--------------------------------" << "\n";
         testPaths(G, BreadthFirstPaths(G, s), s);
+        std::cout << "--------------------------------" << "\n" << "\n";
+        std::cout << "Testing connected components" << "\n";
+        std::cout << "--------------------------------" << "\n";
+        testCC(G, CC(G));
         std::cout << "--------------------------------" << "\n" << "\n";
     }
     return 0;

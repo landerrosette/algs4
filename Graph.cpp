@@ -22,10 +22,10 @@ int Graph::readInt(std::istream &in) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Graph &G) {
-    os << G.getV() << " vertices, " << G.getE() << " edges" << "\n";
-    for (int v = 0; v < G.getV(); ++v) {
+    os << G.V << " vertices, " << G.E << " edges" << "\n";
+    for (int v = 0; v < G.V; ++v) {
         os << v << ": ";
-        for (int w: G.getAdj(v)) os << w << " ";
+        for (int w: G.adj[v]) os << w << " ";
         os << "\n";
     }
     return os;
