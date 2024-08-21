@@ -93,6 +93,7 @@ int main(int argc, char *argv[]) {
         std::cout << "Reading graph from file" << "\n";
         std::ifstream dataFile(dataFilePath);
         Graph G(dataFile);
+        std::cout << G << "\n";
         std::cout << "Testing depth first paths" << "\n";
         std::cout << "--------------------------------" << "\n";
         testPaths(G, DepthFirstPaths(G, s), s);

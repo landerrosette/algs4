@@ -29,5 +29,6 @@ public:
     ~Graph() { delete[] adj; }
 };
 
+std::ostream &operator<<(std::ostream &os, const Graph &G);
 
 #endif //ALGS4_GRAPH_H

@@ -20,3 +20,13 @@ int Graph::readInt(std::istream &in) {
     in >> i;
     return i;
 }
+
+std::ostream &operator<<(std::ostream &os, const Graph &G) {
+    os << G.getV() << " vertices, " << G.getE() << " edges" << "\n";
+    for (int v = 0; v < G.getV(); ++v) {
+        os << v << ": ";
+        for (int w: G.getAdj(v)) os << w << " ";
+        os << "\n";
+    }
+    return os;
+}
