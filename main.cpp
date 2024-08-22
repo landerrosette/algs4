@@ -27,8 +27,7 @@
 
 int main(int argc, char *argv[]) {
     std::filesystem::path dataFilePath(argv[1]);
-    std::string dataFileName = dataFilePath.filename().string();
-    if (dataFileName == "words3.txt") {
+    if (dataFilePath.filename() == "words3.txt") {
         // 测试排序算法
         // % algs4 words3.txt
         std::cout << "Testing selection sort" << "\n";
@@ -63,14 +62,14 @@ int main(int argc, char *argv[]) {
         std::cout << "--------------------------------" << "\n";
         testSort<Heap>(dataFilePath);
         std::cout << "--------------------------------" << "\n" << "\n";
-    } else if (dataFileName == "tinyPQ.txt") {
+    } else if (dataFilePath.filename() == "tinyPQ.txt") {
         // 测试优先队列
         // % algs4 tinyPQ.txt
         std::cout << "Testing priority queue" << "\n";
         std::cout << "--------------------------------" << "\n";
         testPQ(MaxPQ<std::string>(10), dataFilePath);
         std::cout << "--------------------------------" << "\n" << "\n";
-    } else if (dataFileName == "tinyST.txt") {
+    } else if (dataFilePath.filename() == "tinyST.txt") {
         // 测试搜索算法
         // % algs4 tinyST.txt
         std::cout << "Testing sequential search symbol table" << "\n";
@@ -85,27 +84,20 @@ int main(int argc, char *argv[]) {
         testBasicST(SeparateChainingHashST<std::string, int>(3), dataFilePath);
         std::cout << "Testing linear probing hash symbol table" << "\n";
         testBasicST(LinearProbingHashST<std::string, int>(), dataFilePath);
-    } else if (dataFileName == "tinyG.txt") {
+    } else if (dataFilePath.filename() == "tinyG.txt") {
         // 测试无向图相关算法
-        // % algs4 tinyG.txt [input]
-        int s;
-        std::cout << "% algs4 " << dataFileName << " ";
-        std::cin >> s;
-        std::cout << "Reading graph from file" << "\n";
-        std::ifstream dataFile(dataFilePath);
-        Graph G(dataFile);
-        std::cout << G << "\n";
+        // % algs4 tinyG.txt
         std::cout << "Testing depth first paths" << "\n";
         std::cout << "--------------------------------" << "\n";
-        testPaths(G, DepthFirstPaths(G, s), s);
+        testPaths<Graph, DepthFirstPaths>(dataFilePath);
         std::cout << "--------------------------------" << "\n" << "\n";
         std::cout << "Testing breadth first paths" << "\n";
         std::cout << "--------------------------------" << "\n";
-        testPaths(G, BreadthFirstPaths(G, s), s);
+        testPaths<Graph, BreadthFirstPaths>(dataFilePath);
         std::cout << "--------------------------------" << "\n" << "\n";
         std::cout << "Testing connected components" << "\n";
         std::cout << "--------------------------------" << "\n";
-        testCC(G, CC(G));
+        testCC<Graph, CC>(dataFilePath);
         std::cout << "--------------------------------" << "\n" << "\n";
     }
     return 0;
