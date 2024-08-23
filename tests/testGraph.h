@@ -2,21 +2,17 @@
 #define ALGS4_TESTGRAPH_H
 
 
-#include <filesystem>
-#include <fstream>
 #include <iostream>
 #include <forward_list>
+#include <string>
+#include <sstream>
 
 template<class Graph, class PathsSearcher>
-void testPaths(const std::filesystem::path &dataFilePath) {
-    std::cout << "Reading graph from file" << "\n";
-    std::ifstream dataFile(dataFilePath);
-    Graph G(dataFile);
-    std::cout << G << "\n";
-
+void testPaths(const Graph &G) {
+    std::cout << "Searching from: ";
     int s;
-    std::cout << "Searching for paths from: ";
     std::cin >> s;
+
     PathsSearcher search(G, s);
     for (int v = 0; v < G.getV(); ++v) {
         std::cout << s << " to " << v << ": ";
@@ -31,12 +27,7 @@ void testPaths(const std::filesystem::path &dataFilePath) {
 }
 
 template<class Graph, class CC>
-void testCC(const std::filesystem::path &dataFilePath) {
-    std::cout << "Reading graph from file" << "\n";
-    std::ifstream dataFile(dataFilePath);
-    Graph G(dataFile);
-    std::cout << G << "\n";
-
+void testCC(const Graph &G) {
     CC cc(G);
     int M = cc.getCount();
     std::cout << M << " components" << "\n";
@@ -48,5 +39,21 @@ void testCC(const std::filesystem::path &dataFilePath) {
         std::cout << "\n";
     }
 }
+
+template<class Graph, class Searcher>
+void testSearch(const Graph &G) {
+    std::cout << "Searching from: ";
+    std::string line;
+    getline(std::cin, line);
+    std::istringstream iss(line);
+    std::forward_list<int> sources;
+    int s;
+    while (iss >> s) sources.push_front(s);
+
+    Searcher search(G, sources);
+    for (int v = 0; v < G.getV(); ++v) if (search.isMarked(v)) std::cout << v << " ";
+    std::cout << "\n";
+}
+
 
 #endif //ALGS4_TESTGRAPH_H

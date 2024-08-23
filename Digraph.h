@@ -10,7 +10,7 @@ class Digraph : private Graph {
 public:
     Digraph(int V) : Graph(V) {}
 
-    Digraph(std::istream &in) : Graph(in) {}
+    Digraph(std::istream &in);
 
     using Graph::getV, Graph::getE;
 

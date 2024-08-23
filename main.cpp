@@ -20,6 +20,8 @@
 #include "DepthFirstPaths.h"
 #include "BreadthFirstPaths.h"
 #include "CC.h"
+#include "Digraph.h"
+#include "DirectedDFS.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
 #include "tests/testST.h"
@@ -87,17 +89,34 @@ int main(int argc, char *argv[]) {
     } else if (dataFilePath.filename() == "tinyG.txt") {
         // 测试无向图相关算法
         // % algs4 tinyG.txt
+        std::cout << "Reading graph from file" << "\n";
+        std::ifstream dataFile(dataFilePath);
+        Graph G(dataFile);
+        std::cout << G << "\n";
+
         std::cout << "Testing depth first paths" << "\n";
         std::cout << "--------------------------------" << "\n";
-        testPaths<Graph, DepthFirstPaths>(dataFilePath);
+        testPaths<Graph, DepthFirstPaths>(G);
         std::cout << "--------------------------------" << "\n" << "\n";
         std::cout << "Testing breadth first paths" << "\n";
         std::cout << "--------------------------------" << "\n";
-        testPaths<Graph, BreadthFirstPaths>(dataFilePath);
+        testPaths<Graph, BreadthFirstPaths>(G);
         std::cout << "--------------------------------" << "\n" << "\n";
         std::cout << "Testing connected components" << "\n";
         std::cout << "--------------------------------" << "\n";
-        testCC<Graph, CC>(dataFilePath);
+        testCC<Graph, CC>(G);
+        std::cout << "--------------------------------" << "\n" << "\n";
+    } else if (dataFilePath.filename() == "tinyDG.txt") {
+        // 测试有向图相关算法
+        // % algs4 tinyDG.txt
+        std::cout << "Reading graph from file" << "\n";
+        std::ifstream dataFile(dataFilePath);
+        Digraph G(dataFile);
+        std::cout << G << "\n";
+
+        std::cout << "Testing directed depth first search" << "\n";
+        std::cout << "--------------------------------" << "\n";
+        testSearch<Digraph, DirectedDFS>(G);
         std::cout << "--------------------------------" << "\n" << "\n";
     }
     return 0;

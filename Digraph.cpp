@@ -1,5 +1,14 @@
 #include "Digraph.h"
 
+Digraph::Digraph(std::istream &in) : Digraph(readInt(in)) {
+    int E = readInt(in);
+    for (int i = 0; i < E; ++i) {
+        int v = readInt(in);
+        int w = readInt(in);
+        addEdge(v, w);
+    }
+}
+
 void Digraph::addEdge(int v, int w) {
     adj[v].push_front(w);
     ++E;
