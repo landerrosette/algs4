@@ -55,5 +55,4 @@ void testSearch(const Graph &G) {
     std::cout << "\n";
 }
 
-
 #endif //ALGS4_TESTGRAPH_H

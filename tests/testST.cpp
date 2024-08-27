@@ -3,6 +3,11 @@
 #include <iostream>
 #include <iomanip>
 
+namespace {
+    constexpr char invKey[] = "";
+    constexpr int invValue = -1;
+}
+
 void testBasicST(ST<std::string, int> &&st, const std::filesystem::path &dataFilePath) {
     std::ifstream dataFile(dataFilePath);
     std::string word;
@@ -12,26 +17,26 @@ void testBasicST(ST<std::string, int> &&st, const std::filesystem::path &dataFil
         ++i;
     }
 
-    std::cout << "size = " << st.size() << "\n";
+    std::cout << "size = " << st.size() << "\n" << "\n";
 
     // print keys using getKeys()
     std::cout << "Testing getKeys()" << "\n";
-    std::cout << "--------------------------------" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
     for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << *st.get(s) << "\n";
+        std::cout << s << " " << st.get(s).value_or(invValue) << "\n";
     }
-    std::cout << "--------------------------------" << "\n" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n" << "\n";
 
     // remove the first few keys
     for (int i = 0; i < st.size() / 2; ++i) {
         st.remove(st.getKeys()[0]);
     }
     std::cout << "After removing the first " << st.size() / 2 << " keys" << "\n";
-    std::cout << "--------------------------------" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
     for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << *st.get(s) << "\n";
+        std::cout << s << " " << st.get(s).value_or(invValue) << "\n";
     }
-    std::cout << "--------------------------------" << "\n" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n" << "\n";
 
     // remove all the remaining keys
     while (!st.isEmpty()) {
@@ -39,11 +44,11 @@ void testBasicST(ST<std::string, int> &&st, const std::filesystem::path &dataFil
         st.remove(st.getKeys()[st.size() / 2]);
     }
     std::cout << "After removing the remaining keys" << "\n";
-    std::cout << "--------------------------------" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
     for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << *st.get(s) << "\n";
+        std::cout << s << " " << st.get(s).value_or(invValue) << "\n";
     }
-    std::cout << "--------------------------------" << "\n" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
 }
 
 void testOrderedST(OrderedST<std::string, int> &&st, const std::filesystem::path &dataFilePath) {
@@ -56,24 +61,24 @@ void testOrderedST(OrderedST<std::string, int> &&st, const std::filesystem::path
     }
 
     std::cout << "size = " << st.size() << "\n";
-    std::cout << "min = " << *st.min() << "\n";
-    std::cout << "max = " << *st.max() << "\n";
+    std::cout << "min = " << st.min().value_or(invKey) << "\n";
+    std::cout << "max = " << st.max().value_or(invKey) << "\n" << "\n";
 
     // print keys in order using getKeys()
     std::cout << "Testing getKeys()" << "\n";
-    std::cout << "--------------------------------" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
     for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << *st.get(s) << "\n";
+        std::cout << s << " " << st.get(s).value_or(invValue) << "\n";
     }
-    std::cout << "--------------------------------" << "\n" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n" << "\n";
 
     // print keys in order using select
     std::cout << "Testing select()" << "\n";
-    std::cout << "--------------------------------" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
     for (int i = 0; i < st.size(); ++i) {
-        std::cout << i << " " << *st.select(i) << "\n";
+        std::cout << i << " " << st.select(i).value_or(invKey) << "\n";
     }
-    std::cout << "--------------------------------" << "\n" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n" << "\n";
 
     // test rank, floor, ceiling
     std::cout << "key rank floor ceil" << "\n";
@@ -82,8 +87,8 @@ void testOrderedST(OrderedST<std::string, int> &&st, const std::filesystem::path
         std::string s(1, i);
         std::cout << std::setw(2) << s << " "
                   << std::setw(4) << st.rank(s) << " "
-                << std::setw(4) << *st.floor(s) << " "
-                << std::setw(4) << *st.ceiling(s) << "\n";
+                << std::setw(4) << st.floor(s).value_or(invKey) << " "
+                << std::setw(4) << st.ceiling(s).value_or(invKey) << "\n";
     }
     std::cout << "-------------------" << "\n" << "\n";
 
@@ -107,21 +112,21 @@ void testOrderedST(OrderedST<std::string, int> &&st, const std::filesystem::path
         st.removeMin();
     }
     std::cout << "After removing the smallest " << st.size() / 2 << " keys" << "\n";
-    std::cout << "--------------------------------" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
     for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << *st.get(s) << "\n";
+        std::cout << s << " " << st.get(s).value_or(invValue) << "\n";
     }
-    std::cout << "--------------------------------" << "\n" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n" << "\n";
 
     // remove all the remaining keys
     while (!st.isEmpty()) {
-        std::cout << "Removing " << *st.select(st.size() / 2) << "\n";
-        st.remove(*st.select(st.size() / 2));
+        std::cout << "Removing " << st.select(st.size() / 2).value_or(invKey) << "\n";
+        st.remove(st.select(st.size() / 2).value_or(invKey));
     }
     std::cout << "After removing the remaining keys" << "\n";
-    std::cout << "--------------------------------" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
     for (const auto &s: st.getKeys()) {
-        std::cout << s << " " << *st.get(s) << "\n";
+        std::cout << s << " " << st.get(s).value_or(invValue) << "\n";
     }
-    std::cout << "--------------------------------" << "\n" << "\n";
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
 }
