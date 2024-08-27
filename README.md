@@ -57,3 +57,26 @@ educational use.
     - [DirectedDFS.h](DirectedDFS.h)
     - [DirectedDFS.cpp](DirectedDFS.cpp)
 - ...
+
+## Build and Run
+
+To compile and run this project, ensure you have CMake 3.28 or higher and a C++17 compatible compiler. Follow these
+steps:
+
+1. Clone this repository and navigate to the cloned directory.
+2. Create a build directory and compile the project using the following commands:
+    ```shell
+    mkdir build && cd build
+    cmake ..
+    cmake --build .
+    ```
+3. Once the build is complete, you can run the program by providing the path to an input file as a command-line
+   argument:
+   ```shell
+   ./algs4 path/to/input_file.txt
+   ```
+   Input files correspond to different tests and data sets. For example:
+   ```shell
+   ./algs4 ../data/words3.txt
+   ```
+   This will execute tests for sorting algorithms.
