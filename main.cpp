@@ -16,12 +16,12 @@
 #include "RedBlackBST.h"
 #include "SeparateChainingHashST.h"
 #include "LinearProbingHashST.h"
-#include "Graph.h"
 #include "DepthFirstPaths.h"
 #include "BreadthFirstPaths.h"
 #include "CC.h"
-#include "Digraph.h"
 #include "DirectedDFS.h"
+#include "Topological.h"
+#include "SymbolDigraph.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
 #include "tests/testST.h"
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     std::filesystem::path dataFilePath(argv[1]);
     if (dataFilePath.filename() == "words3.txt") {
         // 测试排序算法
-        // % algs4 words3.txt
+        // words3.txt
         std::cout << "Testing 2.1 selection sort" << "\n";
         std::cout << "================================================" << "\n";
         testSort<Selection>(dataFilePath);
@@ -66,14 +66,14 @@ int main(int argc, char *argv[]) {
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyPQ.txt") {
         // 测试优先队列
-        // % algs4 tinyPQ.txt
+        // tinyPQ.txt
         std::cout << "Testing 2.6 heap priority queue" << "\n";
         std::cout << "================================================" << "\n";
         testPQ(MaxPQ<std::string>(10), dataFilePath);
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyST.txt") {
         // 测试搜索算法
-        // % algs4 tinyST.txt
+        // tinyST.txt
         std::cout << "Testing 3.1 sequential search" << "\n";
         std::cout << "================================================" << "\n";
         testBasicST(SequentialSearchST<std::string, int>(), dataFilePath);
@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyG.txt") {
         // 测试无向图相关算法
-        // % algs4 tinyG.txt
+        // tinyG.txt
         std::cout << "Reading graph from file" << "\n";
         std::ifstream dataFile(dataFilePath);
         Graph G(dataFile);
@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyDG.txt") {
         // 测试有向图相关算法
-        // % algs4 tinyDG.txt
+        // tinyDG.txt
         std::cout << "Reading graph from file" << "\n";
         std::ifstream dataFile(dataFilePath);
         Digraph G(dataFile);
@@ -129,7 +129,21 @@ int main(int argc, char *argv[]) {
         std::cout << "Testing 4.4 reachability" << "\n";
         std::cout << "================================================" << "\n";
         testSearch<Digraph, DirectedDFS>(G);
-        std::cout << "================================================" << "\n" << "\n";
+        std::cout << "================================================" << "\n";
+    } else if (dataFilePath.filename() == "jobs.txt") {
+        // 测试符号图相关算法
+        // jobs.txt
+        std::cout << "Reading graph from file" << "\n";
+        std::cout << "Separator: ";
+        char separator;
+        std::cin.get(separator);
+        SymbolDigraph sg(dataFilePath, separator);
+        std::cout << "\n";
+
+        std::cout << "Testing 4.5 topological sort" << "\n";
+        std::cout << "================================================" << "\n";
+        testTopoSort(sg);
+        std::cout << "================================================" << "\n";
     }
     return 0;
 }

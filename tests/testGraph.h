@@ -6,6 +6,8 @@
 #include <forward_list>
 #include <string>
 #include <sstream>
+#include <Topological.h>
+#include <SymbolDigraph.h>
 
 template<class Graph, class PathsSearcher>
 void testPaths(const Graph &G) {
@@ -53,6 +55,11 @@ void testSearch(const Graph &G) {
     Searcher search(G, sources);
     for (int v = 0; v < G.getV(); ++v) if (search.isMarked(v)) std::cout << v << " ";
     std::cout << "\n";
+}
+
+void testTopoSort(const SymbolDigraph &sg) {
+    Topological top(sg.getG());
+    for (int v: top.getOrder()) std::cout << sg.name(v) << "\n";
 }
 
 #endif //ALGS4_TESTGRAPH_H

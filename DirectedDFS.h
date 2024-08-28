@@ -7,7 +7,7 @@
 #include <vector>
 
 class DirectedDFS {
-protected:
+private:
     std::vector<bool> marked;
 
     void dfs(const Digraph &G, int v);

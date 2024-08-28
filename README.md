@@ -34,6 +34,7 @@ incorporating modern C++ practices.
   search: [BreadthFirstPaths.h](BreadthFirstPaths.h) | [BreadthFirstPaths.cpp](BreadthFirstPaths.cpp)
 - **4.3** Connected components: [CC.h](CC.h) | [CC.cpp](CC.cpp)
 - **4.4** Reachability: [DirectedDFS.h](DirectedDFS.h) | [DirectedDFS.cpp](DirectedDFS.cpp)
+- **4.5** Topological order: [Topological.h](Topological.h) | [Topological.cpp](Topological.cpp)
 - ...
 
 ## Build and Run

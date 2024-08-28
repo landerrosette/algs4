@@ -49,4 +49,8 @@ add_executable(algs4
         DirectedCycle.h
         DepthFirstOrder.cpp
         DepthFirstOrder.h
+        SymbolDigraph.cpp
+        SymbolDigraph.h
+        Topological.cpp
+        Topological.h
 )
