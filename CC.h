@@ -3,11 +3,12 @@
 
 
 #include "Graph.h"
+#include <vector>
 
 class CC {
 protected:
-    bool *marked;
-    int *id;
+    std::vector<bool> marked;
+    std::vector<int> id;
     int count = 0;
 
     void dfs(const Graph &G, int v);
@@ -20,11 +21,6 @@ public:
     int getId(int v) const { return id[v]; }
 
     int getCount() const { return count; }
-
-    ~CC() {
-        delete[] marked;
-        delete[] id;
-    };
 };
 
 

@@ -8,7 +8,7 @@ void CC::dfs(const Graph &G, int v) {
     }
 }
 
-CC::CC(const Graph &G) : marked(new bool[G.getV()]), id(new int[G.getV()]) {
+CC::CC(const Graph &G) : marked(G.getV()), id(G.getV()) {
     for (int s = 0; s < G.getV(); ++s) {
         if (!marked[s]) {
             dfs(G, s);

@@ -4,17 +4,18 @@
 
 #include <forward_list>
 #include <iostream>
+#include <vector>
 
 class Graph {
 protected:
-    const int V;                    // 顶点数目
-    int E;                          // 边的数目
-    std::forward_list<int> *adj;    // 邻接表
+    const int V;                                // 顶点数目
+    int E;                                      // 边的数目
+    std::vector<std::forward_list<int>> adj;    // 邻接表
 
     static int readInt(std::istream &in);
 
 public:
-    Graph(int V) : V(V), E(0), adj(new std::forward_list<int>[V]) {}
+    Graph(int V) : V(V), E(0), adj(V) {}
 
     Graph(std::istream &in);
 
@@ -27,8 +28,6 @@ public:
     std::forward_list<int> getAdj(int v) const { return adj[v]; }
 
     friend std::ostream &operator<<(std::ostream &os, const Graph &G);
-
-    ~Graph() { delete[] adj; }
 };
 
 
