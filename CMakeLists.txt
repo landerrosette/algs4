@@ -53,4 +53,6 @@ add_executable(algs4
         SymbolDigraph.h
         Topological.cpp
         Topological.h
+        KosarajuSCC.cpp
+        KosarajuSCC.h
 )

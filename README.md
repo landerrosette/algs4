@@ -35,6 +35,7 @@ incorporating modern C++ practices.
 - **4.3** Connected components: [CC.h](CC.h) | [CC.cpp](CC.cpp)
 - **4.4** Reachability: [DirectedDFS.h](DirectedDFS.h) | [DirectedDFS.cpp](DirectedDFS.cpp)
 - **4.5** Topological order: [Topological.h](Topological.h) | [Topological.cpp](Topological.cpp)
+- **4.6** Strong components (Kosaraju): [KosarajuSCC.h](KosarajuSCC.h) | [KosarajuSCC.cpp](KosarajuSCC.cpp)
 - ...
 
 ## Build and Run

@@ -9,8 +9,8 @@
 #include <Topological.h>
 #include <SymbolDigraph.h>
 
-template<class Graph, class PathsSearcher>
-void testPaths(const Graph &G) {
+template<class GraphType, class PathsSearcher>
+void testPaths(const GraphType &G) {
     std::cout << "Searching from: ";
     int s;
     std::cin >> s;
@@ -28,9 +28,9 @@ void testPaths(const Graph &G) {
     }
 }
 
-template<class Graph, class CC>
-void testCC(const Graph &G) {
-    CC cc(G);
+template<class GraphType, class CCSearcher>
+void testCC(const GraphType &G) {
+    CCSearcher cc(G);
     int M = cc.getCount();
     std::cout << M << " components" << "\n";
 
@@ -42,11 +42,11 @@ void testCC(const Graph &G) {
     }
 }
 
-template<class Graph, class Searcher>
-void testSearch(const Graph &G) {
+template<class GraphType, class Searcher>
+void testSearch(const GraphType &G) {
     std::cout << "Searching from: ";
     std::string line;
-    getline(std::cin, line);
+    std::getline(std::cin, line);
     std::istringstream iss(line);
     std::forward_list<int> sources;
     int s;

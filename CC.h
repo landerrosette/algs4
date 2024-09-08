@@ -11,7 +11,10 @@ protected:
     std::vector<int> id;
     int count = 0;
 
-    void dfs(const Graph &G, int v);
+    template<class GraphType>
+    void dfs(const GraphType &G, int v);
+
+    CC() = default;
 
 public:
     CC(const Graph &G);
@@ -23,5 +26,13 @@ public:
     int getCount() const { return count; }
 };
 
+template<class GraphType>
+void CC::dfs(const GraphType &G, int v) {
+    marked[v] = true;
+    id[v] = count;
+    for (int w: G.getAdj(v)) {
+        if (!marked[w]) dfs(G, w);
+    }
+}
 
 #endif //ALGS4_CC_H

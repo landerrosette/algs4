@@ -20,8 +20,8 @@
 #include "BreadthFirstPaths.h"
 #include "CC.h"
 #include "DirectedDFS.h"
-#include "Topological.h"
 #include "SymbolDigraph.h"
+#include "KosarajuSCC.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
 #include "tests/testST.h"
@@ -129,6 +129,10 @@ int main(int argc, char *argv[]) {
         std::cout << "Testing 4.4 reachability" << "\n";
         std::cout << "================================================" << "\n";
         testSearch<Digraph, DirectedDFS>(G);
+        std::cout << "================================================" << "\n" << "\n";
+        std::cout << "Testing 4.6 strong components (Kosaraju)" << "\n";
+        std::cout << "================================================" << "\n";
+        testCC<Digraph, KosarajuSCC>(G);
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "jobs.txt") {
         // 测试符号图相关算法
