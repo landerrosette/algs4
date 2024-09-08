@@ -14,11 +14,7 @@ private:
     void dfs(const Digraph &G, int v);
 
 public:
-    DepthFirstOrder(const Digraph &G) : marked(G.getV()) {
-        for (int v = 0; v < G.getV(); ++v)
-            if (!marked[v])
-                dfs(G, v);
-    }
+    DepthFirstOrder(const Digraph &G);
 
     std::deque<int> getPre() const { return pre; }
 

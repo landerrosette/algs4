@@ -8,19 +8,17 @@
 template<typename Key, typename Value>
 class ST {
 public:
+    virtual ~ST() = default;
+
     virtual std::optional<Value> get(const Key &key) const = 0;
 
     virtual void put(const Key &key, const Value &val) = 0;
 
     virtual void remove(const Key &key) = 0;
 
-    bool contains(const Key &key) const {
-        return get(key) != std::nullopt;
-    }
+    bool contains(const Key &key) const { return get(key) != std::nullopt; }
 
-    bool isEmpty() const {
-        return size() == 0;
-    }
+    bool isEmpty() const { return size() == 0; }
 
     virtual int size() const = 0;
 

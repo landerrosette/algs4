@@ -17,3 +17,9 @@ void DirectedCycle::dfs(const Digraph &G, int v) {
     }
     onStack[v] = false;
 }
+
+DirectedCycle::DirectedCycle(const Digraph &G) : marked(G.getV()), edgeTo(G.getV()), onStack(G.getV()) {
+    for (int v = 0; v < G.getV(); ++v) {
+        if (!marked[v]) dfs(G, v);
+    }
+}

@@ -10,7 +10,7 @@ class KosarajuSCC : private CC {
 public:
     KosarajuSCC(const Digraph &G);
 
-    bool stronglyConnected(int v, int w) { return connected(v, w); }
+    bool stronglyConnected(int v, int w) const { return connected(v, w); }
 
     using CC::getId, CC::getCount;
 };

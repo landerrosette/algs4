@@ -55,4 +55,5 @@ add_executable(algs4
         Topological.h
         KosarajuSCC.cpp
         KosarajuSCC.h
+        tests/testGraph.cpp
 )

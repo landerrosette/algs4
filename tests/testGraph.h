@@ -10,6 +10,17 @@
 #include <SymbolDigraph.h>
 
 template<class GraphType, class PathsSearcher>
+void testPaths(const GraphType &G);
+
+template<class GraphType, class CCSearcher>
+void testCC(const GraphType &G);
+
+template<class GraphType, class Searcher>
+void testSearch(const GraphType &G);
+
+void testSort(const SymbolDigraph &sg);
+
+template<class GraphType, class PathsSearcher>
 void testPaths(const GraphType &G) {
     std::cout << "Searching from: ";
     int s;
@@ -53,13 +64,11 @@ void testSearch(const GraphType &G) {
     while (iss >> s) sources.push_front(s);
 
     Searcher search(G, sources);
-    for (int v = 0; v < G.getV(); ++v) if (search.isMarked(v)) std::cout << v << " ";
+    for (int v = 0; v < G.getV(); ++v) {
+        if (search.isMarked(v)) std::cout << v << " ";
+    }
     std::cout << "\n";
 }
 
-void testTopoSort(const SymbolDigraph &sg) {
-    Topological top(sg.getG());
-    for (int v: top.getOrder()) std::cout << sg.name(v) << "\n";
-}
 
 #endif //ALGS4_TESTGRAPH_H

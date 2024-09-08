@@ -16,10 +16,7 @@ private:
     void dfs(const Digraph &G, int v);
 
 public:
-    DirectedCycle(const Digraph &G) :
-            marked(G.getV()), edgeTo(G.getV()), onStack(G.getV()) {
-        for (int v = 0; v < G.getV(); ++v) if (!marked[v]) dfs(G, v);
-    }
+    DirectedCycle(const Digraph &G);
 
     bool hasCycle() const { return !cycle.empty(); }
 

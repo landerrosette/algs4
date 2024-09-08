@@ -9,6 +9,8 @@
 template<typename Key, typename Value>
 class OrderedST : public ST<Key, Value> {
 public:
+    virtual ~OrderedST() = default;
+
     virtual std::optional<Key> min() const = 0;
 
     virtual std::optional<Key> max() const = 0;
@@ -27,16 +29,19 @@ public:
 
     using ST<Key, Value>::size;
 
-    int size(const Key &lo, const Key &hi) const {
-        if (hi < lo) return 0;
-        if (this->contains(hi)) return rank(hi) - rank(lo) + 1;
-        else return rank(hi) - rank(lo);
-    };
+    int size(const Key &lo, const Key &hi) const;
 
     using ST<Key, Value>::getKeys;
 
     virtual std::deque<Key> getKeys(const Key &lo, const Key &hi) const = 0;
 };
+
+template<typename Key, typename Value>
+int OrderedST<Key, Value>::size(const Key &lo, const Key &hi) const {
+    if (hi < lo) return 0;
+    if (this->contains(hi)) return rank(hi) - rank(lo) + 1;
+    else return rank(hi) - rank(lo);
+}
 
 
 #endif //ALGS4_ORDEREDST_H

@@ -10,6 +10,9 @@
 #include <filesystem>
 
 template<class Sorter>
+void testSort(const std::filesystem::path &dataFilePath);
+
+template<class Sorter>
 void testSort(const std::filesystem::path &dataFilePath) {
     std::ifstream dataFile(dataFilePath);
     std::vector<std::string> a;
@@ -22,5 +25,6 @@ void testSort(const std::filesystem::path &dataFilePath) {
     std::cout << "After:  ";
     Sorter::show(a);
 }
+
 
 #endif //ALGS4_TESTSORT_H

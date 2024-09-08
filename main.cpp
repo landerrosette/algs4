@@ -146,7 +146,7 @@ int main(int argc, char *argv[]) {
 
         std::cout << "Testing 4.5 topological sort" << "\n";
         std::cout << "================================================" << "\n";
-        testTopoSort(sg);
+        testSort(sg);
         std::cout << "================================================" << "\n";
     }
     return 0;

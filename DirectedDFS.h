@@ -15,8 +15,7 @@ private:
 public:
     DirectedDFS(const Digraph &G, int s) : marked(G.getV()) { dfs(G, s); }
 
-    DirectedDFS(const Digraph &G, const std::forward_list<int> &sources) :
-            marked(G.getV()) { for (int s: sources) if (!marked[s]) dfs(G, s); }
+    DirectedDFS(const Digraph &G, const std::forward_list<int> &sources);
 
     bool isMarked(int v) const { return marked[v]; }
 };
