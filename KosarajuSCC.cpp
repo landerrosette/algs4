@@ -1,4 +1,5 @@
 #include "KosarajuSCC.h"
+#include "DepthFirstOrder.h"
 
 KosarajuSCC::KosarajuSCC(const Digraph &G) {
     marked = std::vector<bool>(G.getV());

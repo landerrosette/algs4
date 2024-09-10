@@ -2,6 +2,7 @@
 #define ALGS4_CC_H
 
 
+#include "GraphBase.h"
 #include "Graph.h"
 #include <vector>
 
@@ -11,8 +12,7 @@ protected:
     std::vector<int> id;
     int count = 0;
 
-    template<class GraphType>
-    void dfs(const GraphType &G, int v);
+    void dfs(const GraphBase<int> &G, int v);
 
     CC() = default;
 
@@ -26,13 +26,5 @@ public:
     int getCount() const { return count; }
 };
 
-template<class GraphType>
-void CC::dfs(const GraphType &G, int v) {
-    marked[v] = true;
-    id[v] = count;
-    for (int w: G.getAdj(v)) {
-        if (!marked[w]) dfs(G, w);
-    }
-}
 
 #endif //ALGS4_CC_H

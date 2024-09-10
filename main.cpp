@@ -22,6 +22,7 @@
 #include "DirectedDFS.h"
 #include "SymbolDigraph.h"
 #include "KosarajuSCC.h"
+#include "EdgeWeightedGraph.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
 #include "tests/testST.h"
@@ -98,9 +99,9 @@ int main(int argc, char *argv[]) {
         std::cout << "================================================" << "\n";
         testBasicST(LinearProbingHashST<std::string, int>(), dataFilePath);
         std::cout << "================================================" << "\n";
-    } else if (dataFilePath.filename() == "tinyG.txt") {
+    } else if (dataFilePath.filename() == "tinyCG.txt" || dataFilePath.filename() == "tinyG.txt") {
         // 测试无向图相关算法
-        // tinyG.txt
+        // tinyCG.txt | tinyG.txt
         std::cout << "Reading graph from file" << "\n";
         std::ifstream dataFile(dataFilePath);
         Graph G(dataFile);
@@ -148,6 +149,13 @@ int main(int argc, char *argv[]) {
         std::cout << "================================================" << "\n";
         testSort(sg);
         std::cout << "================================================" << "\n";
+    } else if (dataFilePath.filename() == "tinyEWG.txt") {
+        // 测试加权无向图相关算法
+        // tinyEWG.txt
+        std::cout << "Reading graph from file" << "\n";
+        std::ifstream dataFile(dataFilePath);
+        EdgeWeightedGraph G(dataFile);
+        std::cout << G << "\n";
     }
     return 0;
 }

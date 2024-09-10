@@ -2,23 +2,16 @@
 #define ALGS4_DIGRAPH_H
 
 
-#include "Graph.h"
-#include <forward_list>
+#include "GraphBase.h"
 #include <iostream>
 
-class Digraph : private Graph {
+class Digraph : public GraphBase<int> {
 public:
-    Digraph(int V) : Graph(V) {}
+    Digraph(int V) : GraphBase(V) {}
 
     Digraph(std::istream &in);
 
-    using Graph::getV, Graph::getE;
-
     void addEdge(int v, int w);
-
-    using Graph::getAdj;
-
-    friend std::ostream &operator<<(std::ostream &os, const Digraph &G);
 
     Digraph reverse() const;
 };

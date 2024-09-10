@@ -56,4 +56,9 @@ add_executable(algs4
         KosarajuSCC.cpp
         KosarajuSCC.h
         tests/testGraph.cpp
+        Edge.cpp
+        Edge.h
+        EdgeWeightedGraph.cpp
+        EdgeWeightedGraph.h
+        GraphBase.h
 )

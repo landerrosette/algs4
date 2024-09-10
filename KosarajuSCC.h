@@ -4,7 +4,6 @@
 
 #include "Digraph.h"
 #include "CC.h"
-#include "DepthFirstOrder.h"
 
 class KosarajuSCC : private CC {
 public:

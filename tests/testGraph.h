@@ -6,7 +6,6 @@
 #include <forward_list>
 #include <string>
 #include <sstream>
-#include <Topological.h>
 #include <SymbolDigraph.h>
 
 template<class GraphType, class PathsSearcher>
