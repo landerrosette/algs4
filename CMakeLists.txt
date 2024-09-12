@@ -61,4 +61,9 @@ add_executable(algs4
         EdgeWeightedGraph.cpp
         EdgeWeightedGraph.h
         GraphBase.h
+        PQ.h
+        MinPQ.h
+        IndexMinPQ.h
+        CCBase.cpp
+        CCBase.h
 )
