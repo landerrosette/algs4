@@ -2,16 +2,14 @@
 #define ALGS4_KOSARAJUSCC_H
 
 
+#include "CCBase.h"
 #include "Digraph.h"
-#include "CC.h"
 
-class KosarajuSCC : private CC {
+class KosarajuSCC : public CCBase {
 public:
     KosarajuSCC(const Digraph &G);
 
     bool stronglyConnected(int v, int w) const { return connected(v, w); }
-
-    using CC::getId, CC::getCount;
 };
 
 
