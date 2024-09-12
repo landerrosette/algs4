@@ -6,7 +6,6 @@
 #include <forward_list>
 #include <string>
 #include <sstream>
-#include <SymbolDigraph.h>
 
 template<class GraphType, class PathsSearcher>
 void testPaths(const GraphType &G);
@@ -17,11 +16,12 @@ void testCC(const GraphType &G);
 template<class GraphType, class Searcher>
 void testSearch(const GraphType &G);
 
-void testSort(const SymbolDigraph &sg);
+template<class GraphType, class Sorter>
+void testSort(const GraphType &G);
 
 template<class GraphType, class PathsSearcher>
 void testPaths(const GraphType &G) {
-    std::cout << "Searching from: ";
+    std::cout << "Vertex to search from: ";
     int s;
     std::cin >> s;
 
@@ -54,7 +54,7 @@ void testCC(const GraphType &G) {
 
 template<class GraphType, class Searcher>
 void testSearch(const GraphType &G) {
-    std::cout << "Searching from: ";
+    std::cout << "Vertices to search from: ";
     std::string line;
     std::getline(std::cin, line);
     std::istringstream iss(line);
@@ -67,6 +67,14 @@ void testSearch(const GraphType &G) {
         if (search.isMarked(v)) std::cout << v << " ";
     }
     std::cout << "\n";
+}
+
+template<class GraphType, class Sorter>
+void testSort(const GraphType &G) {
+    Sorter order(G.getG());
+    for (int v: order.getOrder()) {
+        std::cout << G.name(v) << "\n";
+    }
 }
 
 

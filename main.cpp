@@ -20,6 +20,7 @@
 #include "BreadthFirstPaths.h"
 #include "CC.h"
 #include "DirectedDFS.h"
+#include "Topological.h"
 #include "SymbolDigraph.h"
 #include "KosarajuSCC.h"
 #include "EdgeWeightedGraph.h"
@@ -147,7 +148,7 @@ int main(int argc, char *argv[]) {
 
         std::cout << "Testing 4.5 topological sort" << "\n";
         std::cout << "================================================" << "\n";
-        testSort(sg);
+        testSort<SymbolDigraph, Topological>(sg);
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyEWG.txt") {
         // 测试加权无向图相关算法
