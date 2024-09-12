@@ -11,10 +11,10 @@ protected:
     struct Node {
         Key key;
         Value val;
-        std::shared_ptr<Node> left, right;
+        std::shared_ptr<Node> left = nullptr, right = nullptr;
         int N;  // 以该结点为根的子树中的结点总数
 
-        Node(Key key, Value val, int N) : key(key), val(val), left(nullptr), right(nullptr), N(N) {}
+        Node(Key key, Value val, int N) : key(key), val(val), N(N) {}
 
         virtual ~Node() = default;
     };

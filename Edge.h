@@ -21,7 +21,7 @@ public:
 
     friend bool operator<(const Edge &l, const Edge &r) { return l.weight < r.weight; }
 
-    friend bool operator>(const Edge &l, const Edge &r) { return r < l; }
+    friend bool operator>(const Edge &l, const Edge &r) { return l.weight > r.weight; }
 
     friend std::ostream &operator<<(std::ostream &os, const Edge &e);
 };

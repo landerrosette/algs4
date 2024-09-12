@@ -10,7 +10,7 @@ template<typename Key, typename Value>
 class LinearProbingHashST : public ST<Key, Value> {
 private:
     int N = 0;       // 符号表中键值对总数
-    int M = 16;  // 线性探测表的大小
+    int M = 16;      // 线性探测表的大小
     std::vector<std::optional<Key>> keys;
     std::vector<std::optional<Value>> vals;
 
