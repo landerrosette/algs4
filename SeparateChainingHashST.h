@@ -46,7 +46,7 @@ template<typename Key, typename Value>
 std::deque<Key> SeparateChainingHashST<Key, Value>::getKeys() const {
     std::deque<Key> queue;
     for (int i = 0; i < M; ++i) {
-        for (auto key: st[i].getKeys()) {
+        for (const auto &key: st[i].getKeys()) {
             queue.push_back(key);
         }
     }

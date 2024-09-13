@@ -9,8 +9,6 @@
 template<typename Key, typename Value>
 class OrderedST : public ST<Key, Value> {
 public:
-    virtual ~OrderedST() = default;
-
     virtual std::optional<Key> min() const = 0;
 
     virtual std::optional<Key> max() const = 0;
