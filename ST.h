@@ -16,7 +16,7 @@ public:
 
     virtual void remove(const Key &key) = 0;
 
-    bool contains(const Key &key) const { return get(key) != std::nullopt; }
+    bool contains(const Key &key) const { return get(key).has_value(); }
 
     bool isEmpty() const { return size() == 0; }
 

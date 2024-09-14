@@ -32,8 +32,8 @@ public:
 
 template<typename Key, typename Value>
 bool RedBlackBST<Key, Value>::isRed(std::shared_ptr<Node> x) const {
-    if (x == nullptr) return false;
-    return x->color;
+    if (!x) return false;
+    return x->color == RED;
 }
 
 template<typename Key, typename Value>
@@ -70,7 +70,7 @@ void RedBlackBST<Key, Value>::flipColors(std::shared_ptr<Node> h) {
 template<typename Key, typename Value>
 std::shared_ptr<typename RedBlackBST<Key, Value>::Node>
 RedBlackBST<Key, Value>::put(std::shared_ptr<Node> h, const Key &key, const Value &val) {
-    if (h == nullptr) return std::make_shared<Node>(key, val, 1, RED);
+    if (!h) return std::make_shared<Node>(key, val, 1, RED);
     if (key < h->key) h->left = put(std::dynamic_pointer_cast<Node>(h->left), key, val);
     else if (key > h->key) h->right = put(std::dynamic_pointer_cast<Node>(h->right), key, val);
     else h->val = val;

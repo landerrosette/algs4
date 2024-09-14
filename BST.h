@@ -79,7 +79,7 @@ public:
 
 template<typename Key, typename Value>
 std::optional<Value> BST<Key, Value>::get(std::shared_ptr<Node> x, const Key &key) const {
-    if (x == nullptr) return std::nullopt;
+    if (!x) return std::nullopt;
     if (key < x->key) return get(x->left, key);
     else if (key > x->key) return get(x->right, key);
     else return x->val;
@@ -88,7 +88,7 @@ std::optional<Value> BST<Key, Value>::get(std::shared_ptr<Node> x, const Key &ke
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node>
 BST<Key, Value>::put(std::shared_ptr<Node> x, const Key &key, const Value &val) {
-    if (x == nullptr) return std::make_shared<Node>(key, val, 1);
+    if (!x) return std::make_shared<Node>(key, val, 1);
     if (key < x->key) x->left = put(x->left, key, val);
     else if (key > x->key) x->right = put(x->right, key, val);
     else x->val = val;
@@ -98,13 +98,13 @@ BST<Key, Value>::put(std::shared_ptr<Node> x, const Key &key, const Value &val) 
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::remove(std::shared_ptr<Node> x, const Key &key) {
-    if (x == nullptr) return nullptr;
+    if (!x) return nullptr;
     if (key < x->key) x->left = remove(x->left, key);
     else if (key > x->key) x->right = remove(x->right, key);
     else {
-        if (x->right == nullptr) return x->left;
-        if (x->left == nullptr) return x->right;
-        std::shared_ptr<Node> t = x;
+        if (!x->right) return x->left;
+        if (!x->left) return x->right;
+        auto t = x;
         x = min(t->right);
         x->right = removeMin(t->right);
         x->left = t->left;
@@ -115,50 +115,50 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::remove(std::sha
 
 template<typename Key, typename Value>
 int BST<Key, Value>::size(std::shared_ptr<Node> x) const {
-    if (x == nullptr) return 0;
+    if (!x) return 0;
     return x->N;
 }
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::min(std::shared_ptr<Node> x) const {
-    if (x->left == nullptr) return x;
+    if (!x->left) return x;
     return min(x->left);
 }
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::max(std::shared_ptr<Node> x) const {
-    if (x->right == nullptr) return x;
+    if (!x->right) return x;
     return max(x->right);
 }
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::floor(std::shared_ptr<Node> x, const Key &key) const {
-    if (x == nullptr) return nullptr;
+    if (!x) return nullptr;
     if (key < x->key) return floor(x->left, key);
     else if (key == x->key) return x;
     else {
-        std::shared_ptr<Node> t = floor(x->right, key);
-        if (t == nullptr) return x;
-        return t;
+        auto t = floor(x->right, key);
+        if (t) return t;
+        return x;
     }
 }
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node>
 BST<Key, Value>::ceiling(std::shared_ptr<Node> x, const Key &key) const {
-    if (x == nullptr) return nullptr;
+    if (!x) return nullptr;
     if (key > x->key) return ceiling(x->right, key);
     else if (key == x->key) return x;
     else {
-        std::shared_ptr<Node> t = ceiling(x->left, key);
-        if (t == nullptr) return x;
-        return t;
+        auto t = ceiling(x->left, key);
+        if (t) return t;
+        return x;
     }
 }
 
 template<typename Key, typename Value>
 int BST<Key, Value>::rank(std::shared_ptr<Node> x, const Key &key) const {
-    if (x == nullptr) return 0;
+    if (!x) return 0;
     if (key < x->key) return rank(x->left, key);
     else if (key > x->key)
         return size(x->left) /* 左子树的结点总数 */ + 1 /* 根结点 */ + rank(x->right, key);
@@ -167,7 +167,7 @@ int BST<Key, Value>::rank(std::shared_ptr<Node> x, const Key &key) const {
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::select(std::shared_ptr<Node> x, int k) const {
-    if (x == nullptr) return nullptr;
+    if (!x) return nullptr;
     int t = size(x->left);
     if (k < t) return select(x->left, k);
     else if (k > t) return select(x->right, k - t - 1);
@@ -176,7 +176,7 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::select(std::sha
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMin(std::shared_ptr<Node> x) {
-    if (x->left == nullptr) return x->right;
+    if (!x->left) return x->right;
     x->left = removeMin(x->left);
     x->N = size(x->left) + size(x->right) + 1;
     return x;
@@ -184,7 +184,7 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMin(std::
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMax(std::shared_ptr<Node> x) {
-    if (x->right == nullptr) return x->left;
+    if (!x->right) return x->left;
     x->right = removeMax(x->right);
     x->N = size(x->left) + size(x->right) + 1;
     return x;
@@ -192,7 +192,7 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMax(std::
 
 template<typename Key, typename Value>
 void BST<Key, Value>::keys(std::shared_ptr<Node> x, std::deque<Key> &queue, const Key &lo, const Key &hi) const {
-    if (x == nullptr) return;
+    if (!x) return;
     if (lo < x->key) keys(x->left, queue, lo, hi);
     if (lo <= x->key && hi >= x->key) queue.push_back(x->key);
     if (hi > x->key) keys(x->right, queue, lo, hi);
@@ -201,14 +201,14 @@ void BST<Key, Value>::keys(std::shared_ptr<Node> x, std::deque<Key> &queue, cons
 template<typename Key, typename Value>
 std::optional<Key> BST<Key, Value>::floor(const Key &key) const {
     auto x = floor(root, key);
-    if (x == nullptr) return std::nullopt;
+    if (!x) return std::nullopt;
     return x->key;
 }
 
 template<typename Key, typename Value>
 std::optional<Key> BST<Key, Value>::ceiling(const Key &key) const {
     auto x = ceiling(root, key);
-    if (x == nullptr) return std::nullopt;
+    if (!x) return std::nullopt;
     return x->key;
 }
 
