@@ -6,25 +6,24 @@
 
 class Edge {
 private:
-    const int v;            // 顶点之一
-    const int w;            // 另一个顶点
-    const double weight;    // 边的权重
+    const int v, w;          // 顶点
+    const double weight_;    // 边的权重
 
 public:
-    Edge(int v, int w, double weight) : v(v), w(w), weight(weight) {}
+    Edge(int v, int w, double weight) : v(v), w(w), weight_(weight) {}
 
-    double getWeight() const { return weight; }
+    double weight() const { return weight_; }
 
     int either() const { return v; }
 
     int other(int vertex) const;
-
-    friend bool operator<(const Edge &l, const Edge &r) { return l.weight < r.weight; }
-
-    friend bool operator>(const Edge &l, const Edge &r) { return l.weight > r.weight; }
-
-    friend std::ostream &operator<<(std::ostream &os, const Edge &e);
 };
+
+inline bool operator<(const Edge &l, const Edge &r) { return l.weight() < r.weight(); }
+
+inline bool operator>(const Edge &l, const Edge &r) { return l.weight() > r.weight(); }
+
+std::ostream &operator<<(std::ostream &os, const Edge &e);
 
 
 #endif //ALGS4_EDGE_H

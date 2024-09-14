@@ -11,22 +11,22 @@ EdgeWeightedGraph::EdgeWeightedGraph(std::istream &in) : EdgeWeightedGraph([](st
         int v, w;
         double weight;
         in >> v >> w >> weight;
-        addEdge(Edge(v, w, weight));
+        addEdge(std::make_shared<Edge>(v, w, weight));
     }
 }
 
-void EdgeWeightedGraph::addEdge(const Edge &e) {
-    int v = e.either(), w = e.other(v);
-    adj[v].push_front(e);
-    adj[w].push_front(e);
-    ++E;
+void EdgeWeightedGraph::addEdge(const std::shared_ptr<Edge> &e) {
+    int v = e->either(), w = e->other(v);
+    adj_[v].push_front(e);
+    adj_[w].push_front(e);
+    ++E_;
 }
 
-std::forward_list<Edge> EdgeWeightedGraph::edges() {
+std::forward_list<Edge> EdgeWeightedGraph::edges() const {
     std::forward_list<Edge> b;
-    for (int v = 0; v < V; ++v) {
-        for (Edge e: adj[v]) {
-            if (e.other(v) > v) b.push_front(e);
+    for (int v = 0; v < V_; ++v) {
+        for (const auto &e: adj_[v]) {
+            if (e->other(v) > v) b.push_front(*e);
         }
     }
     return b;

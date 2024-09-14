@@ -17,7 +17,7 @@ private:
     };
 
     int N = 0;
-    std::shared_ptr<Node> first = nullptr;
+    std::shared_ptr<Node> first;
 
     std::shared_ptr<Node> remove(std::shared_ptr<Node> x, Key key);
 
@@ -30,13 +30,13 @@ public:
 
     int size() const override { return N; }
 
-    std::deque<Key> getKeys() const override;
+    std::deque<Key> keys() const override;
 };
 
 template<typename Key, typename Value>
 std::shared_ptr<typename SequentialSearchST<Key, Value>::Node>
 SequentialSearchST<Key, Value>::remove(std::shared_ptr<Node> x, Key key) {
-    if (x == nullptr) return nullptr; // 基准情况：如果当前节点为空，返回 null
+    if (x == nullptr) return nullptr;   // 基准情况：如果当前节点为空，返回 nullptr
     if (key == x->key) {
         --N;
         return x->next;
@@ -66,7 +66,7 @@ void SequentialSearchST<Key, Value>::put(const Key &key, const Value &val) {
 }
 
 template<typename Key, typename Value>
-std::deque<Key> SequentialSearchST<Key, Value>::getKeys() const {
+std::deque<Key> SequentialSearchST<Key, Value>::keys() const {
     std::deque<Key> queue;
     for (auto x = first; x != nullptr; x = x->next) queue.push_back(x->key);
     return queue;

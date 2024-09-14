@@ -10,7 +10,7 @@
 template<typename Key, typename Value>
 class SeparateChainingHashST : public ST<Key, Value> {
 private:
-    int M = 0;  // 散列表的大小
+    int M;  // 散列表的大小
     std::vector<SequentialSearchST<Key, Value>> st;
 
     int hash(const Key &key) const;
@@ -26,7 +26,7 @@ public:
 
     int size() const override;
 
-    std::deque<Key> getKeys() const override;
+    std::deque<Key> keys() const override;
 };
 
 template<typename Key, typename Value>
@@ -43,10 +43,10 @@ int SeparateChainingHashST<Key, Value>::size() const {
 }
 
 template<typename Key, typename Value>
-std::deque<Key> SeparateChainingHashST<Key, Value>::getKeys() const {
+std::deque<Key> SeparateChainingHashST<Key, Value>::keys() const {
     std::deque<Key> queue;
     for (int i = 0; i < M; ++i) {
-        for (const auto &key: st[i].getKeys()) {
+        for (const auto &key: st[i].keys()) {
             queue.push_back(key);
         }
     }

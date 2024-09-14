@@ -8,7 +8,7 @@ void BreadthFirstPaths::bfs(const Graph &G, int s) {
     while (!queue.empty()) {
         int v = queue.front();
         queue.pop();
-        for (int w: G.getAdj(v)) {
+        for (int w: G.adj(v)) {
             if (!marked[w]) {
                 edgeTo[w] = v;
                 marked[w] = true;

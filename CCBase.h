@@ -8,21 +8,21 @@
 class CCBase {
 protected:
     std::vector<bool> marked;
-    std::vector<int> id;
-    int count = 0;
+    std::vector<int> id_;
+    int count_ = 0;
 
     void dfs(const GraphBase<int> &G, int v);
 
 public:
-    CCBase(const GraphBase<int> &G) : marked(G.getV()), id(G.getV()) {}
+    CCBase(const GraphBase<int> &G) : marked(G.V()), id_(G.V()) {}
 
     virtual ~CCBase() = default;
 
-    bool connected(int v, int w) const { return id[v] == id[w]; }
+    bool connected(int v, int w) const { return id_[v] == id_[w]; }
 
-    int getId(int v) const { return id[v]; }
+    int id(int v) const { return id_[v]; }
 
-    int getCount() const { return count; }
+    int count() const { return count_; }
 };
 
 

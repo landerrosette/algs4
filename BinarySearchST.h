@@ -8,12 +8,12 @@
 template<typename Key, typename Value>
 class BinarySearchST : public OrderedST<Key, Value> {
 private:
-    std::vector<std::optional<Key>> keys;
+    std::vector<std::optional<Key>> keys_;
     std::vector<std::optional<Value>> vals;
     int N = 0;
 
 public:
-    BinarySearchST(int capacity) : keys(capacity), vals(capacity) {}
+    BinarySearchST(int capacity) : keys_(capacity), vals(capacity) {}
 
     std::optional<Value> get(const Key &key) const override;
 
@@ -23,9 +23,9 @@ public:
 
     int size() const override { return N; }
 
-    std::optional<Key> min() const override { return keys[0]; }
+    std::optional<Key> min() const override { return keys_[0]; }
 
-    std::optional<Key> max() const override { return keys[N - 1]; }
+    std::optional<Key> max() const override { return keys_[N - 1]; }
 
     std::optional<Key> floor(const Key &key) const override;
 
@@ -33,37 +33,31 @@ public:
 
     int rank(const Key &key) const override;
 
-    std::optional<Key> select(int k) const override { return keys[k]; }
+    std::optional<Key> select(int k) const override { return keys_[k]; }
 
-    void removeMin() override;
-
-    void removeMax() override;
-
-    std::deque<Key> getKeys() const override { return getKeys(*min(), *max()); }
-
-    std::deque<Key> getKeys(const Key &lo, const Key &hi) const override;
+    std::deque<Key> keys(const Key &lo, const Key &hi) const override;
 };
 
 template<typename Key, typename Value>
 std::optional<Value> BinarySearchST<Key, Value>::get(const Key &key) const {
     if (this->isEmpty()) return std::nullopt;
     int i = rank(key);
-    if (i < N && keys[i] == key) return vals[i];
+    if (i < N && keys_[i] == key) return vals[i];
     else return std::nullopt;
 }
 
 template<typename Key, typename Value>
 void BinarySearchST<Key, Value>::put(const Key &key, const Value &val) {
     int i = rank(key);
-    if (i < N && keys[i] == key) {
+    if (i < N && keys_[i] == key) {
         vals[i] = val;
         return;
     }
     for (int j = N; j > i; --j) {
-        keys[j] = keys[j - 1];
+        keys_[j] = keys_[j - 1];
         vals[j] = vals[j - 1];
     }
-    keys[i] = key;
+    keys_[i] = key;
     vals[i] = val;
     ++N;
 }
@@ -72,28 +66,28 @@ template<typename Key, typename Value>
 void BinarySearchST<Key, Value>::remove(const Key &key) {
     if (this->isEmpty()) return;
     int i = rank(key);
-    if (i < N && keys[i] == key) {
+    if (i < N && keys_[i] == key) {
         for (int j = i; j < N - 1; ++j) {
-            keys[j] = keys[j + 1];
+            keys_[j] = keys_[j + 1];
             vals[j] = vals[j + 1];
         }
     }
     --N;
-    keys[N] = std::nullopt;  // 置空
-    vals[N] = std::nullopt;  // 置空
+    keys_[N] = std::nullopt;  // 置空
+    vals[N] = std::nullopt;   // 置空
 }
 
 template<typename Key, typename Value>
 std::optional<Key> BinarySearchST<Key, Value>::floor(const Key &key) const {
     int i = rank(key);
-    if (i < N && keys[i] == key) return keys[i];
-    else return keys[i - 1];
+    if (i < N && keys_[i] == key) return keys_[i];
+    else return keys_[i - 1];
 }
 
 template<typename Key, typename Value>
 std::optional<Key> BinarySearchST<Key, Value>::ceiling(const Key &key) const {
     int i = rank(key);
-    return keys[i];
+    return keys_[i];
 }
 
 template<typename Key, typename Value>
@@ -101,31 +95,19 @@ int BinarySearchST<Key, Value>::rank(const Key &key) const {
     int lo = 0, hi = N - 1;
     while (lo <= hi) {
         int mid = (lo + hi) / 2;
-        if (key < keys[mid]) hi = mid - 1;
-        else if (key > keys[mid]) lo = mid + 1;
+        if (key < keys_[mid]) hi = mid - 1;
+        else if (key > keys_[mid]) lo = mid + 1;
         else return mid;
     }
     return lo;
 }
 
 template<typename Key, typename Value>
-void BinarySearchST<Key, Value>::removeMin() {
-    if (this->isEmpty()) return;
-    remove(*min());
-}
-
-template<typename Key, typename Value>
-void BinarySearchST<Key, Value>::removeMax() {
-    if (this->isEmpty()) return;
-    remove(*max());
-}
-
-template<typename Key, typename Value>
-std::deque<Key> BinarySearchST<Key, Value>::getKeys(const Key &lo, const Key &hi) const {
+std::deque<Key> BinarySearchST<Key, Value>::keys(const Key &lo, const Key &hi) const {
     std::deque<Key> queue;
     if (hi < lo) return queue;
-    for (int i = rank(lo); i < rank(hi); ++i) queue.push_back(*keys[i]);
-    if (this->contains(hi)) queue.push_back(*keys[rank(hi)]);
+    for (int i = rank(lo); i < rank(hi); ++i) queue.push_back(*keys_[i]);
+    if (this->contains(hi)) queue.push_back(*keys_[rank(hi)]);
     return queue;
 }
 

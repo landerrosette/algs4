@@ -9,6 +9,7 @@ int Edge::other(int vertex) const {
 }
 
 std::ostream &operator<<(std::ostream &os, const Edge &e) {
-    os << e.v << "-" << e.w << " " << std::fixed << std::setprecision(2) << e.weight << " ";
+    int v = e.either();
+    os << v << "-" << e.other(v) << " " << std::fixed << std::setprecision(2) << e.weight() << " ";
     return os;
 }

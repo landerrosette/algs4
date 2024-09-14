@@ -22,7 +22,7 @@ public:
 
     virtual int size() const = 0;
 
-    virtual std::deque<Key> getKeys() const = 0;
+    virtual std::deque<Key> keys() const = 0;
 };
 
 

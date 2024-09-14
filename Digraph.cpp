@@ -15,14 +15,14 @@ Digraph::Digraph(std::istream &in) : Digraph([](std::istream &in) -> int {
 }
 
 void Digraph::addEdge(int v, int w) {
-    adj[v].push_front(w);
-    ++E;
+    adj_[v].push_front(w);
+    ++E_;
 }
 
 Digraph Digraph::reverse() const {
-    Digraph R(V);
-    for (int v = 0; v < V; ++v) {
-        for (int w: getAdj(v)) R.addEdge(w, v);
+    Digraph R(V_);
+    for (int v = 0; v < V_; ++v) {
+        for (int w: adj(v)) R.addEdge(w, v);
     }
     return R;
 }

@@ -21,23 +21,23 @@ public:
 
     virtual std::optional<Key> select(int k) const = 0;
 
-    virtual void removeMin() = 0;
+    virtual void removeMin() { this->remove(*min()); }
 
-    virtual void removeMax() = 0;
+    virtual void removeMax() { this->remove(*max()); }
 
     using ST<Key, Value>::size;
 
     int size(const Key &lo, const Key &hi) const;
 
-    using ST<Key, Value>::getKeys;
+    std::deque<Key> keys() const override { return keys(*min(), *max()); }
 
-    virtual std::deque<Key> getKeys(const Key &lo, const Key &hi) const = 0;
+    virtual std::deque<Key> keys(const Key &lo, const Key &hi) const = 0;
 };
 
 template<typename Key, typename Value>
 int OrderedST<Key, Value>::size(const Key &lo, const Key &hi) const {
     if (hi < lo) return 0;
-    if (this->contains(hi)) return rank(hi) - rank(lo) + 1;
+    else if (this->contains(hi)) return rank(hi) - rank(lo) + 1;
     else return rank(hi) - rank(lo);
 }
 

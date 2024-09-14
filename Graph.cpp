@@ -15,7 +15,7 @@ Graph::Graph(std::istream &in) : Graph([](std::istream &in) -> int {
 }
 
 void Graph::addEdge(int v, int w) {
-    adj[v].push_front(w);
-    adj[w].push_front(v);
-    ++E;
+    adj_[v].push_front(w);
+    adj_[w].push_front(v);
+    ++E_;
 }

@@ -6,6 +6,6 @@ Topological::Topological(const Digraph &G) {
     DirectedCycle cyclefinder(G);
     if (!cyclefinder.hasCycle()) {
         DepthFirstOrder dfs(G);
-        order = dfs.getReversePost();
+        order_ = dfs.reversePost();
     }
 }

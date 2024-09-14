@@ -11,17 +11,17 @@ class LinearProbingHashST : public ST<Key, Value> {
 private:
     int N = 0;       // 符号表中键值对总数
     int M = 16;      // 线性探测表的大小
-    std::vector<std::optional<Key>> keys;
+    std::vector<std::optional<Key>> keys_;
     std::vector<std::optional<Value>> vals;
 
     int hash(const Key &key) const;
 
-    LinearProbingHashST(int M) : M(M), keys(M), vals(M) {}
+    LinearProbingHashST(int M) : M(M), keys_(M), vals(M) {}
 
     void resize(int cap);
 
 public:
-    LinearProbingHashST() : keys(M), vals(M) {}
+    LinearProbingHashST() : keys_(M), vals(M) {}
 
     std::optional<Value> get(const Key &key) const override;
 
@@ -31,7 +31,7 @@ public:
 
     int size() const override { return N; }
 
-    std::deque<Key> getKeys() const override;
+    std::deque<Key> keys() const override;
 };
 
 template<typename Key, typename Value>
@@ -44,17 +44,17 @@ template<typename Key, typename Value>
 void LinearProbingHashST<Key, Value>::resize(int cap) {
     LinearProbingHashST<Key, Value> t(cap);
     for (int i = 0; i < M; ++i) {
-        if (keys[i] != std::nullopt) t.put(*keys[i], *vals[i]);
+        if (keys_[i] != std::nullopt) t.put(*keys_[i], *vals[i]);
     }
-    keys = t.keys;
+    keys_ = t.keys_;
     vals = t.vals;
     M = t.M;
 }
 
 template<typename Key, typename Value>
 std::optional<Value> LinearProbingHashST<Key, Value>::get(const Key &key) const {
-    for (int i = hash(key); keys[i] != std::nullopt; i = (i + 1) % M) {
-        if (keys[i] == key) return vals[i];
+    for (int i = hash(key); keys_[i] != std::nullopt; i = (i + 1) % M) {
+        if (keys_[i] == key) return vals[i];
     }
     return std::nullopt;
 }
@@ -64,13 +64,13 @@ void LinearProbingHashST<Key, Value>::put(const Key &key, const Value &val) {
     if (N >= M / 2) resize(2 * M);
 
     int i;
-    for (i = hash(key); keys[i] != std::nullopt; i = (i + 1) % M) {
-        if (keys[i] == key) {
+    for (i = hash(key); keys_[i] != std::nullopt; i = (i + 1) % M) {
+        if (keys_[i] == key) {
             vals[i] = val;
             return;
         }
     }
-    keys[i] = key;
+    keys_[i] = key;
     vals[i] = val;
     ++N;
 }
@@ -79,14 +79,14 @@ template<typename Key, typename Value>
 void LinearProbingHashST<Key, Value>::remove(const Key &key) {
     if (!this->contains(key)) return;
     int i = hash(key);
-    while (keys[i] != key) i = (i + 1) % M;
-    keys[i] = std::nullopt;
+    while (keys_[i] != key) i = (i + 1) % M;
+    keys_[i] = std::nullopt;
     vals[i] = std::nullopt;
     i = (i + 1) % M;
-    while (keys[i] != std::nullopt) {
-        Key keyToRedo = *keys[i];
+    while (keys_[i] != std::nullopt) {
+        Key keyToRedo = *keys_[i];
         Value valToRedo = *vals[i];
-        keys[i] = std::nullopt;
+        keys_[i] = std::nullopt;
         vals[i] = std::nullopt;
         --N;
         put(keyToRedo, valToRedo);
@@ -97,10 +97,10 @@ void LinearProbingHashST<Key, Value>::remove(const Key &key) {
 }
 
 template<typename Key, typename Value>
-std::deque<Key> LinearProbingHashST<Key, Value>::getKeys() const {
+std::deque<Key> LinearProbingHashST<Key, Value>::keys() const {
     std::deque<Key> queue;
     for (int i = 0; i < M; ++i) {
-        if (keys[i] != std::nullopt) queue.push_back(*keys[i]);
+        if (keys_[i] != std::nullopt) queue.push_back(*keys_[i]);
     }
     return queue;
 }

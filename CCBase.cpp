@@ -2,8 +2,8 @@
 
 void CCBase::dfs(const GraphBase<int> &G, int v) {
     marked[v] = true;
-    id[v] = count;
-    for (int w: G.getAdj(v)) {
+    id_[v] = count_;
+    for (int w: G.adj(v)) {
         if (!marked[w]) dfs(G, w);
     }
 }

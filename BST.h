@@ -11,7 +11,7 @@ protected:
     struct Node {
         Key key;
         Value val;
-        std::shared_ptr<Node> left = nullptr, right = nullptr;
+        std::shared_ptr<Node> left, right;
         int N;  // 以该结点为根的子树中的结点总数
 
         Node(Key key, Value val, int N) : key(key), val(val), N(N) {}
@@ -19,7 +19,7 @@ protected:
         virtual ~Node() = default;
     };
 
-    std::shared_ptr<Node> root = nullptr;
+    std::shared_ptr<Node> root;
 
     std::optional<Value> get(std::shared_ptr<Node> x, const Key &key) const;
 
@@ -41,11 +41,11 @@ protected:
 
     std::shared_ptr<Node> select(std::shared_ptr<Node> x, int k) const;
 
-    std::shared_ptr<typename BST<Key, Value>::Node> removeMin(std::shared_ptr<Node> x);
+    std::shared_ptr<Node> removeMin(std::shared_ptr<Node> x);
 
     std::shared_ptr<Node> removeMax(std::shared_ptr<Node> x);
 
-    void getKeys(std::shared_ptr<Node> x, std::deque<Key> &queue, const Key &lo, const Key &hi) const;
+    void keys(std::shared_ptr<Node> x, std::deque<Key> &queue, const Key &lo, const Key &hi) const;
 
 public:
     std::optional<Value> get(const Key &key) const override { return get(root, key); }
@@ -56,9 +56,9 @@ public:
 
     int size() const override { return size(root); }
 
-    std::optional<Key> min() const override;
+    std::optional<Key> min() const override { return min(root)->key; }
 
-    std::optional<Key> max() const override;
+    std::optional<Key> max() const override { return max(root)->key; }
 
     std::optional<Key> floor(const Key &key) const override;
 
@@ -66,15 +66,15 @@ public:
 
     int rank(const Key &key) const override { return rank(root, key); }
 
-    std::optional<Key> select(int k) const override;
+    std::optional<Key> select(int k) const override { return select(root, k)->key; }
 
-    void removeMin() override;
+    void removeMin() override { root = removeMin(root); }
 
-    void removeMax() override;
+    void removeMax() override { root = removeMax(root); }
 
-    std::deque<Key> getKeys() const override { return getKeys(*min(), *max()); }
+    using OrderedST<Key, Value>::keys;
 
-    std::deque<Key> getKeys(const Key &lo, const Key &hi) const override;
+    std::deque<Key> keys(const Key &lo, const Key &hi) const override;
 };
 
 template<typename Key, typename Value>
@@ -191,61 +191,31 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMax(std::
 }
 
 template<typename Key, typename Value>
-void BST<Key, Value>::getKeys(std::shared_ptr<Node> x, std::deque<Key> &queue, const Key &lo, const Key &hi) const {
+void BST<Key, Value>::keys(std::shared_ptr<Node> x, std::deque<Key> &queue, const Key &lo, const Key &hi) const {
     if (x == nullptr) return;
-    if (lo < x->key) getKeys(x->left, queue, lo, hi);
+    if (lo < x->key) keys(x->left, queue, lo, hi);
     if (lo <= x->key && hi >= x->key) queue.push_back(x->key);
-    if (hi > x->key) getKeys(x->right, queue, lo, hi);
-}
-
-template<typename Key, typename Value>
-std::optional<Key> BST<Key, Value>::min() const {
-    if (this->isEmpty()) return std::nullopt;
-    return min(root)->key;
-}
-
-template<typename Key, typename Value>
-std::optional<Key> BST<Key, Value>::max() const {
-    if (this->isEmpty()) return std::nullopt;
-    return max(root)->key;
+    if (hi > x->key) keys(x->right, queue, lo, hi);
 }
 
 template<typename Key, typename Value>
 std::optional<Key> BST<Key, Value>::floor(const Key &key) const {
-    std::shared_ptr<Node> x = floor(root, key);
+    auto x = floor(root, key);
     if (x == nullptr) return std::nullopt;
     return x->key;
 }
 
 template<typename Key, typename Value>
 std::optional<Key> BST<Key, Value>::ceiling(const Key &key) const {
-    std::shared_ptr<Node> x = ceiling(root, key);
+    auto x = ceiling(root, key);
     if (x == nullptr) return std::nullopt;
     return x->key;
 }
 
 template<typename Key, typename Value>
-std::optional<Key> BST<Key, Value>::select(int k) const {
-    if (this->isEmpty()) return std::nullopt;
-    return select(root, k)->key;
-}
-
-template<typename Key, typename Value>
-void BST<Key, Value>::removeMin() {
-    if (this->isEmpty()) return;
-    removeMin(root);
-}
-
-template<typename Key, typename Value>
-void BST<Key, Value>::removeMax() {
-    if (this->isEmpty()) return;
-    removeMax(root);
-}
-
-template<typename Key, typename Value>
-std::deque<Key> BST<Key, Value>::getKeys(const Key &lo, const Key &hi) const {
+std::deque<Key> BST<Key, Value>::keys(const Key &lo, const Key &hi) const {
     std::deque<Key> queue;
-    getKeys(root, queue, lo, hi);
+    keys(root, queue, lo, hi);
     return queue;
 }
 

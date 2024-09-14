@@ -1,17 +1,17 @@
 #include "DepthFirstOrder.h"
 
 void DepthFirstOrder::dfs(const Digraph &G, int v) {
-    pre.push_back(v);
+    pre_.push_back(v);
     marked[v] = true;
-    for (int w: G.getAdj(v)) {
+    for (int w: G.adj(v)) {
         if (!marked[w]) dfs(G, w);
     }
-    post.push_back(v);
-    reversePost.push_front(v);
+    post_.push_back(v);
+    reversePost_.push_front(v);
 }
 
-DepthFirstOrder::DepthFirstOrder(const Digraph &G) : marked(G.getV()) {
-    for (int v = 0; v < G.getV(); ++v) {
+DepthFirstOrder::DepthFirstOrder(const Digraph &G) : marked(G.V()) {
+    for (int v = 0; v < G.V(); ++v) {
         if (!marked[v]) dfs(G, v);
     }
 }
