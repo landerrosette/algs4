@@ -6,12 +6,12 @@
 
 class Selection : public Sorting {
 public:
-    template<typename T>
-    static void sort(std::vector<T> &a);
+    template <typename T>
+    static void sort(std::vector<T>& a);
 };
 
-template<typename T>
-void Selection::sort(std::vector<T> &a) {
+template <typename T>
+void Selection::sort(std::vector<T>& a) {
     int N = a.size();
     for (int i = 0; i < N; ++i) {
         // 将a[i]和a[i+1..N]中最小的元素交换

@@ -6,12 +6,12 @@
 
 class Shell : public Sorting {
 public:
-    template<typename T>
-    static void sort(std::vector<T> &a);
+    template <typename T>
+    static void sort(std::vector<T>& a);
 };
 
-template<typename T>
-void Shell::sort(std::vector<T> &a) {
+template <typename T>
+void Shell::sort(std::vector<T>& a) {
     int N = a.size();
     int h = 1;
     while (h < N / 3) h = h * 3 + 1;

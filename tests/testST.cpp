@@ -6,7 +6,7 @@
 static constexpr char INVALID_KEY[] = "";
 static constexpr int INVALID_VALUE = -1;
 
-void testBasicST(ST<std::string, int> &&st, std::istream &&data) {
+void testBasicST(ST<std::string, int>&& st, std::istream&& data) {
     std::string word;
     int i = 0;
     while (data >> word) {
@@ -19,7 +19,7 @@ void testBasicST(ST<std::string, int> &&st, std::istream &&data) {
     // print keys using keys()
     std::cout << "Testing keys()" << "\n";
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
-    for (const auto &s: st.keys()) {
+    for (const auto& s : st.keys()) {
         std::cout << s << " " << st.get(s).value_or(INVALID_VALUE) << "\n";
     }
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n" << "\n";
@@ -30,7 +30,7 @@ void testBasicST(ST<std::string, int> &&st, std::istream &&data) {
     }
     std::cout << "After removing the first " << st.size() / 2 << " keys" << "\n";
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
-    for (const auto &s: st.keys()) {
+    for (const auto& s : st.keys()) {
         std::cout << s << " " << st.get(s).value_or(INVALID_VALUE) << "\n";
     }
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n" << "\n";
@@ -47,7 +47,7 @@ void testBasicST(ST<std::string, int> &&st, std::istream &&data) {
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
 }
 
-void testOrderedST(OrderedST<std::string, int> &&st, std::istream &&data) {
+void testOrderedST(OrderedST<std::string, int>&& st, std::istream&& data) {
     std::string word;
     int i = 0;
     while (data >> word) {
@@ -62,7 +62,7 @@ void testOrderedST(OrderedST<std::string, int> &&st, std::istream &&data) {
     // print keys in order using keys()
     std::cout << "Testing keys()" << "\n";
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
-    for (const auto &s: st.keys()) {
+    for (const auto& s : st.keys()) {
         std::cout << s << " " << st.get(s).value_or(INVALID_VALUE) << "\n";
     }
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n" << "\n";
@@ -81,9 +81,9 @@ void testOrderedST(OrderedST<std::string, int> &&st, std::istream &&data) {
     for (char i = 'A'; i <= 'Z'; ++i) {
         std::string s(1, i);
         std::cout << std::setw(2) << s << " "
-                  << std::setw(4) << st.rank(s) << " "
-                << std::setw(4) << st.floor(s).value_or(INVALID_KEY) << " "
-                << std::setw(4) << st.ceiling(s).value_or(INVALID_KEY) << "\n";
+            << std::setw(4) << st.rank(s) << " "
+            << std::setw(4) << st.floor(s).value_or(INVALID_KEY) << " "
+            << std::setw(4) << st.ceiling(s).value_or(INVALID_KEY) << "\n";
     }
     std::cout << "–––––––––––––––––––" << "\n" << "\n";
 
@@ -94,8 +94,8 @@ void testOrderedST(OrderedST<std::string, int> &&st, std::istream &&data) {
     std::cout << "–––––––––––––––––––" << "\n";
     for (int i = 0; i < from.size(); ++i) {
         std::cout << from[i] << "-" << to[i] << " ("
-                  << std::setw(2) << st.size(from[i], to[i]) << ") : ";
-        for (const auto &s: st.keys(from[i], to[i])) {
+            << std::setw(2) << st.size(from[i], to[i]) << ") : ";
+        for (const auto& s : st.keys(from[i], to[i])) {
             std::cout << s << " ";
         }
         std::cout << "\n";
@@ -108,7 +108,7 @@ void testOrderedST(OrderedST<std::string, int> &&st, std::istream &&data) {
     }
     std::cout << "After removing the smallest " << st.size() / 2 << " keys" << "\n";
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
-    for (const auto &s: st.keys()) {
+    for (const auto& s : st.keys()) {
         std::cout << s << " " << st.get(s).value_or(INVALID_VALUE) << "\n";
     }
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n" << "\n";

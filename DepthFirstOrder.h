@@ -11,10 +11,10 @@ private:
     std::vector<bool> marked;
     std::deque<int> pre_, post_, reversePost_;
 
-    void dfs(const Digraph &G, int v);
+    void dfs(const Digraph& G, int v);
 
 public:
-    DepthFirstOrder(const Digraph &G);
+    DepthFirstOrder(const Digraph& G);
 
     std::deque<int> pre() const { return pre_; }
 

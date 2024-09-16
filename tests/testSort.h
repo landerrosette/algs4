@@ -7,11 +7,11 @@
 #include <vector>
 #include <cassert>
 
-template<class Sorter>
-void testSort(std::istream &&data);
+template <class Sorter>
+void testSort(std::istream&& data);
 
-template<class Sorter>
-void testSort(std::istream &&data) {
+template <class Sorter>
+void testSort(std::istream&& data) {
     std::vector<std::string> a;
     std::string word;
     while (data >> word) a.push_back(word);

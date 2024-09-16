@@ -6,7 +6,7 @@
 #include <string>
 #include <iostream>
 
-void testPQ(MaxPQ<std::string> &&pq, std::istream &&data);
+void testPQ(MaxPQ<std::string>&& pq, std::istream&& data);
 
 
 #endif //ALGS4_TESTPQ_H

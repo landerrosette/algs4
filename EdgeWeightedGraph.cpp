@@ -1,6 +1,6 @@
 #include "EdgeWeightedGraph.h"
 
-EdgeWeightedGraph::EdgeWeightedGraph(std::istream &&in) : EdgeWeightedGraph([&in]() {
+EdgeWeightedGraph::EdgeWeightedGraph(std::istream&& in) : EdgeWeightedGraph([&in]() {
     int i;
     return in >> i, i;
 }()) {
@@ -14,7 +14,7 @@ EdgeWeightedGraph::EdgeWeightedGraph(std::istream &&in) : EdgeWeightedGraph([&in
     }
 }
 
-void EdgeWeightedGraph::addEdge(const std::shared_ptr<Edge> &e) {
+void EdgeWeightedGraph::addEdge(const std::shared_ptr<Edge>& e) {
     int v = e->either(), w = e->other(v);
     adj_[v].push_front(e);
     adj_[w].push_front(e);
@@ -24,7 +24,7 @@ void EdgeWeightedGraph::addEdge(const std::shared_ptr<Edge> &e) {
 std::forward_list<Edge> EdgeWeightedGraph::edges() const {
     std::forward_list<Edge> b;
     for (int v = 0; v < V_; ++v) {
-        for (const auto &e: adj_[v]) {
+        for (const auto& e : adj_[v]) {
             if (e->other(v) > v) b.push_front(*e);
         }
     }

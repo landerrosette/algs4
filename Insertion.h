@@ -6,12 +6,12 @@
 
 class Insertion : public Sorting {
 public:
-    template<typename T>
-    static void sort(std::vector<T> &a);
+    template <typename T>
+    static void sort(std::vector<T>& a);
 };
 
-template<typename T>
-void Insertion::sort(std::vector<T> &a) {
+template <typename T>
+void Insertion::sort(std::vector<T>& a) {
     int N = a.size();
     for (int i = 1; i < N; ++i) {
         // 将a[i]插入到a[i-1]、a[i-2]、a[i-3]...之中

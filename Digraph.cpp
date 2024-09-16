@@ -1,6 +1,6 @@
 #include "Digraph.h"
 
-Digraph::Digraph(std::istream &&in) : Digraph([&in]() {
+Digraph::Digraph(std::istream&& in) : Digraph([&in]() {
     int i;
     return in >> i, i;
 }()) {
@@ -21,7 +21,7 @@ void Digraph::addEdge(int v, int w) {
 Digraph Digraph::reverse() const {
     Digraph R(V_);
     for (int v = 0; v < V_; ++v) {
-        for (int w: adj(v)) R.addEdge(w, v);
+        for (int w : adj(v)) R.addEdge(w, v);
     }
     return R;
 }

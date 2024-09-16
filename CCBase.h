@@ -11,10 +11,10 @@ protected:
     std::vector<int> id_;
     int count_ = 0;
 
-    void dfs(const GraphBase<int> &G, int v);
+    void dfs(const GraphBase<int>& G, int v);
 
 public:
-    CCBase(const GraphBase<int> &G) : marked(G.V()), id_(G.V()) {}
+    CCBase(const GraphBase<int>& G) : marked(G.V()), id_(G.V()) {}
 
     virtual ~CCBase() = default;
 

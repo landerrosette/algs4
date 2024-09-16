@@ -9,7 +9,7 @@ class Graph : public GraphBase<int> {
 public:
     Graph(int V) : GraphBase(V) {}
 
-    Graph(std::istream &&in);
+    Graph(std::istream&& in);
 
     void addEdge(int v, int w);
 };

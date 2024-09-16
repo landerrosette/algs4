@@ -7,7 +7,7 @@
 
 class CC : public CCBase {
 public:
-    CC(const Graph &G);
+    CC(const Graph& G);
 };
 
 

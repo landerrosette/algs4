@@ -5,7 +5,7 @@
 #include "PQ.h"
 #include <optional>
 
-template<typename Key>
+template <typename Key>
 class MaxPQ : public PQ<Key> {
 private:
     bool lower(int i, int j) const override { return this->pq[i] < this->pq[j]; }

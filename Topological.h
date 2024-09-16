@@ -7,10 +7,10 @@
 
 class Topological {
 private:
-    std::deque<int> order_;      // 顶点的拓扑顺序
+    std::deque<int> order_; // 顶点的拓扑顺序
 
 public:
-    Topological(const Digraph &G);
+    Topological(const Digraph& G);
 
     std::deque<int> order() const { return order_; }
 

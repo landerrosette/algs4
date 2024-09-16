@@ -11,16 +11,16 @@
 
 class SymbolDigraph {
 private:
-    RedBlackBST<std::string, int> st;       // 符号名 -> 索引
-    std::vector<std::string> keys;          // 索引 -> 符号名
-    std::unique_ptr<Digraph> G_;            // 图
+    RedBlackBST<std::string, int> st; // 符号名 -> 索引
+    std::vector<std::string> keys;    // 索引 -> 符号名
+    std::unique_ptr<Digraph> G_;      // 图
 
 public:
-    SymbolDigraph(const std::filesystem::path &dataFilePath, char sp);
+    SymbolDigraph(const std::filesystem::path& dataFilePath, char sp);
 
-    bool contains(const std::string &s) const { return st.contains(s); }
+    bool contains(const std::string& s) const { return st.contains(s); }
 
-    std::optional<int> index(const std::string &s) const { return st.get(s); }
+    std::optional<int> index(const std::string& s) const { return st.get(s); }
 
     std::string name(int v) const { return keys[v]; }
 

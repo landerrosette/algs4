@@ -7,7 +7,7 @@
 
 class KosarajuSCC : public CCBase {
 public:
-    KosarajuSCC(const Digraph &G);
+    KosarajuSCC(const Digraph& G);
 
     bool stronglyConnected(int v, int w) const { return connected(v, w); }
 };

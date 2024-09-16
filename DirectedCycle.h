@@ -11,12 +11,12 @@ private:
     std::vector<bool> marked;
     std::vector<int> edgeTo;
     std::deque<int> cycle_;
-    std::vector<bool> onStack;           // 栈上的所有顶点
+    std::vector<bool> onStack; // 栈上的所有顶点
 
-    void dfs(const Digraph &G, int v);
+    void dfs(const Digraph& G, int v);
 
 public:
-    DirectedCycle(const Digraph &G);
+    DirectedCycle(const Digraph& G);
 
     bool hasCycle() const { return !cycle_.empty(); }
 

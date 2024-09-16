@@ -33,7 +33,7 @@
 #include "tests/testST.h"
 #include "tests/testGraph.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     std::filesystem::path dataFilePath(argv[1]);
     if (dataFilePath.filename() == "words3.txt") {
         // 测试排序算法

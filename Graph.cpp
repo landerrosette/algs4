@@ -1,6 +1,6 @@
 #include "Graph.h"
 
-Graph::Graph(std::istream &&in) : Graph([&in]() {
+Graph::Graph(std::istream&& in) : Graph([&in]() {
     int i;
     return in >> i, i;
 }()) {
