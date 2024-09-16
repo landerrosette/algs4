@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <filesystem>
 #include "Selection.h"
@@ -16,14 +17,17 @@
 #include "RedBlackBST.h"
 #include "SeparateChainingHashST.h"
 #include "LinearProbingHashST.h"
+#include "Graph.h"
+#include "Digraph.h"
+#include "SymbolDigraph.h"
+#include "EdgeWeightedGraph.h"
 #include "DepthFirstPaths.h"
 #include "BreadthFirstPaths.h"
 #include "CC.h"
 #include "DirectedDFS.h"
 #include "Topological.h"
-#include "SymbolDigraph.h"
 #include "KosarajuSCC.h"
-#include "EdgeWeightedGraph.h"
+#include "PrimMST.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
 #include "tests/testST.h"
@@ -33,130 +37,137 @@ int main(int argc, char *argv[]) {
     std::filesystem::path dataFilePath(argv[1]);
     if (dataFilePath.filename() == "words3.txt") {
         // 测试排序算法
-        // words3.txt
+        // ./algs4 ../data/words3.txt
         std::cout << "Testing 2.1 selection sort" << "\n";
         std::cout << "================================================" << "\n";
-        testSort<Selection>(dataFilePath);
+        testSort<Selection>(std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 2.2 insertion sort" << "\n";
         std::cout << "================================================" << "\n";
-        testSort<Insertion>(dataFilePath);
+        testSort<Insertion>(std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 2.3 shellsort" << "\n";
         std::cout << "================================================" << "\n";
-        testSort<Shell>(dataFilePath);
+        testSort<Shell>(std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 2.4 top-down mergesort" << "\n";
         std::cout << "================================================" << "\n";
-        testSort<Merge>(dataFilePath);
+        testSort<Merge>(std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing bottom-up mergesort" << "\n";
         std::cout << "================================================" << "\n";
-        testSort<MergeBU>(dataFilePath);
+        testSort<MergeBU>(std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 2.5 quicksort" << "\n";
         std::cout << "================================================" << "\n";
-        testSort<Quick>(dataFilePath);
+        testSort<Quick>(std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing quicksort with 3-way partitioning" << "\n";
         std::cout << "================================================" << "\n";
-        testSort<Quick3way>(dataFilePath);
+        testSort<Quick3way>(std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 2.7 heapsort" << "\n";
         std::cout << "================================================" << "\n";
-        testSort<Heap>(dataFilePath);
+        testSort<Heap>(std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyPQ.txt") {
         // 测试优先队列
-        // tinyPQ.txt
+        // ./algs4 ../data/tinyPQ.txt
         std::cout << "Testing 2.6 heap priority queue" << "\n";
         std::cout << "================================================" << "\n";
-        testPQ(MaxPQ<std::string>(10), dataFilePath);
+        testPQ(MaxPQ<std::string>(10), std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyST.txt") {
         // 测试搜索算法
-        // tinyST.txt
+        // ./algs4 ../data/tinyST.txt
         std::cout << "Testing 3.1 sequential search" << "\n";
         std::cout << "================================================" << "\n";
-        testBasicST(SequentialSearchST<std::string, int>(), dataFilePath);
+        testBasicST(SequentialSearchST<std::string, int>(), std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 3.2 binary search" << "\n";
         std::cout << "================================================" << "\n";
-        testOrderedST(BinarySearchST<std::string, int>(20), dataFilePath);
+        testOrderedST(BinarySearchST<std::string, int>(20), std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 3.3 binary tree search" << "\n";
         std::cout << "================================================" << "\n";
-        testOrderedST(BST<std::string, int>(), dataFilePath);
+        testOrderedST(BST<std::string, int>(), std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 3.4 red-black BST search" << "\n";
         std::cout << "================================================" << "\n";
-        testOrderedST(RedBlackBST<std::string, int>(), dataFilePath);
+        testOrderedST(RedBlackBST<std::string, int>(), std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 3.5 hashing with separate chaining" << "\n";
         std::cout << "================================================" << "\n";
-        testBasicST(SeparateChainingHashST<std::string, int>(3), dataFilePath);
+        testBasicST(SeparateChainingHashST<std::string, int>(3), std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 3.6 hashing with linear probing" << "\n";
         std::cout << "================================================" << "\n";
-        testBasicST(LinearProbingHashST<std::string, int>(), dataFilePath);
+        testBasicST(LinearProbingHashST<std::string, int>(), std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyCG.txt" || dataFilePath.filename() == "tinyG.txt") {
         // 测试无向图相关算法
-        // tinyCG.txt | tinyG.txt
-        std::cout << "Reading graph from file" << "\n";
-        std::ifstream dataFile(dataFilePath);
-        Graph G(dataFile);
+        // ./algs4 ../data/tinyCG.txt 0
+        Graph G([&dataFilePath]() {
+            std::cout << "Reading graph from file" << "\n";
+            return std::ifstream(dataFilePath);
+        }());
         std::cout << G << "\n";
+        int s = std::stoi(argv[2]);
 
         std::cout << "Testing 4.1 depth-first search" << "\n";
         std::cout << "================================================" << "\n";
-        testPaths<Graph, DepthFirstPaths>(G);
+        testPaths(G, s, DepthFirstPaths(G, s));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 4.2 breadth-first search" << "\n";
         std::cout << "================================================" << "\n";
-        testPaths<Graph, BreadthFirstPaths>(G);
+        testPaths(G, s, BreadthFirstPaths(G, s));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 4.3 connected components" << "\n";
         std::cout << "================================================" << "\n";
-        testCC<Graph, CC>(G);
+        testCC(G, CC(G));
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyDG.txt") {
         // 测试有向图相关算法
-        // tinyDG.txt
-        std::cout << "Reading graph from file" << "\n";
-        std::ifstream dataFile(dataFilePath);
-        Digraph G(dataFile);
+        // ./algs4 ../data/tinyDG.txt 1 2 6
+        Digraph G([&dataFilePath]() {
+            std::cout << "Reading graph from file" << "\n";
+            return std::ifstream(dataFilePath);
+        }());
         std::cout << G << "\n";
+        std::forward_list<int> sources;
+        for (int i = 2; i < argc; ++i) sources.push_front(std::stoi(argv[i]));
 
         std::cout << "Testing 4.4 reachability" << "\n";
         std::cout << "================================================" << "\n";
-        testSearch<Digraph, DirectedDFS>(G);
+        testSearch(G, DirectedDFS(G, sources));
         std::cout << "================================================" << "\n" << "\n";
         std::cout << "Testing 4.6 strong components (Kosaraju)" << "\n";
         std::cout << "================================================" << "\n";
-        testCC<Digraph, KosarajuSCC>(G);
+        testCC(G, KosarajuSCC(G));
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "jobs.txt") {
         // 测试符号图相关算法
-        // jobs.txt
+        // ./algs4 ../data/jobs.txt "/"
         std::cout << "Reading graph from file" << "\n";
-        std::cout << "Separator: ";
-        char separator;
-        std::cin.get(separator);
-        SymbolDigraph sg(dataFilePath, separator);
-        std::cout << "\n";
+        SymbolDigraph sg(dataFilePath, *argv[2]);
 
         std::cout << "Testing 4.5 topological sort" << "\n";
         std::cout << "================================================" << "\n";
-        testSort<SymbolDigraph, Topological>(sg);
+        testTopological(sg, Topological(sg.G()));
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyEWG.txt") {
         // 测试加权无向图相关算法
-        // tinyEWG.txt
-        std::cout << "Reading graph from file" << "\n";
-        std::ifstream dataFile(dataFilePath);
-        EdgeWeightedGraph G(dataFile);
+        // ./algs4 ../data/tinyEWG.txt
+        EdgeWeightedGraph G([&dataFilePath]() {
+            std::cout << "Reading graph from file" << "\n";
+            return std::ifstream(dataFilePath);
+        }());
         std::cout << G << "\n";
+
+        std::cout << "Testing 4.7 minimum spanning tree (Prim)" << "\n";
+        std::cout << "================================================" << "\n";
+        testMST(G, PrimMST(G));
+        std::cout << "================================================" << "\n";
     }
     return 0;
 }

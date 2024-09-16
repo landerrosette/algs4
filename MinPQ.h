@@ -13,7 +13,7 @@ protected:
 public:
     MinPQ(int maxN) : PQ<Key>(maxN) {}
 
-    virtual std::optional<Key> delMin() { return this->delTop(); }
+    std::optional<Key> delMin() { return this->delTop(); }
 };
 
 

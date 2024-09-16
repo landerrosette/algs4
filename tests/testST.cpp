@@ -1,5 +1,4 @@
 #include "testST.h"
-#include <fstream>
 #include <iostream>
 #include <iomanip>
 #include <cassert>
@@ -7,11 +6,10 @@
 static constexpr char INVALID_KEY[] = "";
 static constexpr int INVALID_VALUE = -1;
 
-void testBasicST(ST<std::string, int> &&st, const std::filesystem::path &dataFilePath) {
-    std::ifstream dataFile(dataFilePath);
+void testBasicST(ST<std::string, int> &&st, std::istream &&data) {
     std::string word;
     int i = 0;
-    while (dataFile >> word) {
+    while (data >> word) {
         st.put(word, i);
         ++i;
     }
@@ -49,11 +47,10 @@ void testBasicST(ST<std::string, int> &&st, const std::filesystem::path &dataFil
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
 }
 
-void testOrderedST(OrderedST<std::string, int> &&st, const std::filesystem::path &dataFilePath) {
-    std::ifstream dataFile(dataFilePath);
+void testOrderedST(OrderedST<std::string, int> &&st, std::istream &&data) {
     std::string word;
     int i = 0;
-    while (dataFile >> word) {
+    while (data >> word) {
         st.put(word, i);
         ++i;
     }

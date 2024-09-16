@@ -1,10 +1,9 @@
 #include "Digraph.h"
 
-Digraph::Digraph(std::istream &in) : Digraph([](std::istream &in) -> int {
+Digraph::Digraph(std::istream &&in) : Digraph([&in]() {
     int i;
-    in >> i;
-    return i;
-}(in)) {
+    return in >> i, i;
+}()) {
     int E;
     in >> E;
     for (int i = 0; i < E; ++i) {

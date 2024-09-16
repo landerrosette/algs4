@@ -6,9 +6,3 @@ void DirectedDFS::dfs(const Digraph &G, int v) {
         if (!marked_[w]) dfs(G, w);
     }
 }
-
-DirectedDFS::DirectedDFS(const Digraph &G, const std::forward_list<int> &sources) : marked_(G.V()) {
-    for (int s: sources) {
-        if (!marked_[s]) dfs(G, s);
-    }
-}

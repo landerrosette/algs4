@@ -4,9 +4,9 @@
 
 #include "MaxPQ.h"
 #include <string>
-#include <filesystem>
+#include <iostream>
 
-void testPQ(MaxPQ<std::string> &&pq, const std::filesystem::path &dataFilePath);
+void testPQ(MaxPQ<std::string> &&pq, std::istream &&data);
 
 
 #endif //ALGS4_TESTPQ_H

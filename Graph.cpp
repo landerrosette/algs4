@@ -1,10 +1,9 @@
 #include "Graph.h"
 
-Graph::Graph(std::istream &in) : Graph([](std::istream &in) -> int {
+Graph::Graph(std::istream &&in) : Graph([&in]() {
     int i;
-    in >> i;
-    return i;
-}(in)) {
+    return in >> i, i;
+}()) {
     int E;
     in >> E;
     for (int i = 0; i < E; ++i) {

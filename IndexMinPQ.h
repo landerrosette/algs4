@@ -12,12 +12,14 @@ private:
     std::vector<std::optional<int>> qp;     // 逆序：qp[pq[i]] = pq[qp[i]] = i
     std::vector<std::optional<Key>> keys;   // 元素
 
-    bool lower(int i, int j) const override { return keys[pq[i]] > keys[pq[j]]; }
+    bool lower(int i, int j) const override { return keys[*pq[i]] > keys[*pq[j]]; }
 
     void exch(int i, int j) override;
 
 public:
     IndexMinPQ(int maxN) : MinPQ(maxN), qp(maxN + 1), keys(maxN + 1) {}
+
+    using MinPQ::isEmpty, MinPQ::size;
 
     bool contains(int k) const { return qp[k].has_value(); }
 
@@ -25,14 +27,14 @@ public:
 
     void change(int k, const Key &key);
 
-    std::optional<int> delMin() override;
+    std::optional<int> delMin();
 };
 
 template<typename Key>
 void IndexMinPQ<Key>::exch(int i, int j) {
     MinPQ::exch(i, j);
-    qp[pq[i]] = i;
-    qp[pq[j]] = j;
+    qp[*pq[i]] = i;
+    qp[*pq[j]] = j;
 }
 
 template<typename Key>
@@ -45,14 +47,14 @@ void IndexMinPQ<Key>::insert(int k, const Key &key) {
 template<typename Key>
 void IndexMinPQ<Key>::change(int k, const Key &key) {
     keys[k] = key;
-    swim(qp[k]);
-    sink(qp[k]);
+    swim(*qp[k]);
+    sink(*qp[k]);
 }
 
 template<typename Key>
 std::optional<int> IndexMinPQ<Key>::delMin() {
-    int indexOfLast = pq[N + 1];
-    int indexOfMin = MinPQ::delMin();
+    int indexOfLast = *pq[N + 1];
+    int indexOfMin = *MinPQ::delMin();
     qp[indexOfLast] = std::nullopt;
     keys[indexOfLast] = std::nullopt;
     return indexOfMin;
