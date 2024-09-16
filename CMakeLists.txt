@@ -65,4 +65,8 @@ add_executable(algs4
         IndexMinPQ.h
         CCBase.cpp
         CCBase.h
+        MST.h
+        PrimMST.cpp
+        PrimMST.h
+        tests/testGraph.cpp
 )

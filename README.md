@@ -36,6 +36,7 @@ incorporating modern C++ practices.
 - **4.4** Reachability: [DirectedDFS.h](DirectedDFS.h) | [DirectedDFS.cpp](DirectedDFS.cpp)
 - **4.5** Topological order: [Topological.h](Topological.h) | [Topological.cpp](Topological.cpp)
 - **4.6** Strong components (Kosaraju): [KosarajuSCC.h](KosarajuSCC.h) | [KosarajuSCC.cpp](KosarajuSCC.cpp)
+- **4.7** Minimum spanning tree (Prim): [PrimMST.h](PrimMST.h) | [PrimMST.cpp](PrimMST.cpp)
 - ...
 
 ## Build and Run
@@ -60,3 +61,8 @@ steps:
    ./algs4 ../data/words3.txt
    ```
    This will execute tests for sorting algorithms.
+4. Some of the tests require additional arguments. For example:
+   ```shell
+   ./algs4 ../data/tinyDG.txt 1 2 6
+   ```
+   This will run directed graph algorithms, with vertices 1, 2, and 6 as starting points for the search.

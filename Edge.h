@@ -25,5 +25,7 @@ inline bool operator>(const Edge &l, const Edge &r) { return l.weight() > r.weig
 
 std::ostream &operator<<(std::ostream &os, const Edge &e);
 
+std::ostream &operator<<(std::ostream &os, const Edge *e);
+
 
 #endif //ALGS4_EDGE_H

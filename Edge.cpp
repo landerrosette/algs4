@@ -13,3 +13,8 @@ std::ostream &operator<<(std::ostream &os, const Edge &e) {
     os << v << "-" << e.other(v) << " " << std::fixed << std::setprecision(2) << e.weight() << " ";
     return os;
 }
+
+std::ostream &operator<<(std::ostream &os, const Edge *e) {
+    if (e) os << *e;
+    return os;
+}
