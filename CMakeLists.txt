@@ -69,4 +69,8 @@ add_executable(algs4
         PrimMST.cpp
         PrimMST.h
         tests/testGraph.cpp
+        UF.cpp
+        UF.h
+        tests/testUF.h
+        tests/testUF.cpp
 )

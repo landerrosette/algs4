@@ -6,6 +6,10 @@ incorporating modern C++ practices.
 
 ## List of Algorithms
 
+### Fundamentals
+
+- **1.5** Union-find: [UF.h](UF.h) | [UF.cpp](UF.cpp)
+
 ### Sorting
 
 - **2.1** Selection sort: [Selection.h](Selection.h)

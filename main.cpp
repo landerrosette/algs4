@@ -28,14 +28,21 @@
 #include "Topological.h"
 #include "KosarajuSCC.h"
 #include "PrimMST.h"
+#include "tests/testUF.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
 #include "tests/testST.h"
 #include "tests/testGraph.h"
 
 int main(int argc, char* argv[]) {
-    std::filesystem::path dataFilePath(argv[1]);
-    if (dataFilePath.filename() == "words3.txt") {
+    if (argc < 2) {
+        // 测试union-find
+        // ./algs4 < ../data/tinyUF.txt
+        std::cout << "Testing 1.5 union-find" << "\n";
+        std::cout << "================================================" << "\n";
+        testUF();
+        std::cout << "================================================" << "\n";
+    } else if (std::filesystem::path dataFilePath(argv[1]); dataFilePath.filename() == "words3.txt") {
         // 测试排序算法
         // ./algs4 ../data/words3.txt
         std::cout << "Testing 2.1 selection sort" << "\n";
