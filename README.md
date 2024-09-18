@@ -41,6 +41,7 @@ incorporating modern C++ practices.
 - **4.5** Topological order: [Topological.h](Topological.h) | [Topological.cpp](Topological.cpp)
 - **4.6** Strong components (Kosaraju): [KosarajuSCC.h](KosarajuSCC.h) | [KosarajuSCC.cpp](KosarajuSCC.cpp)
 - **4.7** Minimum spanning tree (Prim): [PrimMST.h](PrimMST.h) | [PrimMST.cpp](PrimMST.cpp)
+- **4.8** Minimum spanning tree (Kruskal): [KruskalMST.h](KruskalMST.h) | [KruskalMST.cpp](KruskalMST.cpp)
 - ...
 
 ## Build and Run

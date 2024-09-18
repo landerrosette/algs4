@@ -3,8 +3,8 @@
 #include <iomanip>
 
 int Edge::other(int vertex) const {
-    if (vertex == v) return w;
-    else if (vertex == w) return v;
+    if (vertex == e->v) return e->w;
+    else if (vertex == e->w) return e->v;
     else throw std::runtime_error("Inconsistent edge");
 }
 

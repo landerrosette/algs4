@@ -1,7 +1,8 @@
 #ifndef UF_H
 #define UF_H
-#include <vector>
 
+
+#include <vector>
 
 class UF {
 private:

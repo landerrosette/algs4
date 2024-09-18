@@ -28,6 +28,7 @@
 #include "Topological.h"
 #include "KosarajuSCC.h"
 #include "PrimMST.h"
+#include "KruskalMST.h"
 #include "tests/testUF.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
@@ -174,6 +175,10 @@ int main(int argc, char* argv[]) {
         std::cout << "Testing 4.7 minimum spanning tree (Prim)" << "\n";
         std::cout << "================================================" << "\n";
         testMST(G, PrimMST(G));
+        std::cout << "================================================" << "\n" << "\n";
+        std::cout << "Testing 4.8 minimum spanning tree (Kruskal)" << "\n";
+        std::cout << "================================================" << "\n";
+        testMST(G, KruskalMST(G));
         std::cout << "================================================" << "\n";
     }
     return 0;

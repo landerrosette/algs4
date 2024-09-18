@@ -11,7 +11,7 @@ public:
 
     virtual std::forward_list<Edge> edges() const = 0;
 
-    virtual double weight() const = 0;
+    double weight() const;
 };
 
 

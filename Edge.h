@@ -3,18 +3,27 @@
 
 
 #include <iostream>
+#include <memory>
 
 class Edge {
 private:
-    const int v, w;       // 顶点
-    const double weight_; // 边的权重
+    struct Edge_ {
+        const int v, w;      // 顶点
+        const double weight; // 边的权重
+
+        Edge_(int v, int w, double weight) : v(v), w(w), weight(weight) {}
+    };
+
+    std::shared_ptr<Edge_> e;
 
 public:
-    Edge(int v, int w, double weight) : v(v), w(w), weight_(weight) {}
+    Edge() = default;
 
-    double weight() const { return weight_; }
+    Edge(int v, int w, double weight) : e(std::make_shared<Edge_>(v, w, weight)) {}
 
-    int either() const { return v; }
+    double weight() const { return e->weight; }
+
+    int either() const { return e->v; }
 
     int other(int vertex) const;
 };

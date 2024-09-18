@@ -73,4 +73,7 @@ add_executable(algs4
         UF.h
         tests/testUF.h
         tests/testUF.cpp
+        KruskalMST.cpp
+        KruskalMST.h
+        MST.cpp
 )
