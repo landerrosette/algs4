@@ -26,6 +26,8 @@ public:
     int either() const { return edge_->v; }
 
     int other(int vertex) const;
+
+    explicit operator bool() const { return static_cast<bool>(edge_); }
 };
 
 bool operator<(const Edge& l, const Edge& r);

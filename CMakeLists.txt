@@ -80,4 +80,6 @@ add_executable(algs4
         DirectedEdge.cpp
         EdgeWeightedDigraph.cpp
         EdgeWeightedDigraph.h
+        SP.cpp
+        SP.h
 )
