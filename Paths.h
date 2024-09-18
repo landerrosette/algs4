@@ -3,8 +3,8 @@
 
 
 #include "Graph.h"
-#include <deque>
 #include <vector>
+#include <list>
 
 class Paths {
 protected:
@@ -17,7 +17,7 @@ public:
 
     bool hasPathTo(int v) const { return marked[v]; }
 
-    std::deque<int> pathTo(int v) const;
+    std::list<int> pathTo(int v) const;
 };
 
 

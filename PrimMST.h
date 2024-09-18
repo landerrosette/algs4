@@ -19,7 +19,7 @@ private:
 public:
     PrimMST(const EdgeWeightedGraph& G);
 
-    std::forward_list<Edge> edges() const override;
+    std::list<Edge> edges() const override;
 };
 
 

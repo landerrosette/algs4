@@ -19,8 +19,8 @@ void EdgeWeightedDigraph::addEdge(const DirectedEdge& e) {
     ++E_;
 }
 
-std::forward_list<DirectedEdge> EdgeWeightedDigraph::edges() const {
-    std::forward_list<DirectedEdge> bag;
+std::list<DirectedEdge> EdgeWeightedDigraph::edges() const {
+    std::list<DirectedEdge> bag;
     for (int v = 0; v < V_; ++v) {
         for (const auto& e : adj_[v]) {
             bag.push_front(e);

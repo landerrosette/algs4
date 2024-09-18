@@ -31,7 +31,7 @@ public:
 
     int size() const override { return N; }
 
-    std::deque<Key> keys() const override;
+    std::list<Key> keys() const override;
 };
 
 template <typename Key, typename Value>
@@ -97,8 +97,8 @@ void LinearProbingHashST<Key, Value>::remove(const Key& key) {
 }
 
 template <typename Key, typename Value>
-std::deque<Key> LinearProbingHashST<Key, Value>::keys() const {
-    std::deque<Key> queue;
+std::list<Key> LinearProbingHashST<Key, Value>::keys() const {
+    std::list<Key> queue;
     for (int i = 0; i < M; ++i) {
         if (keys_[i]) queue.push_back(*keys_[i]);
     }

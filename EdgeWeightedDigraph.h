@@ -5,7 +5,7 @@
 #include "GraphBase.h"
 #include "DirectedEdge.h"
 #include <iostream>
-#include <forward_list>
+#include <list>
 
 class EdgeWeightedDigraph : public GraphBase<DirectedEdge> {
 public:
@@ -15,7 +15,7 @@ public:
 
     void addEdge(const DirectedEdge& e);
 
-    std::forward_list<DirectedEdge> edges() const;
+    std::list<DirectedEdge> edges() const;
 };
 
 

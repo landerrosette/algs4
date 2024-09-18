@@ -21,8 +21,8 @@ void EdgeWeightedGraph::addEdge(const Edge& e) {
     ++E_;
 }
 
-std::forward_list<Edge> EdgeWeightedGraph::edges() const {
-    std::forward_list<Edge> bag;
+std::list<Edge> EdgeWeightedGraph::edges() const {
+    std::list<Edge> bag;
     for (int v = 0; v < V_; ++v) {
         for (const auto& e : adj_[v]) {
             if (e.other(v) > v) bag.push_front(e);

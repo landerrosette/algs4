@@ -23,8 +23,8 @@ PrimMST::PrimMST(const EdgeWeightedGraph& G) : edgeTo(G.V()), distTo(G.V(), std:
     while (!pq.isEmpty()) visit(G, *pq.delMin());
 }
 
-std::forward_list<Edge> PrimMST::edges() const {
-    std::forward_list<Edge> mst;
+std::list<Edge> PrimMST::edges() const {
+    std::list<Edge> mst;
     for (int v = 1; v < edgeTo.size(); ++v) mst.push_front(edgeTo[v]);
     return mst;
 }

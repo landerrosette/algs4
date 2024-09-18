@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <filesystem>
+#include <list>
 #include "Selection.h"
 #include "Insertion.h"
 #include "Shell.h"
@@ -142,7 +143,7 @@ int main(int argc, char* argv[]) {
             return std::ifstream(dataFilePath);
         }());
         std::cout << G << "\n";
-        std::forward_list<int> sources;
+        std::list<int> sources;
         for (int i = 2; i < argc; ++i) sources.push_front(std::stoi(argv[i]));
 
         std::cout << "Testing 4.4 reachability" << "\n";

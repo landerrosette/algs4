@@ -30,7 +30,7 @@ public:
 
     int size() const override { return N; }
 
-    std::deque<Key> keys() const override;
+    std::list<Key> keys() const override;
 };
 
 template <typename Key, typename Value>
@@ -66,8 +66,8 @@ void SequentialSearchST<Key, Value>::put(const Key& key, const Value& val) {
 }
 
 template <typename Key, typename Value>
-std::deque<Key> SequentialSearchST<Key, Value>::keys() const {
-    std::deque<Key> queue;
+std::list<Key> SequentialSearchST<Key, Value>::keys() const {
+    std::list<Key> queue;
     for (auto x = first; x; x = x->next) queue.push_back(x->key);
     return queue;
 }

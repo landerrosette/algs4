@@ -1,6 +1,6 @@
 #include "testGraph.h"
 #include <iostream>
-#include <forward_list>
+#include <list>
 
 void testPaths(const Graph& G, int s, const Paths& search) {
     for (int v = 0; v < G.V(); ++v) {
@@ -19,7 +19,7 @@ void testCC(const GraphBase<int>& G, const CCBase& cc) {
     int M = cc.count();
     std::cout << M << " components" << "\n";
 
-    std::forward_list<int> components[M];
+    std::list<int> components[M];
     for (int v = 0; v < G.V(); ++v) components[cc.id(v)].push_front(v);
     for (int i = 0; i < M; ++i) {
         for (int v : components[i]) std::cout << v << " ";

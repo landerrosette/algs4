@@ -3,7 +3,7 @@
 
 
 #include "ST.h"
-#include <deque>
+#include <list>
 #include <optional>
 
 template <typename Key, typename Value>
@@ -29,9 +29,9 @@ public:
 
     int size(const Key& lo, const Key& hi) const;
 
-    std::deque<Key> keys() const override { return keys(*min(), *max()); }
+    std::list<Key> keys() const override { return keys(*min(), *max()); }
 
-    virtual std::deque<Key> keys(const Key& lo, const Key& hi) const = 0;
+    virtual std::list<Key> keys(const Key& lo, const Key& hi) const = 0;
 };
 
 template <typename Key, typename Value>

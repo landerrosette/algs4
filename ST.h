@@ -2,7 +2,7 @@
 #define ALGS4_ST_H
 
 
-#include <deque>
+#include <list>
 #include <optional>
 
 template <typename Key, typename Value>
@@ -22,7 +22,7 @@ public:
 
     virtual int size() const = 0;
 
-    virtual std::deque<Key> keys() const = 0;
+    virtual std::list<Key> keys() const = 0;
 };
 
 

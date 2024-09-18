@@ -24,23 +24,12 @@ void testBasicST(ST<std::string, int>&& st, std::istream&& data) {
     }
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n" << "\n";
 
-    // remove the first few keys
-    for (int i = 0; i < st.size() / 2; ++i) {
-        st.remove(st.keys()[0]);
-    }
-    std::cout << "After removing the first " << st.size() / 2 << " keys" << "\n";
-    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
+    // remove all keys
     for (const auto& s : st.keys()) {
-        std::cout << s << " " << st.get(s).value_or(INVALID_VALUE) << "\n";
+        std::cout << "Removing " << s << "\n";
+        st.remove(s);
     }
-    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n" << "\n";
-
-    // remove all the remaining keys
-    while (!st.isEmpty()) {
-        std::cout << "Removing " << st.keys()[st.size() / 2] << "\n";
-        st.remove(st.keys()[st.size() / 2]);
-    }
-    std::cout << "After removing the remaining keys" << "\n";
+    std::cout << "After removing all keys" << "\n";
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << "\n";
     assert(st.isEmpty());
     std::cout << "(Empty)" << "\n";

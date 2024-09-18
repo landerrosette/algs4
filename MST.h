@@ -3,13 +3,13 @@
 
 
 #include "Edge.h"
-#include <forward_list>
+#include <list>
 
 class MST {
 public:
     virtual ~MST() = default;
 
-    virtual std::forward_list<Edge> edges() const = 0;
+    virtual std::list<Edge> edges() const = 0;
 
     double weight() const;
 };

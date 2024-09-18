@@ -26,7 +26,7 @@ public:
 
     int size() const override;
 
-    std::deque<Key> keys() const override;
+    std::list<Key> keys() const override;
 };
 
 template <typename Key, typename Value>
@@ -43,8 +43,8 @@ int SeparateChainingHashST<Key, Value>::size() const {
 }
 
 template <typename Key, typename Value>
-std::deque<Key> SeparateChainingHashST<Key, Value>::keys() const {
-    std::deque<Key> queue;
+std::list<Key> SeparateChainingHashST<Key, Value>::keys() const {
+    std::list<Key> queue;
     for (int i = 0; i < M; ++i) {
         for (const auto& key : st[i].keys()) {
             queue.push_back(key);

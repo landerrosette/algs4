@@ -4,6 +4,7 @@
 
 #include "Digraph.h"
 #include <vector>
+#include <list>
 
 class DirectedDFS {
 private:
@@ -14,18 +15,10 @@ private:
 public:
     DirectedDFS(const Digraph& G, int s) : marked_(G.V()) { dfs(G, s); }
 
-    template <typename Iterable>
-    DirectedDFS(const Digraph& G, const Iterable& sources);
+    DirectedDFS(const Digraph& G, const std::list<int>& sources);
 
     bool marked(int v) const { return marked_[v]; }
 };
-
-template <typename Iterable>
-DirectedDFS::DirectedDFS(const Digraph& G, const Iterable& sources) : marked_(G.V()) {
-    for (int s : sources) {
-        if (!marked_[s]) dfs(G, s);
-    }
-}
 
 
 #endif //ALGS4_DIRECTEDDFS_H

@@ -3,18 +3,17 @@
 
 
 #include "MST.h"
-#include <deque>
+#include <list>
 #include "EdgeWeightedGraph.h"
-#include <forward_list>
 
 class KruskalMST : public MST {
 private:
-    std::deque<Edge> mst;
+    std::list<Edge> mst;
 
 public:
     KruskalMST(const EdgeWeightedGraph& G);
 
-    std::forward_list<Edge> edges() const override;
+    std::list<Edge> edges() const override;
 };
 
 

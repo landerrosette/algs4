@@ -35,7 +35,7 @@ public:
 
     std::optional<Key> select(int k) const override { return keys_[k]; }
 
-    std::deque<Key> keys(const Key& lo, const Key& hi) const override;
+    std::list<Key> keys(const Key& lo, const Key& hi) const override;
 };
 
 template <typename Key, typename Value>
@@ -103,8 +103,8 @@ int BinarySearchST<Key, Value>::rank(const Key& key) const {
 }
 
 template <typename Key, typename Value>
-std::deque<Key> BinarySearchST<Key, Value>::keys(const Key& lo, const Key& hi) const {
-    std::deque<Key> queue;
+std::list<Key> BinarySearchST<Key, Value>::keys(const Key& lo, const Key& hi) const {
+    std::list<Key> queue;
     if (hi < lo) return queue;
     for (int i = rank(lo); i < rank(hi); ++i) queue.push_back(*keys_[i]);
     if (this->contains(hi)) queue.push_back(*keys_[rank(hi)]);

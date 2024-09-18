@@ -2,16 +2,16 @@
 #define ALGS4_GRAPHBASE_H
 
 
-#include <forward_list>
+#include <list>
 #include <vector>
 #include <iostream>
 
 template <typename T>
 class GraphBase {
 protected:
-    const int V_;                           // 顶点数目
-    int E_;                                 // 边的数目
-    std::vector<std::forward_list<T>> adj_; // 邻接表
+    const int V_;                   // 顶点数目
+    int E_;                         // 边的数目
+    std::vector<std::list<T>> adj_; // 邻接表
 
 public:
     GraphBase(int V) : V_(V), E_(0), adj_(V) {}
@@ -22,7 +22,7 @@ public:
 
     int E() const { return E_; }
 
-    std::forward_list<T> adj(int v) const { return adj_[v]; }
+    std::list<T> adj(int v) const { return adj_[v]; }
 };
 
 template <typename T>

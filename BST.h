@@ -45,7 +45,7 @@ protected:
 
     std::shared_ptr<Node> removeMax(std::shared_ptr<Node> x);
 
-    void keys(std::shared_ptr<Node> x, std::deque<Key>& queue, const Key& lo, const Key& hi) const;
+    void keys(std::shared_ptr<Node> x, std::list<Key>& queue, const Key& lo, const Key& hi) const;
 
 public:
     std::optional<Value> get(const Key& key) const override { return get(root, key); }
@@ -74,7 +74,7 @@ public:
 
     using OrderedST<Key, Value>::keys;
 
-    std::deque<Key> keys(const Key& lo, const Key& hi) const override;
+    std::list<Key> keys(const Key& lo, const Key& hi) const override;
 };
 
 template <typename Key, typename Value>
@@ -191,7 +191,7 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMax(std::
 }
 
 template <typename Key, typename Value>
-void BST<Key, Value>::keys(std::shared_ptr<Node> x, std::deque<Key>& queue, const Key& lo, const Key& hi) const {
+void BST<Key, Value>::keys(std::shared_ptr<Node> x, std::list<Key>& queue, const Key& lo, const Key& hi) const {
     if (!x) return;
     if (lo < x->key) keys(x->left, queue, lo, hi);
     if (lo <= x->key && hi >= x->key) queue.push_back(x->key);
@@ -213,8 +213,8 @@ std::optional<Key> BST<Key, Value>::ceiling(const Key& key) const {
 }
 
 template <typename Key, typename Value>
-std::deque<Key> BST<Key, Value>::keys(const Key& lo, const Key& hi) const {
-    std::deque<Key> queue;
+std::list<Key> BST<Key, Value>::keys(const Key& lo, const Key& hi) const {
+    std::list<Key> queue;
     keys(root, queue, lo, hi);
     return queue;
 }

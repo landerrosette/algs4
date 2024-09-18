@@ -15,6 +15,6 @@ KruskalMST::KruskalMST(const EdgeWeightedGraph& G) {
     }
 }
 
-std::forward_list<Edge> KruskalMST::edges() const {
-    return {mst.cbegin(), mst.cend()};
+std::list<Edge> KruskalMST::edges() const {
+    return mst;
 }
