@@ -1,5 +1,6 @@
 #include "KruskalMST.h"
 #include "MinPQ.h"
+#include "UF.h"
 
 KruskalMST::KruskalMST(const EdgeWeightedGraph& G) {
     MinPQ<Edge> pq(G.E());

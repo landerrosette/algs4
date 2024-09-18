@@ -76,4 +76,6 @@ add_executable(algs4
         KruskalMST.cpp
         KruskalMST.h
         MST.cpp
+        DirectedEdge.h
+        DirectedEdge.cpp
 )

@@ -3,18 +3,16 @@
 #include <iomanip>
 
 int Edge::other(int vertex) const {
-    if (vertex == e->v) return e->w;
-    else if (vertex == e->w) return e->v;
+    if (vertex == edge_->v) return edge_->w;
+    else if (vertex == edge_->w) return edge_->v;
     else throw std::runtime_error("Inconsistent edge");
 }
 
+bool operator<(const Edge& l, const Edge& r) { return l.weight() < r.weight(); }
+
+bool operator>(const Edge& l, const Edge& r) { return l.weight() > r.weight(); }
+
 std::ostream& operator<<(std::ostream& os, const Edge& e) {
     int v = e.either();
-    os << v << "-" << e.other(v) << " " << std::fixed << std::setprecision(2) << e.weight() << " ";
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const Edge* e) {
-    if (e) os << *e;
-    return os;
+    return os << v << "-" << e.other(v) << " " << std::fixed << std::setprecision(2) << e.weight() << " ";
 }

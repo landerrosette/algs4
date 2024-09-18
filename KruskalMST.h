@@ -5,7 +5,6 @@
 #include "MST.h"
 #include <deque>
 #include "EdgeWeightedGraph.h"
-#include "UF.h"
 #include <forward_list>
 
 class KruskalMST : public MST {
