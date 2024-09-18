@@ -3,6 +3,7 @@
 
 
 #include "Edge.h"
+#include <iostream>
 
 class DirectedEdge : private Edge {
 public:

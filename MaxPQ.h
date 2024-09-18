@@ -11,7 +11,7 @@ private:
     bool lower(int i, int j) const override { return this->pq[i] < this->pq[j]; }
 
 public:
-    MaxPQ(int maxN) : PQ<Key>(maxN) {}
+    using PQ<Key>::PQ;
 
     std::optional<Key> delMax() { return this->delTop(); }
 };

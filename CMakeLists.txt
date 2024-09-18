@@ -78,4 +78,6 @@ add_executable(algs4
         MST.cpp
         DirectedEdge.h
         DirectedEdge.cpp
+        EdgeWeightedDigraph.cpp
+        EdgeWeightedDigraph.h
 )
