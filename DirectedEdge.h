@@ -12,6 +12,10 @@ public:
     int from() const { return edge_->v; }
 
     int to() const { return edge_->w; }
+
+    using Edge::operator bool;
+
+    friend std::ostream& operator<<(std::ostream& os, const DirectedEdge& e);
 };
 
 std::ostream& operator<<(std::ostream& os, const DirectedEdge& e);

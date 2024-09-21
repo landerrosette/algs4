@@ -28,6 +28,8 @@ public:
     int other(int vertex) const;
 
     explicit operator bool() const { return static_cast<bool>(edge_); }
+
+    friend std::ostream &operator<<(std::ostream &os, const Edge &e);
 };
 
 bool operator<(const Edge& l, const Edge& r);

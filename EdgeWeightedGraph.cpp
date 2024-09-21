@@ -1,9 +1,6 @@
 #include "EdgeWeightedGraph.h"
 
-EdgeWeightedGraph::EdgeWeightedGraph(std::istream&& in) : EdgeWeightedGraph([&in]() {
-    int i;
-    return in >> i, i;
-}()) {
+EdgeWeightedGraph::EdgeWeightedGraph(std::istream&& in) : GraphBase(in) {
     int E;
     in >> E;
     for (int i = 0; i < E; ++i) {

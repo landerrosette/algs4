@@ -15,8 +15,12 @@ protected:
 
     void relax(const EdgeWeightedDigraph& G, int v);
 
+    virtual void onRelax(const DirectedEdge& e, int w) {}
+
 public:
     SP(const EdgeWeightedDigraph& G, int s);
+
+    virtual ~SP() = default;
 
     double distTo(int v) const { return distTo_[v]; }
 

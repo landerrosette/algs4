@@ -13,6 +13,5 @@ bool operator<(const Edge& l, const Edge& r) { return l.weight() < r.weight(); }
 bool operator>(const Edge& l, const Edge& r) { return l.weight() > r.weight(); }
 
 std::ostream& operator<<(std::ostream& os, const Edge& e) {
-    int v = e.either();
-    return os << v << "-" << e.other(v) << " " << std::fixed << std::setprecision(2) << e.weight() << " ";
+    return os << e.edge_->v << "-" << e.edge_->w << " " << std::fixed << std::setprecision(2) << e.edge_->weight << " ";
 }

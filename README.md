@@ -4,7 +4,7 @@ This repository provides C++ implementations of the algorithms from the book *Al
 Sedgewick and Kevin Wayne. These implementations adhere closely to the original Java code from the book, while
 incorporating modern C++ practices.
 
-## List of Algorithms
+## Algorithms
 
 ### Fundamentals
 
@@ -42,6 +42,7 @@ incorporating modern C++ practices.
 - **4.6** Strong components (Kosaraju): [KosarajuSCC.h](KosarajuSCC.h) | [KosarajuSCC.cpp](KosarajuSCC.cpp)
 - **4.7** Minimum spanning tree (Prim): [PrimMST.h](PrimMST.h) | [PrimMST.cpp](PrimMST.cpp)
 - **4.8** Minimum spanning tree (Kruskal): [KruskalMST.h](KruskalMST.h) | [KruskalMST.cpp](KruskalMST.cpp)
+- **4.9** Shortest paths (Dijkstra): [DijkstraSP.h](DijkstraSP.h) | [DijkstraSP.cpp](DijkstraSP.cpp)
 - ...
 
 ## Build and Run

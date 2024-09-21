@@ -16,6 +16,8 @@ protected:
 public:
     GraphBase(int V) : V_(V), E_(0), adj_(V) {}
 
+    GraphBase(std::istream& in);
+
     virtual ~GraphBase() = default;
 
     int V() const { return V_; }
@@ -24,6 +26,12 @@ public:
 
     std::list<T> adj(int v) const { return adj_[v]; }
 };
+
+template <typename T>
+GraphBase<T>::GraphBase(std::istream& in) : GraphBase([&in] {
+    int i;
+    return in >> i, i;
+}()) {}
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const GraphBase<T>& G) {

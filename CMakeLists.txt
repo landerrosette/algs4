@@ -82,4 +82,6 @@ add_executable(algs4
         EdgeWeightedDigraph.h
         SP.cpp
         SP.h
+        DijkstraSP.cpp
+        DijkstraSP.h
 )

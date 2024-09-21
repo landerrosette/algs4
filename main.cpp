@@ -22,6 +22,7 @@
 #include "Digraph.h"
 #include "SymbolDigraph.h"
 #include "EdgeWeightedGraph.h"
+#include "EdgeWeightedDigraph.h"
 #include "DepthFirstPaths.h"
 #include "BreadthFirstPaths.h"
 #include "CC.h"
@@ -30,6 +31,7 @@
 #include "KosarajuSCC.h"
 #include "PrimMST.h"
 #include "KruskalMST.h"
+#include "DijkstraSP.h"
 #include "tests/testUF.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
@@ -116,7 +118,7 @@ int main(int argc, char* argv[]) {
     } else if (dataFilePath.filename() == "tinyCG.txt" || dataFilePath.filename() == "tinyG.txt") {
         // 测试无向图相关算法
         // ./algs4 ../data/tinyCG.txt 0
-        Graph G([&dataFilePath]() {
+        Graph G([&dataFilePath] {
             std::cout << "Reading graph from file" << "\n";
             return std::ifstream(dataFilePath);
         }());
@@ -138,7 +140,7 @@ int main(int argc, char* argv[]) {
     } else if (dataFilePath.filename() == "tinyDG.txt") {
         // 测试有向图相关算法
         // ./algs4 ../data/tinyDG.txt 1 2 6
-        Digraph G([&dataFilePath]() {
+        Digraph G([&dataFilePath] {
             std::cout << "Reading graph from file" << "\n";
             return std::ifstream(dataFilePath);
         }());
@@ -167,7 +169,7 @@ int main(int argc, char* argv[]) {
     } else if (dataFilePath.filename() == "tinyEWG.txt") {
         // 测试加权无向图相关算法
         // ./algs4 ../data/tinyEWG.txt
-        EdgeWeightedGraph G([&dataFilePath]() {
+        EdgeWeightedGraph G([&dataFilePath] {
             std::cout << "Reading graph from file" << "\n";
             return std::ifstream(dataFilePath);
         }());
@@ -180,6 +182,20 @@ int main(int argc, char* argv[]) {
         std::cout << "Testing 4.8 minimum spanning tree (Kruskal)" << "\n";
         std::cout << "================================================" << "\n";
         testMST(G, KruskalMST(G));
+        std::cout << "================================================" << "\n";
+    } else if (dataFilePath.filename() == "tinyEWD.txt") {
+        // 测试加权有向图相关算法
+        // ./algs4 ../data/tinyEWD.txt 0
+        EdgeWeightedDigraph G([&dataFilePath] {
+            std::cout << "Reading graph from file" << "\n";
+            return std::ifstream(dataFilePath);
+        }());
+        std::cout << G << "\n";
+        int s = std::stoi(argv[2]);
+
+        std::cout << "Testing 4.9 shortest paths (Dijkstra)" << "\n";
+        std::cout << "================================================" << "\n";
+        testSP(G, s, DijkstraSP(G, s));
         std::cout << "================================================" << "\n";
     }
     return 0;

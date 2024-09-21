@@ -1,9 +1,6 @@
 #include "Graph.h"
 
-Graph::Graph(std::istream&& in) : Graph([&in]() {
-    int i;
-    return in >> i, i;
-}()) {
+Graph::Graph(std::istream&& in) : GraphBase(in) {
     int E;
     in >> E;
     for (int i = 0; i < E; ++i) {
