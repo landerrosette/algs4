@@ -45,13 +45,10 @@ add_executable(algs4
         CC.h
         DirectedDFS.cpp
         DirectedDFS.h
-        DirectedCycle.cpp
         DirectedCycle.h
-        DepthFirstOrder.cpp
         DepthFirstOrder.h
         SymbolDigraph.cpp
         SymbolDigraph.h
-        Topological.cpp
         Topological.h
         KosarajuSCC.cpp
         KosarajuSCC.h
@@ -84,4 +81,6 @@ add_executable(algs4
         SP.h
         DijkstraSP.cpp
         DijkstraSP.h
+        AcyclicSP.cpp
+        AcyclicSP.h
 )

@@ -3,8 +3,10 @@
 
 
 #include <list>
-#include "Digraph.h"
+#include "GraphBase.h"
 #include <vector>
+#include "DirectedEdge.h"
+#include <type_traits>
 
 class DirectedCycle {
 private:
@@ -13,15 +15,46 @@ private:
     std::list<int> cycle_;
     std::vector<bool> onStack; // 栈上的所有顶点
 
-    void dfs(const Digraph& G, int v);
+    template <typename T>
+    void dfs(const GraphBase<T>& G, int v);
 
 public:
-    DirectedCycle(const Digraph& G);
+    template <typename T>
+    DirectedCycle(const GraphBase<T>& G);
 
     bool hasCycle() const { return !cycle_.empty(); }
 
     std::list<int> cycle() const { return cycle_; }
 };
+
+template <typename T>
+void DirectedCycle::dfs(const GraphBase<T>& G, int v) {
+    onStack[v] = true;
+    marked[v] = true;
+    for (const auto& e : G.adj(v)) {
+        int w;
+        if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>) w = e.to();
+        else w = e;
+        if (hasCycle()) {
+            return;
+        } else if (!marked[w]) {
+            edgeTo[w] = v;
+            dfs(G, w);
+        } else if (onStack[w]) {
+            for (int x = v; x != w; x = edgeTo[x]) cycle_.push_front(x);
+            cycle_.push_front(w);
+            cycle_.push_front(v);
+        }
+    }
+    onStack[v] = false;
+}
+
+template <typename T>
+DirectedCycle::DirectedCycle(const GraphBase<T>& G) : marked(G.V()), edgeTo(G.V()), onStack(G.V()) {
+    for (int v = 0; v < G.V(); ++v) {
+        if (!marked[v]) dfs(G, v);
+    }
+}
 
 
 #endif //ALGS4_DIRECTEDCYCLE_H

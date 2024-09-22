@@ -32,6 +32,7 @@
 #include "PrimMST.h"
 #include "KruskalMST.h"
 #include "DijkstraSP.h"
+#include "AcyclicSP.h"
 #include "tests/testUF.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
@@ -41,14 +42,14 @@
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         // 测试union-find
-        // ./algs4 < ../data/tinyUF.txt
+        // Example: ./algs4 < ../data/tinyUF.txt
         std::cout << "Testing 1.5 union-find" << "\n";
         std::cout << "================================================" << "\n";
         testUF();
         std::cout << "================================================" << "\n";
     } else if (std::filesystem::path dataFilePath(argv[1]); dataFilePath.filename() == "words3.txt") {
         // 测试排序算法
-        // ./algs4 ../data/words3.txt
+        // Example: ./algs4 ../data/words3.txt
         std::cout << "Testing 2.1 selection sort" << "\n";
         std::cout << "================================================" << "\n";
         testSort<Selection>(std::ifstream(dataFilePath));
@@ -83,14 +84,14 @@ int main(int argc, char* argv[]) {
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyPQ.txt") {
         // 测试优先队列
-        // ./algs4 ../data/tinyPQ.txt
+        // Example: ./algs4 ../data/tinyPQ.txt
         std::cout << "Testing 2.6 heap priority queue" << "\n";
         std::cout << "================================================" << "\n";
         testPQ(MaxPQ<std::string>(10), std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyST.txt") {
         // 测试搜索算法
-        // ./algs4 ../data/tinyST.txt
+        // Example: ./algs4 ../data/tinyST.txt
         std::cout << "Testing 3.1 sequential search" << "\n";
         std::cout << "================================================" << "\n";
         testBasicST(SequentialSearchST<std::string, int>(), std::ifstream(dataFilePath));
@@ -117,7 +118,8 @@ int main(int argc, char* argv[]) {
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyCG.txt" || dataFilePath.filename() == "tinyG.txt") {
         // 测试无向图相关算法
-        // ./algs4 ../data/tinyCG.txt 0
+        // Example: ./algs4 ../data/tinyCG.txt 0
+        // Example: ./algs4 ../data/tinyG.txt 0
         Graph G([&dataFilePath] {
             std::cout << "Reading graph from file" << "\n";
             return std::ifstream(dataFilePath);
@@ -139,7 +141,7 @@ int main(int argc, char* argv[]) {
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyDG.txt") {
         // 测试有向图相关算法
-        // ./algs4 ../data/tinyDG.txt 1 2 6
+        // Example: ./algs4 ../data/tinyDG.txt 1 2 6
         Digraph G([&dataFilePath] {
             std::cout << "Reading graph from file" << "\n";
             return std::ifstream(dataFilePath);
@@ -158,7 +160,7 @@ int main(int argc, char* argv[]) {
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "jobs.txt") {
         // 测试符号图相关算法
-        // ./algs4 ../data/jobs.txt "/"
+        // Example: ./algs4 ../data/jobs.txt "/"
         std::cout << "Reading graph from file" << "\n";
         SymbolDigraph sg(dataFilePath, *argv[2]);
 
@@ -168,7 +170,7 @@ int main(int argc, char* argv[]) {
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyEWG.txt") {
         // 测试加权无向图相关算法
-        // ./algs4 ../data/tinyEWG.txt
+        // Example: ./algs4 ../data/tinyEWG.txt
         EdgeWeightedGraph G([&dataFilePath] {
             std::cout << "Reading graph from file" << "\n";
             return std::ifstream(dataFilePath);
@@ -183,9 +185,10 @@ int main(int argc, char* argv[]) {
         std::cout << "================================================" << "\n";
         testMST(G, KruskalMST(G));
         std::cout << "================================================" << "\n";
-    } else if (dataFilePath.filename() == "tinyEWD.txt") {
+    } else if (dataFilePath.filename() == "tinyEWD.txt" || dataFilePath.filename() == "tinyEWDAG.txt") {
         // 测试加权有向图相关算法
-        // ./algs4 ../data/tinyEWD.txt 0
+        // Example: ./algs4 ../data/tinyEWD.txt 0
+        // Example: ./algs4 ../data/tinyEWDAG.txt 5
         EdgeWeightedDigraph G([&dataFilePath] {
             std::cout << "Reading graph from file" << "\n";
             return std::ifstream(dataFilePath);
@@ -196,6 +199,10 @@ int main(int argc, char* argv[]) {
         std::cout << "Testing 4.9 shortest paths (Dijkstra)" << "\n";
         std::cout << "================================================" << "\n";
         testSP(G, s, DijkstraSP(G, s));
+        std::cout << "================================================" << "\n" << "\n";
+        std::cout << "Testing 4.10 shortest paths in DAGs" << "\n";
+        std::cout << "================================================" << "\n";
+        testSP(G, s, AcyclicSP(G, s));
         std::cout << "================================================" << "\n";
     }
     return 0;

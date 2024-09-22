@@ -38,11 +38,12 @@ incorporating modern C++ practices.
   search: [BreadthFirstPaths.h](BreadthFirstPaths.h) | [BreadthFirstPaths.cpp](BreadthFirstPaths.cpp)
 - **4.3** Connected components: [CC.h](CC.h) | [CC.cpp](CC.cpp)
 - **4.4** Reachability: [DirectedDFS.h](DirectedDFS.h) | [DirectedDFS.cpp](DirectedDFS.cpp)
-- **4.5** Topological order: [Topological.h](Topological.h) | [Topological.cpp](Topological.cpp)
+- **4.5** Topological order: [Topological.h](Topological.h)
 - **4.6** Strong components (Kosaraju): [KosarajuSCC.h](KosarajuSCC.h) | [KosarajuSCC.cpp](KosarajuSCC.cpp)
 - **4.7** Minimum spanning tree (Prim): [PrimMST.h](PrimMST.h) | [PrimMST.cpp](PrimMST.cpp)
 - **4.8** Minimum spanning tree (Kruskal): [KruskalMST.h](KruskalMST.h) | [KruskalMST.cpp](KruskalMST.cpp)
 - **4.9** Shortest paths (Dijkstra): [DijkstraSP.h](DijkstraSP.h) | [DijkstraSP.cpp](DijkstraSP.cpp)
+- **4.10** Shortest paths in DAGs: [AcyclicSP.h](AcyclicSP.h) | [AcyclicSP.cpp](AcyclicSP.cpp)
 - ...
 
 ## Build and Run
