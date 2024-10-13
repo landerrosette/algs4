@@ -13,8 +13,7 @@ private:
     struct Node : public BST<Key, Value>::Node {
         bool color; // 由其父结点指向它的链接的颜色
 
-        Node(Key key, Value val, int N, bool color) : BST<Key, Value>::Node(key, val, N), color(color) {
-        }
+        Node(Key key, Value val, int N, bool color) : BST<Key, Value>::Node(key, val, N), color(color) {}
     };
 
     bool isRed(std::shared_ptr<Node> x) const;

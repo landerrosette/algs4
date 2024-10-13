@@ -13,8 +13,7 @@ private:
         Value val;
         std::shared_ptr<Node> next;
 
-        Node(Key key, Value val, std::shared_ptr<Node> next) : key(key), val(val), next(next) {
-        }
+        Node(Key key, Value val, std::shared_ptr<Node> next) : key(key), val(val), next(next) {}
     };
 
     int N = 0;

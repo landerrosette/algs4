@@ -9,8 +9,7 @@
 
 class EdgeWeightedGraph : public GraphBase<Edge> {
 public:
-    EdgeWeightedGraph(int V) : GraphBase(V) {
-    }
+    EdgeWeightedGraph(int V) : GraphBase(V) {}
 
     EdgeWeightedGraph(std::istream &&in);
 

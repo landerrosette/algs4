@@ -14,8 +14,7 @@ protected:
     std::vector<std::list<T> > adj_; // 邻接表
 
 public:
-    GraphBase(int V) : V_(V), E_(0), adj_(V) {
-    }
+    GraphBase(int V) : V_(V), E_(0), adj_(V) {}
 
     GraphBase(std::istream &in);
 
@@ -32,8 +31,7 @@ template<typename T>
 GraphBase<T>::GraphBase(std::istream &in) : GraphBase([&in] {
     int i;
     return in >> i, i;
-}()) {
-}
+}()) {}
 
 template<typename T>
 std::ostream &operator<<(std::ostream &os, const GraphBase<T> &G) {

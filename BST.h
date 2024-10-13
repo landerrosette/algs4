@@ -14,8 +14,7 @@ protected:
         std::shared_ptr<Node> left, right;
         int N; // 以该结点为根的子树中的结点总数
 
-        Node(Key key, Value val, int N) : key(key), val(val), N(N) {
-        }
+        Node(Key key, Value val, int N) : key(key), val(val), N(N) {}
 
         virtual ~Node() = default;
     };

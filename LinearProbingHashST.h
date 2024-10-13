@@ -16,14 +16,12 @@ private:
 
     int hash(const Key &key) const;
 
-    LinearProbingHashST(int M) : M(M), keys_(M), vals(M) {
-    }
+    LinearProbingHashST(int M) : M(M), keys_(M), vals(M) {}
 
     void resize(int cap);
 
 public:
-    LinearProbingHashST() : keys_(M), vals(M) {
-    }
+    LinearProbingHashST() : keys_(M), vals(M) {}
 
     std::optional<Value> get(const Key &key) const override;
 

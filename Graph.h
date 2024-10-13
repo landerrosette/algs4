@@ -7,8 +7,7 @@
 
 class Graph : public GraphBase<int> {
 public:
-    Graph(int V) : GraphBase(V) {
-    }
+    Graph(int V) : GraphBase(V) {}
 
     Graph(std::istream &&in);
 

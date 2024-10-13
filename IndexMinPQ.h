@@ -17,8 +17,7 @@ private:
     void exch(int i, int j) override;
 
 public:
-    IndexMinPQ(int maxN) : MinPQ(maxN), qp(maxN + 1), keys(maxN + 1) {
-    }
+    IndexMinPQ(int maxN) : MinPQ(maxN), qp(maxN + 1), keys(maxN + 1) {}
 
     using MinPQ::isEmpty, MinPQ::size;
 

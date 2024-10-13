@@ -9,8 +9,7 @@
 
 class EdgeWeightedDigraph : public GraphBase<DirectedEdge> {
 public:
-    EdgeWeightedDigraph(int V) : GraphBase(V) {
-    }
+    EdgeWeightedDigraph(int V) : GraphBase(V) {}
 
     EdgeWeightedDigraph(std::istream &&in);
 

@@ -13,8 +13,7 @@ protected:
     const int s;              // 起点
 
 public:
-    Paths(const Graph &G, int s) : marked(G.V()), edgeTo(G.V()), s(s) {
-    }
+    Paths(const Graph &G, int s) : marked(G.V()), edgeTo(G.V()), s(s) {}
 
     bool hasPathTo(int v) const { return marked[v]; }
 

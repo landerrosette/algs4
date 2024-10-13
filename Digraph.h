@@ -7,8 +7,7 @@
 
 class Digraph : public GraphBase<int> {
 public:
-    Digraph(int V) : GraphBase(V) {
-    }
+    Digraph(int V) : GraphBase(V) {}
 
     Digraph(std::istream &&in);
 
