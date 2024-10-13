@@ -15,23 +15,23 @@ private:
     std::list<int> cycle_;
     std::vector<bool> onStack; // 栈上的所有顶点
 
-    template <typename T>
-    void dfs(const GraphBase<T>& G, int v);
+    template<typename T>
+    void dfs(const GraphBase<T> &G, int v);
 
 public:
-    template <typename T>
-    DirectedCycle(const GraphBase<T>& G);
+    template<typename T>
+    DirectedCycle(const GraphBase<T> &G);
 
     bool hasCycle() const { return !cycle_.empty(); }
 
     std::list<int> cycle() const { return cycle_; }
 };
 
-template <typename T>
-void DirectedCycle::dfs(const GraphBase<T>& G, int v) {
+template<typename T>
+void DirectedCycle::dfs(const GraphBase<T> &G, int v) {
     onStack[v] = true;
     marked[v] = true;
-    for (const auto& e : G.adj(v)) {
+    for (const auto &e: G.adj(v)) {
         int w;
         if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>) w = e.to();
         else w = e;
@@ -49,8 +49,8 @@ void DirectedCycle::dfs(const GraphBase<T>& G, int v) {
     onStack[v] = false;
 }
 
-template <typename T>
-DirectedCycle::DirectedCycle(const GraphBase<T>& G) : marked(G.V()), edgeTo(G.V()), onStack(G.V()) {
+template<typename T>
+DirectedCycle::DirectedCycle(const GraphBase<T> &G) : marked(G.V()), edgeTo(G.V()), onStack(G.V()) {
     for (int v = 0; v < G.V(); ++v) {
         if (!marked[v]) dfs(G, v);
     }

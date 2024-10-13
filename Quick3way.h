@@ -8,16 +8,16 @@
 
 class Quick3way : public Sorting {
 private:
-    template <typename T>
-    static void sort(std::vector<T>& a, int lo, int hi);
+    template<typename T>
+    static void sort(std::vector<T> &a, int lo, int hi);
 
 public:
-    template <typename T>
-    static void sort(std::vector<T>& a);
+    template<typename T>
+    static void sort(std::vector<T> &a);
 };
 
-template <typename T>
-void Quick3way::sort(std::vector<T>& a, int lo, int hi) {
+template<typename T>
+void Quick3way::sort(std::vector<T> &a, int lo, int hi) {
     if (lo >= hi) return;
     int lt = lo, i = lo + 1, gt = hi;
     T v = a[lo];
@@ -30,8 +30,8 @@ void Quick3way::sort(std::vector<T>& a, int lo, int hi) {
     sort(a, gt + 1, hi);
 }
 
-template <typename T>
-void Quick3way::sort(std::vector<T>& a) {
+template<typename T>
+void Quick3way::sort(std::vector<T> &a) {
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(a.begin(), a.end(), g);

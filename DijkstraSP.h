@@ -9,10 +9,10 @@ class DijkstraSP : public SP {
 private:
     IndexMinPQ<double> pq;
 
-    void onRelax(const DirectedEdge& e, int w) override;
+    void onRelax(const DirectedEdge &e, int w) override;
 
 public:
-    DijkstraSP(const EdgeWeightedDigraph& G, int s);
+    DijkstraSP(const EdgeWeightedDigraph &G, int s);
 };
 
 

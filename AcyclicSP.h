@@ -6,7 +6,7 @@
 
 class AcyclicSP : public SP {
 public:
-    AcyclicSP(const EdgeWeightedDigraph& G, int s);
+    AcyclicSP(const EdgeWeightedDigraph &G, int s);
 };
 
 

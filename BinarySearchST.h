@@ -5,21 +5,22 @@
 #include "OrderedST.h"
 #include <vector>
 
-template <typename Key, typename Value>
+template<typename Key, typename Value>
 class BinarySearchST : public OrderedST<Key, Value> {
 private:
-    std::vector<std::optional<Key>> keys_;
-    std::vector<std::optional<Value>> vals;
+    std::vector<std::optional<Key> > keys_;
+    std::vector<std::optional<Value> > vals;
     int N = 0;
 
 public:
-    BinarySearchST(int capacity) : keys_(capacity), vals(capacity) {}
+    BinarySearchST(int capacity) : keys_(capacity), vals(capacity) {
+    }
 
-    std::optional<Value> get(const Key& key) const override;
+    std::optional<Value> get(const Key &key) const override;
 
-    void put(const Key& key, const Value& val) override;
+    void put(const Key &key, const Value &val) override;
 
-    void remove(const Key& key) override;
+    void remove(const Key &key) override;
 
     int size() const override { return N; }
 
@@ -27,27 +28,27 @@ public:
 
     std::optional<Key> max() const override { return keys_[N - 1]; }
 
-    std::optional<Key> floor(const Key& key) const override;
+    std::optional<Key> floor(const Key &key) const override;
 
-    std::optional<Key> ceiling(const Key& key) const override;
+    std::optional<Key> ceiling(const Key &key) const override;
 
-    int rank(const Key& key) const override;
+    int rank(const Key &key) const override;
 
     std::optional<Key> select(int k) const override { return keys_[k]; }
 
-    std::list<Key> keys(const Key& lo, const Key& hi) const override;
+    std::list<Key> keys(const Key &lo, const Key &hi) const override;
 };
 
-template <typename Key, typename Value>
-std::optional<Value> BinarySearchST<Key, Value>::get(const Key& key) const {
+template<typename Key, typename Value>
+std::optional<Value> BinarySearchST<Key, Value>::get(const Key &key) const {
     if (this->isEmpty()) return std::nullopt;
     int i = rank(key);
     if (i < N && keys_[i] == key) return vals[i];
     else return std::nullopt;
 }
 
-template <typename Key, typename Value>
-void BinarySearchST<Key, Value>::put(const Key& key, const Value& val) {
+template<typename Key, typename Value>
+void BinarySearchST<Key, Value>::put(const Key &key, const Value &val) {
     int i = rank(key);
     if (i < N && keys_[i] == key) {
         vals[i] = val;
@@ -62,8 +63,8 @@ void BinarySearchST<Key, Value>::put(const Key& key, const Value& val) {
     ++N;
 }
 
-template <typename Key, typename Value>
-void BinarySearchST<Key, Value>::remove(const Key& key) {
+template<typename Key, typename Value>
+void BinarySearchST<Key, Value>::remove(const Key &key) {
     if (this->isEmpty()) return;
     int i = rank(key);
     if (i < N && keys_[i] == key) {
@@ -74,24 +75,24 @@ void BinarySearchST<Key, Value>::remove(const Key& key) {
     }
     --N;
     keys_[N] = std::nullopt; // 置空
-    vals[N] = std::nullopt;  // 置空
+    vals[N] = std::nullopt; // 置空
 }
 
-template <typename Key, typename Value>
-std::optional<Key> BinarySearchST<Key, Value>::floor(const Key& key) const {
+template<typename Key, typename Value>
+std::optional<Key> BinarySearchST<Key, Value>::floor(const Key &key) const {
     int i = rank(key);
     if (i < N && keys_[i] == key) return keys_[i];
     else return keys_[i - 1];
 }
 
-template <typename Key, typename Value>
-std::optional<Key> BinarySearchST<Key, Value>::ceiling(const Key& key) const {
+template<typename Key, typename Value>
+std::optional<Key> BinarySearchST<Key, Value>::ceiling(const Key &key) const {
     int i = rank(key);
     return keys_[i];
 }
 
-template <typename Key, typename Value>
-int BinarySearchST<Key, Value>::rank(const Key& key) const {
+template<typename Key, typename Value>
+int BinarySearchST<Key, Value>::rank(const Key &key) const {
     int lo = 0, hi = N - 1;
     while (lo <= hi) {
         int mid = (lo + hi) / 2;
@@ -102,8 +103,8 @@ int BinarySearchST<Key, Value>::rank(const Key& key) const {
     return lo;
 }
 
-template <typename Key, typename Value>
-std::list<Key> BinarySearchST<Key, Value>::keys(const Key& lo, const Key& hi) const {
+template<typename Key, typename Value>
+std::list<Key> BinarySearchST<Key, Value>::keys(const Key &lo, const Key &hi) const {
     std::list<Key> queue;
     if (hi < lo) return queue;
     for (int i = rank(lo); i < rank(hi); ++i) queue.push_back(*keys_[i]);

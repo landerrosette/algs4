@@ -9,15 +9,15 @@
 
 class PrimMST : public MST {
 private:
-    std::vector<Edge> edgeTo;   // 距离树最近的边
+    std::vector<Edge> edgeTo; // 距离树最近的边
     std::vector<double> distTo; // distTo[w] = edgeTo[w].weight()
-    std::vector<bool> marked;   // 如果v在树中则为true
-    IndexMinPQ<double> pq;      // 有效的横切边
+    std::vector<bool> marked; // 如果v在树中则为true
+    IndexMinPQ<double> pq; // 有效的横切边
 
-    void visit(const EdgeWeightedGraph& G, int v);
+    void visit(const EdgeWeightedGraph &G, int v);
 
 public:
-    PrimMST(const EdgeWeightedGraph& G);
+    PrimMST(const EdgeWeightedGraph &G);
 
     std::list<Edge> edges() const override;
 };

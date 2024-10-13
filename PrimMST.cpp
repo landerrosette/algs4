@@ -1,9 +1,9 @@
 #include "PrimMST.h"
 #include <limits>
 
-void PrimMST::visit(const EdgeWeightedGraph& G, int v) {
+void PrimMST::visit(const EdgeWeightedGraph &G, int v) {
     marked[v] = true;
-    for (const auto& e : G.adj(v)) {
+    for (const auto &e: G.adj(v)) {
         int w = e.other(v);
         if (marked[w]) continue; // v-w失效
         if (e.weight() < distTo[w]) {
@@ -16,7 +16,7 @@ void PrimMST::visit(const EdgeWeightedGraph& G, int v) {
     }
 }
 
-PrimMST::PrimMST(const EdgeWeightedGraph& G) : edgeTo(G.V()), distTo(G.V(), std::numeric_limits<double>::infinity()),
+PrimMST::PrimMST(const EdgeWeightedGraph &G) : edgeTo(G.V()), distTo(G.V(), std::numeric_limits<double>::infinity()),
                                                marked(G.V()), pq(G.V()) {
     distTo[0] = 0.0;
     pq.insert(0, 0.0);

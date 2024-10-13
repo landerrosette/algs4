@@ -13,12 +13,12 @@ private:
     std::vector<bool> marked;
     std::list<int> pre_, post_, reversePost_;
 
-    template <typename T>
-    void dfs(const GraphBase<T>& G, int v);
+    template<typename T>
+    void dfs(const GraphBase<T> &G, int v);
 
 public:
-    template <typename T>
-    DepthFirstOrder(const GraphBase<T>& G);
+    template<typename T>
+    DepthFirstOrder(const GraphBase<T> &G);
 
     std::list<int> pre() const { return pre_; }
 
@@ -27,11 +27,11 @@ public:
     std::list<int> reversePost() const { return reversePost_; }
 };
 
-template <typename T>
-void DepthFirstOrder::dfs(const GraphBase<T>& G, int v) {
+template<typename T>
+void DepthFirstOrder::dfs(const GraphBase<T> &G, int v) {
     pre_.push_back(v);
     marked[v] = true;
-    for (const auto& e : G.adj(v)) {
+    for (const auto &e: G.adj(v)) {
         int w;
         if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>) w = e.to();
         else w = e;
@@ -41,8 +41,8 @@ void DepthFirstOrder::dfs(const GraphBase<T>& G, int v) {
     reversePost_.push_front(v);
 }
 
-template <typename T>
-DepthFirstOrder::DepthFirstOrder(const GraphBase<T>& G) : marked(G.V()) {
+template<typename T>
+DepthFirstOrder::DepthFirstOrder(const GraphBase<T> &G) : marked(G.V()) {
     for (int v = 0; v < G.V(); ++v) {
         if (!marked[v]) dfs(G, v);
     }

@@ -1,6 +1,6 @@
 #include "Digraph.h"
 
-Digraph::Digraph(std::istream&& in) : GraphBase(in) {
+Digraph::Digraph(std::istream &&in) : GraphBase(in) {
     int E;
     in >> E;
     for (int i = 0; i < E; ++i) {
@@ -18,7 +18,7 @@ void Digraph::addEdge(int v, int w) {
 Digraph Digraph::reverse() const {
     Digraph R(V_);
     for (int v = 0; v < V_; ++v) {
-        for (int w : adj(v)) R.addEdge(w, v);
+        for (int w: adj(v)) R.addEdge(w, v);
     }
     return R;
 }

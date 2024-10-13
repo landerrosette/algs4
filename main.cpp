@@ -39,7 +39,7 @@
 #include "tests/testST.h"
 #include "tests/testGraph.h"
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     if (argc < 2) {
         // 测试union-find
         // Example: ./algs4 < ../data/tinyUF.txt

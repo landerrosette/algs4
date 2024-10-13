@@ -1,7 +1,7 @@
 #include "SP.h"
 
-void SP::relax(const EdgeWeightedDigraph& G, int v) {
-    for (const auto& e : G.adj(v)) {
+void SP::relax(const EdgeWeightedDigraph &G, int v) {
+    for (const auto &e: G.adj(v)) {
         int w = e.to();
         if (distTo_[w] > distTo_[v] + e.weight()) {
             distTo_[w] = distTo_[v] + e.weight();
@@ -11,7 +11,7 @@ void SP::relax(const EdgeWeightedDigraph& G, int v) {
     }
 }
 
-SP::SP(const EdgeWeightedDigraph& G, int s) : edgeTo(G.V()), distTo_(G.V(), std::numeric_limits<double>::infinity()) {
+SP::SP(const EdgeWeightedDigraph &G, int s) : edgeTo(G.V()), distTo_(G.V(), std::numeric_limits<double>::infinity()) {
     distTo_[s] = 0.0;
 }
 

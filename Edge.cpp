@@ -8,10 +8,10 @@ int Edge::other(int vertex) const {
     else throw std::runtime_error("Inconsistent edge");
 }
 
-bool operator<(const Edge& l, const Edge& r) { return l.weight() < r.weight(); }
+bool operator<(const Edge &l, const Edge &r) { return l.weight() < r.weight(); }
 
-bool operator>(const Edge& l, const Edge& r) { return l.weight() > r.weight(); }
+bool operator>(const Edge &l, const Edge &r) { return l.weight() > r.weight(); }
 
-std::ostream& operator<<(std::ostream& os, const Edge& e) {
+std::ostream &operator<<(std::ostream &os, const Edge &e) {
     return os << e.edge_->v << "-" << e.edge_->w << " " << std::fixed << std::setprecision(2) << e.edge_->weight << " ";
 }

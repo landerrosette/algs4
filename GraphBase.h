@@ -6,17 +6,18 @@
 #include <vector>
 #include <iostream>
 
-template <typename T>
+template<typename T>
 class GraphBase {
 protected:
-    const int V_;                   // 顶点数目
-    int E_;                         // 边的数目
-    std::vector<std::list<T>> adj_; // 邻接表
+    const int V_; // 顶点数目
+    int E_; // 边的数目
+    std::vector<std::list<T> > adj_; // 邻接表
 
 public:
-    GraphBase(int V) : V_(V), E_(0), adj_(V) {}
+    GraphBase(int V) : V_(V), E_(0), adj_(V) {
+    }
 
-    GraphBase(std::istream& in);
+    GraphBase(std::istream &in);
 
     virtual ~GraphBase() = default;
 
@@ -27,18 +28,19 @@ public:
     std::list<T> adj(int v) const { return adj_[v]; }
 };
 
-template <typename T>
-GraphBase<T>::GraphBase(std::istream& in) : GraphBase([&in] {
+template<typename T>
+GraphBase<T>::GraphBase(std::istream &in) : GraphBase([&in] {
     int i;
     return in >> i, i;
-}()) {}
+}()) {
+}
 
-template <typename T>
-std::ostream& operator<<(std::ostream& os, const GraphBase<T>& G) {
+template<typename T>
+std::ostream &operator<<(std::ostream &os, const GraphBase<T> &G) {
     os << G.V() << " vertices, " << G.E() << " edges" << "\n";
     for (int v = 0; v < G.V(); ++v) {
         os << v << ": ";
-        for (T w : G.adj(v)) os << w << " ";
+        for (T w: G.adj(v)) os << w << " ";
         os << "\n";
     }
     return os;

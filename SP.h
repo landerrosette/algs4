@@ -13,12 +13,13 @@ protected:
     std::vector<DirectedEdge> edgeTo;
     std::vector<double> distTo_;
 
-    void relax(const EdgeWeightedDigraph& G, int v);
+    void relax(const EdgeWeightedDigraph &G, int v);
 
-    virtual void onRelax(const DirectedEdge& e, int w) {}
+    virtual void onRelax(const DirectedEdge &e, int w) {
+    }
 
 public:
-    SP(const EdgeWeightedDigraph& G, int s);
+    SP(const EdgeWeightedDigraph &G, int s);
 
     virtual ~SP() = default;
 

@@ -5,11 +5,11 @@
 #include <vector>
 #include <optional>
 
-template <typename Key>
+template<typename Key>
 class PQ {
 protected:
-    std::vector<std::optional<Key>> pq; // 基于堆的完全二叉树
-    int N = 0;                          // 存储于pq[1..N]中，pq[0]没有使用
+    std::vector<std::optional<Key> > pq; // 基于堆的完全二叉树
+    int N = 0; // 存储于pq[1..N]中，pq[0]没有使用
 
     virtual bool lower(int i, int j) const = 0;
 
@@ -22,7 +22,8 @@ protected:
     std::optional<Key> delTop();
 
 public:
-    PQ(int maxN) : pq(maxN + 1) {}
+    PQ(int maxN) : pq(maxN + 1) {
+    }
 
     virtual ~PQ() = default;
 
@@ -30,17 +31,17 @@ public:
 
     int size() const { return N; }
 
-    void insert(const Key& v);
+    void insert(const Key &v);
 };
 
-template <typename Key>
+template<typename Key>
 void PQ<Key>::exch(int i, int j) {
     auto t = pq[i];
     pq[i] = pq[j];
     pq[j] = t;
 }
 
-template <typename Key>
+template<typename Key>
 void PQ<Key>::swim(int k) {
     while (k > 1 && lower(k / 2, k)) {
         exch(k / 2, k);
@@ -48,7 +49,7 @@ void PQ<Key>::swim(int k) {
     }
 }
 
-template <typename Key>
+template<typename Key>
 void PQ<Key>::sink(int k) {
     while (2 * k <= N) {
         int j = 2 * k;
@@ -59,7 +60,7 @@ void PQ<Key>::sink(int k) {
     }
 }
 
-template <typename Key>
+template<typename Key>
 std::optional<Key> PQ<Key>::delTop() {
     auto top = pq[1];
     exch(1, N--);
@@ -68,8 +69,8 @@ std::optional<Key> PQ<Key>::delTop() {
     return top;
 }
 
-template <typename Key>
-void PQ<Key>::insert(const Key& v) {
+template<typename Key>
+void PQ<Key>::insert(const Key &v) {
     pq[++N] = v;
     swim(N);
 }

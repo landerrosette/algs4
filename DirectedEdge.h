@@ -15,10 +15,10 @@ public:
 
     using Edge::operator bool;
 
-    friend std::ostream& operator<<(std::ostream& os, const DirectedEdge& e);
+    friend std::ostream &operator<<(std::ostream &os, const DirectedEdge &e);
 };
 
-std::ostream& operator<<(std::ostream& os, const DirectedEdge& e);
+std::ostream &operator<<(std::ostream &os, const DirectedEdge &e);
 
 
 #endif //DIRECTEDEDGE_H

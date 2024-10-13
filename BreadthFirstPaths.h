@@ -6,10 +6,10 @@
 
 class BreadthFirstPaths : public Paths {
 private:
-    void bfs(const Graph& G, int s);
+    void bfs(const Graph &G, int s);
 
 public:
-    BreadthFirstPaths(const Graph& G, int s) : Paths(G, s) { bfs(G, s); }
+    BreadthFirstPaths(const Graph &G, int s) : Paths(G, s) { bfs(G, s); }
 };
 
 

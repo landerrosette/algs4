@@ -6,10 +6,10 @@
 
 class DepthFirstPaths : public Paths {
 private:
-    void dfs(const Graph& G, int v);
+    void dfs(const Graph &G, int v);
 
 public:
-    DepthFirstPaths(const Graph& G, int s) : Paths(G, s) { dfs(G, s); }
+    DepthFirstPaths(const Graph &G, int s) : Paths(G, s) { dfs(G, s); }
 };
 
 
