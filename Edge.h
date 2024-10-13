@@ -8,7 +8,7 @@
 class Edge {
 protected:
     struct Edge_ {
-        const int v, w; // 顶点
+        const int v, w;      // 顶点
         const double weight; // 边的权重
 
         Edge_(int v, int w, double weight) : v(v), w(w), weight(weight) {

@@ -9,7 +9,7 @@ template<typename Key>
 class PQ {
 protected:
     std::vector<std::optional<Key> > pq; // 基于堆的完全二叉树
-    int N = 0; // 存储于pq[1..N]中，pq[0]没有使用
+    int N = 0;                           // 存储于pq[1..N]中，pq[0]没有使用
 
     virtual bool lower(int i, int j) const = 0;
 

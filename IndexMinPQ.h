@@ -9,7 +9,7 @@
 template<typename Key>
 class IndexMinPQ : private MinPQ<int> {
 private:
-    std::vector<std::optional<int> > qp; // 逆序：qp[pq[i]] = pq[qp[i]] = i
+    std::vector<std::optional<int> > qp;   // 逆序：qp[pq[i]] = pq[qp[i]] = i
     std::vector<std::optional<Key> > keys; // 元素
 
     bool lower(int i, int j) const override { return keys[*pq[i]] > keys[*pq[j]]; }

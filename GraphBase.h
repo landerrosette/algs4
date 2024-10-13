@@ -9,8 +9,8 @@
 template<typename T>
 class GraphBase {
 protected:
-    const int V_; // 顶点数目
-    int E_; // 边的数目
+    const int V_;                    // 顶点数目
+    int E_;                          // 边的数目
     std::vector<std::list<T> > adj_; // 邻接表
 
 public:

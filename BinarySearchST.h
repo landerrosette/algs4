@@ -75,7 +75,7 @@ void BinarySearchST<Key, Value>::remove(const Key &key) {
     }
     --N;
     keys_[N] = std::nullopt; // 置空
-    vals[N] = std::nullopt; // 置空
+    vals[N] = std::nullopt;  // 置空
 }
 
 template<typename Key, typename Value>

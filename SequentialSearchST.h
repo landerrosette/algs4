@@ -43,7 +43,7 @@ SequentialSearchST<Key, Value>::remove(std::shared_ptr<Node> x, Key key) {
         return x->next;
     }
     x->next = remove(x->next, key); // 递归调用，在下一个节点中继续删除指定的键
-    return x; // 返回当前节点，当前节点没有被删除
+    return x;                       // 返回当前节点，当前节点没有被删除
 }
 
 template<typename Key, typename Value>
