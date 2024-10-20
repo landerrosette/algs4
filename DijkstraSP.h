@@ -9,7 +9,7 @@ class DijkstraSP : public SP {
 private:
     IndexMinPQ<double> pq;
 
-    void onRelax(const DirectedEdge &e, int w) override;
+    void onRelaxationSuccess(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) override;
 
 public:
     DijkstraSP(const EdgeWeightedDigraph &G, int s);

@@ -1,6 +1,6 @@
 #include "DijkstraSP.h"
 
-void DijkstraSP::onRelax(const DirectedEdge &e, int w) {
+void DijkstraSP::onRelaxationSuccess(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) {
     if (pq.contains(w)) pq.change(w, distTo_[w]);
     else pq.insert(w, distTo_[w]);
 }

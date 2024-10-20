@@ -15,7 +15,9 @@ protected:
 
     void relax(const EdgeWeightedDigraph &G, int v);
 
-    virtual void onRelax(const DirectedEdge &e, int w) {}
+    virtual void onRelaxationSuccess(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) {}
+
+    virtual void afterRelaxation(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) {}
 
 public:
     SP(const EdgeWeightedDigraph &G, int s);

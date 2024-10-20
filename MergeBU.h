@@ -14,7 +14,7 @@ public:
 template<typename T>
 void MergeBU::sort(std::vector<T> &a) {
     int N = a.size();
-    aux<T> = std::vector<T>(a.size());
+    aux<T> = std::vector<T>(N);
     for (int sz = 1; sz < N; sz *= 2) {
         // 子数组大小sz
         for (int lo = 0; lo < N - sz; lo += 2 * sz) {

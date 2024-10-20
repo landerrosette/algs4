@@ -6,8 +6,9 @@ void SP::relax(const EdgeWeightedDigraph &G, int v) {
         if (distTo_[w] > distTo_[v] + e.weight()) {
             distTo_[w] = distTo_[v] + e.weight();
             edgeTo[w] = e;
-            onRelax(e, w);
+            onRelaxationSuccess(G, v, e, w);
         }
+        afterRelaxation(G, v, e, w);
     }
 }
 

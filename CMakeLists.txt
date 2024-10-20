@@ -83,4 +83,6 @@ add_executable(algs4
         DijkstraSP.h
         AcyclicSP.cpp
         AcyclicSP.h
+        BellmanFordSP.cpp
+        BellmanFordSP.h
 )

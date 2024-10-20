@@ -14,7 +14,3 @@ KruskalMST::KruskalMST(const EdgeWeightedGraph &G) {
         mst.push_back(*e);
     }
 }
-
-std::list<Edge> KruskalMST::edges() const {
-    return mst;
-}

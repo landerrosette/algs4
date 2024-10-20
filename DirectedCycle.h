@@ -8,27 +8,26 @@
 #include "DirectedEdge.h"
 #include <type_traits>
 
+template<typename T>
 class DirectedCycle {
 private:
     std::vector<bool> marked;
-    std::vector<int> edgeTo;
-    std::list<int> cycle_;
+    std::vector<T> edgeTo;
+    std::list<T> cycle_;
     std::vector<bool> onStack; // 栈上的所有顶点
 
-    template<typename T>
     void dfs(const GraphBase<T> &G, int v);
 
 public:
-    template<typename T>
     DirectedCycle(const GraphBase<T> &G);
 
     bool hasCycle() const { return !cycle_.empty(); }
 
-    std::list<int> cycle() const { return cycle_; }
+    std::list<T> cycle() const { return cycle_; }
 };
 
 template<typename T>
-void DirectedCycle::dfs(const GraphBase<T> &G, int v) {
+void DirectedCycle<T>::dfs(const GraphBase<T> &G, int v) {
     onStack[v] = true;
     marked[v] = true;
     for (const auto &e: G.adj(v)) {
@@ -38,19 +37,29 @@ void DirectedCycle::dfs(const GraphBase<T> &G, int v) {
         if (hasCycle()) {
             return;
         } else if (!marked[w]) {
-            edgeTo[w] = v;
+            edgeTo[w] = e;
             dfs(G, w);
         } else if (onStack[w]) {
-            for (int x = v; x != w; x = edgeTo[x]) cycle_.push_front(x);
-            cycle_.push_front(w);
-            cycle_.push_front(v);
+            if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>) {
+                auto x = e;
+                for (; x.from() != w; x = edgeTo[x.from()]) {
+                    cycle_.push_front(x);
+                }
+                cycle_.push_front(x);
+            } else {
+                for (int x = v; x != w; x = edgeTo[x]) {
+                    cycle_.push_front(x);
+                }
+                cycle_.push_front(w);
+                cycle_.push_front(v);
+            }
         }
     }
     onStack[v] = false;
 }
 
 template<typename T>
-DirectedCycle::DirectedCycle(const GraphBase<T> &G) : marked(G.V()), edgeTo(G.V()), onStack(G.V()) {
+DirectedCycle<T>::DirectedCycle(const GraphBase<T> &G) : marked(G.V()), edgeTo(G.V()), onStack(G.V()) {
     for (int v = 0; v < G.V(); ++v) {
         if (!marked[v]) dfs(G, v);
     }

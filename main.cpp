@@ -33,6 +33,7 @@
 #include "KruskalMST.h"
 #include "DijkstraSP.h"
 #include "AcyclicSP.h"
+#include "BellmanFordSP.h"
 #include "tests/testUF.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
@@ -185,10 +186,12 @@ int main(int argc, char *argv[]) {
         std::cout << "================================================" << "\n";
         testMST(G, KruskalMST(G));
         std::cout << "================================================" << "\n";
-    } else if (dataFilePath.filename() == "tinyEWD.txt" || dataFilePath.filename() == "tinyEWDAG.txt") {
+    } else if (dataFilePath.filename() == "tinyEWD.txt" || dataFilePath.filename() == "tinyEWDAG.txt" || dataFilePath.
+               filename() == "tinyEWDn.txt") {
         // 测试加权有向图相关算法
         // Example: ./algs4 ../data/tinyEWD.txt 0
         // Example: ./algs4 ../data/tinyEWDAG.txt 5
+        // Example: ./algs4 ../data/tinyEWDn.txt 0
         EdgeWeightedDigraph G([&dataFilePath] {
             std::cout << "Reading graph from file" << "\n";
             return std::ifstream(dataFilePath);
@@ -203,6 +206,10 @@ int main(int argc, char *argv[]) {
         std::cout << "Testing 4.10 shortest paths in DAGs" << "\n";
         std::cout << "================================================" << "\n";
         testSP(G, s, AcyclicSP(G, s));
+        std::cout << "================================================" << "\n" << "\n";
+        std::cout << "Testing 4.11 shortest paths (Bellman-Ford)" << "\n";
+        std::cout << "================================================" << "\n";
+        testSP(G, s, BellmanFordSP(G, s));
         std::cout << "================================================" << "\n";
     }
     return 0;

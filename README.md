@@ -44,6 +44,7 @@ incorporating modern C++ practices.
 - **4.8** Minimum spanning tree (Kruskal): [KruskalMST.h](KruskalMST.h) | [KruskalMST.cpp](KruskalMST.cpp)
 - **4.9** Shortest paths (Dijkstra): [DijkstraSP.h](DijkstraSP.h) | [DijkstraSP.cpp](DijkstraSP.cpp)
 - **4.10** Shortest paths in DAGs: [AcyclicSP.h](AcyclicSP.h) | [AcyclicSP.cpp](AcyclicSP.cpp)
+- **4.11** Shortest paths (Bellman-Ford): [BellmanFord.h](BellmanFordSP.h) | [BellmanFord.cpp](BellmanFordSP.cpp)
 - ...
 
 ## Build and Run

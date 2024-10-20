@@ -13,7 +13,7 @@ private:
 public:
     KruskalMST(const EdgeWeightedGraph &G);
 
-    std::list<Edge> edges() const override;
+    std::list<Edge> edges() const override { return mst; }
 };
 
 
