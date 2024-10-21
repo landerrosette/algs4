@@ -34,6 +34,7 @@
 #include "DijkstraSP.h"
 #include "AcyclicSP.h"
 #include "BellmanFordSP.h"
+#include "LSD.h"
 #include "tests/testUF.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
@@ -82,6 +83,10 @@ int main(int argc, char *argv[]) {
         std::cout << "Testing 2.7 heapsort" << "\n";
         std::cout << "================================================" << "\n";
         testSort<Heap>(std::ifstream(dataFilePath));
+        std::cout << "================================================" << "\n" << "\n";
+        std::cout << "Testing 5.1 LSD string sort" << "\n";
+        std::cout << "================================================" << "\n";
+        testSort<LSD>(std::ifstream(dataFilePath));
         std::cout << "================================================" << "\n";
     } else if (dataFilePath.filename() == "tinyPQ.txt") {
         // 测试优先队列

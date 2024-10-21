@@ -85,4 +85,6 @@ add_executable(algs4
         AcyclicSP.h
         BellmanFordSP.cpp
         BellmanFordSP.h
+        LSD.cpp
+        LSD.h
 )
