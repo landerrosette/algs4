@@ -31,7 +31,7 @@ void Sorting::exch(std::vector<T> &a, int i, int j) {
 template<typename T>
 void Sorting::show(const std::vector<T> &a) {
     for (const auto &item: a) std::cout << item << " ";
-    std::cout << "\n";
+    std::cout << std::endl;
 }
 
 template<typename T>

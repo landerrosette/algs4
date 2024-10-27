@@ -7,5 +7,5 @@ void testPQ(MaxPQ<std::string> &&pq, std::istream &&data) {
         if (word != "-") pq.insert(word);
         else if (!pq.isEmpty()) std::cout << *pq.delMax() << " ";
     }
-    std::cout << "(" << pq.size() << " left on pq)" << "\n";
+    std::cout << "(" << pq.size() << " left on pq)" << std::endl;
 }

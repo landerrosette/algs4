@@ -10,6 +10,6 @@ void LSD::sort(std::vector<std::string> &a, int W) {
         for (int i = 0; i < N; ++i) ++count[a[i][d] + 1];         // 计算出现频率
         for (int r = 0; r < R; ++r) count[r + 1] += count[r];     // 将频率转换为索引
         for (int i = 0; i < N; ++i) aux[count[a[i][d]]++] = a[i]; // 将元素分类
-        a = aux;                                                  // 回写
+        for (int i = 0; i < N; ++i) a[i] = aux[i];                // 回写
     }
 }

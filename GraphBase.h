@@ -35,11 +35,11 @@ GraphBase<T>::GraphBase(std::istream &in) : GraphBase([&in] {
 
 template<typename T>
 std::ostream &operator<<(std::ostream &os, const GraphBase<T> &G) {
-    os << G.V() << " vertices, " << G.E() << " edges" << "\n";
+    os << G.V() << " vertices, " << G.E() << " edges" << std::endl;
     for (int v = 0; v < G.V(); ++v) {
         os << v << ": ";
         for (T w: G.adj(v)) os << w << " ";
-        os << "\n";
+        os << std::endl;
     }
     return os;
 }

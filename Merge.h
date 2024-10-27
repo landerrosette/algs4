@@ -11,7 +11,7 @@ private:
 
 protected:
     template<typename T>
-    static std::vector<T> aux;
+    inline static std::vector<T> aux;
 
     template<typename T>
     static void merge(std::vector<T> &a, int lo, int mid, int hi);
@@ -29,9 +29,6 @@ void Merge::sort(std::vector<T> &a, int lo, int hi) {
     sort(a, mid + 1, hi);
     merge(a, lo, mid, hi);
 }
-
-template<typename T>
-std::vector<T> Merge::aux;
 
 template<typename T>
 void Merge::merge(std::vector<T> &a, int lo, int mid, int hi) {

@@ -87,4 +87,6 @@ add_executable(algs4
         BellmanFordSP.h
         LSD.cpp
         LSD.h
+        MSD.cpp
+        MSD.h
 )

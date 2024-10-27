@@ -12,19 +12,19 @@ void testPaths(const Graph &G, int s, const Paths &search) {
                 else std::cout << "-" << x;
             }
         }
-        std::cout << "\n";
+        std::cout << std::endl;
     }
 }
 
 void testCC(const GraphBase<int> &G, const CCBase &cc) {
     int M = cc.count();
-    std::cout << M << " components" << "\n";
+    std::cout << M << " components" << std::endl;
 
     std::list<int> components[M];
     for (int v = 0; v < G.V(); ++v) components[cc.id(v)].push_front(v);
     for (int i = 0; i < M; ++i) {
         for (int v: components[i]) std::cout << v << " ";
-        std::cout << "\n";
+        std::cout << std::endl;
     }
 }
 
@@ -32,20 +32,20 @@ void testSearch(const Digraph &G, const DirectedDFS &reachable) {
     for (int v = 0; v < G.V(); ++v) {
         if (reachable.marked(v)) std::cout << v << " ";
     }
-    std::cout << "\n";
+    std::cout << std::endl;
 }
 
 void testTopological(const SymbolDigraph &G, const Topological &top) {
     for (int v: top.order()) {
-        std::cout << G.name(v) << "\n";
+        std::cout << G.name(v) << std::endl;
     }
 }
 
 void testMST(const EdgeWeightedGraph &G, const MST &mst) {
     for (const auto &e: mst.edges()) {
-        std::cout << e << "\n";
+        std::cout << e << std::endl;
     }
-    std::cout << mst.weight() << "\n";
+    std::cout << mst.weight() << std::endl;
 }
 
 void testSP(const EdgeWeightedDigraph &G, int s, const SP &sp) {
@@ -57,6 +57,6 @@ void testSP(const EdgeWeightedDigraph &G, int s, const SP &sp) {
                 std::cout << e << " ";
             }
         }
-        std::cout << "\n";
+        std::cout << std::endl;
     }
 }
