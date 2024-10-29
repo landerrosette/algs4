@@ -2,7 +2,9 @@
 #define TESTUF_H
 
 
-void testUF();
+#include <iostream>
+
+void testUF(std::istream &&data);
 
 
 #endif //TESTUF_H

@@ -37,6 +37,7 @@
 #include "LSD.h"
 #include "MSD.h"
 #include "Quick3string.h"
+#include "TrieST.h"
 #include "tests/testUF.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
@@ -44,15 +45,14 @@
 #include "tests/testGraph.h"
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
+    if (std::filesystem::path dataFilePath(argv[1]); dataFilePath.filename() == "tinyUF.txt") {
         // 测试union-find
-        // Example: ./algs4 < ../data/tinyUF.txt
+        // Example: ./algs4 ../data/tinyUF.txt
         std::cout << "Testing 1.5 union-find" << std::endl;
         std::cout << "================================================" << std::endl;
-        testUF();
+        testUF(std::ifstream(dataFilePath));
         std::cout << "================================================" << std::endl;
-    } else if (std::filesystem::path dataFilePath(argv[1]);
-        dataFilePath.filename() == "words3.txt" || dataFilePath.filename() == "shells.txt") {
+    } else if (dataFilePath.filename() == "words3.txt" || dataFilePath.filename() == "shells.txt") {
         // 测试排序算法
         // Example: ./algs4 ../data/words3.txt
         // Example: ./algs4 ../data/shells.txt
@@ -227,6 +227,13 @@ int main(int argc, char *argv[]) {
         std::cout << "Testing 4.11 shortest paths (Bellman-Ford)" << std::endl;
         std::cout << "================================================" << std::endl;
         testSP(G, s, BellmanFordSP(G, s));
+        std::cout << "================================================" << std::endl;
+    } else if (dataFilePath.filename() == "shellsST.txt") {
+        // 测试单词查找树
+        // Example: ./algs4 ../data/shellsST.txt
+        std::cout << "Testing 5.4 trie symbol table" << std::endl;
+        std::cout << "================================================" << std::endl;
+        testStringST(TrieST<int>(), std::ifstream(dataFilePath));
         std::cout << "================================================" << std::endl;
     }
     return 0;

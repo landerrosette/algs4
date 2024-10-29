@@ -45,9 +45,13 @@ incorporating modern C++ practices.
 - **4.9** Shortest paths (Dijkstra): [DijkstraSP.h](DijkstraSP.h) | [DijkstraSP.cpp](DijkstraSP.cpp)
 - **4.10** Shortest paths in DAGs: [AcyclicSP.h](AcyclicSP.h) | [AcyclicSP.cpp](AcyclicSP.cpp)
 - **4.11** Shortest paths (Bellman-Ford): [BellmanFord.h](BellmanFordSP.h) | [BellmanFord.cpp](BellmanFordSP.cpp)
+
+### Strings
+
 - **5.1** LSD string sort: [LSD.h](LSD.h) | [LSD.cpp](LSD.cpp)
 - **5.2** MSD string sort: [MSD.h](MSD.h) | [MSD.cpp](MSD.cpp)
 - **5.3** Three-way string quicksort: [Quick3string.h](Quick3string.h) | [Quick3string.cpp](Quick3string.cpp)
+- **5.4** Trie symbol table: [TrieST.h](TrieST.h)
 - ...
 
 ## Build and Run

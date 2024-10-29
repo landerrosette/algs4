@@ -3,16 +3,14 @@
 #include <iomanip>
 #include <cassert>
 
-static constexpr char INVALID_KEY[] = "";
-static constexpr int INVALID_VALUE = -1;
+namespace {
+    constexpr char INVALID_KEY[] = "";
+    constexpr int INVALID_VALUE = -1;
+}
 
 void testBasicST(ST<std::string, int> &&st, std::istream &&data) {
     std::string word;
-    int i = 0;
-    while (data >> word) {
-        st.put(word, i);
-        ++i;
-    }
+    for (int i = 0; data >> word; ++i) st.put(word, i);
 
     std::cout << "size = " << st.size() << std::endl << std::endl;
 
@@ -38,11 +36,7 @@ void testBasicST(ST<std::string, int> &&st, std::istream &&data) {
 
 void testOrderedST(OrderedST<std::string, int> &&st, std::istream &&data) {
     std::string word;
-    int i = 0;
-    while (data >> word) {
-        st.put(word, i);
-        ++i;
-    }
+    for (int i = 0; data >> word; ++i) st.put(word, i);
 
     std::cout << "size = " << st.size() << std::endl;
     std::cout << "min = " << st.min().value_or(INVALID_KEY) << std::endl;
@@ -111,5 +105,41 @@ void testOrderedST(OrderedST<std::string, int> &&st, std::istream &&data) {
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << std::endl;
     assert(st.isEmpty());
     std::cout << "(Empty)" << std::endl;
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << std::endl;
+}
+
+void testStringST(StringST<int> &&st, std::istream &&data) {
+    std::string word;
+    for (int i = 0; data >> word; ++i) st.put(word, i);
+
+    std::cout << "keys(\"\"):" << std::endl;
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << std::endl;
+    for (const auto &key: st.keys()) {
+        std::cout << key << " " << st.get(key).value_or(INVALID_VALUE) << std::endl;
+    }
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << std::endl << std::endl;
+
+    std::cout << "longestPrefixOf(\"shellsort\"):" << std::endl;
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << std::endl;
+    std::cout << st.longestPrefixOf("shellsort") << std::endl;
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << std::endl << std::endl;
+
+    std::cout << "longestPrefixOf(\"shell\"):" << std::endl;
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << std::endl;
+    std::cout << st.longestPrefixOf("shell") << std::endl;
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << std::endl << std::endl;
+
+    std::cout << "keysWithPrefix(\"shor\"):" << std::endl;
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << std::endl;
+    for (const auto &s: st.keysWithPrefix("shor")) {
+        std::cout << s << std::endl;
+    }
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << std::endl << std::endl;
+
+    std::cout << "keysThatMatch(\".he.l.\"):" << std::endl;
+    std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << std::endl;
+    for (const auto &s: st.keysThatMatch(".he.l.")) {
+        std::cout << s << std::endl;
+    }
     std::cout << "––––––––––––––––––––––––––––––––––––––––––––––––" << std::endl;
 }

@@ -5,12 +5,14 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <type_traits>
 
 template<class Sorter>
 void testSort(std::istream &&data);
 
 template<class Sorter>
 void testSort(std::istream &&data) {
+    static_assert(std::is_base_of_v<Sorting, Sorter>);
     std::vector<std::string> a;
     std::string word;
     while (data >> word) a.push_back(word);

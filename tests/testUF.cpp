@@ -1,13 +1,12 @@
 #include "testUF.h"
 #include "UF.h"
-#include <iostream>
 
-void testUF() {
-    UF uf([]() {
+void testUF(std::istream &&data) {
+    UF uf([&data]() {
         int N;
-        return std::cin >> N, N;
+        return data >> N, N;
     }());
-    for (int p, q; std::cin >> p >> q;) {
+    for (int p, q; data >> p >> q;) {
         if (uf.connected(p, q)) continue;
         uf.unionize(p, q);
         std::cout << p << " " << q << "\n";

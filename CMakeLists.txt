@@ -92,4 +92,6 @@ add_executable(algs4
         Quick3string.cpp
         Quick3string.h
         StringSorting.h
+        StringST.h
+        TrieST.h
 )

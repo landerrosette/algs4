@@ -10,7 +10,7 @@
 class MSD : public StringSorting {
 private:
     inline static int R = 256;
-    inline static const int M = 10;
+    static constexpr int M = 10;
     inline static std::vector<std::string> aux;
 
     class Insertion : public Sorting {
