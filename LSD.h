@@ -3,10 +3,9 @@
 
 
 #include <vector>
-#include <string>
-#include "Sorting.h"
+#include "StringSorting.h"
 
-class LSD : public Sorting {
+class LSD : public StringSorting {
 public:
     static void sort(std::vector<std::string> &a, int W = 3);
 };

@@ -89,4 +89,7 @@ add_executable(algs4
         LSD.h
         MSD.cpp
         MSD.h
+        Quick3string.cpp
+        Quick3string.h
+        StringSorting.h
 )

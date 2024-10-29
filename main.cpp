@@ -36,6 +36,7 @@
 #include "BellmanFordSP.h"
 #include "LSD.h"
 #include "MSD.h"
+#include "Quick3string.h"
 #include "tests/testUF.h"
 #include "tests/testSort.h"
 #include "tests/testPQ.h"
@@ -94,6 +95,10 @@ int main(int argc, char *argv[]) {
         std::cout << "Testing 5.2 MSD string sort" << std::endl;
         std::cout << "================================================" << std::endl;
         testSort<MSD>(std::ifstream(dataFilePath));
+        std::cout << "================================================" << std::endl << std::endl;
+        std::cout << "Testing 5.3 three-way string quicksort" << std::endl;
+        std::cout << "================================================" << std::endl;
+        testSort<Quick3string>(std::ifstream(dataFilePath));
         std::cout << "================================================" << std::endl;
     } else if (dataFilePath.filename() == "tinyPQ.txt") {
         // 测试优先队列
