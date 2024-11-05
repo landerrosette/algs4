@@ -52,6 +52,7 @@ incorporating modern C++ practices.
 - **5.2** MSD string sort: [MSD.h](MSD.h) | [MSD.cpp](MSD.cpp)
 - **5.3** Three-way string quicksort: [Quick3string.h](Quick3string.h) | [Quick3string.cpp](Quick3string.cpp)
 - **5.4** Trie symbol table: [TrieST.h](TrieST.h)
+- **5.5** TST symbol table: [TST.h](TST.h)
 - ...
 
 ## Build and Run

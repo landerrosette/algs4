@@ -32,9 +32,7 @@ void Quick3way::sort(std::vector<T> &a, int lo, int hi) {
 
 template<typename T>
 void Quick3way::sort(std::vector<T> &a) {
-    std::random_device rd;
-    std::mt19937 g(rd());
-    std::shuffle(a.begin(), a.end(), g);
+    std::shuffle(a.begin(), a.end(), std::mt19937(std::random_device()()));
     sort(a, 0, a.size() - 1);
 }
 

@@ -56,9 +56,9 @@ public:
 
     int size() const override { return size(root); }
 
-    std::optional<Key> min() const override { return min(root)->key; }
+    std::optional<Key> min() const override;
 
-    std::optional<Key> max() const override { return max(root)->key; }
+    std::optional<Key> max() const override;
 
     std::optional<Key> floor(const Key &key) const override;
 
@@ -121,12 +121,14 @@ int BST<Key, Value>::size(std::shared_ptr<Node> x) const {
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::min(std::shared_ptr<Node> x) const {
+    if (!x) return nullptr;
     if (!x->left) return x;
     return min(x->left);
 }
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::max(std::shared_ptr<Node> x) const {
+    if (!x) return nullptr;
     if (!x->right) return x;
     return max(x->right);
 }
@@ -176,6 +178,7 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::select(std::sha
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMin(std::shared_ptr<Node> x) {
+    if (!x) return nullptr;
     if (!x->left) return x->right;
     x->left = removeMin(x->left);
     x->N = size(x->left) + size(x->right) + 1;
@@ -184,6 +187,7 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMin(std::
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMax(std::shared_ptr<Node> x) {
+    if (!x) return nullptr;
     if (!x->right) return x->left;
     x->right = removeMax(x->right);
     x->N = size(x->left) + size(x->right) + 1;
@@ -196,6 +200,20 @@ void BST<Key, Value>::keys(std::shared_ptr<Node> x, std::list<Key> &queue, const
     if (lo < x->key) keys(x->left, queue, lo, hi);
     if (lo <= x->key && hi >= x->key) queue.push_back(x->key);
     if (hi > x->key) keys(x->right, queue, lo, hi);
+}
+
+template<typename Key, typename Value>
+std::optional<Key> BST<Key, Value>::min() const {
+    auto x = min(root);
+    if (!x) return std::nullopt;
+    return x->key;
+}
+
+template<typename Key, typename Value>
+std::optional<Key> BST<Key, Value>::max() const {
+    auto x = max(root);
+    if (!x) return std::nullopt;
+    return x->key;
 }
 
 template<typename Key, typename Value>

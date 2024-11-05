@@ -8,11 +8,11 @@
 #include <iostream>
 #include "StringST.h"
 
-void testBasicST(ST<std::string, int> &&st, std::istream &&data);
+void testST(ST<std::string, int> &&st, std::istream &&data);
 
-void testOrderedST(OrderedST<std::string, int> &&st, std::istream &&data);
+void testST(OrderedST<std::string, int> &&st, std::istream &&data);
 
-void testStringST(StringST<int> &&st, std::istream &&data);
+void testST(StringST<int> &&st, std::istream &&data);
 
 
 #endif //ALGS4_TESTST_H

@@ -94,4 +94,5 @@ add_executable(algs4
         StringSorting.h
         StringST.h
         TrieST.h
+        TST.h
 )

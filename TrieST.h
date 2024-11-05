@@ -11,6 +11,7 @@ template<typename Value>
 class TrieST : public StringST<Value> {
 private:
     inline static int R = 256; // 基数
+    int N = 0;
 
     struct Node {
         std::optional<Value> val;
@@ -24,8 +25,6 @@ private:
     std::shared_ptr<Node> put(std::shared_ptr<Node> x, const std::string &key, const Value &val, int d);
 
     std::shared_ptr<Node> remove(std::shared_ptr<Node> x, const std::string &key, int d);
-
-    int size(std::shared_ptr<Node> x) const;
 
     void collect(std::shared_ptr<Node> x, const std::string &pre, std::list<std::string> &q) const;
 
@@ -41,7 +40,7 @@ public:
 
     void remove(const std::string &key) override { root = remove(root, key, 0); }
 
-    int size() const override { return size(root); }
+    int size() const override { return N; }
 
     std::list<std::string> keys() const override { return keysWithPrefix(""); }
 
@@ -66,6 +65,7 @@ std::shared_ptr<typename TrieST<Value>::Node> TrieST<Value>::put(std::shared_ptr
                                                                  const Value &val, int d) {
     if (!x) x = std::make_shared<Node>();
     if (d == key.length()) {
+        if (!x->val) ++N;
         x->val = val;
         return x;
     }
@@ -78,8 +78,10 @@ template<typename Value>
 std::shared_ptr<typename TrieST<Value>::Node> TrieST<Value>::remove(std::shared_ptr<Node> x, const std::string &key,
                                                                     int d) {
     if (!x) return nullptr;
-    if (d == key.length()) x->val = std::nullopt;
-    else {
+    if (d == key.length()) {
+        if (x->val) --N;
+        x->val = std::nullopt;
+    } else {
         char c = key[d];
         x->next[c] = remove(x->next[c], key, d + 1);
     }
@@ -93,15 +95,6 @@ std::shared_ptr<typename TrieST<Value>::Node> TrieST<Value>::remove(std::shared_
 }
 
 template<typename Value>
-int TrieST<Value>::size(std::shared_ptr<Node> x) const {
-    if (!x) return 0;
-    int cnt = 0;
-    if (x->val) ++cnt;
-    for (int c = 0; c < R; ++c) cnt += size(x->next[c]);
-    return cnt;
-}
-
-template<typename Value>
 void TrieST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, std::list<std::string> &q) const {
     if (!x) return;
     if (x->val) q.push_back(pre);
@@ -111,8 +104,8 @@ void TrieST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, std
 template<typename Value>
 void TrieST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, const std::string &pat,
                             std::list<std::string> &q) const {
-    int d = pre.length();
     if (!x) return;
+    int d = pre.length();
     if (d == pat.length() && x->val) q.push_back(pre);
     if (d == pat.length()) return;
 
