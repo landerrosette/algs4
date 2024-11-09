@@ -1,0 +1,41 @@
+/******************************************************************************
+ *  % ./CC tinyG.txt
+ *  3 components
+ *  6 5 4 3 2 1 0
+ *  8 7
+ *  12 11 10 9
+ *
+ *  % ./KosarajuSCC tinyDG.txt
+ *  5 components
+ *  1
+ *  5 4 3 2 0
+ *  12 11 10 9
+ *  8 6
+ *  7
+ *
+ ******************************************************************************/
+
+
+#include <iostream>
+#include <fstream>
+#include <list>
+#include "@CC@.h"
+
+int main(int argc, char *argv[]) {
+    std::ifstream in(argv[1]);
+#ifndef DIRECTED
+    Graph G(in);
+#else
+    Digraph G(in);
+#endif
+    @CC@ cc{G};
+    int M = cc.count();
+    std::cout << M << " components" << std::endl;
+    std::list<int> components[M];
+    for (int v = 0; v < G.V(); ++v) components[cc.id(v)].push_front(v);
+    for (int i = 0; i < M; ++i) {
+        for (int v: components[i]) std::cout << v << " ";
+        std::cout << std::endl;
+    }
+    return 0;
+}

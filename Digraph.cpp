@@ -1,6 +1,6 @@
 #include "Digraph.h"
 
-Digraph::Digraph(std::istream &&in) : GraphBase(in) {
+Digraph::Digraph(std::istream &in) : GraphBase(in) {
     int E;
     in >> E;
     for (int i = 0; i < E; ++i) {

@@ -1,0 +1,38 @@
+/******************************************************************************
+ *  % ./PrimMST tinyEWG.txt
+ *  0-7 0.16
+ *  6-2 0.40
+ *  5-7 0.28
+ *  4-5 0.35
+ *  2-3 0.17
+ *  0-2 0.26
+ *  1-7 0.19
+ *  1.81
+ *
+ *  % ./KruskalMST tinyEWG.txt
+ *  0-7 0.16
+ *  2-3 0.17
+ *  1-7 0.19
+ *  0-2 0.26
+ *  5-7 0.28
+ *  4-5 0.35
+ *  6-2 0.40
+ *  1.81
+ *
+ ******************************************************************************/
+
+
+#include <iostream>
+#include <fstream>
+#include "@MST@.h"
+
+int main(int argc, char *argv[]) {
+    std::ifstream in(argv[1]);
+    EdgeWeightedGraph G(in);
+    @MST@ mst(G);
+    for (const auto &e: mst.edges()) {
+        std::cout << e << std::endl;
+    }
+    std::cout << mst.weight() << std::endl;
+    return 0;
+}

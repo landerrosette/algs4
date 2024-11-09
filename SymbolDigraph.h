@@ -16,7 +16,7 @@ private:
     std::unique_ptr<Digraph> G_;      // 图
 
 public:
-    SymbolDigraph(const std::filesystem::path &dataFilePath, char sp);
+    SymbolDigraph(const std::filesystem::path &stream, char sp);
 
     bool contains(const std::string &s) const { return st.contains(s); }
 

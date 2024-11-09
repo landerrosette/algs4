@@ -1,0 +1,24 @@
+/******************************************************************************
+ *  % more tiny.txt
+ *  S O R T E X A M P L E
+ *
+ *  % ./@SORTER@ < tiny.txt
+ *  A E E L M O P R S T X
+ *
+ ******************************************************************************/
+
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cassert>
+#include "@SORTER@.h"
+
+int main(int argc, char *argv[]) {
+    std::vector<std::string> a;
+    for (std::string item; std::cin >> item;) a.push_back(item);
+    @SORTER@::sort(a);
+    assert(@SORTER@::isSorted(a));
+    @SORTER@::show(a);
+    return 0;
+}

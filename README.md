@@ -1,7 +1,7 @@
 # Algorithms 4th Edition in C++
 
 This repository provides C++ implementations of the algorithms from the book *Algorithms, 4th Edition* by Robert
-Sedgewick and Kevin Wayne. These implementations adhere closely to the original Java code from the book, while
+Sedgewick and Kevin Wayne. These implementations aim to adhere closely to the original Java code from the book, while
 incorporating modern C++ practices.
 
 ## Algorithms
@@ -57,28 +57,41 @@ incorporating modern C++ practices.
 
 ## Build and Run
 
-To compile and run this project, ensure you have CMake 3.28 or higher and a C++17 compatible compiler. Follow these
-steps:
+A simple client is provided for each algorithm in `main_*.cpp`s. To build them, ensure you have CMake 3.28 or higher and
+a C++17 compatible compiler. Follow these steps:
 
-1. Clone this repository and navigate to the cloned directory.
-2. Create a build directory and compile the project using the following commands:
+1. Create and navigate to a build directory:
+
     ```shell
-    mkdir build && cd build
+    mkdir build
+    cd build
+    ```
+
+2. Configure and build all targets:
+
+    ```shell
     cmake ..
     cmake --build .
     ```
-3. Once the build is complete, you can run the program by providing the path to an input file as a command-line
-   argument:
-   ```shell
-   ./algs4 path/to/input_file.txt
-   ```
-   Input files correspond to different tests and data sets. For example:
-   ```shell
-   ./algs4 ../data/words3.txt
-   ```
-   This will execute tests for sorting algorithms.
-4. Some of the tests require additional arguments. For example:
-   ```shell
-   ./algs4 ../data/tinyDG.txt 1 2 6
-   ```
-   This will run directed graph algorithms, with vertices 1, 2, and 6 as starting points for the search.
+
+   Alternatively, you can build a specific target that corresponds to a specific algorithm. For example:
+
+    ```shell
+    cmake --build . --target UF
+    ```
+
+3. (Optional) [algs4-data.zip](https://algs4.cs.princeton.edu/code/algs4-data.zip) contains the data files used in the
+   book. Download and extract it to the build directory.
+4. Run the executable. You may redirect the input from a file to save typing:
+
+    ```shell
+    ./UF < tinyUF.txt
+    ```
+
+   Some algorithms require additional command-line arguments. For example:
+
+    ```shell
+    ./DepthFirstPaths tinyCG.txt 0
+    ```
+
+   This runs the depth-first search algorithm on the `tinyCG.txt` graph, starting from vertex `0`.

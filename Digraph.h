@@ -9,7 +9,7 @@ class Digraph : public GraphBase<int> {
 public:
     Digraph(int V) : GraphBase(V) {}
 
-    Digraph(std::istream &&in);
+    Digraph(std::istream &in);
 
     void addEdge(int v, int w);
 

@@ -1,0 +1,33 @@
+#include <iostream>
+#include "STTest.h"
+#ifdef ORDERED
+#include "OrderedSTTest.h"
+#endif
+#ifdef STRING
+#include "StringSTTest.h"
+#endif
+#include "@ST@.h"
+
+int main(int argc, char *argv[]) {
+#ifndef STRING
+    @ST@<std::string, int> st{@ST_INIT_ARGS@};
+#else
+    @ST@<int> st{@ST_INIT_ARGS@};
+#endif
+    STTest::init(st, std::cin, std::cout);
+    std::cout << std::endl;
+    STTest::testKeys(st, std::cout);
+    std::cout << std::endl;
+#ifdef ORDERED
+    STTest::testOrderedST(st, std::cout);
+    std::cout << std::endl;
+#endif
+#ifdef STRING
+    STTest::testStringST(st, std::cout);
+    std::cout << std::endl;
+#endif
+    STTest::removeSome(st, std::cout);
+    std::cout << std::endl;
+    STTest::removeAll(st, std::cout);
+    return 0;
+}

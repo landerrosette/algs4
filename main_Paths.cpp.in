@@ -1,0 +1,42 @@
+/******************************************************************************
+ *  % ./DepthFirstPaths tinyCG.txt 0
+ *  0 to 0:  0
+ *  0 to 1:  0-2-1
+ *  0 to 2:  0-2
+ *  0 to 3:  0-2-3
+ *  0 to 4:  0-2-3-4
+ *  0 to 5:  0-2-3-5
+ *
+ *  % ./BreadthFirstPaths tinyCG.txt 0
+ *  0 to 0:  0
+ *  0 to 1:  0-1
+ *  0 to 2:  0-2
+ *  0 to 3:  0-2-3
+ *  0 to 4:  0-2-4
+ *  0 to 5:  0-5
+ *
+ ******************************************************************************/
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "@PATHS_SEARCHER@.h"
+
+int main(int argc, char *argv[]) {
+    std::ifstream in(argv[1]);
+    Graph G(in);
+    int s = std::stoi(argv[2]);
+    @PATHS_SEARCHER@ search(G, s);
+    for (int v = 0; v < G.V(); ++v) {
+        std::cout << s << " to " << v << ": ";
+        if (search.hasPathTo(v)) {
+            for (int x: search.pathTo(v)) {
+                if (x == s) std::cout << x;
+                else std::cout << "-" << x;
+            }
+        }
+        std::cout << std::endl;
+    }
+    return 0;
+}

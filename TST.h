@@ -16,7 +16,7 @@ private:
         std::shared_ptr<Node> left, mid, right;
         std::optional<Value> val;
 
-        Node(char c): c(c) {}
+        Node(char c) : c(c) {}
     };
 
     std::shared_ptr<Node> root;

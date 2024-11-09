@@ -3,14 +3,12 @@
 #include <string>
 #include <sstream>
 
-SymbolDigraph::SymbolDigraph(const std::filesystem::path &dataFilePath, char sp) {
-    std::ifstream dataFile(dataFilePath); // 第一遍
-    std::string line;
-    while (std::getline(dataFile, line)) {
+SymbolDigraph::SymbolDigraph(const std::filesystem::path &stream, char sp) {
+    std::ifstream in(stream); // 第一遍
+    for (std::string line; std::getline(in, line);) {
         // 构造索引
         std::string name;
-        std::istringstream iss(line);
-        while (std::getline(iss, name, sp)) {
+        for (std::istringstream iss(line); std::getline(iss, name, sp);) {
             // 为每个不同的字符串关联一个索引
             if (!st.contains(name)) st.put(name, st.size());
         }
@@ -19,8 +17,8 @@ SymbolDigraph::SymbolDigraph(const std::filesystem::path &dataFilePath, char sp)
     for (const auto &name: st.keys()) keys[*st.get(name)] = name;
 
     G_ = std::make_unique<Digraph>(st.size());
-    dataFile = std::ifstream(dataFilePath); // 第二遍
-    while (std::getline(dataFile, line)) {
+    in = std::ifstream(stream); // 第二遍
+    for (std::string line; std::getline(in, line);) {
         // 构造图
         std::string name;
         std::istringstream iss(line);
