@@ -103,3 +103,6 @@ foreach (SP "DijkstraSP" "AcyclicSP" "BellmanFordSP")
 
     target_include_directories(${SP} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 endforeach ()
+
+# 5.6
+add_executable(KMP KMP.cpp main_KMP.cpp)

@@ -53,6 +53,7 @@ incorporating modern C++ practices.
 - **5.3** Three-way string quicksort: [Quick3string.h](Quick3string.h) | [Quick3string.cpp](Quick3string.cpp)
 - **5.4** Trie symbol table: [TrieST.h](TrieST.h)
 - **5.5** TST symbol table: [TST.h](TST.h)
+- **5.6** Substring search (Knuth-Morris-Pratt): [KMP.h](KMP.h) | [KMP.cpp](KMP.cpp)
 - ...
 
 ## Build and Run
@@ -80,8 +81,7 @@ a C++17 compatible compiler. Follow these steps:
     cmake --build . --target UF
     ```
 
-3. (Optional) [algs4-data.zip](https://algs4.cs.princeton.edu/code/algs4-data.zip) contains the data files used in the
-   book. Download and extract it to the build directory.
+3. (Optional) Get sample input files from the book's website: https://algs4.cs.princeton.edu/code/.
 4. Run the executable. You may redirect the input from a file to save typing:
 
     ```shell
