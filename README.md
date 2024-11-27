@@ -55,6 +55,7 @@ This repository contains C++ implementations of the algorithms in the textbook
 - **5.5** TST symbol table: [TST.h](TST.h)
 - **5.6** Substring search (Knuth-Morris-Pratt): [KMP.h](KMP.h) | [KMP.cpp](KMP.cpp)
 - **5.7** Substring search (Boyer-Moore): [BoyerMoore.h](BoyerMoore.h) | [BoyerMoore.cpp](BoyerMoore.cpp)
+- **5.8** Substring search (Rabin-Karp): [RabinKarp.h](RabinKarp.h) | [RabinKarp.cpp](RabinKarp.cpp)
 - ...
 
 ## Build and Run

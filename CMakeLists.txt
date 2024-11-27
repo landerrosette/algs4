@@ -104,8 +104,8 @@ foreach (SP "DijkstraSP" "AcyclicSP" "BellmanFordSP")
     target_include_directories(${SP} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 endforeach ()
 
-# 5.6, 5.7
-foreach (SUBSTR_SEARCHER "KMP" "BoyerMoore")
+# 5.6, 5.7, 5.8
+foreach (SUBSTR_SEARCHER "KMP" "BoyerMoore" "RabinKarp")
     configure_file(main_SubstrSearch.cpp.in main_${SUBSTR_SEARCHER}.cpp @ONLY)
 
     add_executable(${SUBSTR_SEARCHER} main_${SUBSTR_SEARCHER}.cpp ${SUBSTR_SEARCHER}.cpp)
