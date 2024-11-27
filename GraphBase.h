@@ -14,9 +14,9 @@ protected:
     std::vector<std::list<T> > adj_; // 邻接表
 
 public:
-    GraphBase(int V) : V_(V), E_(0), adj_(V) {}
+    explicit GraphBase(int V) : V_(V), E_(0), adj_(V) {}
 
-    GraphBase(std::istream &in);
+    explicit GraphBase(std::istream &in);
 
     virtual ~GraphBase() = default;
 

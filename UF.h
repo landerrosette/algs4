@@ -11,7 +11,7 @@ private:
     int count_;          // 分量数量
 
 public:
-    UF(int N);
+    explicit UF(int N);
 
     int count() const { return count_; }
 

@@ -22,7 +22,7 @@ protected:
     std::optional<Key> delTop();
 
 public:
-    PQ(int maxN) : pq(maxN + 1) {}
+    explicit PQ(int maxN) : pq(maxN + 1) {}
 
     virtual ~PQ() = default;
 

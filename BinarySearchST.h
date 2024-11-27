@@ -13,7 +13,7 @@ private:
     int N = 0;
 
 public:
-    BinarySearchST(int capacity) : keys_(capacity), vals(capacity) {}
+    explicit BinarySearchST(int capacity) : keys_(capacity), vals(capacity) {}
 
     std::optional<Value> get(const Key &key) const override;
 

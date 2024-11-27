@@ -18,7 +18,7 @@ private:
 
 public:
     template<typename T>
-    DepthFirstOrder(const GraphBase<T> &G);
+    explicit DepthFirstOrder(const GraphBase<T> &G);
 
     std::list<int> pre() const { return pre_; }
 

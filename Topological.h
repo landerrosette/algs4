@@ -13,7 +13,7 @@ private:
 
 public:
     template<typename T>
-    Topological(const GraphBase<T> &G);
+    explicit Topological(const GraphBase<T> &G);
 
     std::list<int> order() const { return order_; }
 

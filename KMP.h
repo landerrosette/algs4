@@ -11,7 +11,7 @@ private:
     std::vector<std::vector<int> > dfa;
 
 public:
-    KMP(const std::string &pat);
+    explicit KMP(const std::string &pat);
 
     int search(const std::string &txt) const override;
 };

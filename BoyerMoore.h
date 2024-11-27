@@ -11,7 +11,7 @@ private:
     std::string pat;
 
 public:
-    BoyerMoore(const std::string &pat);
+    explicit BoyerMoore(const std::string &pat);
 
     int search(const std::string &txt) const override;
 };

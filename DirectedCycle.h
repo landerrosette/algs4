@@ -19,7 +19,7 @@ private:
     void dfs(const GraphBase<T> &G, int v);
 
 public:
-    DirectedCycle(const GraphBase<T> &G);
+    explicit DirectedCycle(const GraphBase<T> &G);
 
     bool hasCycle() const { return !cycle_.empty(); }
 

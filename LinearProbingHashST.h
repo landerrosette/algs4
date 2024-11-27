@@ -16,7 +16,7 @@ private:
 
     int hash(const Key &key) const;
 
-    LinearProbingHashST(int M) : M(M), keys_(M), vals(M) {}
+    explicit LinearProbingHashST(int M) : M(M), keys_(M), vals(M) {}
 
     void resize(int cap);
 

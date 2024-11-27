@@ -16,7 +16,7 @@ private:
     int hash(const Key &key) const;
 
 public:
-    SeparateChainingHashST(int M) : M(M), st(M) {}
+    explicit SeparateChainingHashST(int M) : M(M), st(M) {}
 
     std::optional<Value> get(const Key &key) const override { return st[hash(key)].get(key); }
 

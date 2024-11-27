@@ -17,7 +17,7 @@ private:
     void visit(const EdgeWeightedGraph &G, int v);
 
 public:
-    PrimMST(const EdgeWeightedGraph &G);
+    explicit PrimMST(const EdgeWeightedGraph &G);
 
     std::list<Edge> edges() const override;
 };
