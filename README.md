@@ -1,8 +1,8 @@
 ## Overview
 
-This repository provides C++ implementations of the algorithms from the book *Algorithms, 4th Edition* by Robert
-Sedgewick and Kevin Wayne. These implementations aim to adhere closely to the original Java code from the book, while
-incorporating modern C++ practices.
+<IMG SRC="http://algs4.cs.princeton.edu/cover.png"  align=right hspace=25 width=100 alt = "Algorithms 4/e textbook">
+This repository contains C++ implementations of the algorithms in the textbook
+<a href = "http://amzn.to/13VNJi7">Algorithms, 4th Edition</a> by Robert Sedgewick and Kevin Wayne.
 
 ## Algorithms
 
