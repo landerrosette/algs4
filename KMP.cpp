@@ -1,6 +1,7 @@
 #include "KMP.h"
 
 KMP::KMP(const std::string &pat) : pat(pat) {
+    // 构造DFA
     int M = pat.length(), R = 256;
     dfa = std::vector(R, std::vector<int>(M));
     dfa[pat[0]][0] = 1;
