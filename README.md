@@ -1,4 +1,4 @@
-# Algorithms 4th Edition in C++
+## Overview
 
 This repository provides C++ implementations of the algorithms from the book *Algorithms, 4th Edition* by Robert
 Sedgewick and Kevin Wayne. These implementations aim to adhere closely to the original Java code from the book, while
