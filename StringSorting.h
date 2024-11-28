@@ -3,11 +3,11 @@
 
 
 #include "Sorting.h"
-#include <string>
+#include <string_view>
 
 class StringSorting : public Sorting {
 protected:
-    static char charAt(const std::string &s, int d) { return d < s.length() ? s[d] : -1; }
+    static char charAt(std::string_view s, int d) { return d < s.length() ? s[d] : -1; }
 };
 
 

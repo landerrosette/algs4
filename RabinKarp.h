@@ -3,6 +3,7 @@
 
 
 #include "SubstrSearcher.h"
+#include <string_view>
 
 class RabinKarp : public SubstrSearcher {
 private:
@@ -12,16 +13,16 @@ private:
     int R = 256;                     // 字母表的大小
     long long RM = 1;                // R^(M-1) % Q
 
-    long long hash(const std::string &key, int M) const;
+    long long hash(std::string_view key, int M) const;
 
     static long long longRandomPrime();
 
     bool check(int i) const { return true; } // 蒙特卡洛算法（只要散列值相同就认为找到了）
 
 public:
-    explicit RabinKarp(const std::string &pat);
+    explicit RabinKarp(std::string_view pat);
 
-    int search(const std::string &txt) const override;
+    int search(std::string_view txt) const override;
 };
 
 

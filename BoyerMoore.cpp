@@ -1,13 +1,14 @@
 #include "BoyerMoore.h"
+#include <utility>
 
-BoyerMoore::BoyerMoore(const std::string &pat) : pat(pat) {
+BoyerMoore::BoyerMoore(std::string pat) : pat(std::move(pat)) {
     // 计算跳跃表
-    int M = pat.length(), R = 256;
+    int M = this->pat.length(), R = 256;
     right = std::vector(R, -1);
-    for (int j = 0; j < M; ++j) right[pat[j]] = j;
+    for (int j = 0; j < M; ++j) right[this->pat[j]] = j;
 }
 
-int BoyerMoore::search(const std::string &txt) const {
+int BoyerMoore::search(std::string_view txt) const {
     int N = txt.length(), M = pat.length();
     for (int skip, i = 0; i <= N - M; i += skip) {
         // 模式字符串和文本在位置i匹配吗？

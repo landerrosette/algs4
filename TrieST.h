@@ -6,6 +6,7 @@
 #include <memory>
 #include <vector>
 #include <optional>
+#include <string_view>
 
 template<typename Value>
 class TrieST : public StringST<Value> {
@@ -20,18 +21,18 @@ private:
 
     std::shared_ptr<Node> root;
 
-    std::shared_ptr<Node> get(std::shared_ptr<Node> x, const std::string &key, int d) const;
+    std::shared_ptr<Node> get(std::shared_ptr<Node> x, std::string_view key, int d) const;
 
-    std::shared_ptr<Node> put(std::shared_ptr<Node> x, const std::string &key, const Value &val, int d);
+    std::shared_ptr<Node> put(std::shared_ptr<Node> x, std::string_view key, const Value &val, int d);
 
-    std::shared_ptr<Node> remove(std::shared_ptr<Node> x, const std::string &key, int d);
+    std::shared_ptr<Node> remove(std::shared_ptr<Node> x, std::string_view key, int d);
 
     void collect(std::shared_ptr<Node> x, const std::string &pre, std::list<std::string> &q) const;
 
-    void collect(std::shared_ptr<Node> x, const std::string &pre, const std::string &pat,
+    void collect(std::shared_ptr<Node> x, const std::string &pre, std::string_view pat,
                  std::list<std::string> &q) const;
 
-    int search(std::shared_ptr<Node> x, const std::string &s, int d, int length) const;
+    int search(std::shared_ptr<Node> x, std::string_view s, int d, int length) const;
 
 public:
     std::optional<Value> get(const std::string &key) const override;
@@ -44,15 +45,15 @@ public:
 
     std::list<std::string> keys() const override { return keysWithPrefix(""); }
 
-    std::string longestPrefixOf(const std::string &s) const override;
+    std::string longestPrefixOf(std::string_view s) const override;
 
     std::list<std::string> keysWithPrefix(const std::string &pre) const override;
 
-    std::list<std::string> keysThatMatch(const std::string &pat) const override;
+    std::list<std::string> keysThatMatch(std::string_view pat) const override;
 };
 
 template<typename Value>
-std::shared_ptr<typename TrieST<Value>::Node> TrieST<Value>::get(std::shared_ptr<Node> x, const std::string &key,
+std::shared_ptr<typename TrieST<Value>::Node> TrieST<Value>::get(std::shared_ptr<Node> x, std::string_view key,
                                                                  int d) const {
     if (!x) return nullptr;
     if (d == key.length()) return x;
@@ -61,7 +62,7 @@ std::shared_ptr<typename TrieST<Value>::Node> TrieST<Value>::get(std::shared_ptr
 }
 
 template<typename Value>
-std::shared_ptr<typename TrieST<Value>::Node> TrieST<Value>::put(std::shared_ptr<Node> x, const std::string &key,
+std::shared_ptr<typename TrieST<Value>::Node> TrieST<Value>::put(std::shared_ptr<Node> x, std::string_view key,
                                                                  const Value &val, int d) {
     if (!x) x = std::make_shared<Node>();
     if (d == key.length()) {
@@ -75,7 +76,7 @@ std::shared_ptr<typename TrieST<Value>::Node> TrieST<Value>::put(std::shared_ptr
 }
 
 template<typename Value>
-std::shared_ptr<typename TrieST<Value>::Node> TrieST<Value>::remove(std::shared_ptr<Node> x, const std::string &key,
+std::shared_ptr<typename TrieST<Value>::Node> TrieST<Value>::remove(std::shared_ptr<Node> x, std::string_view key,
                                                                     int d) {
     if (!x) return nullptr;
     if (d == key.length()) {
@@ -102,7 +103,7 @@ void TrieST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, std
 }
 
 template<typename Value>
-void TrieST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, const std::string &pat,
+void TrieST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, std::string_view pat,
                             std::list<std::string> &q) const {
     if (!x) return;
     int d = pre.length();
@@ -116,7 +117,7 @@ void TrieST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, con
 }
 
 template<typename Value>
-int TrieST<Value>::search(std::shared_ptr<Node> x, const std::string &s, int d, int length) const {
+int TrieST<Value>::search(std::shared_ptr<Node> x, std::string_view s, int d, int length) const {
     if (!x) return length;
     if (x->val) length = d;
     if (d == s.length()) return length;
@@ -132,20 +133,20 @@ std::optional<Value> TrieST<Value>::get(const std::string &key) const {
 }
 
 template<typename Value>
-std::string TrieST<Value>::longestPrefixOf(const std::string &s) const {
+std::string TrieST<Value>::longestPrefixOf(std::string_view s) const {
     int length = search(root, s, 0, 0);
-    return s.substr(0, length);
+    return std::string(s.substr(0, length));
 }
 
 template<typename Value>
 std::list<std::string> TrieST<Value>::keysWithPrefix(const std::string &pre) const {
     std::list<std::string> q;
-    collect(get(root, pre, 0), pre, q);
+    collect(get(root, pre, 0), std::string(pre), q);
     return q;
 }
 
 template<typename Value>
-std::list<std::string> TrieST<Value>::keysThatMatch(const std::string &pat) const {
+std::list<std::string> TrieST<Value>::keysThatMatch(std::string_view pat) const {
     std::list<std::string> q;
     collect(root, "", pat, q);
     return q;

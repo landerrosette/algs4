@@ -2,13 +2,13 @@
 #define SUBSTRSEARCHER_H
 
 
-#include <string>
+#include <string_view>
 
 class SubstrSearcher {
 public:
     virtual ~SubstrSearcher() = default;
 
-    virtual int search(const std::string &txt) const = 0;
+    virtual int search(std::string_view txt) const = 0;
 };
 
 

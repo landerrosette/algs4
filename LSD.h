@@ -3,6 +3,7 @@
 
 
 #include <vector>
+#include <string>
 #include "StringSorting.h"
 
 class LSD : public StringSorting {

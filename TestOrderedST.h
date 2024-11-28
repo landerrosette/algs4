@@ -1,19 +1,19 @@
-#ifndef ORDEREDSTTEST_H
-#define ORDEREDSTTEST_H
+#ifndef TESTORDEREDST_H
+#define TESTORDEREDST_H
 
 
 #include <iostream>
 #include "OrderedST.h"
 
-namespace STTest {
+namespace TestST {
     void init(OrderedST<std::string, int> &st, std::istream &is, std::ostream &os);
 
     void removeSome(OrderedST<std::string, int> &st, std::ostream &os);
 
     void removeAll(OrderedST<std::string, int> &st, std::ostream &os);
 
-    void testOrderedST(OrderedST<std::string, int> &st, std::ostream &os);
+    void testOrderedST(const OrderedST<std::string, int> &st, std::ostream &os);
 }
 
 
-#endif //ORDEREDSTTEST_H
+#endif //TESTORDEREDST_H

@@ -1,7 +1,7 @@
-#include "StringSTTest.h"
+#include "TestStringST.h"
 
-namespace STTest {
-    void testStringST(StringST<int> &st, std::ostream &os) {
+namespace TestST {
+    void testStringST(const StringST<int> &st, std::ostream &os) {
         os << "longestPrefixOf(\"shellsort\"):" << std::endl;
         os << "--------------------------------" << std::endl;
         os << st.longestPrefixOf("shellsort") << std::endl;
@@ -24,6 +24,5 @@ namespace STTest {
         for (const auto &s: st.keysThatMatch(".he.l.")) {
             os << s << std::endl;
         }
-        os << std::endl;
     }
 }

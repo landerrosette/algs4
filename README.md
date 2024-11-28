@@ -1,7 +1,7 @@
 ## Overview
 
 <IMG SRC="http://algs4.cs.princeton.edu/cover.png"  align=right hspace=25 width=100 alt = "Algorithms 4/e textbook">
-This repository contains C++ implementations of the algorithms in the textbook
+This repository contains C++ implementations of the algorithms and (a few) clients in the textbook
 <a href = "http://amzn.to/13VNJi7">Algorithms, 4th Edition</a> by Robert Sedgewick and Kevin Wayne.
 
 ## Algorithms
@@ -56,12 +56,50 @@ This repository contains C++ implementations of the algorithms in the textbook
 - **5.6** Substring search (Knuth-Morris-Pratt): [KMP.h](KMP.h) | [KMP.cpp](KMP.cpp)
 - **5.7** Substring search (Boyer-Moore): [BoyerMoore.h](BoyerMoore.h) | [BoyerMoore.cpp](BoyerMoore.cpp)
 - **5.8** Substring search (Rabin-Karp): [RabinKarp.h](RabinKarp.h) | [RabinKarp.cpp](RabinKarp.cpp)
+- **5.9** Regular expression pattern matching: [NFA.h](NFA.h) | [NFA.cpp](NFA.cpp)
+- ...
+
+## Clients
+
+### Fundamentals
+
+- UF: [main_UF.cpp](main_UF.cpp)
+
+### Sorting
+
+- Selection | Insertion | Shell | Merge | MergeBU | Quick | Quick3way | Heap: [main_Sorting.cpp.in](main_Sorting.cpp.in)
+- MaxPQ: [main_MaxPQ.cpp](main_MaxPQ.cpp)
+
+### Symbol Tables
+
+- TestSequentialSearchST | TestBinarySearchST | TestBST | TestRedBlackBST | TestSeparateChainingHashST |
+  TestLinearProbingHashST: [main_TestST.cpp.in](main_TestST.cpp.in)
+
+### Graphs
+
+- DepthFirstPaths | BreadthFirstPaths: [main_Paths.cpp.in](main_Paths.cpp.in)
+- CC | KosarajuSCC: [main_CC.cpp.in](main_CC.cpp.in)
+- DirectedDFS: [main_DirectedDFS.cpp](main_DirectedDFS.cpp)
+- Topological: [main_Topological.cpp](main_Topological.cpp)
+- PrimMST | KruskalMST: [main_MST.cpp.in](main_MST.cpp.in)
+- DijkstraSP | AcyclicSP | BellmanFordSP: [main_SP.cpp.in](main_SP.cpp.in)
+
+### Strings
+
+- LSD | MSD | Quick3string: [main_Sorting.cpp.in](main_Sorting.cpp.in)
+- TestTrieST | TestTST: [main_TestST.cpp.in](main_TestST.cpp.in)
+- KMP | BoyerMoore | RabinKarp: [main_SubstrSearch.cpp.in](main_SubstrSearch.cpp.in)
+- GREP: [main_GREP.cpp](main_GREP.cpp)
 - ...
 
 ## Build and Run
 
-A simple client is provided for each algorithm in `main_*.cpp`s. To build them, ensure you have CMake 3.28 or higher and
-a C++17 compatible compiler. Follow these steps:
+### Prerequisites
+
+- CMake 3.20 or later
+- C++ compiler with C++17 support
+
+### Steps
 
 1. Create and navigate to a build directory:
 
@@ -70,30 +108,30 @@ a C++17 compatible compiler. Follow these steps:
     cd build
     ```
 
-2. Configure and build all targets:
+2. Configure and build all targets. This will produce all clients:
 
     ```shell
     cmake ..
     cmake --build .
     ```
 
-   Alternatively, you can build a specific target that corresponds to a specific algorithm. For example:
+   Alternatively, build a specific target that produces a specific client:
 
     ```shell
     cmake --build . --target UF
     ```
 
-3. (Optional) Get sample input files from the book's website: https://algs4.cs.princeton.edu/code/.
-4. Run the executable. You may redirect the input from a file to save typing:
+3. (Optional) Download sample input files from the booksite: https://algs4.cs.princeton.edu/code/.
+4. Run the client. You may redirect the input from a file (possibly one obtained in step 3):
 
     ```shell
     ./UF < tinyUF.txt
     ```
 
-   Some algorithms require additional command-line arguments. For example:
+   Some clients may expect command-line arguments. For example:
 
     ```shell
     ./DepthFirstPaths tinyCG.txt 0
     ```
 
-   This runs the depth-first search algorithm on the `tinyCG.txt` graph, starting from vertex `0`.
+   This will run `DepthFirstPaths` on the graph in `tinyCG.txt` starting from vertex 0.

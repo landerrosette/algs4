@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <string_view>
+#include <string>
 #include "Sorting.h"
 #include "StringSorting.h"
 

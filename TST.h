@@ -5,6 +5,7 @@
 #include "StringST.h"
 #include <memory>
 #include <optional>
+#include <string_view>
 
 template<typename Value>
 class TST : public StringST<Value> {
@@ -21,18 +22,18 @@ private:
 
     std::shared_ptr<Node> root;
 
-    std::shared_ptr<Node> get(std::shared_ptr<Node> x, const std::string &key, int d) const;
+    std::shared_ptr<Node> get(std::shared_ptr<Node> x, std::string_view key, int d) const;
 
-    std::shared_ptr<Node> put(std::shared_ptr<Node> x, const std::string &key, const Value &val, int d);
+    std::shared_ptr<Node> put(std::shared_ptr<Node> x, std::string_view key, const Value &val, int d);
 
-    std::shared_ptr<Node> remove(std::shared_ptr<Node> x, const std::string &key, int d);
+    std::shared_ptr<Node> remove(std::shared_ptr<Node> x, std::string_view key, int d);
 
     void collect(std::shared_ptr<Node> x, const std::string &pre, std::list<std::string> &q) const;
 
-    void collect(std::shared_ptr<Node> x, const std::string &pre, const std::string &pat,
+    void collect(std::shared_ptr<Node> x, const std::string &pre, std::string_view pat,
                  std::list<std::string> &q) const;
 
-    int search(std::shared_ptr<Node> x, const std::string &s, int d, int length) const;
+    int search(std::shared_ptr<Node> x, std::string_view s, int d, int length) const;
 
     std::shared_ptr<Node> min(std::shared_ptr<Node> x) const;
 
@@ -49,16 +50,15 @@ public:
 
     std::list<std::string> keys() const override { return keysWithPrefix(""); }
 
-    std::string longestPrefixOf(const std::string &s) const override;
+    std::string longestPrefixOf(std::string_view s) const override;
 
     std::list<std::string> keysWithPrefix(const std::string &pre) const override;
 
-    std::list<std::string> keysThatMatch(const std::string &pat) const override;
+    std::list<std::string> keysThatMatch(std::string_view pat) const override;
 };
 
 template<typename Value>
-std::shared_ptr<typename TST<Value>::Node> TST<
-    Value>::get(std::shared_ptr<Node> x, const std::string &key, int d) const {
+std::shared_ptr<typename TST<Value>::Node> TST<Value>::get(std::shared_ptr<Node> x, std::string_view key, int d) const {
     if (!x) return nullptr;
     if (key.empty()) {
         auto preRoot = std::make_shared<Node>('\0');
@@ -73,7 +73,7 @@ std::shared_ptr<typename TST<Value>::Node> TST<
 }
 
 template<typename Value>
-std::shared_ptr<typename TST<Value>::Node> TST<Value>::put(std::shared_ptr<Node> x, const std::string &key,
+std::shared_ptr<typename TST<Value>::Node> TST<Value>::put(std::shared_ptr<Node> x, std::string_view key,
                                                            const Value &val, int d) {
     char c = key[d];
     if (!x) x = std::make_shared<Node>(c);
@@ -88,7 +88,7 @@ std::shared_ptr<typename TST<Value>::Node> TST<Value>::put(std::shared_ptr<Node>
 }
 
 template<typename Value>
-std::shared_ptr<typename TST<Value>::Node> TST<Value>::remove(std::shared_ptr<Node> x, const std::string &key, int d) {
+std::shared_ptr<typename TST<Value>::Node> TST<Value>::remove(std::shared_ptr<Node> x, std::string_view key, int d) {
     if (!x) return nullptr;
     char c = key[d];
     if (c < x->c) x->left = remove(x->left, key, d);
@@ -120,7 +120,7 @@ void TST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, std::l
 }
 
 template<typename Value>
-void TST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, const std::string &pat,
+void TST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, std::string_view pat,
                          std::list<std::string> &q) const {
     if (!x) return;
     int d = pre.length();
@@ -134,7 +134,7 @@ void TST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, const 
 }
 
 template<typename Value>
-int TST<Value>::search(std::shared_ptr<Node> x, const std::string &s, int d, int length) const {
+int TST<Value>::search(std::shared_ptr<Node> x, std::string_view s, int d, int length) const {
     if (!x) return length;
     char c = s[d];
     if (c < x->c) return search(x->left, s, d, length);
@@ -169,9 +169,9 @@ std::optional<Value> TST<Value>::get(const std::string &key) const {
 }
 
 template<typename Value>
-std::string TST<Value>::longestPrefixOf(const std::string &s) const {
+std::string TST<Value>::longestPrefixOf(std::string_view s) const {
     int length = search(root, s, 0, 0);
-    return s.substr(0, length);
+    return std::string(s.substr(0, length));
 }
 
 template<typename Value>
@@ -186,7 +186,7 @@ std::list<std::string> TST<Value>::keysWithPrefix(const std::string &pre) const 
 }
 
 template<typename Value>
-std::list<std::string> TST<Value>::keysThatMatch(const std::string &pat) const {
+std::list<std::string> TST<Value>::keysThatMatch(std::string_view pat) const {
     std::list<std::string> q;
     collect(root, "", pat, q);
     return q;

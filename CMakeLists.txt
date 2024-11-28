@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.20)
 project(algs4)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -31,20 +31,20 @@ foreach (ST "SequentialSearchST" "BinarySearchST" "BST" "RedBlackBST" "SeparateC
         set(ST_INIT_ARGS "20")
     endif ()
 
-    configure_file(main_ST.cpp.in main_${ST}.cpp @ONLY)
+    configure_file(main_TestST.cpp.in main_Test${ST}.cpp @ONLY)
 
-    add_executable(${ST} main_${ST}.cpp STTest.cpp)
+    add_executable(Test${ST} main_Test${ST}.cpp TestST.cpp)
 
-    target_include_directories(${ST} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    target_include_directories(Test${ST} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
     if (ST STREQUAL "BinarySearchST" OR ST STREQUAL "BST" OR ST STREQUAL "RedBlackBST")
-        target_sources(${ST} PRIVATE OrderedSTTest.cpp)
+        target_sources(Test${ST} PRIVATE TestOrderedST.cpp)
 
-        target_compile_definitions(${ST} PRIVATE ORDERED)
+        target_compile_definitions(Test${ST} PRIVATE ORDERED)
     elseif (ST STREQUAL "TrieST" OR ST STREQUAL "TST")
-        target_sources(${ST} PRIVATE StringSTTest.cpp)
+        target_sources(Test${ST} PRIVATE TestStringST.cpp)
 
-        target_compile_definitions(${ST} PRIVATE STRING)
+        target_compile_definitions(Test${ST} PRIVATE STRING)
     endif ()
 
     unset(ST_INIT_ARGS)
@@ -112,3 +112,6 @@ foreach (SUBSTR_SEARCHER "KMP" "BoyerMoore" "RabinKarp")
 
     target_include_directories(${SUBSTR_SEARCHER} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 endforeach ()
+
+# 5.9
+add_executable(GREP main_GREP.cpp NFA.cpp Digraph.cpp DirectedDFS.cpp)

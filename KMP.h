@@ -4,6 +4,7 @@
 
 #include "SubstrSearcher.h"
 #include <vector>
+#include <string>
 
 class KMP : public SubstrSearcher {
 private:
@@ -11,9 +12,9 @@ private:
     std::vector<std::vector<int> > dfa;
 
 public:
-    explicit KMP(const std::string &pat);
+    explicit KMP(std::string pat);
 
-    int search(const std::string &txt) const override;
+    int search(std::string_view txt) const override;
 };
 
 

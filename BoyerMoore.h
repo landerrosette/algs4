@@ -4,6 +4,7 @@
 
 #include "SubstrSearcher.h"
 #include <vector>
+#include <string>
 
 class BoyerMoore : public SubstrSearcher {
 private:
@@ -11,9 +12,9 @@ private:
     std::string pat;
 
 public:
-    explicit BoyerMoore(const std::string &pat);
+    explicit BoyerMoore(std::string pat);
 
-    int search(const std::string &txt) const override;
+    int search(std::string_view txt) const override;
 };
 
 

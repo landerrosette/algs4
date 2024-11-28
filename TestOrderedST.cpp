@@ -1,8 +1,8 @@
-#include "OrderedSTTest.h"
-#include "STTest.h"
+#include "TestOrderedST.h"
+#include "TestST.h"
 #include <iomanip>
 
-namespace STTest {
+namespace TestST {
     void init(OrderedST<std::string, int> &st, std::istream &is, std::ostream &os) {
         init(static_cast<ST<std::string, int> &>(st), is, os);
         os << "min  = " << st.min().value_or(INVALID_KEY) << std::endl;
@@ -29,7 +29,7 @@ namespace STTest {
         listAll(st, os);
     }
 
-    void testOrderedST(OrderedST<std::string, int> &st, std::ostream &os) {
+    void testOrderedST(const OrderedST<std::string, int> &st, std::ostream &os) {
         // print keys in order using select
         os << "Testing select:" << std::endl;
         os << "--------------------------------" << std::endl;

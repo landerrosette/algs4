@@ -1,7 +1,7 @@
 #include "RabinKarp.h"
 #include <random>
 
-long long RabinKarp::hash(const std::string &key, int M) const {
+long long RabinKarp::hash(std::string_view key, int M) const {
     long long h = 0;
     for (int j = 0; j < M; ++j) h = (R * h + key[j]) % Q;
     return h;
@@ -25,12 +25,12 @@ long long RabinKarp::longRandomPrime() {
     }
 }
 
-RabinKarp::RabinKarp(const std::string &pat) : M(pat.length()) {
+RabinKarp::RabinKarp(std::string_view pat) : M(pat.length()) {
     for (int i = 1; i <= M - 1; ++i) RM = (R * RM) % Q; // 计算 R^(M-1) % Q
     patHash = hash(pat, M);
 }
 
-int RabinKarp::search(const std::string &txt) const {
+int RabinKarp::search(std::string_view txt) const {
     int N = txt.length();
     long long txtHash = hash(txt, M);
     if (patHash == txtHash && check(0)) return 0; // 一开始就匹配成功

@@ -1,14 +1,14 @@
-#include "STTest.h"
+#include "TestST.h"
 #include <random>
 
-namespace STTest {
+namespace TestST {
     void init(ST<std::string, int> &st, std::istream &is, std::ostream &os) {
         std::string word;
         for (int i = 0; is >> word; ++i) st.put(word, i);
         os << "size = " << st.size() << std::endl;
     }
 
-    void listAll(ST<std::string, int> &st, std::ostream &os) {
+    void listAll(const ST<std::string, int> &st, std::ostream &os) {
         // print keys using keys()
         for (const auto &s: st.keys()) {
             os << s << " " << st.get(s).value_or(INVALID_VALUE) << std::endl;
@@ -36,7 +36,7 @@ namespace STTest {
         listAll(st, os);
     }
 
-    void testKeys(ST<std::string, int> &st, std::ostream &os) {
+    void testKeys(const ST<std::string, int> &st, std::ostream &os) {
         os << "Testing keys():" << std::endl;
         os << "--------------------------------" << std::endl;
         listAll(st, os);
