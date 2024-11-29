@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <memory>
+#include <iomanip>
 
 class Edge {
 protected:
@@ -29,14 +30,15 @@ public:
 
     explicit operator bool() const { return static_cast<bool>(edge_); }
 
-    friend std::ostream &operator<<(std::ostream &os, const Edge &e);
+    friend std::ostream &operator<<(std::ostream &os, const Edge &e) {
+        return os << e.edge_->v << "-" << e.edge_->w << " " << std::fixed << std::setprecision(2) << e.edge_->weight <<
+               " ";
+    }
 };
 
-bool operator<(const Edge &l, const Edge &r);
+inline bool operator<(const Edge &l, const Edge &r) { return l.weight() < r.weight(); }
 
-bool operator>(const Edge &l, const Edge &r);
-
-std::ostream &operator<<(std::ostream &os, const Edge &e);
+inline bool operator>(const Edge &l, const Edge &r) { return l.weight() > r.weight(); }
 
 
 #endif //ALGS4_EDGE_H

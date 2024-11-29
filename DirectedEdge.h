@@ -4,6 +4,7 @@
 
 #include "Edge.h"
 #include <iostream>
+#include <iomanip>
 
 class DirectedEdge : private Edge {
 public:
@@ -15,10 +16,11 @@ public:
 
     using Edge::operator bool;
 
-    friend std::ostream &operator<<(std::ostream &os, const DirectedEdge &e);
+    friend std::ostream &operator<<(std::ostream &os, const DirectedEdge &e) {
+        return os << e.edge_->v << "->" << e.edge_->w << " " << std::fixed << std::setprecision(2) << e.edge_->weight <<
+               " ";
+    }
 };
-
-std::ostream &operator<<(std::ostream &os, const DirectedEdge &e);
 
 
 #endif //DIRECTEDEDGE_H

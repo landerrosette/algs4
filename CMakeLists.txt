@@ -99,7 +99,7 @@ endforeach ()
 foreach (SP "DijkstraSP" "AcyclicSP" "BellmanFordSP")
     configure_file(main_SP.cpp.in main_${SP}.cpp @ONLY)
 
-    add_executable(${SP} main_${SP}.cpp ${SP}.cpp SP.cpp EdgeWeightedDigraph.cpp DirectedEdge.cpp)
+    add_executable(${SP} main_${SP}.cpp ${SP}.cpp SP.cpp EdgeWeightedDigraph.cpp)
 
     target_include_directories(${SP} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 endforeach ()
