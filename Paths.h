@@ -15,6 +15,8 @@ protected:
 public:
     Paths(const Graph &G, int s) : marked(G.V()), edgeTo(G.V()), s(s) {}
 
+    virtual ~Paths() = default;
+
     bool hasPathTo(int v) const { return marked[v]; }
 
     std::list<int> pathTo(int v) const;
