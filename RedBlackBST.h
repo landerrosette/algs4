@@ -16,13 +16,13 @@ private:
         Node(Key key, Value val, int N, bool color) : BST<Key, Value>::Node(key, val, N), color(color) {}
     };
 
-    bool isRed(std::shared_ptr<Node> x) const;
+    bool isRed(const std::shared_ptr<Node> &x) const;
 
-    std::shared_ptr<Node> rotateLeft(std::shared_ptr<Node> h);
+    std::shared_ptr<Node> rotateLeft(const std::shared_ptr<Node> &h);
 
-    std::shared_ptr<Node> rotateRight(std::shared_ptr<Node> h);
+    std::shared_ptr<Node> rotateRight(const std::shared_ptr<Node> &h);
 
-    void flipColors(std::shared_ptr<Node> h);
+    void flipColors(const std::shared_ptr<Node> &h);
 
     std::shared_ptr<Node> put(std::shared_ptr<Node> h, const Key &key, const Value &val);
 
@@ -31,13 +31,14 @@ public:
 };
 
 template<typename Key, typename Value>
-bool RedBlackBST<Key, Value>::isRed(std::shared_ptr<Node> x) const {
+bool RedBlackBST<Key, Value>::isRed(const std::shared_ptr<Node> &x) const {
     if (!x) return false;
     return x->color == RED;
 }
 
 template<typename Key, typename Value>
-std::shared_ptr<typename RedBlackBST<Key, Value>::Node> RedBlackBST<Key, Value>::rotateLeft(std::shared_ptr<Node> h) {
+std::shared_ptr<typename RedBlackBST<Key, Value>::Node> RedBlackBST<Key, Value>::rotateLeft(
+    const std::shared_ptr<Node> &h) {
     std::shared_ptr<Node> x = std::dynamic_pointer_cast<Node>(h->right);
     h->right = x->left;
     x->left = h;
@@ -49,7 +50,8 @@ std::shared_ptr<typename RedBlackBST<Key, Value>::Node> RedBlackBST<Key, Value>:
 }
 
 template<typename Key, typename Value>
-std::shared_ptr<typename RedBlackBST<Key, Value>::Node> RedBlackBST<Key, Value>::rotateRight(std::shared_ptr<Node> h) {
+std::shared_ptr<typename RedBlackBST<Key, Value>::Node> RedBlackBST<Key, Value>::rotateRight(
+    const std::shared_ptr<Node> &h) {
     std::shared_ptr<Node> x = std::dynamic_pointer_cast<Node>(h->left);
     h->left = x->right;
     x->right = h;
@@ -61,7 +63,7 @@ std::shared_ptr<typename RedBlackBST<Key, Value>::Node> RedBlackBST<Key, Value>:
 }
 
 template<typename Key, typename Value>
-void RedBlackBST<Key, Value>::flipColors(std::shared_ptr<Node> h) {
+void RedBlackBST<Key, Value>::flipColors(const std::shared_ptr<Node> &h) {
     h->color = RED;
     std::dynamic_pointer_cast<Node>(h->left)->color = BLACK;
     std::dynamic_pointer_cast<Node>(h->right)->color = BLACK;

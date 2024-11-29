@@ -21,31 +21,31 @@ protected:
 
     std::shared_ptr<Node> root;
 
-    std::optional<Value> get(std::shared_ptr<Node> x, const Key &key) const;
+    std::optional<Value> get(const std::shared_ptr<Node> &x, const Key &key) const;
 
-    std::shared_ptr<Node> put(std::shared_ptr<Node> x, const Key &key, const Value &val);
+    std::shared_ptr<Node> put(const std::shared_ptr<Node> &x, const Key &key, const Value &val);
 
     std::shared_ptr<Node> remove(std::shared_ptr<Node> x, const Key &key);
 
-    int size(std::shared_ptr<Node> x) const;
+    int size(const std::shared_ptr<Node> &x) const;
 
-    std::shared_ptr<Node> min(std::shared_ptr<Node> x) const;
+    std::shared_ptr<Node> min(const std::shared_ptr<Node> &x) const;
 
-    std::shared_ptr<Node> max(std::shared_ptr<Node> x) const;
+    std::shared_ptr<Node> max(const std::shared_ptr<Node> &x) const;
 
-    std::shared_ptr<Node> floor(std::shared_ptr<Node> x, const Key &key) const;
+    std::shared_ptr<Node> floor(const std::shared_ptr<Node> &x, const Key &key) const;
 
-    std::shared_ptr<Node> ceiling(std::shared_ptr<Node> x, const Key &key) const;
+    std::shared_ptr<Node> ceiling(const std::shared_ptr<Node> &x, const Key &key) const;
 
-    int rank(std::shared_ptr<Node> x, const Key &key) const;
+    int rank(const std::shared_ptr<Node> &x, const Key &key) const;
 
-    std::shared_ptr<Node> select(std::shared_ptr<Node> x, int k) const;
+    std::shared_ptr<Node> select(const std::shared_ptr<Node> &x, int k) const;
 
-    std::shared_ptr<Node> removeMin(std::shared_ptr<Node> x);
+    std::shared_ptr<Node> removeMin(const std::shared_ptr<Node> &x);
 
-    std::shared_ptr<Node> removeMax(std::shared_ptr<Node> x);
+    std::shared_ptr<Node> removeMax(const std::shared_ptr<Node> &x);
 
-    void keys(std::shared_ptr<Node> x, std::list<Key> &queue, const Key &lo, const Key &hi) const;
+    void keys(const std::shared_ptr<Node> &x, std::list<Key> &queue, const Key &lo, const Key &hi) const;
 
 public:
     std::optional<Value> get(const Key &key) const override { return get(root, key); }
@@ -78,7 +78,7 @@ public:
 };
 
 template<typename Key, typename Value>
-std::optional<Value> BST<Key, Value>::get(std::shared_ptr<Node> x, const Key &key) const {
+std::optional<Value> BST<Key, Value>::get(const std::shared_ptr<Node> &x, const Key &key) const {
     if (!x) return std::nullopt;
     if (key < x->key) return get(x->left, key);
     else if (key > x->key) return get(x->right, key);
@@ -87,7 +87,7 @@ std::optional<Value> BST<Key, Value>::get(std::shared_ptr<Node> x, const Key &ke
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node>
-BST<Key, Value>::put(std::shared_ptr<Node> x, const Key &key, const Value &val) {
+BST<Key, Value>::put(const std::shared_ptr<Node> &x, const Key &key, const Value &val) {
     if (!x) return std::make_shared<Node>(key, val, 1);
     if (key < x->key) x->left = put(x->left, key, val);
     else if (key > x->key) x->right = put(x->right, key, val);
@@ -114,27 +114,28 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::remove(std::sha
 }
 
 template<typename Key, typename Value>
-int BST<Key, Value>::size(std::shared_ptr<Node> x) const {
+int BST<Key, Value>::size(const std::shared_ptr<Node> &x) const {
     if (!x) return 0;
     return x->N;
 }
 
 template<typename Key, typename Value>
-std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::min(std::shared_ptr<Node> x) const {
+std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::min(const std::shared_ptr<Node> &x) const {
     if (!x) return nullptr;
     if (!x->left) return x;
     return min(x->left);
 }
 
 template<typename Key, typename Value>
-std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::max(std::shared_ptr<Node> x) const {
+std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::max(const std::shared_ptr<Node> &x) const {
     if (!x) return nullptr;
     if (!x->right) return x;
     return max(x->right);
 }
 
 template<typename Key, typename Value>
-std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::floor(std::shared_ptr<Node> x, const Key &key) const {
+std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::floor(const std::shared_ptr<Node> &x,
+                                                                       const Key &key) const {
     if (!x) return nullptr;
     if (key < x->key) return floor(x->left, key);
     else if (key == x->key) return x;
@@ -147,7 +148,7 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::floor(std::shar
 
 template<typename Key, typename Value>
 std::shared_ptr<typename BST<Key, Value>::Node>
-BST<Key, Value>::ceiling(std::shared_ptr<Node> x, const Key &key) const {
+BST<Key, Value>::ceiling(const std::shared_ptr<Node> &x, const Key &key) const {
     if (!x) return nullptr;
     if (key > x->key) return ceiling(x->right, key);
     else if (key == x->key) return x;
@@ -159,7 +160,7 @@ BST<Key, Value>::ceiling(std::shared_ptr<Node> x, const Key &key) const {
 }
 
 template<typename Key, typename Value>
-int BST<Key, Value>::rank(std::shared_ptr<Node> x, const Key &key) const {
+int BST<Key, Value>::rank(const std::shared_ptr<Node> &x, const Key &key) const {
     if (!x) return 0;
     if (key < x->key) return rank(x->left, key);
     else if (key > x->key)
@@ -168,7 +169,7 @@ int BST<Key, Value>::rank(std::shared_ptr<Node> x, const Key &key) const {
 }
 
 template<typename Key, typename Value>
-std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::select(std::shared_ptr<Node> x, int k) const {
+std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::select(const std::shared_ptr<Node> &x, int k) const {
     if (!x) return nullptr;
     int t = size(x->left);
     if (k < t) return select(x->left, k);
@@ -177,7 +178,7 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::select(std::sha
 }
 
 template<typename Key, typename Value>
-std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMin(std::shared_ptr<Node> x) {
+std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMin(const std::shared_ptr<Node> &x) {
     if (!x) return nullptr;
     if (!x->left) return x->right;
     x->left = removeMin(x->left);
@@ -186,7 +187,7 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMin(std::
 }
 
 template<typename Key, typename Value>
-std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMax(std::shared_ptr<Node> x) {
+std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMax(const std::shared_ptr<Node> &x) {
     if (!x) return nullptr;
     if (!x->right) return x->left;
     x->right = removeMax(x->right);
@@ -195,7 +196,7 @@ std::shared_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::removeMax(std::
 }
 
 template<typename Key, typename Value>
-void BST<Key, Value>::keys(std::shared_ptr<Node> x, std::list<Key> &queue, const Key &lo, const Key &hi) const {
+void BST<Key, Value>::keys(const std::shared_ptr<Node> &x, std::list<Key> &queue, const Key &lo, const Key &hi) const {
     if (!x) return;
     if (lo < x->key) keys(x->left, queue, lo, hi);
     if (lo <= x->key && hi >= x->key) queue.push_back(x->key);

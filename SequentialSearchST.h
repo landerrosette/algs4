@@ -19,7 +19,7 @@ private:
     int N = 0;
     std::shared_ptr<Node> first;
 
-    std::shared_ptr<Node> remove(std::shared_ptr<Node> x, Key key);
+    std::shared_ptr<Node> remove(const std::shared_ptr<Node> &x, Key key);
 
 public:
     std::optional<Value> get(const Key &key) const override;
@@ -35,7 +35,7 @@ public:
 
 template<typename Key, typename Value>
 std::shared_ptr<typename SequentialSearchST<Key, Value>::Node>
-SequentialSearchST<Key, Value>::remove(std::shared_ptr<Node> x, Key key) {
+SequentialSearchST<Key, Value>::remove(const std::shared_ptr<Node> &x, Key key) {
     if (!x) return nullptr; // 基准情况：如果当前节点为空，返回 nullptr
     if (key == x->key) {
         --N;

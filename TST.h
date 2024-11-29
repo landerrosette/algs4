@@ -22,22 +22,22 @@ private:
 
     std::shared_ptr<Node> root;
 
-    std::shared_ptr<Node> get(std::shared_ptr<Node> x, std::string_view key, int d) const;
+    std::shared_ptr<Node> get(const std::shared_ptr<Node> &x, std::string_view key, int d) const;
 
     std::shared_ptr<Node> put(std::shared_ptr<Node> x, std::string_view key, const Value &val, int d);
 
     std::shared_ptr<Node> remove(std::shared_ptr<Node> x, std::string_view key, int d);
 
-    void collect(std::shared_ptr<Node> x, const std::string &pre, std::list<std::string> &q) const;
+    void collect(const std::shared_ptr<Node> &x, const std::string &pre, std::list<std::string> &q) const;
 
-    void collect(std::shared_ptr<Node> x, const std::string &pre, std::string_view pat,
+    void collect(const std::shared_ptr<Node> &x, const std::string &pre, std::string_view pat,
                  std::list<std::string> &q) const;
 
-    int search(std::shared_ptr<Node> x, std::string_view s, int d, int length) const;
+    int search(const std::shared_ptr<Node> &x, std::string_view s, int d, int length) const;
 
-    std::shared_ptr<Node> min(std::shared_ptr<Node> x) const;
+    std::shared_ptr<Node> min(const std::shared_ptr<Node> &x) const;
 
-    std::shared_ptr<Node> removeMin(std::shared_ptr<Node> x);
+    std::shared_ptr<Node> removeMin(const std::shared_ptr<Node> &x);
 
 public:
     std::optional<Value> get(const std::string &key) const override;
@@ -58,7 +58,8 @@ public:
 };
 
 template<typename Value>
-std::shared_ptr<typename TST<Value>::Node> TST<Value>::get(std::shared_ptr<Node> x, std::string_view key, int d) const {
+std::shared_ptr<typename TST<Value>::Node> TST<Value>::get(const std::shared_ptr<Node> &x, std::string_view key,
+                                                           int d) const {
     if (!x) return nullptr;
     if (key.empty()) {
         auto preRoot = std::make_shared<Node>('\0');
@@ -111,7 +112,7 @@ std::shared_ptr<typename TST<Value>::Node> TST<Value>::remove(std::shared_ptr<No
 }
 
 template<typename Value>
-void TST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, std::list<std::string> &q) const {
+void TST<Value>::collect(const std::shared_ptr<Node> &x, const std::string &pre, std::list<std::string> &q) const {
     if (!x) return;
     collect(x->left, pre, q);
     if (x->val) q.push_back(pre + x->c);
@@ -120,7 +121,7 @@ void TST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, std::l
 }
 
 template<typename Value>
-void TST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, std::string_view pat,
+void TST<Value>::collect(const std::shared_ptr<Node> &x, const std::string &pre, std::string_view pat,
                          std::list<std::string> &q) const {
     if (!x) return;
     int d = pre.length();
@@ -134,7 +135,7 @@ void TST<Value>::collect(std::shared_ptr<Node> x, const std::string &pre, std::s
 }
 
 template<typename Value>
-int TST<Value>::search(std::shared_ptr<Node> x, std::string_view s, int d, int length) const {
+int TST<Value>::search(const std::shared_ptr<Node> &x, std::string_view s, int d, int length) const {
     if (!x) return length;
     char c = s[d];
     if (c < x->c) return search(x->left, s, d, length);
@@ -147,14 +148,14 @@ int TST<Value>::search(std::shared_ptr<Node> x, std::string_view s, int d, int l
 }
 
 template<typename Value>
-std::shared_ptr<typename TST<Value>::Node> TST<Value>::min(std::shared_ptr<Node> x) const {
+std::shared_ptr<typename TST<Value>::Node> TST<Value>::min(const std::shared_ptr<Node> &x) const {
     if (!x) return nullptr;
     if (!x->left) return x;
     return min(x->left);
 }
 
 template<typename Value>
-std::shared_ptr<typename TST<Value>::Node> TST<Value>::removeMin(std::shared_ptr<Node> x) {
+std::shared_ptr<typename TST<Value>::Node> TST<Value>::removeMin(const std::shared_ptr<Node> &x) {
     if (!x) return nullptr;
     if (!x->left) return x->right;
     x->left = removeMin(x->left);
