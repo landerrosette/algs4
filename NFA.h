@@ -3,14 +3,14 @@
 
 
 #include "Digraph.h"
-#include <vector>
 #include <string_view>
+#include <string>
 
 class NFA {
 private:
-    std::vector<char> re; // 匹配转换
-    int M;                // 状态数量
-    Digraph G;            // epsilon转换
+    std::string re; // 匹配转换
+    int M;          // 状态数量
+    Digraph G;      // epsilon转换
 
 public:
     explicit NFA(std::string_view regexp);

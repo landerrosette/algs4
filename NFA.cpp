@@ -2,7 +2,7 @@
 #include <list>
 #include "DirectedDFS.h"
 
-NFA::NFA(std::string_view regexp) : re(regexp.begin(), regexp.end()), M(re.size()), G(M + 1) {
+NFA::NFA(std::string_view regexp) : re(regexp), M(re.length()), G(M + 1) {
     std::list<int> ops;
     for (int i = 0; i < M; ++i) {
         int lp = i; // left position
