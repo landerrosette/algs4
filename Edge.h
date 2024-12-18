@@ -38,7 +38,7 @@ public:
 
 inline bool operator<(const Edge &l, const Edge &r) { return l.weight() < r.weight(); }
 
-inline bool operator>(const Edge &l, const Edge &r) { return l.weight() > r.weight(); }
+inline bool operator>(const Edge &l, const Edge &r) { return r < l; }
 
 
 #endif //ALGS4_EDGE_H
