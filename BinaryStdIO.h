@@ -1,22 +1,24 @@
-#ifndef COMPRESSION_H
-#define COMPRESSION_H
+#ifndef BINARYSTDIO_H
+#define BINARYSTDIO_H
 
 
 #include <string>
 #include <cstddef>
 
-class Compression {
+class BinaryStdIO {
 private:
-    inline static std::byte writeBuffer;
-    inline static int writeN = 0;
-    inline static std::byte readBuffer;
-    inline static int readN = 0;
+    inline static std::byte outBuffer;
+    inline static int outN = 0;
+    inline static std::byte inBuffer;
+    inline static int inN = 0;
 
     static void writeBit(std::byte bit);
 
     static void writeByte(std::byte byte);
 
-protected:
+    static void fillInBuffer();
+
+public:
     static void write(bool x) { writeBit(static_cast<std::byte>(x)); }
 
     static void write(char x) { writeByte(static_cast<std::byte>(x)); }
@@ -31,10 +33,12 @@ protected:
 
     static std::string readString();
 
-    static void closeWrite();
+    static bool isEmpty() { return inN < 0; }
 
-    static void closeRead();
+    static void closeOut();
+
+    static void closeIn();
 };
 
 
-#endif //COMPRESSION_H
+#endif //BINARYSTDIO_H
