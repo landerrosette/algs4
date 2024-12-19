@@ -1,0 +1,20 @@
+/******************************************************************************
+ *  % ./@COMPRESSOR@ - < abra.txt | ./BinaryDump 60
+ *  010100000100101000100010010000110100001101010100101010000100
+ *  000000000000000000000000000110001111100101101000111110010100
+ *  120 bits
+ *
+ *  % ./@COMPRESSOR@ - < abra.txt | ./@COMPRESSOR@ +
+ *  ABRACADABRA!
+ *
+ ******************************************************************************/
+
+
+#include <iostream>
+#include "@COMPRESSOR@.h"
+
+int main(int argc, char *argv[]) {
+    if (*argv[1] == '-') @COMPRESSOR@::compress();
+    if (*argv[1] == '+') @COMPRESSOR@::expand();
+    return 0;
+}

@@ -115,3 +115,14 @@ endforeach ()
 
 # 5.9
 add_executable(GREP main_GREP.cpp NFA.cpp Digraph.cpp DirectedDFS.cpp)
+
+# 5.10, 5.11
+foreach (COMPRESSOR "Huffman")
+    configure_file(main_Compress.cpp.in main_${COMPRESSOR}.cpp @ONLY)
+
+    add_executable(${COMPRESSOR} main_${COMPRESSOR}.cpp ${COMPRESSOR}.cpp BinaryStdIO.cpp)
+
+    target_include_directories(${COMPRESSOR} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+endforeach ()
+
+add_executable(BinaryDump main_BinaryDump.cpp BinaryStdIO.cpp)
