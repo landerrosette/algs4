@@ -142,7 +142,7 @@ std::string TrieST<Value>::longestPrefixOf(std::string_view s) const {
 template<typename Value>
 std::list<std::string> TrieST<Value>::keysWithPrefix(const std::string &pre) const {
     std::list<std::string> q;
-    collect(get(root, pre, 0), std::string(pre), q);
+    collect(get(root, pre, 0), pre, q);
     return q;
 }
 
