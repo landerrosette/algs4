@@ -58,7 +58,7 @@ This repository contains C++ implementations of (most) algorithms and (a few) cl
 - **5.8** Substring search (Rabin-Karp): [RabinKarp.h](RabinKarp.h) | [RabinKarp.cpp](RabinKarp.cpp)
 - **5.9** Regular expression pattern matching: [NFA.h](NFA.h) | [NFA.cpp](NFA.cpp)
 - **5.10** Huffman compression/expansion: [Huffman.h](Huffman.h) | [Huffman.cpp](Huffman.cpp)
-- ...
+- **5.11** LZW compression/expansion: [LZW.h](LZW.h) | [LZW.cpp](LZW.cpp)
 
 ## Clients
 
@@ -93,7 +93,6 @@ This repository contains C++ implementations of (most) algorithms and (a few) cl
 - GREP: [main_GREP.cpp](main_GREP.cpp)
 - Huffman | LZW: [main_Compress.cpp.in](main_Compress.cpp.in)
 - BinaryDump: [main_BinaryDump.cpp](main_BinaryDump.cpp)
-- ...
 
 ## Build and Run
 
