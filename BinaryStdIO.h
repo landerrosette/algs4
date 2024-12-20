@@ -25,11 +25,17 @@ public:
 
     static void write(int x);
 
+    static void write(int x, int r);
+
+    static void write(const std::string &s);
+
     static bool readBool();
 
     static char readChar();
 
     static int readInt();
+
+    static int readInt(int r);
 
     static std::string readString();
 

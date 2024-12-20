@@ -17,7 +17,7 @@ void BinaryStdIO::writeByte(std::byte byte) {
         std::cout.put(std::to_integer<char>(byte));
         return;
     }
-    for (int i = 0; i < 8; ++i) writeBit((byte >> (8 - i - 1)) & std::byte{1}); // otherwise write one bit at a time
+    for (int i = 0; i < 8; ++i) writeBit(byte >> (8 - i - 1) & std::byte{1}); // otherwise write one bit at a time
 }
 
 void BinaryStdIO::fillInBuffer() {
@@ -29,6 +29,19 @@ void BinaryStdIO::fillInBuffer() {
 void BinaryStdIO::write(int x) {
     for (int i = 0; i < sizeof(int); ++i)
         writeByte(static_cast<std::byte>(x >> (sizeof(int) - i - 1) * 8 & 0xFF));
+}
+
+void BinaryStdIO::write(int x, int r) {
+    if (r == sizeof(int)) {
+        write(x);
+        return;
+    }
+    for (int i = 0; i < r; ++i)
+        writeBit(static_cast<std::byte>(x >> (r - i - 1) & 1));
+}
+
+void BinaryStdIO::write(const std::string &s) {
+    for (int i = 0; i < s.length(); ++i) write(s[i]);
 }
 
 bool BinaryStdIO::readBool() {
@@ -56,6 +69,16 @@ int BinaryStdIO::readInt() {
     for (int i = 0; i < sizeof(int); ++i) {
         x <<= 8;
         x |= readChar() & 0xFF;
+    }
+    return x;
+}
+
+int BinaryStdIO::readInt(int r) {
+    if (r == sizeof(int)) readInt();
+    int x = 0;
+    for (int i = 0; i < r; ++i) {
+        x <<= 1;
+        x |= readBool();
     }
     return x;
 }
