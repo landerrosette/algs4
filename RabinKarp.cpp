@@ -7,8 +7,8 @@ long long RabinKarp::hash(std::string_view key, int M) const {
     return h;
 }
 
-// a random 31-bit prime
 long long RabinKarp::longRandomPrime() {
+    // a random 31-bit prime
     std::mt19937 g(std::random_device{}());
     std::uniform_int_distribution dis(1LL << 30, (1LL << 31) - 1);
     while (true) {
@@ -26,19 +26,19 @@ long long RabinKarp::longRandomPrime() {
 }
 
 RabinKarp::RabinKarp(std::string_view pat) : M(pat.length()) {
-    for (int i = 1; i <= M - 1; ++i) RM = (R * RM) % Q; // 计算 R^(M-1) % Q
+    for (int i = 1; i <= M - 1; ++i) RM = (R * RM) % Q; // Compute R^(M-1) % Q for use in removing leading digit.
     patHash = hash(pat, M);
 }
 
 int RabinKarp::search(std::string_view txt) const {
     int N = txt.length();
     long long txtHash = hash(txt, M);
-    if (patHash == txtHash && check(0)) return 0; // 一开始就匹配成功
+    if (patHash == txtHash && check(0)) return 0; // Match at beginning.
     for (int i = M; i < N; ++i) {
-        // 减去第一个数字，加上最后一个数字，再次检查匹配
+        // Remove leading digit, add trailing digit, check for match.
         txtHash = (txtHash + Q - RM * txt[i - M] % Q) % Q;
         txtHash = (txtHash * R + txt[i]) % Q;
-        if (patHash == txtHash && check(i - M + 1)) return i - M + 1; // 找到匹配
+        if (patHash == txtHash && check(i - M + 1)) return i - M + 1; // match
     }
-    return N; // 未找到匹配
+    return N; // no match found
 }

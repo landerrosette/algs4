@@ -8,8 +8,8 @@
 template<typename Key>
 class PQ {
 protected:
-    std::vector<std::optional<Key> > pq; // 基于堆的完全二叉树
-    int N = 0;                           // 存储于pq[1..N]中，pq[0]没有使用
+    std::vector<std::optional<Key> > pq; // heap-ordered complete binary tree
+    int N = 0;                           // in pq[1..N] with pq[0] unused
 
     virtual bool lower(int i, int j) const = 0;
 
@@ -63,7 +63,7 @@ template<typename Key>
 std::optional<Key> PQ<Key>::delTop() {
     auto top = pq[1];
     exch(1, N--);
-    pq[N + 1] = std::nullopt; // 置空
+    pq[N + 1] = std::nullopt;
     sink(1);
     return top;
 }

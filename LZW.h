@@ -4,9 +4,9 @@
 
 class LZW {
 private:
-    static constexpr int R = 256;  // 输入字符数
-    static constexpr int L = 4096; // 编码总数=2^12
-    static constexpr int W = 12;   // 编码宽度
+    static constexpr int R = 256;  // number of input chars
+    static constexpr int L = 4096; // number of codewords = 2^12
+    static constexpr int W = 12;   // codeword width
 
 public:
     static void compress();

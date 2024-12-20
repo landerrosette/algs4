@@ -17,7 +17,7 @@ void Shell::sort(std::vector<T> &a) {
     while (h < N / 3) h = h * 3 + 1;
     while (h >= 1) {
         for (int i = h; i < N; ++i) {
-            // 将a[i]插入到a[i-h]、a[i-2h]、a[i-3h]...之中
+            // Insert a[i] among a[i-h], a[i-2*h], a[i-3*h]...
             for (int j = i; j >= h && less(a[j], a[j - h]); j -= h) {
                 exch(a, j, j - h);
             }

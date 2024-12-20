@@ -8,10 +8,10 @@
 
 class BellmanFordSP : public SP {
 private:
-    std::vector<bool> onQ;         // 顶点是否存在与队列中
-    std::list<int> queue;          // 正在被放松的顶点
-    int cost = 0;                  // relax()的调用次数
-    std::list<DirectedEdge> cycle; // edgeTo[]表示的子图是否含有负权重环
+    std::vector<bool> onQ;         // Is this vertex on the queue?
+    std::list<int> queue;          // vertices being relaxed
+    int cost = 0;                  // number of calls to relax()
+    std::list<DirectedEdge> cycle; // negative cycle in edgeTo[]?
 
     void onRelaxationSuccess(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) override;
 

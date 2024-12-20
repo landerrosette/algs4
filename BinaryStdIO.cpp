@@ -2,9 +2,9 @@
 #include <iostream>
 
 void BinaryStdIO::writeBit(std::byte bit) {
-    outBuffer = (outBuffer << 1) | bit; // add bit to buffer
+    outBuffer = (outBuffer << 1) | bit; // Add bit to buffer.
     if (++outN == 8) {
-        // if buffer is full (8 bits), write out as a single byte
+        // If buffer is full (8 bits), write out as a single byte.
         std::cout.put(std::to_integer<char>(outBuffer));
         outBuffer = std::byte();
         outN = 0;
@@ -17,7 +17,7 @@ void BinaryStdIO::writeByte(std::byte byte) {
         std::cout.put(std::to_integer<char>(byte));
         return;
     }
-    for (int i = 0; i < 8; ++i) writeBit(byte >> (8 - i - 1) & std::byte{1}); // otherwise write one bit at a time
+    for (int i = 0; i < 8; ++i) writeBit(byte >> (8 - i - 1) & std::byte{1}); // Otherwise write one bit at a time.
 }
 
 void BinaryStdIO::fillInBuffer() {
@@ -56,7 +56,7 @@ char BinaryStdIO::readChar() {
     auto x = inBuffer;
     if (inN == 8) fillInBuffer(); // special case when aligned byte
     else {
-        // combine last n bits of current buffer with first 8-n bits of new buffer
+        // Combine last n bits of current buffer with first 8-n bits of new buffer.
         x <<= 8 - inN;
         fillInBuffer();
         x |= inBuffer >> inN;
@@ -91,7 +91,7 @@ std::string BinaryStdIO::readString() {
 
 void BinaryStdIO::closeOut() {
     if (outN > 0) {
-        outBuffer <<= 8 - outN; // pad 0s if number of bits written so far is not a multiple of 8
+        outBuffer <<= 8 - outN; // Pad 0s if number of bits written so far is not a multiple of 8.
         std::cout.put(std::to_integer<char>(outBuffer));
     }
     outN = 0;

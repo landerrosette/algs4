@@ -11,9 +11,9 @@
 
 class SymbolDigraph {
 private:
-    RedBlackBST<std::string, int> st; // 符号名 -> 索引
-    std::vector<std::string> keys;    // 索引 -> 符号名
-    std::unique_ptr<Digraph> G_;      // 图
+    RedBlackBST<std::string, int> st; // symbol -> index
+    std::vector<std::string> keys;    // index -> symbol
+    std::unique_ptr<Digraph> G_;      // the graph
 
 public:
     SymbolDigraph(const std::filesystem::path &stream, char sp);

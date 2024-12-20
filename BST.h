@@ -12,7 +12,7 @@ protected:
         Key key;
         Value val;
         std::shared_ptr<Node> left, right;
-        int N; // 以该结点为根的子树中的结点总数
+        int N; // number of nodes in subtree rooted here
 
         Node(Key key, Value val, int N) : key(key), val(val), N(N) {}
 
@@ -164,7 +164,7 @@ int BST<Key, Value>::rank(const std::shared_ptr<Node> &x, const Key &key) const 
     if (!x) return 0;
     if (key < x->key) return rank(x->left, key);
     else if (key > x->key)
-        return size(x->left) /* 左子树的结点总数 */ + 1 /* 根结点 */ + rank(x->right, key);
+        return size(x->left) /* nodes in left subtree */ + 1 /* root */ + rank(x->right, key);
     else return size(x->left);
 }
 

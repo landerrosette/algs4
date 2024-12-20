@@ -8,7 +8,7 @@
 
 class Huffman {
 private:
-    inline static int R = 256; // ASCII字母表
+    inline static int R = 256; // ASCII alphabet
 
     struct Node {
         char ch;

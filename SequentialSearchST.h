@@ -36,13 +36,13 @@ public:
 template<typename Key, typename Value>
 std::shared_ptr<typename SequentialSearchST<Key, Value>::Node>
 SequentialSearchST<Key, Value>::remove(const std::shared_ptr<Node> &x, Key key) {
-    if (!x) return nullptr; // 基准情况：如果当前节点为空，返回 nullptr
+    if (!x) return nullptr;
     if (key == x->key) {
         --N;
         return x->next;
     }
-    x->next = remove(x->next, key); // 递归调用，在下一个节点中继续删除指定的键
-    return x;                       // 返回当前节点，当前节点没有被删除
+    x->next = remove(x->next, key);
+    return x;
 }
 
 template<typename Key, typename Value>

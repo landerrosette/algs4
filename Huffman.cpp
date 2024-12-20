@@ -5,14 +5,14 @@
 #include <vector>
 
 std::vector<std::string> Huffman::buildCode(const std::shared_ptr<Node> &root) {
-    // 使用单词查找树构造编译表
+    // Make a lookup table from trie.
     std::vector<std::string> st(R);
     buildCode(st, root, "");
     return st;
 }
 
 void Huffman::buildCode(std::vector<std::string> &st, const std::shared_ptr<Node> &x, const std::string &s) {
-    // 使用单词查找树构造编译表（递归）
+    // Make a lookup table from trie (recursive).
     if (x->isLeaf()) {
         st[x->ch] = s;
         return;
@@ -22,14 +22,14 @@ void Huffman::buildCode(std::vector<std::string> &st, const std::shared_ptr<Node
 }
 
 std::shared_ptr<Huffman::Node> Huffman::buildTrie(const std::vector<int> &freq) {
-    // 使用多棵单节点树初始化优先队列
+    // Initialize priority queue with singleton trees.
     MinPQ<NodePtr> pq(R);
     for (int c = 0; c < R; ++c) {
         if (freq[c] > 0) pq.insert(std::make_shared<Node>(c, freq[c], nullptr, nullptr));
     }
 
     while (pq.size() > 1) {
-        // 合并两棵频率最小的树
+        // Merge two smallest trees.
         auto x = *pq.delMin();
         auto y = *pq.delMin();
         pq.insert(std::make_shared<Node>('\0', x->freq + y->freq, x, y));
@@ -38,7 +38,7 @@ std::shared_ptr<Huffman::Node> Huffman::buildTrie(const std::vector<int> &freq) 
 }
 
 void Huffman::writeTrie(const std::shared_ptr<Node> &x) {
-    // 输出单词查找树的比特串
+    // Write bitstring-encoded trie.
     if (x->isLeaf()) {
         BinaryStdIO::write(true);
         BinaryStdIO::write(x->ch);

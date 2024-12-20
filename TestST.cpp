@@ -9,14 +9,14 @@ namespace TestST {
     }
 
     void listAll(const ST<std::string, int> &st, std::ostream &os) {
-        // print keys using keys()
+        // Print keys using keys().
         for (const auto &s: st.keys()) {
             os << s << " " << st.get(s).value_or(INVALID_VALUE) << std::endl;
         }
     }
 
     void removeSome(ST<std::string, int> &st, std::ostream &os) {
-        // remove some randomly selected keys
+        // Remove some randomly selected keys.
         std::mt19937 g(std::random_device{}());
         for (const auto &s: st.keys()) {
             if (std::bernoulli_distribution(0.5)(g)) st.remove(s);
@@ -27,7 +27,7 @@ namespace TestST {
     }
 
     void removeAll(ST<std::string, int> &st, std::ostream &os) {
-        // remove all the remaining keys
+        // Remove all the remaining keys.
         for (const auto &s: st.keys()) {
             st.remove(s);
         }

@@ -25,7 +25,7 @@ void Quick3way::sort(std::vector<T> &a, int lo, int hi) {
         if (a[i] < v) exch(a, lt++, i++);
         else if (a[i] > v) exch(a, gt--, i);
         else i++;
-    } // 现在 a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi]成立
+    } // a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi]
     sort(a, lo, lt - 1);
     sort(a, gt + 1, hi);
 }

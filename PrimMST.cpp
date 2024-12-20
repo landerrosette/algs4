@@ -5,9 +5,9 @@ void PrimMST::visit(const EdgeWeightedGraph &G, int v) {
     marked[v] = true;
     for (const auto &e: G.adj(v)) {
         int w = e.other(v);
-        if (marked[w]) continue; // v-w失效
+        if (marked[w]) continue; // v-w is ineligible
         if (e.weight() < distTo[w]) {
-            // 连接w和树的最佳边变为e
+            // Edge e is new best connection from tree to w.
             edgeTo[w] = e;
             distTo[w] = e.weight();
             if (pq.contains(w)) pq.change(w, distTo[w]);

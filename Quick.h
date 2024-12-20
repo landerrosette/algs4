@@ -24,7 +24,7 @@ int Quick::partition(std::vector<T> &a, int lo, int hi) {
     int i = lo, j = hi + 1;
     T v = a[lo];
     while (true) {
-        // 扫描左右，检查扫描是否结束并交换元素
+        // Scan right, scan left, check for scan complete, and exchange.
         while (less(a[++i], v)) {
             if (i == hi) break;
         }
@@ -34,8 +34,8 @@ int Quick::partition(std::vector<T> &a, int lo, int hi) {
         if (i >= j) break;
         exch(a, i, j);
     }
-    exch(a, lo, j);
-    return j; // a[lo..j-1] <= a[j] <= a[j+1..hi] 达成
+    exch(a, lo, j); // Put v = a[j] into position
+    return j; // with a[lo..j-1] <= a[j] <= a[j+1..hi].
 }
 
 template<typename T>

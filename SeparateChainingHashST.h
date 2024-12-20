@@ -10,7 +10,7 @@
 template<typename Key, typename Value>
 class SeparateChainingHashST : public ST<Key, Value> {
 private:
-    int M; // 散列表的大小
+    int M; // hash table size
     std::vector<SequentialSearchST<Key, Value> > st;
 
     int hash(const Key &key) const;

@@ -14,7 +14,7 @@ private:
     std::vector<bool> marked;
     std::vector<T> edgeTo;
     std::list<T> cycle_;
-    std::vector<bool> onStack; // 栈上的所有顶点
+    std::vector<bool> onStack; // vertices on recursive call stack
 
     void dfs(const GraphBase<T> &G, int v);
 

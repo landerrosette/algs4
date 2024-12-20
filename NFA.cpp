@@ -18,7 +18,7 @@ NFA::NFA(std::string_view regexp) : re(regexp), M(re.length()), G(M + 1) {
             } else lp = orPos;
         }
         if (i < M - 1 && re[i + 1] == '*') {
-            // 查看下一个字符
+            // lookahead
             G.addEdge(lp, i + 1);
             G.addEdge(i + 1, lp);
         }
@@ -33,7 +33,7 @@ bool NFA::recognizes(std::string_view txt) const {
         if (dfs.marked(v)) pc.push_front(v);
 
     for (int i = 0; i < txt.length(); ++i) {
-        // 计算txt[i+1]可能到达的所有状态
+        // Compute possible NFA states for txt[i+1].
         std::list<int> match;
         for (int v: pc) {
             if (v < M) {

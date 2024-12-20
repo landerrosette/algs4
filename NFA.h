@@ -8,9 +8,9 @@
 
 class NFA {
 private:
-    std::string re; // 匹配转换
-    int M;          // 状态数量
-    Digraph G;      // epsilon转换
+    std::string re; // match transitions
+    int M;          // number of states
+    Digraph G;      // epsilon transitions
 
 public:
     explicit NFA(std::string_view regexp);

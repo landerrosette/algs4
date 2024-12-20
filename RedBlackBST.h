@@ -11,7 +11,7 @@ private:
     static constexpr bool RED = true, BLACK = false;
 
     struct Node : public BST<Key, Value>::Node {
-        bool color; // 由其父结点指向它的链接的颜色
+        bool color; // color of link from parent to this node
 
         Node(Key key, Value val, int N, bool color) : BST<Key, Value>::Node(key, val, N), color(color) {}
     };

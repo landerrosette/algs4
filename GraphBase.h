@@ -9,9 +9,9 @@
 template<typename T>
 class GraphBase {
 protected:
-    const int V_;                    // 顶点数目
-    int E_;                          // 边的数目
-    std::vector<std::list<T> > adj_; // 邻接表
+    const int V_;                    // number of vertices
+    int E_;                          // number of edges
+    std::vector<std::list<T> > adj_; // adjacency lists
 
 public:
     explicit GraphBase(int V) : V_(V), E_(0), adj_(V) {}

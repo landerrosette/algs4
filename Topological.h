@@ -9,7 +9,7 @@
 
 class Topological {
 private:
-    std::list<int> order_; // 顶点的拓扑顺序
+    std::list<int> order_; // topological order
 
 public:
     template<typename T>
