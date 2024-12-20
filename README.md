@@ -123,7 +123,7 @@ This repository contains C++ implementations of (most) algorithms and (a few) cl
     cmake --build . --target UF
     ```
 
-3. (Optional) Download sample input files from the booksite: https://algs4.cs.princeton.edu/code/.
+3. (Optional) Download sample input files from the book's website: https://algs4.cs.princeton.edu/code/.
 4. Run the client. You may redirect the input from a file (possibly one obtained in step 3):
 
     ```shell
