@@ -7,8 +7,8 @@ long long RabinKarp::hash(std::string_view key, int M) const {
     return h;
 }
 
+// a random 31-bit prime
 long long RabinKarp::longRandomPrime() {
-    // a random 31-bit prime
     std::default_random_engine e(std::random_device{}());
     std::uniform_int_distribution u(1LL << 30, (1LL << 31) - 1);
     while (true) {
@@ -34,8 +34,8 @@ int RabinKarp::search(std::string_view txt) const {
     int N = txt.length();
     long long txtHash = hash(txt, M);
     if (patHash == txtHash && check(0)) return 0; // Match at beginning.
+    // Remove leading digit, add trailing digit, check for match.
     for (int i = M; i < N; ++i) {
-        // Remove leading digit, add trailing digit, check for match.
         txtHash = (txtHash + Q - RM * txt[i - M] % Q) % Q;
         txtHash = (txtHash * R + txt[i]) % Q;
         if (patHash == txtHash && check(i - M + 1)) return i - M + 1; // match

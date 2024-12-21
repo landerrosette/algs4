@@ -7,12 +7,11 @@ void PrimMST::visit(const EdgeWeightedGraph &G, int v) {
         int w = e.other(v);
         if (marked[w]) continue; // v-w is ineligible
         if (e.weight() < distTo[w]) {
-            // Edge e is new best connection from tree to w.
             edgeTo[w] = e;
             distTo[w] = e.weight();
             if (pq.contains(w)) pq.change(w, distTo[w]);
             else pq.insert(w, distTo[w]);
-        }
+        } // Edge e is new best connection from tree to w.
     }
 }
 

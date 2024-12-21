@@ -1,8 +1,8 @@
 #include "BoyerMoore.h"
 #include <utility>
 
+// Compute skip table.
 BoyerMoore::BoyerMoore(std::string pat) : pat(std::move(pat)) {
-    // Compute skip table.
     int M = this->pat.length(), R = 256;
     right = std::vector(R, -1);
     for (int j = 0; j < M; ++j) right[this->pat[j]] = j;
@@ -10,8 +10,8 @@ BoyerMoore::BoyerMoore(std::string pat) : pat(std::move(pat)) {
 
 int BoyerMoore::search(std::string_view txt) const {
     int N = txt.length(), M = pat.length();
+    // Does the pattern match the text at position i?
     for (int skip, i = 0; i <= N - M; i += skip) {
-        // Does the pattern match the text at position i?
         skip = 0;
         for (int j = M - 1; j >= 0; --j) {
             if (pat[j] != txt[i + j]) {

@@ -9,8 +9,8 @@ namespace TestST {
         os << "max  = " << st.max().value_or(INVALID_KEY) << std::endl;
     }
 
+    // Remove the smallest keys.
     void removeSome(OrderedST<std::string, int> &st, std::ostream &os) {
-        // Remove the smallest keys.
         for (int i = 0; i < st.size() / 2; ++i) {
             st.removeMin();
         }
@@ -19,8 +19,8 @@ namespace TestST {
         listAll(st, os);
     }
 
+    // Remove all the remaining keys.
     void removeAll(OrderedST<std::string, int> &st, std::ostream &os) {
-        // Remove all the remaining keys.
         while (!st.isEmpty()) {
             st.remove(st.select(st.size() / 2).value_or(INVALID_KEY));
         }

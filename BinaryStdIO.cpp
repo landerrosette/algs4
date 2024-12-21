@@ -4,19 +4,17 @@
 void BinaryStdIO::writeBit(std::byte bit) {
     outBuffer = (outBuffer << 1) | bit; // Add bit to buffer.
     if (++outN == 8) {
-        // If buffer is full (8 bits), write out as a single byte.
         std::cout.put(std::to_integer<char>(outBuffer));
         outBuffer = std::byte();
         outN = 0;
-    }
+    } // If buffer is full (8 bits), write out as a single byte.
 }
 
 void BinaryStdIO::writeByte(std::byte byte) {
     if (outN == 0) {
-        // optimized if byte-aligned
         std::cout.put(std::to_integer<char>(byte));
         return;
-    }
+    }                                                                         // optimized if byte-aligned
     for (int i = 0; i < 8; ++i) writeBit(byte >> (8 - i - 1) & std::byte{1}); // Otherwise write one bit at a time.
 }
 
@@ -56,11 +54,10 @@ char BinaryStdIO::readChar() {
     auto x = inBuffer;
     if (inN == 8) fillInBuffer(); // special case when aligned byte
     else {
-        // Combine last n bits of current buffer with first 8-n bits of new buffer.
         x <<= 8 - inN;
         fillInBuffer();
         x |= inBuffer >> inN;
-    }
+    } // Combine last n bits of current buffer with first 8-n bits of new buffer.
     return std::to_integer<char>(x);
 }
 

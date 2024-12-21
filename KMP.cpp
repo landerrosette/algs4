@@ -1,13 +1,13 @@
 #include "KMP.h"
 #include <utility>
 
+// Build DFA from pattern.
 KMP::KMP(std::string pat) : pat(std::move(pat)) {
-    // Build DFA from pattern.
     int M = this->pat.length(), R = 256;
     dfa = std::vector(R, std::vector<int>(M));
     dfa[this->pat[0]][0] = 1;
+    // Compute dfa[][j].
     for (int X = 0, j = 1; j < M; ++j) {
-        // Compute dfa[][j].
         for (int c = 0; c < R; ++c) dfa[c][j] = dfa[c][X]; // Copy mismatch cases.
         dfa[this->pat[j]][j] = j + 1;                      // Set match case.
         X = dfa[this->pat[j]][X];                          // Update restart state.

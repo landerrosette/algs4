@@ -8,15 +8,15 @@ namespace TestST {
         os << "size = " << st.size() << std::endl;
     }
 
+    // Print keys using keys().
     void listAll(const ST<std::string, int> &st, std::ostream &os) {
-        // Print keys using keys().
         for (const auto &s: st.keys()) {
             os << s << " " << st.get(s).value_or(INVALID_VALUE) << std::endl;
         }
     }
 
+    // Remove some randomly selected keys.
     void removeSome(ST<std::string, int> &st, std::ostream &os) {
-        // Remove some randomly selected keys.
         std::default_random_engine e(std::random_device{}());
         std::bernoulli_distribution b;
         for (const auto &s: st.keys()) {
@@ -27,8 +27,8 @@ namespace TestST {
         listAll(st, os);
     }
 
+    // Remove all the remaining keys.
     void removeAll(ST<std::string, int> &st, std::ostream &os) {
-        // Remove all the remaining keys.
         for (const auto &s: st.keys()) {
             st.remove(s);
         }

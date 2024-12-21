@@ -36,8 +36,8 @@ private:
     static std::shared_ptr<Node> readTrie();
 
 public:
+    // comparable std::shared_ptr<Node> wrapper
     class NodePtr {
-        // comparable std::shared_ptr<Node> wrapper
     private:
         std::shared_ptr<Node> nodePtr;
 

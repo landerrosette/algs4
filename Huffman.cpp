@@ -4,15 +4,15 @@
 #include <iostream>
 #include <vector>
 
+// Make a lookup table from trie.
 std::vector<std::string> Huffman::buildCode(const std::shared_ptr<Node> &root) {
-    // Make a lookup table from trie.
     std::vector<std::string> st(R);
     buildCode(st, root, "");
     return st;
 }
 
-void Huffman::buildCode(std::vector<std::string> &st, const std::shared_ptr<Node> &x, const std::string &s) {
     // Make a lookup table from trie (recursive).
+void Huffman::buildCode(std::vector<std::string> &st, const std::shared_ptr<Node> &x, const std::string &s) {
     if (x->isLeaf()) {
         st[x->ch] = s;
         return;
@@ -21,15 +21,15 @@ void Huffman::buildCode(std::vector<std::string> &st, const std::shared_ptr<Node
     buildCode(st, x->right, s + '1');
 }
 
+// Initialize priority queue with singleton trees.
 std::shared_ptr<Huffman::Node> Huffman::buildTrie(const std::vector<int> &freq) {
-    // Initialize priority queue with singleton trees.
     MinPQ<NodePtr> pq(R);
     for (int c = 0; c < R; ++c) {
         if (freq[c] > 0) pq.insert(std::make_shared<Node>(c, freq[c], nullptr, nullptr));
     }
 
-    while (pq.size() > 1) {
         // Merge two smallest trees.
+    while (pq.size() > 1) {
         auto x = *pq.delMin();
         auto y = *pq.delMin();
         pq.insert(std::make_shared<Node>('\0', x->freq + y->freq, x, y));
@@ -37,8 +37,8 @@ std::shared_ptr<Huffman::Node> Huffman::buildTrie(const std::vector<int> &freq) 
     return *pq.delMin();
 }
 
-void Huffman::writeTrie(const std::shared_ptr<Node> &x) {
     // Write bitstring-encoded trie.
+void Huffman::writeTrie(const std::shared_ptr<Node> &x) {
     if (x->isLeaf()) {
         BinaryStdIO::write(true);
         BinaryStdIO::write(x->ch);
