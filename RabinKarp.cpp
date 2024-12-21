@@ -10,8 +10,9 @@ long long RabinKarp::hash(std::string_view key, int M) const {
 long long RabinKarp::longRandomPrime() {
     // a random 31-bit prime
     std::default_random_engine e(std::random_device{}());
+    std::uniform_int_distribution u(1LL << 30, (1LL << 31) - 1);
     while (true) {
-        long long num = std::uniform_int_distribution(1LL << 30, (1LL << 31) - 1)(e);
+        long long num = u(e);
         if (num % 3 == 0) continue;
         bool isPrime = true;
         for (long i = 5; i <= num / i; i += 6) {

@@ -18,8 +18,9 @@ namespace TestST {
     void removeSome(ST<std::string, int> &st, std::ostream &os) {
         // Remove some randomly selected keys.
         std::default_random_engine e(std::random_device{}());
+        std::bernoulli_distribution b;
         for (const auto &s: st.keys()) {
-            if (std::bernoulli_distribution(0.5)(e)) st.remove(s);
+            if (b(e)) st.remove(s);
         }
         os << "After removing some randomly selected keys, size = " << st.size() << ":" << std::endl;
         os << "--------------------------------" << std::endl;
