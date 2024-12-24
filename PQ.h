@@ -13,7 +13,7 @@ protected:
 
     virtual bool lower(int i, int j) const = 0;
 
-    virtual void exch(int i, int j);
+    void exch(int i, int j) { std::swap(pq[i], pq[j]); }
 
     void swim(int k);
 
@@ -32,13 +32,6 @@ public:
 
     void insert(const Key &v);
 };
-
-template<typename Key>
-void PQ<Key>::exch(int i, int j) {
-    auto t = pq[i];
-    pq[i] = pq[j];
-    pq[j] = t;
-}
 
 template<typename Key>
 void PQ<Key>::swim(int k) {

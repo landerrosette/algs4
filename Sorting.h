@@ -11,7 +11,7 @@ protected:
     static bool less(const T &v, const T &w) { return v < w; }
 
     template<typename T>
-    static void exch(std::vector<T> &a, int i, int j);
+    static void exch(std::vector<T> &a, int i, int j) { std::swap(a[i], a[j]); }
 
 public:
     template<typename T>
@@ -20,13 +20,6 @@ public:
     template<typename T>
     static bool isSorted(const std::vector<T> &a);
 };
-
-template<typename T>
-void Sorting::exch(std::vector<T> &a, int i, int j) {
-    T t = a[i];
-    a[i] = a[j];
-    a[j] = t;
-}
 
 template<typename T>
 void Sorting::show(const std::vector<T> &a) {

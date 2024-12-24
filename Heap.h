@@ -13,7 +13,7 @@ private:
     static bool less(const std::vector<T> &a, int i, int j) { return a[i - 1] < a[j - 1]; }
 
     template<typename T>
-    static void exch(std::vector<T> &a, int i, int j);
+    static void exch(std::vector<T> &a, int i, int j) { std::swap(a[i - 1], a[j - 1]); }
 
 public:
     template<typename T>
@@ -29,13 +29,6 @@ void Heap::sink(std::vector<T> &a, int k, int N) {
         exch(a, k, j);
         k = j;
     }
-}
-
-template<typename T>
-void Heap::exch(std::vector<T> &a, int i, int j) {
-    T t = a[i - 1];
-    a[i - 1] = a[j - 1];
-    a[j - 1] = t;
 }
 
 template<typename T>
