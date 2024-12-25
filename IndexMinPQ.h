@@ -14,7 +14,7 @@ private:
 
     bool lower(int i, int j) const override { return keys[*pq[i]] > keys[*pq[j]]; }
 
-    void exch(int i, int j) override;
+    void exch(int i, int j);
 
 public:
     explicit IndexMinPQ(int maxN) : MinPQ(maxN), qp(maxN + 1), keys(maxN + 1) {}
