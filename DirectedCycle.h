@@ -6,13 +6,13 @@
 #include "GraphBase.h"
 #include <vector>
 #include "DirectedEdge.h"
-#include <type_traits>
+#include <optional>
 
 template<typename T>
 class DirectedCycle {
 private:
     std::vector<bool> marked;
-    std::vector<T> edgeTo;
+    std::vector<std::optional<T> > edgeTo;
     std::list<T> cycle_;
     std::vector<bool> onStack; // vertices on recursive call stack
 
@@ -42,12 +42,12 @@ void DirectedCycle<T>::dfs(const GraphBase<T> &G, int v) {
         } else if (onStack[w]) {
             if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>) {
                 auto x = e;
-                for (; x.from() != w; x = edgeTo[x.from()]) {
+                for (; x.from() != w; x = *edgeTo[x.from()]) {
                     cycle_.push_front(x);
                 }
                 cycle_.push_front(x);
             } else {
-                for (int x = v; x != w; x = edgeTo[x]) {
+                for (int x = v; x != w; x = *edgeTo[x]) {
                     cycle_.push_front(x);
                 }
                 cycle_.push_front(w);

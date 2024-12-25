@@ -7,10 +7,11 @@
 #include <list>
 #include <vector>
 #include <limits>
+#include <optional>
 
 class SP {
 protected:
-    std::vector<DirectedEdge> edgeTo;
+    std::vector<std::optional<DirectedEdge> > edgeTo;
     std::vector<double> distTo_;
 
     void relax(const EdgeWeightedDigraph &G, int v);

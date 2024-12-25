@@ -18,6 +18,6 @@ SP::SP(const EdgeWeightedDigraph &G, int s) : edgeTo(G.V()), distTo_(G.V(), std:
 
 std::list<DirectedEdge> SP::pathTo(int v) const {
     std::list<DirectedEdge> path;
-    for (auto e = edgeTo[v]; e; e = edgeTo[e.from()]) path.push_front(e);
+    for (auto e = edgeTo[v]; e; e = edgeTo[e->from()]) path.push_front(*e);
     return path;
 }

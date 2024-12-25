@@ -10,15 +10,12 @@ class DirectedEdge : private Edge {
 public:
     using Edge::Edge, Edge::weight;
 
-    int from() const { return edge_->v; }
+    int from() const { return v; }
 
-    int to() const { return edge_->w; }
-
-    using Edge::operator bool;
+    int to() const { return w; }
 
     friend std::ostream &operator<<(std::ostream &os, const DirectedEdge &e) {
-        return os << e.edge_->v << "->" << e.edge_->w << " " << std::fixed << std::setprecision(2) << e.edge_->weight <<
-               " ";
+        return os << e.v << "->" << e.w << " " << std::fixed << std::setprecision(2) << e.weight_ << " ";
     }
 };
 

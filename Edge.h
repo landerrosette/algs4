@@ -3,36 +3,24 @@
 
 
 #include <iostream>
-#include <memory>
 #include <iomanip>
 
 class Edge {
 protected:
-    struct Edge_ {
-        const int v, w;
-        const double weight;
-
-        Edge_(int v, int w, double weight) : v(v), w(w), weight(weight) {}
-    };
-
-    std::shared_ptr<Edge_> edge_;
+    int v, w;
+    double weight_;
 
 public:
-    Edge() = default;
+    Edge(int v, int w, double weight) : v(v), w(w), weight_(weight) {}
 
-    Edge(int v, int w, double weight) : edge_(std::make_shared<Edge_>(v, w, weight)) {}
+    double weight() const { return weight_; }
 
-    double weight() const { return edge_->weight; }
-
-    int either() const { return edge_->v; }
+    int either() const { return v; }
 
     int other(int vertex) const;
 
-    explicit operator bool() const { return static_cast<bool>(edge_); }
-
     friend std::ostream &operator<<(std::ostream &os, const Edge &e) {
-        return os << e.edge_->v << "-" << e.edge_->w << " " << std::fixed << std::setprecision(2) << e.edge_->weight <<
-               " ";
+        return os << e.v << "-" << e.w << " " << std::fixed << std::setprecision(2) << e.weight_ << " ";
     }
 };
 
