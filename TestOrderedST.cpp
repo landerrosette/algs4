@@ -14,7 +14,7 @@ namespace TestST {
         for (int i = 0; i < st.size() / 2; ++i) {
             st.removeMin();
         }
-        os << "After removing the smallest " << st.size() / 2 << " keys, size = " << st.size() << ":" << std::endl;
+        os << "After removing the smallest " << st.size() / 2 << " keys, size = " << st.size() << std::endl;
         os << "--------------------------------" << std::endl;
         listAll(st, os);
     }
@@ -24,14 +24,14 @@ namespace TestST {
         while (!st.isEmpty()) {
             st.remove(st.select(st.size() / 2).value_or(INVALID_KEY));
         }
-        std::cout << "After removing the remaining keys, size = " << st.size() << ":" << std::endl;
+        std::cout << "After removing the remaining keys, size = " << st.size() << std::endl;
         os << "--------------------------------" << std::endl;
         listAll(st, os);
     }
 
     void testOrderedST(const OrderedST<std::string, int> &st, std::ostream &os) {
         // Print keys in order using select.
-        os << "Testing select:" << std::endl;
+        os << "Testing select" << std::endl;
         os << "--------------------------------" << std::endl;
         for (int i = 0; i < st.size(); ++i) {
             os << i << " " << st.select(i).value_or(INVALID_KEY) << std::endl;

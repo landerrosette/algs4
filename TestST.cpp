@@ -22,7 +22,7 @@ namespace TestST {
         for (const auto &s: st.keys()) {
             if (b(e)) st.remove(s);
         }
-        os << "After removing some randomly selected keys, size = " << st.size() << ":" << std::endl;
+        os << "After removing some randomly selected keys, size = " << st.size() << std::endl;
         os << "--------------------------------" << std::endl;
         listAll(st, os);
     }
@@ -32,13 +32,13 @@ namespace TestST {
         for (const auto &s: st.keys()) {
             st.remove(s);
         }
-        os << "After removing the remaining keys, size = " << st.size() << ":" << std::endl;
+        os << "After removing the remaining keys, size = " << st.size() << std::endl;
         os << "--------------------------------" << std::endl;
         listAll(st, os);
     }
 
     void testKeys(const ST<std::string, int> &st, std::ostream &os) {
-        os << "Testing keys():" << std::endl;
+        os << "Testing keys()" << std::endl;
         os << "--------------------------------" << std::endl;
         listAll(st, os);
     }
