@@ -6,6 +6,10 @@
 #ifdef STRING
 #include "TestStringST.h"
 #endif
+#ifdef BALANCED_TREE
+#include "TestBalancedTree.h"
+#include <string>
+#endif
 #include "@ST@.h"
 
 int main(int argc, char *argv[]) {
@@ -29,5 +33,12 @@ int main(int argc, char *argv[]) {
     TestST::removeSome(st, std::cout);
     std::cout << std::endl;
     TestST::removeAll(st, std::cout);
+#ifdef BALANCED_TREE
+    if (argc > 1) {
+        std::cout << std::endl;
+        @ST@<int, int> st2{@ST_INIT_ARGS@};
+        TestST::testRedBlackBST(st2, std::stoi(argv[1]), std::cout);
+    }
+#endif
     return 0;
 }

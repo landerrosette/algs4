@@ -41,10 +41,18 @@ foreach (ST "SequentialSearchST" "BinarySearchST" "BST" "RedBlackBST" "SeparateC
         target_sources(Test${ST} PRIVATE TestOrderedST.cpp)
 
         target_compile_definitions(Test${ST} PRIVATE ORDERED)
-    elseif (ST STREQUAL "TrieST" OR ST STREQUAL "TST")
+    endif ()
+
+    if (ST STREQUAL "TrieST" OR ST STREQUAL "TST")
         target_sources(Test${ST} PRIVATE TestStringST.cpp)
 
         target_compile_definitions(Test${ST} PRIVATE STRING)
+    endif ()
+
+    if (ST STREQUAL "RedBlackBST")
+        target_sources(Test${ST} PRIVATE TestBalancedTree.cpp)
+
+        target_compile_definitions(Test${ST} PRIVATE BALANCED_TREE)
     endif ()
 
     unset(ST_INIT_ARGS)
