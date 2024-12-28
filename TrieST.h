@@ -123,7 +123,7 @@ int TrieST<Value>::search(const Node *x, std::string_view s, int d, int length) 
 
 template<typename Value>
 std::optional<Value> TrieST<Value>::get(const std::string &key) const {
-    auto x = get(root.get(), key, 0);
+    const Node *x = get(root.get(), key, 0);
     if (!x) return std::nullopt;
     return x->val;
 }
