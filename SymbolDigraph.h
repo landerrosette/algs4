@@ -7,7 +7,6 @@
 #include <string>
 #include <filesystem>
 #include <vector>
-#include <memory>
 
 class SymbolDigraph {
 private:
@@ -24,7 +23,7 @@ public:
 
     std::string name(int v) const { return keys[v]; }
 
-    Digraph G() const { return *G_; }
+    Digraph &G() const { return *G_; }
 };
 
 
