@@ -133,6 +133,7 @@ std::unique_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::min(std::unique
     if (!x->left) {
         auto min = std::move(x);
         x = std::move(min->right);
+        min->right = nullptr;
         return min;
     }
     return min(x->left);
