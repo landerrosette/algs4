@@ -17,8 +17,7 @@ void TestST::testRedBlackBST(RedBlackBST<int, int> &st, int n, std::ostream &os)
     std::default_random_engine e(std::random_device{}());
     std::uniform_int_distribution u(0, n - 1);
     while (st.size() > 0) {
-        int i = u(e);
-        if (st.contains(i)) {
+        if (int i = u(e); st.contains(i)) {
             st.remove(i);
             os << "i = " << i << ", height = " << st.height() << ", size = " << st.size() << std::endl;
         }
