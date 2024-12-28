@@ -19,10 +19,14 @@ namespace TestST {
     void removeSome(ST<std::string, int> &st, std::ostream &os) {
         std::default_random_engine e(std::random_device{}());
         std::bernoulli_distribution b;
+        int i = 0;
         for (const auto &s: st.keys()) {
-            if (b(e)) st.remove(s);
+            if (b(e)) {
+                st.remove(s);
+                ++i;
+            }
         }
-        os << "After removing some randomly selected keys, size = " << st.size() << std::endl;
+        os << "After removing " << i << " randomly selected keys, size = " << st.size() << std::endl;
         os << "--------------------------------" << std::endl;
         listAll(st, os);
     }
