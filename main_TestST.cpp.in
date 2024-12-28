@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "TestST.h"
 #ifdef ORDERED
 #include "TestOrderedST.h"
@@ -8,7 +9,6 @@
 #endif
 #ifdef BALANCED_TREE
 #include "TestBalancedTree.h"
-#include <string>
 #endif
 #include "@ST@.h"
 

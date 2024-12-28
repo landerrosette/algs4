@@ -3,6 +3,7 @@
 
 
 #include "OrderedST.h"
+#include <optional>
 #include <vector>
 
 template<typename Key, typename Value>

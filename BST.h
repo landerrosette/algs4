@@ -3,6 +3,8 @@
 
 
 #include "OrderedST.h"
+#include <memory>
+#include <utility>
 
 template<typename Key, typename Value>
 class BST : public OrderedST<Key, Value> {

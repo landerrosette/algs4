@@ -4,7 +4,6 @@
 
 #include "StringST.h"
 #include <optional>
-#include <string_view>
 
 template<typename Value>
 class TST : public StringST<Value> {
@@ -156,7 +155,7 @@ std::optional<Value> TST<Value>::get(const std::string &key) const {
 
 template<typename Value>
 std::list<std::string> TST<Value>::keys() const {
-    // return keysWithPrefix(""); // Call to get(x, "", 0) is undefined
+    // return keysWithPrefix(""); // Passing an empty key to get() is undefined.
     std::list<std::string> q;
     collect(root.get(), "", q);
     return q;

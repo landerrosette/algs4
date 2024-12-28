@@ -4,6 +4,7 @@
 
 #include "Sorting.h"
 #include <string_view>
+#include <string>
 
 class StringSorting : public Sorting {
 protected:

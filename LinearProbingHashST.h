@@ -5,6 +5,7 @@
 #include "ST.h"
 #include <vector>
 #include <functional>
+#include <optional>
 
 template<typename Key, typename Value>
 class LinearProbingHashST : public ST<Key, Value> {
@@ -42,7 +43,7 @@ int LinearProbingHashST<Key, Value>::hash(const Key &key) const {
 
 template<typename Key, typename Value>
 void LinearProbingHashST<Key, Value>::resize(int cap) {
-    LinearProbingHashST<Key, Value> t(cap);
+    LinearProbingHashST t(cap);
     for (int i = 0; i < M; ++i) {
         if (keys_[i]) t.put(*keys_[i], *vals[i]);
     }

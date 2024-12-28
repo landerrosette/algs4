@@ -5,6 +5,7 @@
 #include "Digraph.h"
 #include "RedBlackBST.h"
 #include <string>
+#include <memory>
 #include <filesystem>
 #include <vector>
 

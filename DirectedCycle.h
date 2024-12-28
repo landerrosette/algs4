@@ -7,6 +7,7 @@
 #include <vector>
 #include "DirectedEdge.h"
 #include <optional>
+#include <type_traits>
 
 template<typename T>
 class DirectedCycle {

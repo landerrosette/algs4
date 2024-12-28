@@ -3,8 +3,6 @@
 
 
 #include "StringSorting.h"
-#include <vector>
-#include <string>
 
 class Quick3string : public StringSorting {
 private:

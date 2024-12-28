@@ -3,6 +3,8 @@
 
 
 #include "ST.h"
+#include <utility>
+#include <memory>
 
 template<typename Key, typename Value>
 class SequentialSearchST : public ST<Key, Value> {
