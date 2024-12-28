@@ -31,6 +31,8 @@ private:
 public:
     void put(const Key &key, const Value &val) override;
 
+    // TODO: remove(), removeMin(), removeMax() that maintain the red-black tree properties
+
     int height() const { return height(this->root.get()); }
 };
 
