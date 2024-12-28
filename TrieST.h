@@ -73,7 +73,8 @@ std::unique_ptr<typename TrieST<Value>::Node> TrieST<Value>::put(std::unique_ptr
 }
 
 template<typename Value>
-std::unique_ptr<typename TrieST<Value>::Node> TrieST<Value>::remove(std::unique_ptr<Node> &x, std::string_view key, int d) {
+std::unique_ptr<typename TrieST<Value>::Node> TrieST<Value>::remove(std::unique_ptr<Node> &x, std::string_view key,
+                                                                    int d) {
     if (!x) return nullptr;
     if (d == key.length()) {
         if (x->val) --N;
@@ -99,7 +100,8 @@ void TrieST<Value>::collect(const Node *x, const std::string &pre, std::list<std
 }
 
 template<typename Value>
-void TrieST<Value>::collect(const Node *x, const std::string &pre, std::string_view pat, std::list<std::string> &q) const {
+void TrieST<Value>::collect(const Node *x, const std::string &pre, std::string_view pat,
+                            std::list<std::string> &q) const {
     if (!x) return;
     int d = pre.length();
     if (d == pat.length() && x->val) q.push_back(pre);

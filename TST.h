@@ -110,7 +110,7 @@ void TST<Value>::collect(const Node *x, const std::string &pre, std::list<std::s
 }
 
 template<typename Value>
-void TST<Value>::collect(const Node *x, const std::string &pre, std::string_view pat,std::list<std::string> &q) const {
+void TST<Value>::collect(const Node *x, const std::string &pre, std::string_view pat, std::list<std::string> &q) const {
     if (!x) return;
     int d = pre.length();
     char next = pat[d];

@@ -11,7 +11,7 @@ std::vector<std::string> Huffman::buildCode(const std::shared_ptr<Node> &root) {
     return st;
 }
 
-    // Make a lookup table from trie (recursive).
+// Make a lookup table from trie (recursive).
 void Huffman::buildCode(std::vector<std::string> &st, const std::shared_ptr<Node> &x, const std::string &s) {
     if (x->isLeaf()) {
         st[x->ch] = s;
@@ -28,7 +28,7 @@ std::shared_ptr<Huffman::Node> Huffman::buildTrie(const std::vector<int> &freq) 
         if (freq[c] > 0) pq.insert(std::make_shared<Node>(c, freq[c], nullptr, nullptr));
     }
 
-        // Merge two smallest trees.
+    // Merge two smallest trees.
     while (pq.size() > 1) {
         auto x = *pq.delMin();
         auto y = *pq.delMin();
@@ -37,7 +37,7 @@ std::shared_ptr<Huffman::Node> Huffman::buildTrie(const std::vector<int> &freq) 
     return *pq.delMin();
 }
 
-    // Write bitstring-encoded trie.
+// Write bitstring-encoded trie.
 void Huffman::writeTrie(const std::shared_ptr<Node> &x) {
     if (x->isLeaf()) {
         BinaryStdIO::write(true);
