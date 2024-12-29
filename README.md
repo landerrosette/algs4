@@ -1,8 +1,7 @@
 ## Overview
 
 <IMG SRC="http://algs4.cs.princeton.edu/cover.png"  align=right hspace=25 width=100 alt = "Algorithms 4/e textbook">
-This repository contains C++ implementations of algorithms and clients in the textbook
-<a href = "http://amzn.to/13VNJi7">Algorithms, 4th Edition</a> by Robert Sedgewick and Kevin Wayne.
+This repository contains C++ implementations of the algorithms and clients in the textbook <a href = "http://amzn.to/13VNJi7">Algorithms, 4th Edition</a> by Robert Sedgewick and Kevin Wayne.
 
 For the original Java source code, visit the <a href = "https://github.com/kevin-wayne/algs4">official repository</a>.
 
