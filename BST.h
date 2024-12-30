@@ -30,7 +30,8 @@ protected:
 
     const Node *min(const Node *x) const;
 
-    std::unique_ptr<Node> min(std::unique_ptr<Node> &x); // extract the minimum node
+    // Extract the minimum node.
+    std::unique_ptr<Node> min(std::unique_ptr<Node> &x);
 
     const Node *max(const Node *x) const;
 
