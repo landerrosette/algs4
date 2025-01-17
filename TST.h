@@ -4,6 +4,7 @@
 
 #include "StringST.h"
 #include <optional>
+#include <memory>
 
 template<typename Value>
 class TST : public StringST<Value> {

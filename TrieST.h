@@ -5,6 +5,7 @@
 #include "StringST.h"
 #include <vector>
 #include <optional>
+#include <memory>
 
 template<typename Value>
 class TrieST : public StringST<Value> {
