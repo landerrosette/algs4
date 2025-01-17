@@ -1,7 +1,7 @@
 #include "TestOrderedST.h"
 #include "TestST.h"
 #include <iomanip>
-#include <vector>
+#include <array>
 
 namespace TestST {
     void init(OrderedST<std::string, int> &st, std::istream &is, std::ostream &os) {
@@ -52,8 +52,8 @@ namespace TestST {
         os << std::endl;
 
         // Test range search and range count.
-        std::vector<std::string> from = {"A", "Z", "X", "0", "B", "C"};
-        std::vector<std::string> to = {"Z", "A", "X", "Z", "G", "L"};
+        std::array<std::string, 6> from = {"A", "Z", "X", "0", "B", "C"};
+        std::array<std::string, 6> to = {"Z", "A", "X", "Z", "G", "L"};
         os << "range search" << std::endl;
         os << "-------------------" << std::endl;
         for (int i = 0; i < from.size(); ++i) {
