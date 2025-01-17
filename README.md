@@ -25,7 +25,7 @@ For the original Java source code, visit the <a href = "https://github.com/kevin
 ### Symbol Tables
 
 - **3.1** Sequential search: [SequentialSearchST.h](SequentialSearchST.h)
-- **3.2** Binary search: [BinarySearch.h](BinarySearchST.h)
+- **3.2** Binary search: [BinarySearchST.h](BinarySearchST.h)
 - **3.3** Binary tree search: [BST.h](BST.h)
 - **3.4** Red-black BST search: [RedBlackBST.h](RedBlackBST.h)
 - **3.5** Hashing with separate chaining: [SeparateChainingHashST.h](SeparateChainingHashST.h)
