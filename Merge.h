@@ -24,7 +24,7 @@ public:
 template<typename T>
 void Merge::sort(std::vector<T> &a, int lo, int hi) {
     if (hi <= lo) return;
-    int mid = (lo + hi) / 2;
+    int mid = lo + (hi - lo) / 2;
     sort(a, lo, mid);
     sort(a, mid + 1, hi);
     merge(a, lo, mid, hi);

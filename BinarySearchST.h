@@ -95,7 +95,7 @@ template<typename Key, typename Value>
 int BinarySearchST<Key, Value>::rank(const Key &key) const {
     int lo = 0, hi = N - 1;
     while (lo <= hi) {
-        int mid = (lo + hi) / 2;
+        int mid = lo + (hi - lo) / 2;
         if (key < keys_[mid]) hi = mid - 1;
         else if (key > keys_[mid]) lo = mid + 1;
         else return mid;
