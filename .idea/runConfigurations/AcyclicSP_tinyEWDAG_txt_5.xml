@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AcyclicSP tinyEWDAG.txt 5" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="$ProjectFileDir$/algs4-data/tinyEWDAG.txt 5" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="algs4" TARGET_NAME="AcyclicSP" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="algs4" RUN_TARGET_NAME="AcyclicSP">
+    <method v="2">
+      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+    </method>
+  </configuration>
+</component>
