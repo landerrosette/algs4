@@ -19,7 +19,7 @@ void MSD::sort(std::vector<std::string> &a, int lo, int hi, int d) {
     }
     std::vector<int> count(R + 1);
     for (int i = lo; i <= hi; ++i) ++count[a[i][d] + 1];
-    for (int r = 0; r < R + 1; ++r) count[r + 1] += count[r];
+    for (int r = 0; r < R; ++r) count[r + 1] += count[r];
     for (int i = lo; i <= hi; ++i) aux[count[a[i][d]]++] = a[i];
     for (int i = lo; i <= hi; ++i) a[i] = aux[i - lo];
     for (int r = 0; r < R; ++r) {
