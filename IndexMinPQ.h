@@ -53,10 +53,9 @@ void IndexMinPQ<Key>::change(int k, const Key &key) {
 
 template<typename Key>
 std::optional<int> IndexMinPQ<Key>::delMin() {
-    int indexOfLast = *pq[N + 1];
     int indexOfMin = *MinPQ::delMin();
-    qp[indexOfLast] = std::nullopt;
-    keys[indexOfLast] = std::nullopt;
+    keys[*pq[N + 1]] = std::nullopt;
+    qp[*pq[N + 1]] = std::nullopt;
     return indexOfMin;
 }
 
