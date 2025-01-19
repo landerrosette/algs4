@@ -37,8 +37,6 @@ namespace TestST {
             st.remove(s);
         }
         os << "After removing the remaining keys, size = " << st.size() << std::endl;
-        os << "--------------------------------" << std::endl;
-        listAll(st, os);
     }
 
     void testKeys(const ST<std::string, int> &st, std::ostream &os) {

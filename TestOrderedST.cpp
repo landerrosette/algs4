@@ -26,8 +26,6 @@ namespace TestST {
             st.remove(st.select(st.size() / 2).value_or(INVALID_KEY));
         }
         std::cout << "After removing the remaining keys, size = " << st.size() << std::endl;
-        os << "--------------------------------" << std::endl;
-        listAll(st, os);
     }
 
     void testOrderedST(const OrderedST<std::string, int> &st, std::ostream &os) {

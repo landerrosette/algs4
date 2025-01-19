@@ -215,16 +215,12 @@ void BST<Key, Value>::keys(const Node *x, std::list<Key> &queue, const Key &lo, 
 
 template<typename Key, typename Value>
 std::optional<Key> BST<Key, Value>::min() const {
-    const Node *x = min(root.get());
-    if (!x) return std::nullopt;
-    return x->key;
+    return min(root.get())->key;
 }
 
 template<typename Key, typename Value>
 std::optional<Key> BST<Key, Value>::max() const {
-    const Node *x = max(root.get());
-    if (!x) return std::nullopt;
-    return x->key;
+    return max(root.get())->key;
 }
 
 template<typename Key, typename Value>

@@ -82,7 +82,7 @@ template<typename Key, typename Value>
 std::optional<Key> BinarySearchST<Key, Value>::floor(const Key &key) const {
     int i = rank(key);
     if (i < N && keys_[i] == key) return keys_[i];
-    else return keys_[i - 1];
+    else return i > 0 ? keys_[i - 1] : std::nullopt;
 }
 
 template<typename Key, typename Value>
@@ -106,7 +106,6 @@ int BinarySearchST<Key, Value>::rank(const Key &key) const {
 template<typename Key, typename Value>
 std::list<Key> BinarySearchST<Key, Value>::keys(const Key &lo, const Key &hi) const {
     std::list<Key> queue;
-    if (hi < lo) return queue;
     for (int i = rank(lo); i < rank(hi); ++i) queue.push_back(*keys_[i]);
     if (this->contains(hi)) queue.push_back(*keys_[rank(hi)]);
     return queue;
