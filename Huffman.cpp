@@ -1,8 +1,10 @@
 #include "Huffman.h"
-#include "MinPQ.h"
-#include "BinaryStdIO.h"
+
 #include <iostream>
 #include <vector>
+
+#include "BinaryStdIO.h"
+#include "MinPQ.h"
 
 // Make a lookup table from trie.
 std::vector<std::string> Huffman::buildCode(const std::shared_ptr<Node> &root) {

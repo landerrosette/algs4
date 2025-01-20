@@ -2,9 +2,10 @@
 #define ALGS4_DIRECTEDDFS_H
 
 
-#include "Digraph.h"
-#include <vector>
 #include <list>
+#include <vector>
+
+#include "Digraph.h"
 
 class DirectedDFS {
 private:

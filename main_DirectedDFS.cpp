@@ -11,10 +11,11 @@
  ******************************************************************************/
 
 
-#include <iostream>
-#include <string>
 #include <fstream>
+#include <iostream>
 #include <list>
+#include <string>
+
 #include "DirectedDFS.h"
 
 int main(int argc, char *argv[]) {

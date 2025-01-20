@@ -2,9 +2,10 @@
 #define KRUSKALMST_H
 
 
-#include "MST.h"
 #include <list>
+
 #include "EdgeWeightedGraph.h"
+#include "MST.h"
 
 class KruskalMST : public MST {
 private:

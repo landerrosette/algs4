@@ -2,9 +2,9 @@
 #define ALGS4_PQ_H
 
 
-#include <vector>
 #include <optional>
 #include <utility>
+#include <vector>
 
 template<typename Key>
 class PQ {

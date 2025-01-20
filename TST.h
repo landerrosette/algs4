@@ -2,9 +2,10 @@
 #define TST_H
 
 
-#include "StringST.h"
-#include <optional>
 #include <memory>
+#include <optional>
+
+#include "StringST.h"
 
 template<typename Value>
 class TST : public StringST<Value> {

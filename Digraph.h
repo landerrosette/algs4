@@ -2,8 +2,9 @@
 #define ALGS4_DIGRAPH_H
 
 
-#include "GraphBase.h"
 #include <iostream>
+
+#include "GraphBase.h"
 
 class Digraph : public GraphBase<int> {
 public:

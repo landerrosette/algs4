@@ -2,8 +2,9 @@
 #define ALGS4_MINPQ_H
 
 
-#include "PQ.h"
 #include <optional>
+
+#include "PQ.h"
 
 template<typename Key>
 class MinPQ : public PQ<Key> {

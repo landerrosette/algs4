@@ -2,9 +2,10 @@
 #define ALGS4_QUICK3WAY_H
 
 
-#include "Sorting.h"
 #include <algorithm>
 #include <random>
+
+#include "Sorting.h"
 
 class Quick3way : public Sorting {
 private:

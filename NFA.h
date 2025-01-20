@@ -2,9 +2,10 @@
 #define NFA_H
 
 
-#include "Digraph.h"
-#include <string_view>
 #include <string>
+#include <string_view>
+
+#include "Digraph.h"
 
 class NFA {
 private:

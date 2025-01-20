@@ -1,4 +1,5 @@
 #include "BinaryStdIO.h"
+
 #include <iostream>
 
 void BinaryStdIO::writeBit(std::byte bit) {

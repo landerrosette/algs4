@@ -2,10 +2,11 @@
 #define TRIEST_H
 
 
-#include "StringST.h"
-#include <vector>
-#include <optional>
 #include <memory>
+#include <optional>
+#include <vector>
+
+#include "StringST.h"
 
 template<typename Value>
 class TrieST : public StringST<Value> {

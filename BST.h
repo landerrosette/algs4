@@ -2,9 +2,10 @@
 #define ALGS4_BST_H
 
 
-#include "OrderedST.h"
 #include <memory>
 #include <utility>
+
+#include "OrderedST.h"
 
 template<typename Key, typename Value>
 class BST : public OrderedST<Key, Value> {

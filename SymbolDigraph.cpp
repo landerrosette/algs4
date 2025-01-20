@@ -1,7 +1,8 @@
 #include "SymbolDigraph.h"
+
 #include <fstream>
-#include <string>
 #include <sstream>
+#include <string>
 
 SymbolDigraph::SymbolDigraph(const std::filesystem::path &stream, char sp) {
     std::ifstream in(stream);

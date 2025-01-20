@@ -2,12 +2,13 @@
 #define SP_H
 
 
+#include <limits>
+#include <list>
+#include <optional>
+#include <vector>
+
 #include "DirectedEdge.h"
 #include "EdgeWeightedDigraph.h"
-#include <list>
-#include <vector>
-#include <limits>
-#include <optional>
 
 class SP {
 protected:

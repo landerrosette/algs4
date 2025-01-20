@@ -3,6 +3,7 @@
 
 
 #include <iostream>
+
 #include "StringST.h"
 
 namespace TestST {

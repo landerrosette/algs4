@@ -2,8 +2,9 @@
 #define ALGS4_MAXPQ_H
 
 
-#include "PQ.h"
 #include <optional>
+
+#include "PQ.h"
 
 template<typename Key>
 class MaxPQ : public PQ<Key> {

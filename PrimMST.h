@@ -2,11 +2,12 @@
 #define ALGS4_PRIMMST_H
 
 
-#include "MST.h"
-#include "EdgeWeightedGraph.h"
-#include <vector>
-#include "IndexMinPQ.h"
 #include <optional>
+#include <vector>
+
+#include "EdgeWeightedGraph.h"
+#include "IndexMinPQ.h"
+#include "MST.h"
 
 class PrimMST : public MST {
 private:

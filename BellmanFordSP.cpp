@@ -1,4 +1,5 @@
 #include "BellmanFordSP.h"
+
 #include "DirectedCycle.h"
 
 void BellmanFordSP::onRelaxationSuccess(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) {

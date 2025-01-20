@@ -2,10 +2,11 @@
 #define ALGS4_EDGEWEIGHTEDGRAPH_H
 
 
-#include "GraphBase.h"
-#include "Edge.h"
 #include <iostream>
 #include <list>
+
+#include "Edge.h"
+#include "GraphBase.h"
 
 class EdgeWeightedGraph : public GraphBase<Edge> {
 public:

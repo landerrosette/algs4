@@ -2,9 +2,10 @@
 #define ALGS4_QUICK_H
 
 
-#include "Sorting.h"
 #include <algorithm>
 #include <random>
+
+#include "Sorting.h"
 
 class Quick : public Sorting {
 private:

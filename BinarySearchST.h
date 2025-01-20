@@ -2,9 +2,10 @@
 #define ALGS4_BINARYSEARCHST_H
 
 
-#include "OrderedST.h"
 #include <optional>
 #include <vector>
+
+#include "OrderedST.h"
 
 template<typename Key, typename Value>
 class BinarySearchST : public OrderedST<Key, Value> {

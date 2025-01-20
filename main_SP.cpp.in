@@ -32,10 +32,11 @@
  ******************************************************************************/
 
 
-#include <iostream>
 #include <fstream>
-#include <string>
 #include <iomanip>
+#include <iostream>
+#include <string>
+
 #include "@SP@.h"
 
 int main(int argc, char *argv[]) {

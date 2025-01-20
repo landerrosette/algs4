@@ -1,4 +1,5 @@
 #include "TestBalancedTree.h"
+
 #include <random>
 
 void TestST::testRedBlackBST(RedBlackBST<int, int> &st, int n, std::ostream &os) {

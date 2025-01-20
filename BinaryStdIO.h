@@ -2,8 +2,8 @@
 #define BINARYSTDIO_H
 
 
-#include <string>
 #include <cstddef>
+#include <string>
 
 class BinaryStdIO {
 private:

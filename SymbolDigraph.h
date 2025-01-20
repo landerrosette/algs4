@@ -2,12 +2,13 @@
 #define ALGS4_SYMBOLDIGRAPH_H
 
 
+#include <filesystem>
+#include <memory>
+#include <string>
+#include <vector>
+
 #include "Digraph.h"
 #include "RedBlackBST.h"
-#include <string>
-#include <memory>
-#include <filesystem>
-#include <vector>
 
 class SymbolDigraph {
 private:

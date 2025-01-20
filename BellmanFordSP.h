@@ -2,9 +2,10 @@
 #define BELLMANFORDSP_H
 
 
-#include "SP.h"
-#include <vector>
 #include <list>
+#include <vector>
+
+#include "SP.h"
 
 class BellmanFordSP : public SP {
 private:

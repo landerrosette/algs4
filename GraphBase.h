@@ -2,9 +2,9 @@
 #define ALGS4_GRAPHBASE_H
 
 
+#include <iostream>
 #include <list>
 #include <vector>
-#include <iostream>
 
 template<typename T>
 class GraphBase {

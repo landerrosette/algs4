@@ -2,10 +2,11 @@
 #define ALGS4_SEPARATECHAININGHASHST_H
 
 
-#include "ST.h"
-#include "SequentialSearchST.h"
-#include <vector>
 #include <functional>
+#include <vector>
+
+#include "SequentialSearchST.h"
+#include "ST.h"
 
 template<typename Key, typename Value>
 class SeparateChainingHashST : public ST<Key, Value> {

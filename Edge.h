@@ -2,8 +2,8 @@
 #define ALGS4_EDGE_H
 
 
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 class Edge {
 protected:

@@ -1,7 +1,9 @@
 #include "TestOrderedST.h"
-#include "TestST.h"
-#include <iomanip>
+
 #include <array>
+#include <iomanip>
+
+#include "TestST.h"
 
 namespace TestST {
     void init(OrderedST<std::string, int> &st, std::istream &is, std::ostream &os) {

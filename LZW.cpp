@@ -1,8 +1,10 @@
 #include "LZW.h"
-#include "TST.h"
+
 #include <string>
-#include "BinaryStdIO.h"
 #include <vector>
+
+#include "BinaryStdIO.h"
+#include "TST.h"
 
 void LZW::compress() {
     std::string input = BinaryStdIO::readString();

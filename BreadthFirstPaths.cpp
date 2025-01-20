@@ -1,4 +1,5 @@
 #include "BreadthFirstPaths.h"
+
 #include <queue>
 
 void BreadthFirstPaths::bfs(const Graph &G, int s) {

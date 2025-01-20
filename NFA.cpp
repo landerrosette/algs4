@@ -1,7 +1,9 @@
 #include "NFA.h"
-#include <list>
-#include "DirectedDFS.h"
+
 #include <algorithm>
+#include <list>
+
+#include "DirectedDFS.h"
 
 NFA::NFA(std::string_view regexp) : re(regexp), M(re.length()), G(M + 1) {
     std::list<int> ops;

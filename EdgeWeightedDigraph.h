@@ -2,10 +2,11 @@
 #define EDGEWEIGHTEDDIGRAPH_H
 
 
-#include "GraphBase.h"
-#include "DirectedEdge.h"
 #include <iostream>
 #include <list>
+
+#include "DirectedEdge.h"
+#include "GraphBase.h"
 
 class EdgeWeightedDigraph : public GraphBase<DirectedEdge> {
 public:

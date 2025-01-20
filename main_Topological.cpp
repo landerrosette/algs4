@@ -18,8 +18,9 @@
 
 
 #include <iostream>
-#include "Topological.h"
+
 #include "SymbolDigraph.h"
+#include "Topological.h"
 
 int main(int argc, char *argv[]) {
     SymbolDigraph sg(argv[1], *argv[2]);

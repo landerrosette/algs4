@@ -2,8 +2,9 @@
 #define ALGS4_HEAP_H
 
 
-#include "Sorting.h"
 #include <utility>
+
+#include "Sorting.h"
 
 class Heap : public Sorting {
 private:

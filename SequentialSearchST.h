@@ -2,9 +2,10 @@
 #define ALGS4_SEQUENTIALSEARCHST_H
 
 
-#include "ST.h"
-#include <utility>
 #include <memory>
+#include <utility>
+
+#include "ST.h"
 
 template<typename Key, typename Value>
 class SequentialSearchST : public ST<Key, Value> {

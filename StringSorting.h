@@ -2,9 +2,10 @@
 #define STRINGSORTING_H
 
 
-#include "Sorting.h"
-#include <string_view>
 #include <string>
+#include <string_view>
+
+#include "Sorting.h"
 
 class StringSorting : public Sorting {
 };

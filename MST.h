@@ -2,8 +2,9 @@
 #define ALGS4_MST_H
 
 
-#include "Edge.h"
 #include <list>
+
+#include "Edge.h"
 
 class MST {
 public:

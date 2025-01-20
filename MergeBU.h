@@ -2,8 +2,9 @@
 #define ALGS4_MERGEBU_H
 
 
-#include "Merge.h"
 #include <algorithm>
+
+#include "Merge.h"
 
 class MergeBU : public Merge {
 public:

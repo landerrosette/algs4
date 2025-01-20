@@ -8,10 +8,11 @@
  ******************************************************************************/
 
 
+#include <cassert>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <cassert>
+
 #include "@SORTER@.h"
 
 int main(int argc, char *argv[]) {

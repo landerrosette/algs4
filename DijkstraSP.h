@@ -2,8 +2,8 @@
 #define DIJKSTRASP_H
 
 
-#include "SP.h"
 #include "IndexMinPQ.h"
+#include "SP.h"
 
 class DijkstraSP : public SP {
 private:

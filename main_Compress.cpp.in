@@ -13,7 +13,6 @@
  ******************************************************************************/
 
 
-#include <iostream>
 #include "@COMPRESSOR@.h"
 
 int main(int argc, char *argv[]) {

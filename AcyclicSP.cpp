@@ -1,4 +1,5 @@
 #include "AcyclicSP.h"
+
 #include "Topological.h"
 
 AcyclicSP::AcyclicSP(const EdgeWeightedDigraph &G, int s) : SP(G, s) {

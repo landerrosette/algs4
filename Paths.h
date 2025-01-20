@@ -2,9 +2,10 @@
 #define ALGS4_PATHS_H
 
 
-#include "Graph.h"
-#include <vector>
 #include <list>
+#include <vector>
+
+#include "Graph.h"
 
 class Paths {
 protected:

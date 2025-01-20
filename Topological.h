@@ -3,9 +3,10 @@
 
 
 #include <list>
-#include "GraphBase.h"
-#include "DirectedCycle.h"
+
 #include "DepthFirstOrder.h"
+#include "DirectedCycle.h"
+#include "GraphBase.h"
 
 class Topological {
 private:

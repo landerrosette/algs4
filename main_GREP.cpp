@@ -18,8 +18,9 @@
 
 
 #include <iostream>
-#include "NFA.h"
 #include <string>
+
+#include "NFA.h"
 
 int main(int argc, char *argv[]) {
     std::string regexp = "(.*" + std::string(argv[1]) + ".*)";

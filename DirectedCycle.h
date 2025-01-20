@@ -3,11 +3,12 @@
 
 
 #include <list>
-#include "GraphBase.h"
-#include <vector>
-#include "DirectedEdge.h"
 #include <optional>
 #include <type_traits>
+#include <vector>
+
+#include "DirectedEdge.h"
+#include "GraphBase.h"
 
 template<typename T>
 class DirectedCycle {

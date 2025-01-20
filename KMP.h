@@ -2,9 +2,10 @@
 #define KMP_H
 
 
-#include "SubstrSearcher.h"
-#include <vector>
 #include <string>
+#include <vector>
+
+#include "SubstrSearcher.h"
 
 class KMP : public SubstrSearcher {
 private:

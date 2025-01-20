@@ -1,4 +1,5 @@
 #include "KMP.h"
+
 #include <utility>
 
 // Build DFA from pattern.

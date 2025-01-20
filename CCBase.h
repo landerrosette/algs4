@@ -2,8 +2,9 @@
 #define ALGS4_CCBASE_H
 
 
-#include "GraphBase.h"
 #include <vector>
+
+#include "GraphBase.h"
 
 class CCBase {
 protected:

@@ -2,11 +2,12 @@
 #define ALGS4_DEPTHFIRSTORDER_H
 
 
-#include "GraphBase.h"
 #include <list>
-#include <vector>
-#include "DirectedEdge.h"
 #include <type_traits>
+#include <vector>
+
+#include "DirectedEdge.h"
+#include "GraphBase.h"
 
 class DepthFirstOrder {
 private:

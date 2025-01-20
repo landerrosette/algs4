@@ -2,10 +2,11 @@
 #define ALGS4_LINEARPROBINGHASHST_H
 
 
-#include "ST.h"
-#include <vector>
 #include <functional>
 #include <optional>
+#include <vector>
+
+#include "ST.h"
 
 template<typename Key, typename Value>
 class LinearProbingHashST : public ST<Key, Value> {

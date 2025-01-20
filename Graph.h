@@ -2,8 +2,9 @@
 #define ALGS4_GRAPH_H
 
 
-#include "GraphBase.h"
 #include <iostream>
+
+#include "GraphBase.h"
 
 class Graph : public GraphBase<int> {
 public:

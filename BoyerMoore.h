@@ -2,9 +2,10 @@
 #define BOYERMOORE_H
 
 
-#include "SubstrSearcher.h"
-#include <vector>
 #include <string>
+#include <vector>
+
+#include "SubstrSearcher.h"
 
 class BoyerMoore : public SubstrSearcher {
 private:

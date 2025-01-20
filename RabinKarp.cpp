@@ -1,4 +1,5 @@
 #include "RabinKarp.h"
+
 #include <random>
 
 long long RabinKarp::hash(std::string_view key, int M) const {

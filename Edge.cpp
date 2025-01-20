@@ -1,4 +1,5 @@
 #include "Edge.h"
+
 #include <stdexcept>
 
 int Edge::other(int vertex) const {

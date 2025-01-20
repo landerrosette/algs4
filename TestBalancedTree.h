@@ -3,6 +3,7 @@
 
 
 #include <iostream>
+
 #include "RedBlackBST.h"
 
 namespace TestST {

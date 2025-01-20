@@ -2,9 +2,10 @@
 #define ALGS4_ORDEREDST_H
 
 
-#include "ST.h"
 #include <list>
 #include <optional>
+
+#include "ST.h"
 
 template<typename Key, typename Value>
 class OrderedST : public ST<Key, Value> {

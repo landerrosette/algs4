@@ -2,9 +2,9 @@
 #define ALGS4_SORTING_H
 
 
-#include <vector>
 #include <iostream>
 #include <utility>
+#include <vector>
 
 class Sorting {
 protected:

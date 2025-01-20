@@ -2,10 +2,11 @@
 #define STRINGST_H
 
 
-#include "ST.h"
-#include <string>
 #include <list>
+#include <string>
 #include <string_view>
+
+#include "ST.h"
 
 template<typename Value>
 class StringST : public ST<std::string, Value> {

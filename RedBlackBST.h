@@ -2,9 +2,10 @@
 #define ALGS4_REDBLACKBST_H
 
 
-#include "BST.h"
 #include <algorithm>
 #include <cassert>
+
+#include "BST.h"
 
 template<typename Key, typename Value>
 class RedBlackBST : public BST<Key, Value> {

@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <string>
+
 #include "@SUBSTR_SEARCHER@.h"
 
 int main(int argc, char *argv[]) {

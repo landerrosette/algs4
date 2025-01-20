@@ -2,9 +2,10 @@
 #define ALGS4_INDEXMINPQ_H
 
 
-#include "MinPQ.h"
-#include <vector>
 #include <optional>
+#include <vector>
+
+#include "MinPQ.h"
 
 template<typename Key>
 class IndexMinPQ : private MinPQ<int> {

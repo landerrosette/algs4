@@ -1,4 +1,5 @@
 #include "BoyerMoore.h"
+
 #include <utility>
 
 // Compute skip table.

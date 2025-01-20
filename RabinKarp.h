@@ -2,8 +2,9 @@
 #define RABINKARP_H
 
 
-#include "SubstrSearcher.h"
 #include <string_view>
+
+#include "SubstrSearcher.h"
 
 class RabinKarp : public SubstrSearcher {
 private:

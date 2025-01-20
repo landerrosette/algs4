@@ -2,9 +2,10 @@
 #define DIRECTEDEDGE_H
 
 
-#include "Edge.h"
-#include <iostream>
 #include <iomanip>
+#include <iostream>
+
+#include "Edge.h"
 
 class DirectedEdge : private Edge {
 public:
