@@ -8,91 +8,100 @@ For the original Java source code, visit the <a href = "https://github.com/kevin
 
 ### Fundamentals
 
-- **1.5** Union-find: [UF.h](UF.h) | [UF.cpp](UF.cpp)
+- **1.5** Union-find: [UF.h](algorithms/UF.h) | [UF.cpp](algorithms/UF.cpp)
 
 ### Sorting
 
-- **2.1** Selection sort: [Selection.h](Selection.h)
-- **2.2** Insertion sort: [Insertion.h](Insertion.h)
-- **2.3** Shellsort: [Shell.h](Shell.h)
-- **2.4** Top-down mergesort: [Merge.h](Merge.h)
-- Bottom-up mergesort: [MergeBU.h](MergeBU.h)
-- **2.5** Quicksort: [Quick.h](Quick.h)
-- Quicksort with 3-way partitioning: [Quick3way.h](Quick3way.h)
-- **2.6** Heap priority queue: [MaxPQ.h](MaxPQ.h)
-- **2.7** Heapsort: [Heap.h](Heap.h)
+- **2.1** Selection sort: [Selection.h](algorithms/Selection.h)
+- **2.2** Insertion sort: [Insertion.h](algorithms/Insertion.h)
+- **2.3** Shellsort: [Shell.h](algorithms/Shell.h)
+- **2.4** Top-down mergesort: [Merge.h](algorithms/Merge.h)
+- Bottom-up mergesort: [MergeBU.h](algorithms/MergeBU.h)
+- **2.5** Quicksort: [Quick.h](algorithms/Quick.h)
+- Quicksort with 3-way partitioning: [Quick3way.h](algorithms/Quick3way.h)
+- **2.6** Heap priority queue: [MaxPQ.h](algorithms/MaxPQ.h)
+- **2.7** Heapsort: [Heap.h](algorithms/Heap.h)
 
 ### Symbol Tables
 
-- **3.1** Sequential search: [SequentialSearchST.h](SequentialSearchST.h)
-- **3.2** Binary search: [BinarySearchST.h](BinarySearchST.h)
-- **3.3** Binary tree search: [BST.h](BST.h)
-- **3.4** Red-black BST search: [RedBlackBST.h](RedBlackBST.h)
-- **3.5** Hashing with separate chaining: [SeparateChainingHashST.h](SeparateChainingHashST.h)
-- **3.6** Hashing with linear probing: [LinearProbingHashST.h](LinearProbingHashST.h)
+- **3.1** Sequential search: [SequentialSearchST.h](algorithms/SequentialSearchST.h)
+- **3.2** Binary search: [BinarySearchST.h](algorithms/BinarySearchST.h)
+- **3.3** Binary tree search: [BST.h](algorithms/BST.h)
+- **3.4** Red-black BST search: [RedBlackBST.h](algorithms/RedBlackBST.h)
+- **3.5** Hashing with separate chaining: [SeparateChainingHashST.h](algorithms/SeparateChainingHashST.h)
+- **3.6** Hashing with linear probing: [LinearProbingHashST.h](algorithms/LinearProbingHashST.h)
 
 ### Graphs
 
-- **4.1** Depth-first search: [DepthFirstPaths.h](DepthFirstPaths.h) | [DepthFirstPaths.cpp](DepthFirstPaths.cpp)
+- **4.1** Depth-first
+  search: [DepthFirstPaths.h](algorithms/DepthFirstPaths.h) | [DepthFirstPaths.cpp](algorithms/DepthFirstPaths.cpp)
 - **4.2** Breadth-first
-  search: [BreadthFirstPaths.h](BreadthFirstPaths.h) | [BreadthFirstPaths.cpp](BreadthFirstPaths.cpp)
-- **4.3** Connected components: [CC.h](CC.h) | [CC.cpp](CC.cpp)
-- **4.4** Reachability: [DirectedDFS.h](DirectedDFS.h) | [DirectedDFS.cpp](DirectedDFS.cpp)
-- **4.5** Topological order: [Topological.h](Topological.h)
-- **4.6** Strong components (Kosaraju): [KosarajuSCC.h](KosarajuSCC.h) | [KosarajuSCC.cpp](KosarajuSCC.cpp)
-- **4.7** Minimum spanning tree (Prim): [PrimMST.h](PrimMST.h) | [PrimMST.cpp](PrimMST.cpp)
-- **4.8** Minimum spanning tree (Kruskal): [KruskalMST.h](KruskalMST.h) | [KruskalMST.cpp](KruskalMST.cpp)
-- **4.9** Shortest paths (Dijkstra): [DijkstraSP.h](DijkstraSP.h) | [DijkstraSP.cpp](DijkstraSP.cpp)
-- **4.10** Shortest paths in DAGs: [AcyclicSP.h](AcyclicSP.h) | [AcyclicSP.cpp](AcyclicSP.cpp)
-- **4.11** Shortest paths (Bellman-Ford): [BellmanFord.h](BellmanFordSP.h) | [BellmanFord.cpp](BellmanFordSP.cpp)
+  search: [BreadthFirstPaths.h](algorithms/BreadthFirstPaths.h) | [BreadthFirstPaths.cpp](algorithms/BreadthFirstPaths.cpp)
+- **4.3** Connected components: [CC.h](algorithms/CC.h) | [CC.cpp](algorithms/CC.cpp)
+- **4.4** Reachability: [DirectedDFS.h](algorithms/DirectedDFS.h) | [DirectedDFS.cpp](algorithms/DirectedDFS.cpp)
+- **4.5** Topological order: [Topological.h](algorithms/Topological.h)
+- **4.6** Strong components (
+  Kosaraju): [KosarajuSCC.h](algorithms/KosarajuSCC.h) | [KosarajuSCC.cpp](algorithms/KosarajuSCC.cpp)
+- **4.7** Minimum spanning tree (Prim): [PrimMST.h](algorithms/PrimMST.h) | [PrimMST.cpp](algorithms/PrimMST.cpp)
+- **4.8** Minimum spanning tree (
+  Kruskal): [KruskalMST.h](algorithms/KruskalMST.h) | [KruskalMST.cpp](algorithms/KruskalMST.cpp)
+- **4.9** Shortest paths (
+  Dijkstra): [DijkstraSP.h](algorithms/DijkstraSP.h) | [DijkstraSP.cpp](algorithms/DijkstraSP.cpp)
+- **4.10** Shortest paths in DAGs: [AcyclicSP.h](algorithms/AcyclicSP.h) | [AcyclicSP.cpp](algorithms/AcyclicSP.cpp)
+- **4.11** Shortest paths (
+  Bellman-Ford): [BellmanFord.h](algorithms/BellmanFordSP.h) | [BellmanFord.cpp](algorithms/BellmanFordSP.cpp)
 
 ### Strings
 
-- **5.1** LSD string sort: [LSD.h](LSD.h) | [LSD.cpp](LSD.cpp)
-- **5.2** MSD string sort: [MSD.h](MSD.h) | [MSD.cpp](MSD.cpp)
-- **5.3** Three-way string quicksort: [Quick3string.h](Quick3string.h) | [Quick3string.cpp](Quick3string.cpp)
-- **5.4** Trie symbol table: [TrieST.h](TrieST.h)
-- **5.5** TST symbol table: [TST.h](TST.h)
-- **5.6** Substring search (Knuth-Morris-Pratt): [KMP.h](KMP.h) | [KMP.cpp](KMP.cpp)
-- **5.7** Substring search (Boyer-Moore): [BoyerMoore.h](BoyerMoore.h) | [BoyerMoore.cpp](BoyerMoore.cpp)
-- **5.8** Substring search (Rabin-Karp): [RabinKarp.h](RabinKarp.h) | [RabinKarp.cpp](RabinKarp.cpp)
-- **5.9** Regular expression pattern matching: [NFA.h](NFA.h) | [NFA.cpp](NFA.cpp)
-- **5.10** Huffman compression/expansion: [Huffman.h](Huffman.h) | [Huffman.cpp](Huffman.cpp)
-- **5.11** LZW compression/expansion: [LZW.h](LZW.h) | [LZW.cpp](LZW.cpp)
+- **5.1** LSD string sort: [LSD.h](algorithms/LSD.h) | [LSD.cpp](algorithms/LSD.cpp)
+- **5.2** MSD string sort: [MSD.h](algorithms/MSD.h) | [MSD.cpp](algorithms/MSD.cpp)
+- **5.3** Three-way string
+  quicksort: [Quick3string.h](algorithms/Quick3string.h) | [Quick3string.cpp](algorithms/Quick3string.cpp)
+- **5.4** Trie symbol table: [TrieST.h](algorithms/TrieST.h)
+- **5.5** TST symbol table: [TST.h](algorithms/TST.h)
+- **5.6** Substring search (Knuth-Morris-Pratt): [KMP.h](algorithms/KMP.h) | [KMP.cpp](algorithms/KMP.cpp)
+- **5.7** Substring search (
+  Boyer-Moore): [BoyerMoore.h](algorithms/BoyerMoore.h) | [BoyerMoore.cpp](algorithms/BoyerMoore.cpp)
+- **5.8** Substring search (
+  Rabin-Karp): [RabinKarp.h](algorithms/RabinKarp.h) | [RabinKarp.cpp](algorithms/RabinKarp.cpp)
+- **5.9** Regular expression pattern matching: [NFA.h](algorithms/NFA.h) | [NFA.cpp](algorithms/NFA.cpp)
+- **5.10** Huffman compression/expansion: [Huffman.h](algorithms/Huffman.h) | [Huffman.cpp](algorithms/Huffman.cpp)
+- **5.11** LZW compression/expansion: [LZW.h](algorithms/LZW.h) | [LZW.cpp](algorithms/LZW.cpp)
 
 ## Clients
 
 ### Fundamentals
 
-- UF: [main_UF.cpp](main_UF.cpp)
+- UF: [main_UF.cpp](clients/main_UF.cpp)
 
 ### Sorting
 
-- Selection | Insertion | Shell | Merge | MergeBU | Quick | Quick3way | Heap: [main_Sorting.cpp.in](main_Sorting.cpp.in)
-- MaxPQ: [main_MaxPQ.cpp](main_MaxPQ.cpp)
+- Selection | Insertion | Shell | Merge | MergeBU | Quick | Quick3way |
+  Heap: [main_Sorting.cpp.in](clients/main_Sorting.cpp.in)
+- MaxPQ: [main_MaxPQ.cpp](clients/main_MaxPQ.cpp)
 
 ### Symbol Tables
 
 - TestSequentialSearchST | TestBinarySearchST | TestBST | TestRedBlackBST | TestSeparateChainingHashST |
-  TestLinearProbingHashST: [main_TestST.cpp.in](main_TestST.cpp.in)
+  TestLinearProbingHashST: [main_TestST.cpp.in](clients/main_TestST.cpp.in)
 
 ### Graphs
 
-- DepthFirstPaths | BreadthFirstPaths: [main_Paths.cpp.in](main_Paths.cpp.in)
-- CC | KosarajuSCC: [main_CC.cpp.in](main_CC.cpp.in)
-- DirectedDFS: [main_DirectedDFS.cpp](main_DirectedDFS.cpp)
-- Topological: [main_Topological.cpp](main_Topological.cpp)
-- PrimMST | KruskalMST: [main_MST.cpp.in](main_MST.cpp.in)
-- DijkstraSP | AcyclicSP | BellmanFordSP: [main_SP.cpp.in](main_SP.cpp.in)
+- DepthFirstPaths | BreadthFirstPaths: [main_Paths.cpp.in](clients/main_Paths.cpp.in)
+- CC | KosarajuSCC: [main_CC.cpp.in](clients/main_CC.cpp.in)
+- DirectedDFS: [main_DirectedDFS.cpp](clients/main_DirectedDFS.cpp)
+- Topological: [main_Topological.cpp](clients/main_Topological.cpp)
+- PrimMST | KruskalMST: [main_MST.cpp.in](clients/main_MST.cpp.in)
+- DijkstraSP | AcyclicSP | BellmanFordSP: [main_SP.cpp.in](clients/main_SP.cpp.in)
 
 ### Strings
 
-- LSD | MSD | Quick3string: [main_Sorting.cpp.in](main_Sorting.cpp.in)
-- TestTrieST | TestTST: [main_TestST.cpp.in](main_TestST.cpp.in)
-- KMP | BoyerMoore | RabinKarp: [main_SubstrSearch.cpp.in](main_SubstrSearch.cpp.in)
-- GREP: [main_GREP.cpp](main_GREP.cpp)
-- Huffman | LZW: [main_Compress.cpp.in](main_Compress.cpp.in)
-- BinaryDump: [main_BinaryDump.cpp](main_BinaryDump.cpp)
+- LSD | MSD | Quick3string: [main_Sorting.cpp.in](clients/main_Sorting.cpp.in)
+- TestTrieST | TestTST: [main_TestST.cpp.in](clients/main_TestST.cpp.in)
+- KMP | BoyerMoore | RabinKarp: [main_SubstrSearch.cpp.in](clients/main_SubstrSearch.cpp.in)
+- GREP: [main_GREP.cpp](clients/main_GREP.cpp)
+- Huffman | LZW: [main_Compress.cpp.in](clients/main_Compress.cpp.in)
+- BinaryDump: [main_BinaryDump.cpp](clients/main_BinaryDump.cpp)
 
 ## Build and Run
 
@@ -103,37 +112,36 @@ For the original Java source code, visit the <a href = "https://github.com/kevin
 
 ### Steps
 
-1. Create and navigate to a build directory:
+1. Configure the project. This will create a `build` directory and generate the necessary files for building the
+   project:
 
     ```shell
-    mkdir build
-    cd build
+    cmake -B build
     ```
 
-2. Configure and build all targets. This will produce all clients:
+2. Build all targets. This will create all the client executables inside the `build` directory:
 
     ```shell
-    cmake ..
-    cmake --build .
+    cmake --build build
     ```
 
-   Alternatively, build a specific target that produces a specific client:
+   Alternatively, build a specific target (e.g., the `UF` client):
 
     ```shell
-    cmake --build . --target UF
+    cmake --build build --target UF
     ```
 
 3. (Optional) Download sample input files from the book's website: https://algs4.cs.princeton.edu/code/.
 4. Run the client. You may redirect the input from a file (possibly one obtained in step 3):
 
     ```shell
-    ./UF < tinyUF.txt
+    build/UF < tinyUF.txt
     ```
 
    Some clients may expect command-line arguments. For example:
 
     ```shell
-    ./DepthFirstPaths tinyCG.txt 0
+    build/DepthFirstPaths tinyCG.txt 0
     ```
 
    This will run `DepthFirstPaths` on the graph in `tinyCG.txt` starting from vertex 0.
