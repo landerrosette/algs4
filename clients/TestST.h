@@ -8,8 +8,8 @@
 #include "ST.h"
 
 namespace TestST {
-    inline constexpr char INVALID_KEY[] = "";
-    inline constexpr int INVALID_VALUE = -1;
+    constexpr const char *INVALID_KEY = "";
+    constexpr int INVALID_VALUE = -1;
 
     void init(ST<std::string, int> &st, std::istream &is, std::ostream &os);
 
