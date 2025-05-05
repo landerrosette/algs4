@@ -40,30 +40,30 @@ For the original Java source code, visit the <a href = "https://github.com/kevin
 - **4.3** Connected components: [CC.h](algorithms/CC.h) | [CC.cpp](algorithms/CC.cpp)
 - **4.4** Reachability: [DirectedDFS.h](algorithms/DirectedDFS.h) | [DirectedDFS.cpp](algorithms/DirectedDFS.cpp)
 - **4.5** Topological order: [Topological.h](algorithms/Topological.h)
-- **4.6** Strong components (
-  Kosaraju): [KosarajuSCC.h](algorithms/KosarajuSCC.h) | [KosarajuSCC.cpp](algorithms/KosarajuSCC.cpp)
+- **4.6** Strong components (Kosaraju):
+  [KosarajuSCC.h](algorithms/KosarajuSCC.h) | [KosarajuSCC.cpp](algorithms/KosarajuSCC.cpp)
 - **4.7** Minimum spanning tree (Prim): [PrimMST.h](algorithms/PrimMST.h) | [PrimMST.cpp](algorithms/PrimMST.cpp)
-- **4.8** Minimum spanning tree (
-  Kruskal): [KruskalMST.h](algorithms/KruskalMST.h) | [KruskalMST.cpp](algorithms/KruskalMST.cpp)
-- **4.9** Shortest paths (
-  Dijkstra): [DijkstraSP.h](algorithms/DijkstraSP.h) | [DijkstraSP.cpp](algorithms/DijkstraSP.cpp)
+- **4.8** Minimum spanning tree (Kruskal):
+  [KruskalMST.h](algorithms/KruskalMST.h) | [KruskalMST.cpp](algorithms/KruskalMST.cpp)
+- **4.9** Shortest paths (Dijkstra):
+  [DijkstraSP.h](algorithms/DijkstraSP.h) | [DijkstraSP.cpp](algorithms/DijkstraSP.cpp)
 - **4.10** Shortest paths in DAGs: [AcyclicSP.h](algorithms/AcyclicSP.h) | [AcyclicSP.cpp](algorithms/AcyclicSP.cpp)
-- **4.11** Shortest paths (
-  Bellman-Ford): [BellmanFord.h](algorithms/BellmanFordSP.h) | [BellmanFord.cpp](algorithms/BellmanFordSP.cpp)
+- **4.11** Shortest paths (Bellman-Ford):
+  [BellmanFord.h](algorithms/BellmanFordSP.h) | [BellmanFord.cpp](algorithms/BellmanFordSP.cpp)
 
 ### Strings
 
 - **5.1** LSD string sort: [LSD.h](algorithms/LSD.h) | [LSD.cpp](algorithms/LSD.cpp)
 - **5.2** MSD string sort: [MSD.h](algorithms/MSD.h) | [MSD.cpp](algorithms/MSD.cpp)
-- **5.3** Three-way string
-  quicksort: [Quick3string.h](algorithms/Quick3string.h) | [Quick3string.cpp](algorithms/Quick3string.cpp)
+- **5.3** Three-way string quicksort:
+  [Quick3string.h](algorithms/Quick3string.h) | [Quick3string.cpp](algorithms/Quick3string.cpp)
 - **5.4** Trie symbol table: [TrieST.h](algorithms/TrieST.h)
 - **5.5** TST symbol table: [TST.h](algorithms/TST.h)
 - **5.6** Substring search (Knuth-Morris-Pratt): [KMP.h](algorithms/KMP.h) | [KMP.cpp](algorithms/KMP.cpp)
-- **5.7** Substring search (
-  Boyer-Moore): [BoyerMoore.h](algorithms/BoyerMoore.h) | [BoyerMoore.cpp](algorithms/BoyerMoore.cpp)
-- **5.8** Substring search (
-  Rabin-Karp): [RabinKarp.h](algorithms/RabinKarp.h) | [RabinKarp.cpp](algorithms/RabinKarp.cpp)
+- **5.7** Substring search (Boyer-Moore):
+  [BoyerMoore.h](algorithms/BoyerMoore.h) | [BoyerMoore.cpp](algorithms/BoyerMoore.cpp)
+- **5.8** Substring search (Rabin-Karp):
+  [RabinKarp.h](algorithms/RabinKarp.h) | [RabinKarp.cpp](algorithms/RabinKarp.cpp)
 - **5.9** Regular expression pattern matching: [NFA.h](algorithms/NFA.h) | [NFA.cpp](algorithms/NFA.cpp)
 - **5.10** Huffman compression/expansion: [Huffman.h](algorithms/Huffman.h) | [Huffman.cpp](algorithms/Huffman.cpp)
 - **5.11** LZW compression/expansion: [LZW.h](algorithms/LZW.h) | [LZW.cpp](algorithms/LZW.cpp)
