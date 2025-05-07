@@ -72,33 +72,33 @@ For the original Java source code, visit the <a href = "https://github.com/kevin
 
 ### Fundamentals
 
-- Union-find: [main_UF.cpp](clients/main_UF.cpp)
+- Union-find (`UF`): [main_UF.cpp](clients/main_UF.cpp)
 
 ### Sorting
 
-- Sorts: [main_Sorting.cpp.in](clients/main_Sorting.cpp.in)
-- Heap priority queue: [main_MaxPQ.cpp](clients/main_MaxPQ.cpp)
+- Sorts (`Selection`, `Insertion`, `Shell`, `Merge`, `MergeBU`, `Quick`, `Quick3way`, `Heap`): [main_Sorting.cpp.in](clients/main_Sorting.cpp.in)
+- Heap priority queue (`MaxPQ`): [main_MaxPQ.cpp](clients/main_MaxPQ.cpp)
 
 ### Symbol Tables
 
-- Symbol table tests: [main_TestST.cpp.in](clients/main_TestST.cpp.in)
+- Symbol table tests (`TestSequentialSearchST`, `TestBinarySearchST`, `TestBST`, `TestRedBlackBST`, `TestSeparateChainingHashST`, `TestLinearProbingHashST`: [main_TestST.cpp.in](clients/main_TestST.cpp.in)
 
 ### Graphs
 
-- Depth-first search | Breadth-first search: [main_Paths.cpp.in](clients/main_Paths.cpp.in)
-- Connected components: [main_CC.cpp.in](clients/main_CC.cpp.in)
-- Reachability: [main_DirectedDFS.cpp](clients/main_DirectedDFS.cpp)
-- Topological order: [main_Topological.cpp](clients/main_Topological.cpp)
-- Minimum spanning tree: [main_MST.cpp.in](clients/main_MST.cpp.in)
-- Shortest paths: [main_SP.cpp.in](clients/main_SP.cpp.in)
+- Depth-first search (`DepthFirstPaths`) | Breadth-first search (`BreadthFirstPaths`): [main_Paths.cpp.in](clients/main_Paths.cpp.in)
+- Connected components (`CC`, `KosarajuSCC`): [main_CC.cpp.in](clients/main_CC.cpp.in)
+- Reachability (`DirectedDFS`): [main_DirectedDFS.cpp](clients/main_DirectedDFS.cpp)
+- Topological order (`Topological`): [main_Topological.cpp](clients/main_Topological.cpp)
+- Minimum spanning tree (`PrimMST`, `KruskalMST`): [main_MST.cpp.in](clients/main_MST.cpp.in)
+- Shortest paths (`DijkstraSP`, `AcyclicSP`, `BellmanFordSP`): [main_SP.cpp.in](clients/main_SP.cpp.in)
 
 ### Strings
 
-- String sorts: [main_Sorting.cpp.in](clients/main_Sorting.cpp.in)
-- Trie symbol table tests | TST symbol table tests: [main_TestST.cpp.in](clients/main_TestST.cpp.in)
-- Substring search: [main_SubstrSearch.cpp.in](clients/main_SubstrSearch.cpp.in)
-- Regular expression pattern matching: [main_GREP.cpp](clients/main_GREP.cpp)
-- Huffman compression/expansion | LZW compression/expansion: [main_Compress.cpp.in](clients/main_Compress.cpp.in)
+- String sorts (`LSD`, `MSD`, `Quick3string`): [main_Sorting.cpp.in](clients/main_Sorting.cpp.in)
+- Trie symbol table tests (`TestTrieST`) | TST symbol table tests (`TestTST`): [main_TestST.cpp.in](clients/main_TestST.cpp.in)
+- Substring search (`KMP`, `BoyerMoore`, `RabinKarp`): [main_SubstrSearch.cpp.in](clients/main_SubstrSearch.cpp.in)
+- Regular expression pattern matching (`GREP`): [main_GREP.cpp](clients/main_GREP.cpp)
+- Huffman compression/expansion (`Huffman`) | LZW compression/expansion (`LZW`): [main_Compress.cpp.in](clients/main_Compress.cpp.in)
 
 ## Build and Run
 
