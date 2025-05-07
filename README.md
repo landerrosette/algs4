@@ -81,7 +81,7 @@ For the original Java source code, visit the <a href = "https://github.com/kevin
 
 ### Symbol Tables
 
-- Symbol table tests (`TestSequentialSearchST`, `TestBinarySearchST`, `TestBST`, `TestRedBlackBST`, `TestSeparateChainingHashST`, `TestLinearProbingHashST`: [main_TestST.cpp.in](clients/main_TestST.cpp.in)
+- Symbol table tests (`TestSequentialSearchST`, `TestBinarySearchST`, `TestBST`, `TestRedBlackBST`, `TestSeparateChainingHashST`, `TestLinearProbingHashST`): [main_TestST.cpp.in](clients/main_TestST.cpp.in)
 
 ### Graphs
 
@@ -125,6 +125,12 @@ For the original Java source code, visit the <a href = "https://github.com/kevin
 
     ```shell
     build/UF < tinyUF.txt
+    ```
+
+   You may also pipe the output of one client to the input of another.
+
+    ```shell
+    build/Huffman - < abra.txt | build/Huffman +
     ```
 
    Some clients expect command-line arguments.
