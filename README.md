@@ -121,22 +121,22 @@ For the original Java source code, visit the <a href = "https://github.com/kevin
     ```
 
 3. (Optional) Download sample input files from the book's website: https://algs4.cs.princeton.edu/code/.
-4. Run the client. You may redirect the input from a file (possibly one obtained in step 3).
+4. From the `build` directory, run the client. You may redirect the input from a file (possibly one obtained in step 3).
 
     ```shell
-    build/UF < tinyUF.txt
+    ./UF < tinyUF.txt
     ```
 
    You may also pipe the output of one client to the input of another.
 
     ```shell
-    build/Huffman - < abra.txt | build/Huffman +
+    ./Huffman - < abra.txt | ./Huffman +
     ```
 
    Some clients expect command-line arguments.
 
     ```shell
-    build/DepthFirstPaths tinyCG.txt 0
+    ./DepthFirstPaths tinyCG.txt 0
     ```
 
    This will run depth-first search on the graph in `tinyCG.txt` starting from vertex 0.
