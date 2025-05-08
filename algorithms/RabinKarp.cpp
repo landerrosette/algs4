@@ -34,7 +34,7 @@ RabinKarp::RabinKarp(std::string_view pat) : M(pat.length()) {
 int RabinKarp::search(std::string_view txt) const {
     int N = txt.length();
     long long txtHash = hash(txt, M);
-    if (patHash == txtHash && check(0)) return 0; // Match at beginning.
+    if (patHash == txtHash && check(0)) return 0; // match at beginning
     // Remove leading digit, add trailing digit, check for match.
     for (int i = M; i < N; ++i) {
         txtHash = (txtHash + Q - RM * txt[i - M] % Q) % Q;
