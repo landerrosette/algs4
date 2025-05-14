@@ -167,7 +167,7 @@ std::unique_ptr<typename BST<Key, Value>::Node> RedBlackBST<Key, Value>::remove(
         if (key == h->key && !h->right) return nullptr;
         if (!isRed(h->right.get()) && !isRed(h->right->left.get())) h = moveRedRight(h);
         if (key == h->key) {
-            auto x = this->min(h->right.get());
+            const auto *x = this->min(h->right.get());
             h->key = x->key;
             h->val = x->val;
             h->right = removeMin(h->right);
@@ -220,7 +220,7 @@ bool RedBlackBST<Key, Value>::isBalanced(const typename BST<Key, Value>::Node *x
 template<typename Key, typename Value>
 bool RedBlackBST<Key, Value>::isBalanced() const {
     int black = 0; // number of black links on path from root to min
-    for (auto *x = this->root.get(); x; x = x->left.get())
+    for (const auto *x = this->root.get(); x; x = x->left.get())
         if (!isRed(x)) black++;
     return isBalanced(this->root.get(), black);
 }

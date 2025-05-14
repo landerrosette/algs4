@@ -133,7 +133,7 @@ template<typename Key, typename Value>
 std::unique_ptr<typename BST<Key, Value>::Node> BST<Key, Value>::min(std::unique_ptr<Node> &x) {
     if (!x) return nullptr;
     if (!x->left) {
-        auto min = std::move(x);
+        std::unique_ptr<Node> min = std::move(x);
         x = std::move(min->right);
         min->right = nullptr;
         return min;
