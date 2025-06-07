@@ -1,8 +1,9 @@
 ## Overview
 
-<IMG SRC="http://algs4.cs.princeton.edu/cover.png"  align=right hspace=25 width=100 alt = "Algorithms 4/e textbook"> This repository contains C++ implementations of the algorithms and clients in the textbook <a href = "http://amzn.to/13VNJi7">Algorithms, 4th Edition</a> by Robert Sedgewick and Kevin Wayne.
+This repository contains C++ implementations of the algorithms and clients in the textbook *Algorithms, 4th Edition* by
+Robert Sedgewick and Kevin Wayne.
 
-For the original Java source code, visit the <a href = "https://github.com/kevin-wayne/algs4">official repository</a>.
+For the original Java source code, visit the [official repository](https://github.com/kevin-wayne/algs4).
 
 ## Algorithms
 
@@ -33,10 +34,10 @@ For the original Java source code, visit the <a href = "https://github.com/kevin
 
 ### Graphs
 
-- **4.1** Depth-first
-  search: [DepthFirstPaths.h](algorithms/DepthFirstPaths.h) | [DepthFirstPaths.cpp](algorithms/DepthFirstPaths.cpp)
-- **4.2** Breadth-first
-  search: [BreadthFirstPaths.h](algorithms/BreadthFirstPaths.h) | [BreadthFirstPaths.cpp](algorithms/BreadthFirstPaths.cpp)
+- **4.1** Depth-first search:
+  [DepthFirstPaths.h](algorithms/DepthFirstPaths.h) | [DepthFirstPaths.cpp](algorithms/DepthFirstPaths.cpp)
+- **4.2** Breadth-first search:
+  [BreadthFirstPaths.h](algorithms/BreadthFirstPaths.h) | [BreadthFirstPaths.cpp](algorithms/BreadthFirstPaths.cpp)
 - **4.3** Connected components: [CC.h](algorithms/CC.h) | [CC.cpp](algorithms/CC.cpp)
 - **4.4** Reachability: [DirectedDFS.h](algorithms/DirectedDFS.h) | [DirectedDFS.cpp](algorithms/DirectedDFS.cpp)
 - **4.5** Topological order: [Topological.h](algorithms/Topological.h)
@@ -76,16 +77,19 @@ For the original Java source code, visit the <a href = "https://github.com/kevin
 
 ### Sorting
 
-- Sorts (`Selection`, `Insertion`, `Shell`, `Merge`, `MergeBU`, `Quick`, `Quick3way`, `Heap`): [main_Sorting.cpp.in](clients/main_Sorting.cpp.in)
+- Sorts (`Selection`, `Insertion`, `Shell`, `Merge`, `MergeBU`, `Quick`, `Quick3way`, `Heap`):
+  [main_Sorting.cpp.in](clients/main_Sorting.cpp.in)
 - Heap priority queue (`MaxPQ`): [main_MaxPQ.cpp](clients/main_MaxPQ.cpp)
 
 ### Symbol Tables
 
-- Symbol table tests (`TestSequentialSearchST`, `TestBinarySearchST`, `TestBST`, `TestRedBlackBST`, `TestSeparateChainingHashST`, `TestLinearProbingHashST`): [main_TestST.cpp.in](clients/main_TestST.cpp.in)
+- Symbol table tests (`TestSequentialSearchST`, `TestBinarySearchST`, `TestBST`, `TestRedBlackBST`,
+  `TestSeparateChainingHashST`, `TestLinearProbingHashST`): [main_TestST.cpp.in](clients/main_TestST.cpp.in)
 
 ### Graphs
 
-- Depth-first search (`DepthFirstPaths`) | Breadth-first search (`BreadthFirstPaths`): [main_Paths.cpp.in](clients/main_Paths.cpp.in)
+- Depth-first search (`DepthFirstPaths`) | Breadth-first search (`BreadthFirstPaths`):
+  [main_Paths.cpp.in](clients/main_Paths.cpp.in)
 - Connected components (`CC`, `KosarajuSCC`): [main_CC.cpp.in](clients/main_CC.cpp.in)
 - Reachability (`DirectedDFS`): [main_DirectedDFS.cpp](clients/main_DirectedDFS.cpp)
 - Topological order (`Topological`): [main_Topological.cpp](clients/main_Topological.cpp)
@@ -95,10 +99,12 @@ For the original Java source code, visit the <a href = "https://github.com/kevin
 ### Strings
 
 - String sorts (`LSD`, `MSD`, `Quick3string`): [main_Sorting.cpp.in](clients/main_Sorting.cpp.in)
-- Trie symbol table tests (`TestTrieST`) | TST symbol table tests (`TestTST`): [main_TestST.cpp.in](clients/main_TestST.cpp.in)
+- Trie symbol table tests (`TestTrieST`) | TST symbol table tests (`TestTST`):
+  [main_TestST.cpp.in](clients/main_TestST.cpp.in)
 - Substring search (`KMP`, `BoyerMoore`, `RabinKarp`): [main_SubstrSearch.cpp.in](clients/main_SubstrSearch.cpp.in)
 - Regular expression pattern matching (`GREP`): [main_GREP.cpp](clients/main_GREP.cpp)
-- Huffman compression/expansion (`Huffman`) | LZW compression/expansion (`LZW`): [main_Compress.cpp.in](clients/main_Compress.cpp.in)
+- Huffman compression/expansion (`Huffman`) | LZW compression/expansion (`LZW`):
+  [main_Compress.cpp.in](clients/main_Compress.cpp.in)
 
 ## Build and Run
 
