@@ -1,5 +1,5 @@
-#ifndef BELLMANFORDSP_H
-#define BELLMANFORDSP_H
+#ifndef ALGS4_BELLMANFORDSP_H
+#define ALGS4_BELLMANFORDSP_H
 
 
 #include <list>
@@ -29,4 +29,4 @@ public:
 };
 
 
-#endif //BELLMANFORDSP_H
+#endif //ALGS4_BELLMANFORDSP_H

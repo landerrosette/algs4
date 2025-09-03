@@ -1,5 +1,5 @@
-#ifndef DIJKSTRASP_H
-#define DIJKSTRASP_H
+#ifndef ALGS4_DIJKSTRASP_H
+#define ALGS4_DIJKSTRASP_H
 
 
 #include "IndexMinPQ.h"
@@ -16,4 +16,4 @@ public:
 };
 
 
-#endif //DIJKSTRASP_H
+#endif //ALGS4_DIJKSTRASP_H

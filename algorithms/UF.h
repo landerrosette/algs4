@@ -1,5 +1,5 @@
-#ifndef UF_H
-#define UF_H
+#ifndef ALGS4_UF_H
+#define ALGS4_UF_H
 
 
 #include <vector>
@@ -23,4 +23,4 @@ public:
 };
 
 
-#endif //UF_H
+#endif //ALGS4_UF_H

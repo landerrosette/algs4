@@ -1,5 +1,5 @@
-#ifndef STRINGSORTING_H
-#define STRINGSORTING_H
+#ifndef ALGS4_STRINGSORTING_H
+#define ALGS4_STRINGSORTING_H
 
 
 #include <string>
@@ -11,4 +11,4 @@ class StringSorting : public Sorting {
 };
 
 
-#endif //STRINGSORTING_H
+#endif //ALGS4_STRINGSORTING_H

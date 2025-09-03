@@ -1,5 +1,5 @@
-#ifndef TESTSTRINGST_H
-#define TESTSTRINGST_H
+#ifndef ALGS4_TESTSTRINGST_H
+#define ALGS4_TESTSTRINGST_H
 
 
 #include <iostream>
@@ -11,4 +11,4 @@ namespace TestST {
 }
 
 
-#endif //TESTSTRINGST_H
+#endif //ALGS4_TESTSTRINGST_H

@@ -1,5 +1,5 @@
-#ifndef STRINGST_H
-#define STRINGST_H
+#ifndef ALGS4_STRINGST_H
+#define ALGS4_STRINGST_H
 
 
 #include <list>
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif //STRINGST_H
+#endif //ALGS4_STRINGST_H

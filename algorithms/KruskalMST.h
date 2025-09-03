@@ -1,5 +1,5 @@
-#ifndef KRUSKALMST_H
-#define KRUSKALMST_H
+#ifndef ALGS4_KRUSKALMST_H
+#define ALGS4_KRUSKALMST_H
 
 
 #include <list>
@@ -18,4 +18,4 @@ public:
 };
 
 
-#endif //KRUSKALMST_H
+#endif //ALGS4_KRUSKALMST_H

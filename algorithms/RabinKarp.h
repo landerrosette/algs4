@@ -1,5 +1,5 @@
-#ifndef RABINKARP_H
-#define RABINKARP_H
+#ifndef ALGS4_RABINKARP_H
+#define ALGS4_RABINKARP_H
 
 
 #include <string_view>
@@ -27,4 +27,4 @@ public:
 };
 
 
-#endif //RABINKARP_H
+#endif //ALGS4_RABINKARP_H

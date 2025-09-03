@@ -1,5 +1,5 @@
-#ifndef BOYERMOORE_H
-#define BOYERMOORE_H
+#ifndef ALGS4_BOYERMOORE_H
+#define ALGS4_BOYERMOORE_H
 
 
 #include <string>
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif //BOYERMOORE_H
+#endif //ALGS4_BOYERMOORE_H

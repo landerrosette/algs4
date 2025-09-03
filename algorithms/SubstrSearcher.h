@@ -1,5 +1,5 @@
-#ifndef SUBSTRSEARCHER_H
-#define SUBSTRSEARCHER_H
+#ifndef ALGS4_SUBSTRSEARCHER_H
+#define ALGS4_SUBSTRSEARCHER_H
 
 
 #include <string_view>
@@ -12,4 +12,4 @@ public:
 };
 
 
-#endif //SUBSTRSEARCHER_H
+#endif //ALGS4_SUBSTRSEARCHER_H

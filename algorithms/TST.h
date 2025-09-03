@@ -1,5 +1,5 @@
-#ifndef TST_H
-#define TST_H
+#ifndef ALGS4_TST_H
+#define ALGS4_TST_H
 
 
 #include <memory>
@@ -187,4 +187,4 @@ std::list<std::string> TST<Value>::keysThatMatch(std::string_view pat) const {
 }
 
 
-#endif //TST_H
+#endif //ALGS4_TST_H

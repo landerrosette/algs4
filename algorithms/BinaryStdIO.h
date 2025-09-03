@@ -1,5 +1,5 @@
-#ifndef BINARYSTDIO_H
-#define BINARYSTDIO_H
+#ifndef ALGS4_BINARYSTDIO_H
+#define ALGS4_BINARYSTDIO_H
 
 
 #include <cstddef>
@@ -47,4 +47,4 @@ public:
 };
 
 
-#endif //BINARYSTDIO_H
+#endif //ALGS4_BINARYSTDIO_H

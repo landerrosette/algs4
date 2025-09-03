@@ -1,5 +1,5 @@
-#ifndef QUICK3STRING_H
-#define QUICK3STRING_H
+#ifndef ALGS4_QUICK3STRING_H
+#define ALGS4_QUICK3STRING_H
 
 
 #include "StringSorting.h"
@@ -13,4 +13,4 @@ public:
 };
 
 
-#endif //QUICK3STRING_H
+#endif //ALGS4_QUICK3STRING_H

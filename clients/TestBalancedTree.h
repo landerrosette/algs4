@@ -1,5 +1,5 @@
-#ifndef TESTBALANCEDTREE_H
-#define TESTBALANCEDTREE_H
+#ifndef ALGS4_TESTBALANCEDTREE_H
+#define ALGS4_TESTBALANCEDTREE_H
 
 
 #include <iostream>
@@ -10,4 +10,4 @@ namespace TestST {
     void testRedBlackBST(RedBlackBST<int, int> &st, int n, std::ostream &os);
 }
 
-#endif //TESTBALANCEDTREE_H
+#endif //ALGS4_TESTBALANCEDTREE_H

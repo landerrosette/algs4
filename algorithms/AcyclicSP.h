@@ -1,5 +1,5 @@
-#ifndef ACYCLICSP_H
-#define ACYCLICSP_H
+#ifndef ALGS4_ACYCLICSP_H
+#define ALGS4_ACYCLICSP_H
 
 
 #include "SP.h"
@@ -10,4 +10,4 @@ public:
 };
 
 
-#endif //ACYCLICSP_H
+#endif //ALGS4_ACYCLICSP_H

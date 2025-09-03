@@ -1,5 +1,5 @@
-#ifndef DIRECTEDEDGE_H
-#define DIRECTEDEDGE_H
+#ifndef ALGS4_DIRECTEDEDGE_H
+#define ALGS4_DIRECTEDEDGE_H
 
 
 #include <iomanip>
@@ -21,4 +21,4 @@ public:
 };
 
 
-#endif //DIRECTEDEDGE_H
+#endif //ALGS4_DIRECTEDEDGE_H

@@ -1,5 +1,5 @@
-#ifndef LZW_H
-#define LZW_H
+#ifndef ALGS4_LZW_H
+#define ALGS4_LZW_H
 
 
 class LZW {
@@ -15,4 +15,4 @@ public:
 };
 
 
-#endif //LZW_H
+#endif //ALGS4_LZW_H

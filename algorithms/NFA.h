@@ -1,5 +1,5 @@
-#ifndef NFA_H
-#define NFA_H
+#ifndef ALGS4_NFA_H
+#define ALGS4_NFA_H
 
 
 #include <string>
@@ -20,4 +20,4 @@ public:
 };
 
 
-#endif //NFA_H
+#endif //ALGS4_NFA_H

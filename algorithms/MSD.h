@@ -1,5 +1,5 @@
-#ifndef MSD_H
-#define MSD_H
+#ifndef ALGS4_MSD_H
+#define ALGS4_MSD_H
 
 
 #include <string_view>
@@ -28,4 +28,4 @@ public:
 };
 
 
-#endif //MSD_H
+#endif //ALGS4_MSD_H

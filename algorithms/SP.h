@@ -1,5 +1,5 @@
-#ifndef SP_H
-#define SP_H
+#ifndef ALGS4_SP_H
+#define ALGS4_SP_H
 
 
 #include <limits>
@@ -34,4 +34,4 @@ public:
 };
 
 
-#endif //SP_H
+#endif //ALGS4_SP_H

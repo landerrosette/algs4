@@ -1,5 +1,5 @@
-#ifndef HUFFMAN_H
-#define HUFFMAN_H
+#ifndef ALGS4_HUFFMAN_H
+#define ALGS4_HUFFMAN_H
 
 
 #include <memory>
@@ -61,4 +61,4 @@ public:
 };
 
 
-#endif //HUFFMAN_H
+#endif //ALGS4_HUFFMAN_H

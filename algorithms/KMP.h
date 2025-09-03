@@ -1,5 +1,5 @@
-#ifndef KMP_H
-#define KMP_H
+#ifndef ALGS4_KMP_H
+#define ALGS4_KMP_H
 
 
 #include <string>
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif //KMP_H
+#endif //ALGS4_KMP_H

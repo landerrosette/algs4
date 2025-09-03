@@ -1,5 +1,5 @@
-#ifndef TRIEST_H
-#define TRIEST_H
+#ifndef ALGS4_TRIEST_H
+#define ALGS4_TRIEST_H
 
 
 #include <memory>
@@ -152,4 +152,4 @@ std::list<std::string> TrieST<Value>::keysThatMatch(std::string_view pat) const 
 }
 
 
-#endif //TRIEST_H
+#endif //ALGS4_TRIEST_H

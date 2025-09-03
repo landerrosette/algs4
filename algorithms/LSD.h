@@ -1,5 +1,5 @@
-#ifndef LSD_H
-#define LSD_H
+#ifndef ALGS4_LSD_H
+#define ALGS4_LSD_H
 
 
 #include "StringSorting.h"
@@ -10,4 +10,4 @@ public:
 };
 
 
-#endif //LSD_H
+#endif //ALGS4_LSD_H
