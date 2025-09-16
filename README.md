@@ -127,6 +127,7 @@ For the original Java source code, visit the [official repository](https://githu
     ```
 
 3. (Optional) Download sample input files from the book's website: https://algs4.cs.princeton.edu/code/.
+
 4. From the `build` directory, run the client. You may redirect the input from a file (possibly one obtained in step 3):
 
     ```shell
