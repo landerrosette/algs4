@@ -108,38 +108,38 @@ For the original Java source code, visit the [official repository](https://githu
 
 ## Build and Run
 
-1. Configure the project in the `build` directory.
+1. Configure the project in the `build` directory:
 
     ```shell
     cmake -B build
     ```
 
-2. Build all clients.
+2. Build all clients:
 
     ```shell
     cmake --build build
     ```
 
-   Alternatively, you can build only a specific client (e.g., the "Union-find" client).
+   Alternatively, you can build only a specific client (e.g., the "Union-find" client):
 
     ```shell
     cmake --build build --target UF
     ```
 
 3. (Optional) Download sample input files from the book's website: https://algs4.cs.princeton.edu/code/.
-4. From the `build` directory, run the client. You may redirect the input from a file (possibly one obtained in step 3).
+4. From the `build` directory, run the client. You may redirect the input from a file (possibly one obtained in step 3):
 
     ```shell
     ./UF < tinyUF.txt
     ```
 
-   You may also pipe the output of one client to the input of another.
+   You may also pipe the output of one client to the input of another:
 
     ```shell
     ./Huffman - < abra.txt | ./Huffman +
     ```
 
-   Some clients expect command-line arguments.
+   Some clients expect command-line arguments:
 
     ```shell
     ./DepthFirstPaths tinyCG.txt 0
