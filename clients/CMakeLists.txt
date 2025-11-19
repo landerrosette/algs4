@@ -2,13 +2,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 # 1.5
 add_executable(UF main_UF.cpp)
-target_link_libraries(UF PRIVATE algs4_algorithms)
+target_link_libraries(UF PRIVATE algs4)
 
 # 2.1, 2.2, 2.3, 2.4, 2.5, 2.7, 5.1, 5.2, 5.3
 foreach (SORTER "Selection" "Insertion" "Shell" "Merge" "MergeBU" "Quick" "Quick3way" "Heap" "LSD" "MSD" "Quick3string")
     configure_file(main_Sorting.cpp.in main_${SORTER}.cpp @ONLY)
     add_executable(${SORTER} main_${SORTER}.cpp)
-    target_link_libraries(${SORTER} PRIVATE algs4_algorithms)
+    target_link_libraries(${SORTER} PRIVATE algs4)
 endforeach ()
 
 # 2.6

@@ -5,36 +5,39 @@
 #include <algorithm>
 #include <random>
 
-#include "Sorting.h"
+#include "SortUtils.h"
 
-class Quick3way : public Sorting {
-private:
+namespace algs4 {
+    namespace Quick3way {
+        template<typename T>
+        void sort(std::vector<T> &a);
+    }
+
+    namespace Quick3way::internal {
+        template<typename T>
+        void sort(std::vector<T> &a, int lo, int hi) {
+            if (lo >= hi)
+                return;
+            int lt = lo, i = lo + 1, gt = hi;
+            T v = a[lo];
+            while (i <= gt) {
+                if (SortUtils::internal::less(a[i], v))
+                    SortUtils::internal::exch(a, lt++, i++);
+                else if (SortUtils::internal::less(v, a[i]))
+                    SortUtils::internal::exch(a, gt--, i);
+                else
+                    i++;
+            } // a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi]
+            sort(a, lo, lt - 1);
+            sort(a, gt + 1, hi);
+        }
+    }
+
     template<typename T>
-    static void sort(std::vector<T> &a, int lo, int hi);
-
-public:
-    template<typename T>
-    static void sort(std::vector<T> &a);
-};
-
-template<typename T>
-void Quick3way::sort(std::vector<T> &a, int lo, int hi) {
-    if (lo >= hi) return;
-    int lt = lo, i = lo + 1, gt = hi;
-    T v = a[lo];
-    while (i <= gt) {
-        if (a[i] < v) exch(a, lt++, i++);
-        else if (a[i] > v) exch(a, gt--, i);
-        else i++;
-    } // a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi]
-    sort(a, lo, lt - 1);
-    sort(a, gt + 1, hi);
-}
-
-template<typename T>
-void Quick3way::sort(std::vector<T> &a) {
-    std::shuffle(a.begin(), a.end(), std::default_random_engine(std::random_device()()));
-    sort(a, 0, a.size() - 1);
+    void Quick3way::sort(std::vector<T> &a) {
+        std::shuffle(a.begin(), a.end(), std::default_random_engine(std::random_device()()));
+        internal::sort(a, 0, a.size() - 1);
+    }
 }
 
 

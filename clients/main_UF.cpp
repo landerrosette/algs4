@@ -20,9 +20,10 @@
 int main(int argc, char *argv[]) {
     int N;
     std::cin >> N;
-    UF uf(N);
+    algs4::UF uf(N);
     for (int p, q; std::cin >> p >> q;) {
-        if (uf.connected(p, q)) continue;
+        if (uf.connected(p, q))
+            continue;
         uf.unionize(p, q);
         std::cout << p << " " << q << std::endl;
     }
