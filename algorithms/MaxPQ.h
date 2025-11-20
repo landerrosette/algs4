@@ -2,20 +2,20 @@
 #define ALGS4_MAXPQ_H
 
 
+#include <functional>
 #include <optional>
 
-#include "PQ.h"
+#include "PQBase.h"
 
-template<typename Key>
-class MaxPQ : public PQ<Key> {
-private:
-    bool lower(int i, int j) const override { return this->pq[i] < this->pq[j]; }
+namespace algs4 {
+    template<typename Key>
+    class MaxPQ : public PQBase<Key, std::less<Key> > {
+    public:
+        using PQBase<Key, std::less<Key> >::PQBase;
 
-public:
-    using PQ<Key>::PQ;
-
-    std::optional<Key> delMax() { return this->delTop(); }
-};
+        std::optional<Key> delMax() { return this->delTop(); }
+    };
+}
 
 
 #endif //ALGS4_MAXPQ_H

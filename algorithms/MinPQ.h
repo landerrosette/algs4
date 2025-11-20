@@ -2,20 +2,20 @@
 #define ALGS4_MINPQ_H
 
 
+#include <functional>
 #include <optional>
 
-#include "PQ.h"
+#include "PQBase.h"
 
-template<typename Key>
-class MinPQ : public PQ<Key> {
-protected:
-    bool lower(int i, int j) const override { return this->pq[i] > this->pq[j]; }
+namespace algs4 {
+    template<typename Key>
+    class MinPQ : public PQBase<Key, std::greater<Key> > {
+    public:
+        using PQBase<Key, std::greater<Key> >::PQBase;
 
-public:
-    using PQ<Key>::PQ;
-
-    std::optional<Key> delMin() { return this->delTop(); }
-};
+        std::optional<Key> delMin() { return this->delTop(); }
+    };
+}
 
 
 #endif //ALGS4_MINPQ_H

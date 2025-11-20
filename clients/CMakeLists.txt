@@ -13,7 +13,7 @@ endforeach ()
 
 # 2.6
 add_executable(MaxPQ main_MaxPQ.cpp)
-target_link_libraries(MaxPQ PRIVATE algs4_algorithms)
+target_link_libraries(MaxPQ PRIVATE algs4)
 
 # 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 5.4, 5.5
 foreach (ST "SequentialSearchST" "BinarySearchST" "BST" "RedBlackBST" "SeparateChainingHashST" "LinearProbingHashST"
@@ -26,7 +26,7 @@ foreach (ST "SequentialSearchST" "BinarySearchST" "BST" "RedBlackBST" "SeparateC
 
     configure_file(main_TestST.cpp.in main_Test${ST}.cpp @ONLY)
     add_executable(Test${ST} main_Test${ST}.cpp TestST.cpp)
-    target_link_libraries(Test${ST} PRIVATE algs4_algorithms)
+    target_link_libraries(Test${ST} PRIVATE algs4)
     target_include_directories(Test${ST} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
     if (ST STREQUAL "BinarySearchST" OR ST STREQUAL "BST" OR ST STREQUAL "RedBlackBST")
