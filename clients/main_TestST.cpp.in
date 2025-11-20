@@ -1,3 +1,12 @@
+/******************************************************************************
+ *  % more tinyST.txt
+ *  S E A R C H E X A M P L E
+ *
+ *  % ./Test@ST@ < tinyST.txt
+ *  ...
+ *
+ ******************************************************************************/
+
 #include <iostream>
 #include <string>
 
@@ -15,9 +24,9 @@
 
 int main(int argc, char *argv[]) {
 #ifndef STRING
-    @ST@<std::string, int> st{@ST_INIT_ARGS@};
+    algs4::@ST@<std::string, int> st{@ST_INIT_ARGS@};
 #else
-    @ST@<int> st{@ST_INIT_ARGS@};
+    algs4::@ST@<int> st{@ST_INIT_ARGS@};
 #endif
     TestST::init(st, std::cin, std::cout);
     std::cout << std::endl;
@@ -37,7 +46,7 @@ int main(int argc, char *argv[]) {
 #ifdef BALANCED_TREE
     if (argc > 1) {
         std::cout << std::endl;
-        @ST@<int, int> st2{@ST_INIT_ARGS@};
+        algs4::@ST@<int, int> st2{@ST_INIT_ARGS@};
         TestST::testRedBlackBST(st2, std::stoi(argv[1]), std::cout);
     }
 #endif

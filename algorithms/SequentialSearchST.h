@@ -7,39 +7,37 @@
 
 #include "ST.h"
 
-template<typename Key, typename Value>
-class SequentialSearchST : public ST<Key, Value> {
-private:
-    struct Node {
-        Key key;
-        Value val;
-        std::unique_ptr<Node> next;
+namespace algs4 {
+    template<typename Key, typename Value>
+    class SequentialSearchST : public ST<Key, Value> {
+    private:
+        struct Node {
+            Key key;
+            Value val;
+            std::unique_ptr<Node> next;
 
-        Node(const Key &key, const Value &val,
-             std::unique_ptr<Node> next) : key(key), val(val), next(std::move(next)) {}
+            Node(const Key &key, const Value &val, std::unique_ptr<Node> next)
+                : key(key), val(val), next(std::move(next)) {}
+        };
+
+        int N = 0;
+        std::unique_ptr<Node> first;
+
+        std::unique_ptr<Node> remove(std::unique_ptr<Node> &x, const Key &key);
+
+    public:
+        std::optional<Value> get(const Key &key) const override;
+        void put(const Key &key, const Value &val) override;
+        void remove(const Key &key) override { first = remove(first, key); }
+        int size() const override { return N; }
+        std::list<Key> keys() const override;
     };
-
-    int N = 0;
-    std::unique_ptr<Node> first;
-
-    std::unique_ptr<Node> remove(std::unique_ptr<Node> &x, const Key &key);
-
-public:
-    std::optional<Value> get(const Key &key) const override;
-
-    void put(const Key &key, const Value &val) override;
-
-    void remove(const Key &key) override { first = remove(first, key); }
-
-    int size() const override { return N; }
-
-    std::list<Key> keys() const override;
-};
+}
 
 template<typename Key, typename Value>
-std::unique_ptr<typename SequentialSearchST<Key, Value>::Node> SequentialSearchST<Key, Value>::remove(
-    std::unique_ptr<Node> &x, const Key &key) {
-    if (!x) return nullptr;
+auto algs4::SequentialSearchST<Key, Value>::remove(std::unique_ptr<Node> &x, const Key &key) -> std::unique_ptr<Node> {
+    if (!x)
+        return nullptr;
     if (key == x->key) {
         --N;
         return std::move(x->next);
@@ -49,15 +47,16 @@ std::unique_ptr<typename SequentialSearchST<Key, Value>::Node> SequentialSearchS
 }
 
 template<typename Key, typename Value>
-std::optional<Value> SequentialSearchST<Key, Value>::get(const Key &key) const {
+std::optional<Value> algs4::SequentialSearchST<Key, Value>::get(const Key &key) const {
     for (const Node *x = first.get(); x; x = x->next.get()) {
-        if (key == x->key) return x->val;
+        if (key == x->key)
+            return x->val;
     }
     return std::nullopt;
 }
 
 template<typename Key, typename Value>
-void SequentialSearchST<Key, Value>::put(const Key &key, const Value &val) {
+void algs4::SequentialSearchST<Key, Value>::put(const Key &key, const Value &val) {
     for (Node *x = first.get(); x; x = x->next.get()) {
         if (key == x->key) {
             x->val = val;
@@ -69,9 +68,10 @@ void SequentialSearchST<Key, Value>::put(const Key &key, const Value &val) {
 }
 
 template<typename Key, typename Value>
-std::list<Key> SequentialSearchST<Key, Value>::keys() const {
+std::list<Key> algs4::SequentialSearchST<Key, Value>::keys() const {
     std::list<Key> queue;
-    for (const Node *x = first.get(); x; x = x->next.get()) queue.push_back(x->key);
+    for (const Node *x = first.get(); x; x = x->next.get())
+        queue.push_back(x->key);
     return queue;
 }
 

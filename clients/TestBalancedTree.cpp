@@ -2,7 +2,7 @@
 
 #include <random>
 
-void TestST::testRedBlackBST(RedBlackBST<int, int> &st, int n, std::ostream &os) {
+void TestST::testRedBlackBST(algs4::RedBlackBST<int, int> &st, int n, std::ostream &os) {
     // Insert N elements in order.
     os << "Inserting " << n << " elements in order" << std::endl;
     os << "--------------------------------" << std::endl;

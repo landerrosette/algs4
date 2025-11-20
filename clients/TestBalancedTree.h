@@ -7,7 +7,8 @@
 #include "RedBlackBST.h"
 
 namespace TestST {
-    void testRedBlackBST(RedBlackBST<int, int> &st, int n, std::ostream &os);
+    void testRedBlackBST(algs4::RedBlackBST<int, int> &st, int n, std::ostream &os);
 }
+
 
 #endif //ALGS4_TESTBALANCEDTREE_H
