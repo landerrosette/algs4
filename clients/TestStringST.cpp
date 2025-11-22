@@ -1,7 +1,7 @@
 #include "TestStringST.h"
 
 namespace TestST {
-    void testStringST(const StringST<int> &st, std::ostream &os) {
+    void testStringST(const algs4::StringST<int> &st, std::ostream &os) {
         os << "longestPrefixOf(\"shellsort\"):" << std::endl;
         os << "--------------------------------" << std::endl;
         os << st.longestPrefixOf("shellsort") << std::endl;
@@ -14,15 +14,13 @@ namespace TestST {
 
         os << "keysWithPrefix(\"shor\"):" << std::endl;
         os << "--------------------------------" << std::endl;
-        for (const auto &s: st.keysWithPrefix("shor")) {
+        for (const auto &s: st.keysWithPrefix("shor"))
             os << s << std::endl;
-        }
         os << std::endl;
 
         os << "keysThatMatch(\".he.l.\"):" << std::endl;
         os << "--------------------------------" << std::endl;
-        for (const auto &s: st.keysThatMatch(".he.l.")) {
+        for (const auto &s: st.keysThatMatch(".he.l."))
             os << s << std::endl;
-        }
     }
 }

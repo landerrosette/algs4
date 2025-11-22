@@ -8,6 +8,12 @@
  *  % ./TestRedBlackBST 10 < tinyST.txt
  *  ...
  *
+ *  % ./TestTrieST < shellsST.txt
+ *  ...
+ *
+ *  % ./TestTST < shellsST.txt
+ *  ...
+ *
  ******************************************************************************/
 
 #include <iostream>

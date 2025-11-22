@@ -7,7 +7,7 @@
 #include "StringST.h"
 
 namespace TestST {
-    void testStringST(const StringST<int> &st, std::ostream &os);
+    void testStringST(const algs4::StringST<int> &st, std::ostream &os);
 }
 
 
