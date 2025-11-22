@@ -24,9 +24,8 @@ namespace algs4 {
 
 template<typename T>
 void algs4::Quick::sort(std::vector<T> &a) {
-    using namespace internal;
     std::shuffle(a.begin(), a.end(), std::default_random_engine(std::random_device()()));
-    sort(a, 0, a.size() - 1);
+    internal::sort(a, 0, a.size() - 1);
 }
 
 template<typename T>
@@ -36,16 +35,9 @@ int algs4::Quick::internal::partition(std::vector<T> &a, int lo, int hi) {
     T v = a[lo];
     // Scan right, scan left, check for scan complete, and exchange.
     while (true) {
-        while (less(a[++i], v)) {
-            if (i == hi)
-                break;
-        }
-        while (less(v, a[--j])) {
-            if (j == lo)
-                break;
-        }
-        if (i >= j)
-            break;
+        while (less(a[++i], v)) if (i == hi) break;
+        while (less(v, a[--j])) if (j == lo) break;
+        if (i >= j) break;
         exch(a, i, j);
     }
     exch(a, lo, j); // Put v = a[j] into position

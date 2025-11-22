@@ -24,10 +24,11 @@ void algs4::MSD::internal::sort(std::vector<std::string> &a, int lo, int hi, int
 }
 
 void algs4::MSD::internal::Insertion::sort(std::vector<std::string> &a, int lo, int hi, int d) {
-    for (int i = lo; i <= hi; ++i) {
-        for (int j = i; j > lo && internal::less(a[j], a[j - 1], d); --j)
-            SortUtils::internal::exch(a, j, j - 1);
-    }
+    using namespace internal;
+    using namespace SortUtils::internal;
+    for (int i = lo; i <= hi; ++i)
+        for (int j = i; j > lo && less(a[j], a[j - 1], d); --j)
+            exch(a, j, j - 1);
 }
 
 bool algs4::MSD::internal::Insertion::internal::less(std::string_view v, std::string_view w, int d) {

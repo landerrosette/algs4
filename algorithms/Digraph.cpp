@@ -17,9 +17,8 @@ void algs4::Digraph::addEdge(int v, int w) {
 
 algs4::Digraph algs4::Digraph::reverse() const {
     Digraph R(V_);
-    for (int v = 0; v < V_; ++v) {
+    for (int v = 0; v < V_; ++v)
         for (int w: adj(v))
             R.addEdge(w, v);
-    }
     return R;
 }

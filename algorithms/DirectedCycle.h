@@ -35,12 +35,9 @@ void algs4::DirectedCycle<T>::dfs(const GraphBase<T> &G, int v) {
     marked[v] = true;
     for (const auto &e: G.adj(v)) {
         int w;
-        if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>)
-            w = e.to();
-        else
-            w = e;
-        if (hasCycle())
-            return;
+        if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>) w = e.to();
+        else w = e;
+        if (hasCycle()) return;
         else if (!marked[w]) {
             edgeTo[w] = e;
             dfs(G, w);
@@ -63,10 +60,9 @@ void algs4::DirectedCycle<T>::dfs(const GraphBase<T> &G, int v) {
 
 template<typename T>
 algs4::DirectedCycle<T>::DirectedCycle(const GraphBase<T> &G) : marked(G.V()), edgeTo(G.V()), onStack(G.V()) {
-    for (int v = 0; v < G.V(); ++v) {
+    for (int v = 0; v < G.V(); ++v)
         if (!marked[v])
             dfs(G, v);
-    }
 }
 
 

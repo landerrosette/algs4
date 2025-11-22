@@ -24,16 +24,13 @@ namespace algs4 {
         std::list<Key> keys() const override { return keys(*min(), *max()); }
         virtual std::list<Key> keys(const Key &lo, const Key &hi) const = 0;
     };
+}
 
-    template<typename Key, typename Value>
-    int OrderedST<Key, Value>::size(const Key &lo, const Key &hi) const {
-        if (hi < lo)
-            return 0;
-        else if (this->contains(hi))
-            return rank(hi) - rank(lo) + 1;
-        else
-            return rank(hi) - rank(lo);
-    }
+template<typename Key, typename Value>
+int algs4::OrderedST<Key, Value>::size(const Key &lo, const Key &hi) const {
+    if (hi < lo) return 0;
+    else if (this->contains(hi)) return rank(hi) - rank(lo) + 1;
+    else return rank(hi) - rank(lo);
 }
 
 

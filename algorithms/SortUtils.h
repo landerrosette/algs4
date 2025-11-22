@@ -34,10 +34,8 @@ void algs4::SortUtils::show(const std::vector<T> &a) {
 template<typename T>
 bool algs4::SortUtils::isSorted(const std::vector<T> &a) {
     using namespace internal;
-    for (int i = 1; i < a.size(); ++i) {
-        if (less(a[i], a[i - 1]))
-            return false;
-    }
+    for (int i = 1; i < a.size(); ++i)
+        if (less(a[i], a[i - 1])) return false;
     return true;
 }
 

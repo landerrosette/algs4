@@ -36,8 +36,7 @@ std::ostream &operator<<(std::ostream &os, const algs4::GraphBase<T> &G) {
     os << G.V() << " vertices, " << G.E() << " edges" << std::endl;
     for (int v = 0; v < G.V(); ++v) {
         os << v << ": ";
-        for (T w: G.adj(v))
-            os << w << " ";
+        for (T w: G.adj(v)) os << w << " ";
         os << std::endl;
     }
     return os;

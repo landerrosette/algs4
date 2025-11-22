@@ -34,24 +34,18 @@ void algs4::Merge::internal::merge(std::vector<T> &a, int lo, int mid, int hi) {
     using namespace internal;
     using namespace SortUtils::internal;
     int i = lo, j = mid + 1;
-    for (int k = lo; k <= hi; ++k)
-        aux<T>[k] = a[k];
+    for (int k = lo; k <= hi; ++k) aux<T>[k] = a[k];
     for (int k = lo; k <= hi; ++k) {
-        if (i > mid)
-            a[k] = aux<T>[j++];
-        else if (j > hi)
-            a[k] = aux<T>[i++];
-        else if (less(aux<T>[j], aux<T>[i]))
-            a[k] = aux<T>[j++];
-        else
-            a[k] = aux<T>[i++];
+        if (i > mid) a[k] = aux<T>[j++];
+        else if (j > hi) a[k] = aux<T>[i++];
+        else if (less(aux<T>[j], aux<T>[i])) a[k] = aux<T>[j++];
+        else a[k] = aux<T>[i++];
     }
 }
 
 template<typename T>
 void algs4::Merge::internal::sort(std::vector<T> &a, int lo, int hi) {
-    if (hi <= lo)
-        return;
+    if (hi <= lo) return;
     int mid = lo + (hi - lo) / 2;
     sort(a, lo, mid);
     sort(a, mid + 1, hi);

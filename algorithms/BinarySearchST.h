@@ -35,13 +35,10 @@ namespace algs4 {
 
 template<typename Key, typename Value>
 std::optional<Value> algs4::BinarySearchST<Key, Value>::get(const Key &key) const {
-    if (this->isEmpty())
-        return std::nullopt;
+    if (this->isEmpty()) return std::nullopt;
     int i = rank(key);
-    if (i < N && keys_[i] == key)
-        return vals[i];
-    else
-        return std::nullopt;
+    if (i < N && keys_[i] == key) return vals[i];
+    else return std::nullopt;
 }
 
 template<typename Key, typename Value>
@@ -62,8 +59,7 @@ void algs4::BinarySearchST<Key, Value>::put(const Key &key, const Value &val) {
 
 template<typename Key, typename Value>
 void algs4::BinarySearchST<Key, Value>::remove(const Key &key) {
-    if (this->isEmpty())
-        return;
+    if (this->isEmpty()) return;
     int i = rank(key);
     if (i < N && keys_[i] == key) {
         for (int j = i; j < N - 1; ++j) {
@@ -79,10 +75,8 @@ void algs4::BinarySearchST<Key, Value>::remove(const Key &key) {
 template<typename Key, typename Value>
 std::optional<Key> algs4::BinarySearchST<Key, Value>::floor(const Key &key) const {
     int i = rank(key);
-    if (i < N && keys_[i] == key)
-        return keys_[i];
-    else
-        return i > 0 ? keys_[i - 1] : std::nullopt;
+    if (i < N && keys_[i] == key) return keys_[i];
+    else return i > 0 ? keys_[i - 1] : std::nullopt;
 }
 
 template<typename Key, typename Value>
@@ -96,12 +90,9 @@ int algs4::BinarySearchST<Key, Value>::rank(const Key &key) const {
     int lo = 0, hi = N - 1;
     while (lo <= hi) {
         int mid = lo + (hi - lo) / 2;
-        if (key < keys_[mid])
-            hi = mid - 1;
-        else if (key > keys_[mid])
-            lo = mid + 1;
-        else
-            return mid;
+        if (key < keys_[mid]) hi = mid - 1;
+        else if (key > keys_[mid]) lo = mid + 1;
+        else return mid;
     }
     return lo;
 }

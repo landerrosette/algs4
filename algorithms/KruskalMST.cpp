@@ -11,8 +11,7 @@ algs4::KruskalMST::KruskalMST(const EdgeWeightedGraph &G) {
     while (!pq.isEmpty() && mst.size() < G.V() - 1) {
         auto e = pq.delMin();
         int v = e->either(), w = e->other(v);
-        if (uf.connected(v, w))
-            continue;
+        if (uf.connected(v, w)) continue;
         uf.unionize(v, w);
         mst.push_back(*e);
     }

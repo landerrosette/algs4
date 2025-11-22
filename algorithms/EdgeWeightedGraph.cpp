@@ -20,11 +20,9 @@ void algs4::EdgeWeightedGraph::addEdge(const Edge &e) {
 
 std::list<algs4::Edge> algs4::EdgeWeightedGraph::edges() const {
     std::list<Edge> bag;
-    for (int v = 0; v < V_; ++v) {
-        for (const auto &e: adj_[v]) {
+    for (int v = 0; v < V_; ++v)
+        for (const auto &e: adj_[v])
             if (e.other(v) > v)
                 bag.push_front(e);
-        }
-    }
     return bag;
 }

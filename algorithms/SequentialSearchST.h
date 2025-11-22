@@ -48,21 +48,19 @@ auto algs4::SequentialSearchST<Key, Value>::remove(std::unique_ptr<Node> &x, con
 
 template<typename Key, typename Value>
 std::optional<Value> algs4::SequentialSearchST<Key, Value>::get(const Key &key) const {
-    for (const Node *x = first.get(); x; x = x->next.get()) {
+    for (const Node *x = first.get(); x; x = x->next.get())
         if (key == x->key)
             return x->val;
-    }
     return std::nullopt;
 }
 
 template<typename Key, typename Value>
 void algs4::SequentialSearchST<Key, Value>::put(const Key &key, const Value &val) {
-    for (Node *x = first.get(); x; x = x->next.get()) {
+    for (Node *x = first.get(); x; x = x->next.get())
         if (key == x->key) {
             x->val = val;
             return;
         }
-    }
     first = std::make_unique<Node>(key, val, std::move(first));
     ++N;
 }

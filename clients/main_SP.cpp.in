@@ -47,10 +47,9 @@ int main(int argc, char *argv[]) {
     for (int t = 0; t < G.V(); ++t) {
         std::cout << s << " to " << t;
         std::cout << " (" << std::fixed << std::setprecision(2) << std::setw(4) << sp.distTo(t) << "): ";
-        if (sp.hasPathTo(t)) {
+        if (sp.hasPathTo(t))
             for (const auto &e: sp.pathTo(t))
                 std::cout << e << " ";
-        }
         std::cout << std::endl;
     }
     return 0;

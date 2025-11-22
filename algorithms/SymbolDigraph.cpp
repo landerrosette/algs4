@@ -9,10 +9,9 @@ algs4::SymbolDigraph::SymbolDigraph(const std::filesystem::path &stream, char sp
     // First pass builds the index by reading strings to associate each distinct string with an index.
     for (std::string line; std::getline(in, line);) {
         std::string name;
-        for (std::istringstream iss(line); std::getline(iss, name, sp);) {
+        for (std::istringstream iss(line); std::getline(iss, name, sp);)
             if (!st.contains(name))
                 st.put(name, st.size());
-        }
     }
     keys = std::vector<std::string>(st.size()); // Inverted index to get string keys is an array.
     for (const auto &name: st.keys())

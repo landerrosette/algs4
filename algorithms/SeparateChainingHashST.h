@@ -19,6 +19,7 @@ namespace algs4 {
 
     public:
         explicit SeparateChainingHashST(int M) : M(M), st(M) {}
+
         std::optional<Value> get(const Key &key) const override { return st[hash(key)].get(key); }
         void put(const Key &key, const Value &val) override { st[hash(key)].put(key, val); }
         void remove(const Key &key) override { st[hash(key)].remove(key); }

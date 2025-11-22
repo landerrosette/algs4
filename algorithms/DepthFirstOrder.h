@@ -34,10 +34,8 @@ void algs4::DepthFirstOrder::dfs(const GraphBase<T> &G, int v) {
     marked[v] = true;
     for (const auto &e: G.adj(v)) {
         int w;
-        if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>)
-            w = e.to();
-        else
-            w = e;
+        if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>) w = e.to();
+        else w = e;
         if (!marked[w])
             dfs(G, w);
     }
@@ -47,10 +45,9 @@ void algs4::DepthFirstOrder::dfs(const GraphBase<T> &G, int v) {
 
 template<typename T>
 algs4::DepthFirstOrder::DepthFirstOrder(const GraphBase<T> &G) : marked(G.V()) {
-    for (int v = 0; v < G.V(); ++v) {
+    for (int v = 0; v < G.V(); ++v)
         if (!marked[v])
             dfs(G, v);
-    }
 }
 
 

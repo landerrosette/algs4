@@ -5,6 +5,9 @@
  *  % ./Test@ST@ < tinyST.txt
  *  ...
  *
+ *  % ./TestRedBlackBST 10 < tinyST.txt
+ *  ...
+ *
  ******************************************************************************/
 
 #include <iostream>
