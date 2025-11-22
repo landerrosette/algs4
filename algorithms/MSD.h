@@ -2,30 +2,31 @@
 #define ALGS4_MSD_H
 
 
+#include <string>
 #include <string_view>
+#include <vector>
 
-#include "Sorting.h"
-#include "StringSorting.h"
+namespace algs4 {
+    namespace MSD {
+        void sort(std::vector<std::string> &a);
+    }
 
-class MSD : public StringSorting {
-private:
-    inline static int R = 256;
-    static constexpr int M = 10;
-    inline static std::vector<std::string> aux;
+    namespace MSD::internal {
+        inline int R = 256;
+        constexpr int M = 10;
+        inline std::vector<std::string> aux;
 
-    class Insertion : public Sorting {
-    private:
-        static bool less(std::string_view v, std::string_view w, int d);
+        void sort(std::vector<std::string> &a, int lo, int hi, int d);
 
-    public:
-        static void sort(std::vector<std::string> &a, int lo, int hi, int d);
-    };
+        namespace Insertion {
+            void sort(std::vector<std::string> &a, int lo, int hi, int d);
+        }
 
-    static void sort(std::vector<std::string> &a, int lo, int hi, int d);
-
-public:
-    static void sort(std::vector<std::string> &a);
-};
+        namespace Insertion::internal {
+            bool less(std::string_view v, std::string_view w, int d);
+        }
+    }
+}
 
 
 #endif //ALGS4_MSD_H

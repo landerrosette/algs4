@@ -1,6 +1,6 @@
 #include "LSD.h"
 
-void LSD::sort(std::vector<std::string> &a, int W) {
+void algs4::LSD::sort(std::vector<std::string> &a, int W) {
     int N = a.size();
     int R = 256;
     std::vector<std::string> aux(N);

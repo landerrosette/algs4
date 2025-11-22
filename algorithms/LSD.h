@@ -2,12 +2,14 @@
 #define ALGS4_LSD_H
 
 
-#include "StringSorting.h"
+#include <string>
+#include <vector>
 
-class LSD : public StringSorting {
-public:
-    static void sort(std::vector<std::string> &a, int W = 3);
-};
+namespace algs4 {
+    namespace LSD {
+        void sort(std::vector<std::string> &a, int W = 3);
+    }
+}
 
 
 #endif //ALGS4_LSD_H

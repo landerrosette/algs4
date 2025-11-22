@@ -2,15 +2,18 @@
 #define ALGS4_QUICK3STRING_H
 
 
-#include "StringSorting.h"
+#include <string>
+#include <vector>
 
-class Quick3string : public StringSorting {
-private:
-    static void sort(std::vector<std::string> &a, int lo, int hi, int d);
+namespace algs4 {
+    namespace Quick3string {
+        void sort(std::vector<std::string> &a);
+    }
 
-public:
-    static void sort(std::vector<std::string> &a) { sort(a, 0, a.size() - 1, 0); }
-};
+    namespace Quick3string::internal {
+        void sort(std::vector<std::string> &a, int lo, int hi, int d);
+    }
+}
 
 
 #endif //ALGS4_QUICK3STRING_H

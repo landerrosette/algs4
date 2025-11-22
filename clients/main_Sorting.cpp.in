@@ -5,6 +5,12 @@
  *  % ./@SORTER@ < tiny.txt
  *  A E E L M O P R S T X
  *
+ *  % ./@SORTER@ < words3.txt
+ *  all bad bed bug dad ... yes yet zoo
+ *
+ *  % ./@SORTER@ < shell.txt
+ *  are by sea seashells seashells sells sells she she shells shore surely the the
+ *
  ******************************************************************************/
 
 
