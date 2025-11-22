@@ -1,6 +1,6 @@
 #include "EdgeWeightedGraph.h"
 
-EdgeWeightedGraph::EdgeWeightedGraph(std::istream &in) : GraphBase(in) {
+algs4::EdgeWeightedGraph::EdgeWeightedGraph(std::istream &in) : GraphBase(in) {
     int E;
     in >> E;
     for (int i = 0; i < E; ++i) {
@@ -11,18 +11,19 @@ EdgeWeightedGraph::EdgeWeightedGraph(std::istream &in) : GraphBase(in) {
     }
 }
 
-void EdgeWeightedGraph::addEdge(const Edge &e) {
+void algs4::EdgeWeightedGraph::addEdge(const Edge &e) {
     int v = e.either(), w = e.other(v);
     adj_[v].push_front(e);
     adj_[w].push_front(e);
     ++E_;
 }
 
-std::list<Edge> EdgeWeightedGraph::edges() const {
+std::list<algs4::Edge> algs4::EdgeWeightedGraph::edges() const {
     std::list<Edge> bag;
     for (int v = 0; v < V_; ++v) {
         for (const auto &e: adj_[v]) {
-            if (e.other(v) > v) bag.push_front(e);
+            if (e.other(v) > v)
+                bag.push_front(e);
         }
     }
     return bag;

@@ -4,13 +4,15 @@
 
 #include "Paths.h"
 
-class DepthFirstPaths : public Paths {
-private:
-    void dfs(const Graph &G, int v);
+namespace algs4 {
+    class DepthFirstPaths : public Paths {
+    private:
+        void dfs(const Graph &G, int v);
 
-public:
-    DepthFirstPaths(const Graph &G, int s) : Paths(G, s) { dfs(G, s); }
-};
+    public:
+        DepthFirstPaths(const Graph &G, int s) : Paths(G, s) { dfs(G, s); }
+    };
+}
 
 
 #endif //ALGS4_DEPTHFIRSTPATHS_H

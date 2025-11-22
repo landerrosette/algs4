@@ -8,16 +8,16 @@
 #include "Edge.h"
 #include "GraphBase.h"
 
-class EdgeWeightedGraph : public GraphBase<Edge> {
-public:
-    explicit EdgeWeightedGraph(int V) : GraphBase(V) {}
+namespace algs4 {
+    class EdgeWeightedGraph : public GraphBase<Edge> {
+    public:
+        explicit EdgeWeightedGraph(int V) : GraphBase(V) {}
+        explicit EdgeWeightedGraph(std::istream &in);
 
-    explicit EdgeWeightedGraph(std::istream &in);
-
-    void addEdge(const Edge &e);
-
-    std::list<Edge> edges() const;
-};
+        void addEdge(const Edge &e);
+        std::list<Edge> edges() const;
+    };
+}
 
 
 #endif //ALGS4_EDGEWEIGHTEDGRAPH_H

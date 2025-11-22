@@ -2,7 +2,7 @@
 
 #include <queue>
 
-void BreadthFirstPaths::bfs(const Graph &G, int s) {
+void algs4::BreadthFirstPaths::bfs(const Graph &G, int s) {
     std::queue<int> queue;
     marked[s] = true;
     queue.push(s);

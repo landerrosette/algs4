@@ -8,16 +8,16 @@
 #include "DirectedEdge.h"
 #include "GraphBase.h"
 
-class EdgeWeightedDigraph : public GraphBase<DirectedEdge> {
-public:
-    explicit EdgeWeightedDigraph(int V) : GraphBase(V) {}
+namespace algs4 {
+    class EdgeWeightedDigraph : public GraphBase<DirectedEdge> {
+    public:
+        explicit EdgeWeightedDigraph(int V) : GraphBase(V) {}
+        explicit EdgeWeightedDigraph(std::istream &in);
 
-    explicit EdgeWeightedDigraph(std::istream &in);
-
-    void addEdge(const DirectedEdge &e);
-
-    std::list<DirectedEdge> edges() const;
-};
+        void addEdge(const DirectedEdge &e);
+        std::list<DirectedEdge> edges() const;
+    };
+}
 
 
 #endif //ALGS4_EDGEWEIGHTEDDIGRAPH_H

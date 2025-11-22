@@ -51,14 +51,14 @@ endforeach ()
 foreach (PATHS_SEARCHER "DepthFirstPaths" "BreadthFirstPaths")
     configure_file(main_Paths.cpp.in main_${PATHS_SEARCHER}.cpp @ONLY)
     add_executable(${PATHS_SEARCHER} main_${PATHS_SEARCHER}.cpp)
-    target_link_libraries(${PATHS_SEARCHER} PRIVATE algs4_algorithms)
+    target_link_libraries(${PATHS_SEARCHER} PRIVATE algs4)
 endforeach ()
 
 # 4.3, 4.6
 foreach (CC "CC" "KosarajuSCC")
     configure_file(main_CC.cpp.in main_${CC}.cpp @ONLY)
     add_executable(${CC} main_${CC}.cpp)
-    target_link_libraries(${CC} PRIVATE algs4_algorithms)
+    target_link_libraries(${CC} PRIVATE algs4)
 
     if (CC STREQUAL "KosarajuSCC")
         target_compile_definitions(${CC} PRIVATE DIRECTED)
@@ -67,24 +67,24 @@ endforeach ()
 
 # 4.4
 add_executable(DirectedDFS main_DirectedDFS.cpp)
-target_link_libraries(DirectedDFS PRIVATE algs4_algorithms)
+target_link_libraries(DirectedDFS PRIVATE algs4)
 
 # 4.5
 add_executable(Topological main_Topological.cpp)
-target_link_libraries(Topological PRIVATE algs4_algorithms)
+target_link_libraries(Topological PRIVATE algs4)
 
 # 4.7, 4.8
 foreach (MST "PrimMST" "KruskalMST")
     configure_file(main_MST.cpp.in main_${MST}.cpp @ONLY)
     add_executable(${MST} main_${MST}.cpp)
-    target_link_libraries(${MST} PRIVATE algs4_algorithms)
+    target_link_libraries(${MST} PRIVATE algs4)
 endforeach ()
 
 # 4.9, 4.10, 4.11
 foreach (SP "DijkstraSP" "AcyclicSP" "BellmanFordSP")
     configure_file(main_SP.cpp.in main_${SP}.cpp @ONLY)
     add_executable(${SP} main_${SP}.cpp)
-    target_link_libraries(${SP} PRIVATE algs4_algorithms)
+    target_link_libraries(${SP} PRIVATE algs4)
 endforeach ()
 
 # 5.6, 5.7, 5.8

@@ -41,16 +41,15 @@
 
 int main(int argc, char *argv[]) {
     std::ifstream in(argv[1]);
-    EdgeWeightedDigraph G(in);
+    algs4::EdgeWeightedDigraph G(in);
     int s = std::stoi(argv[2]);
-    @SP@ sp(G, s);
+    algs4::@SP@ sp(G, s);
     for (int t = 0; t < G.V(); ++t) {
         std::cout << s << " to " << t;
         std::cout << " (" << std::fixed << std::setprecision(2) << std::setw(4) << sp.distTo(t) << "): ";
         if (sp.hasPathTo(t)) {
-            for (const auto &e: sp.pathTo(t)) {
+            for (const auto &e: sp.pathTo(t))
                 std::cout << e << " ";
-            }
         }
         std::cout << std::endl;
     }

@@ -7,15 +7,17 @@
 #include "EdgeWeightedGraph.h"
 #include "MST.h"
 
-class KruskalMST : public MST {
-private:
-    std::list<Edge> mst;
+namespace algs4 {
+    class KruskalMST : public MST {
+    private:
+        std::list<Edge> mst;
 
-public:
-    explicit KruskalMST(const EdgeWeightedGraph &G);
+    public:
+        explicit KruskalMST(const EdgeWeightedGraph &G);
 
-    std::list<Edge> edges() const override { return mst; }
-};
+        std::list<Edge> edges() const override { return mst; }
+    };
+}
 
 
 #endif //ALGS4_KRUSKALMST_H

@@ -29,11 +29,10 @@
 
 int main(int argc, char *argv[]) {
     std::ifstream in(argv[1]);
-    EdgeWeightedGraph G(in);
-    @MST@ mst(G);
-    for (const auto &e: mst.edges()) {
+    algs4::EdgeWeightedGraph G(in);
+    algs4::@MST@ mst(G);
+    for (const auto &e: mst.edges())
         std::cout << e << std::endl;
-    }
     std::cout << mst.weight() << std::endl;
     return 0;
 }

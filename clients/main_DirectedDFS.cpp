@@ -20,12 +20,14 @@
 
 int main(int argc, char *argv[]) {
     std::ifstream in(argv[1]);
-    Digraph G(in);
+    algs4::Digraph G(in);
     std::list<int> sources;
-    for (int i = 2; i < argc; ++i) sources.push_front(std::stoi(argv[i]));
-    DirectedDFS reachable(G, sources);
+    for (int i = 2; i < argc; ++i)
+        sources.push_front(std::stoi(argv[i]));
+    algs4::DirectedDFS reachable(G, sources);
     for (int v = 0; v < G.V(); ++v) {
-        if (reachable.marked(v)) std::cout << v << " ";
+        if (reachable.marked(v))
+            std::cout << v << " ";
     }
     std::cout << std::endl;
     return 0;

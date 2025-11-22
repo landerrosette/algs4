@@ -1,6 +1,6 @@
 #include "EdgeWeightedDigraph.h"
 
-EdgeWeightedDigraph::EdgeWeightedDigraph(std::istream &in) : GraphBase(in) {
+algs4::EdgeWeightedDigraph::EdgeWeightedDigraph(std::istream &in) : GraphBase(in) {
     int E;
     in >> E;
     for (int i = 0; i < E; ++i) {
@@ -11,17 +11,16 @@ EdgeWeightedDigraph::EdgeWeightedDigraph(std::istream &in) : GraphBase(in) {
     }
 }
 
-void EdgeWeightedDigraph::addEdge(const DirectedEdge &e) {
+void algs4::EdgeWeightedDigraph::addEdge(const DirectedEdge &e) {
     adj_[e.from()].push_front(e);
     ++E_;
 }
 
-std::list<DirectedEdge> EdgeWeightedDigraph::edges() const {
+std::list<algs4::DirectedEdge> algs4::EdgeWeightedDigraph::edges() const {
     std::list<DirectedEdge> bag;
     for (int v = 0; v < V_; ++v) {
-        for (const auto &e: adj_[v]) {
+        for (const auto &e: adj_[v])
             bag.push_front(e);
-        }
     }
     return bag;
 }

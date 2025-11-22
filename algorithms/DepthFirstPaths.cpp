@@ -1,6 +1,6 @@
 #include "DepthFirstPaths.h"
 
-void DepthFirstPaths::dfs(const Graph &G, int v) {
+void algs4::DepthFirstPaths::dfs(const Graph &G, int v) {
     marked[v] = true;
     for (int w: G.adj(v)) {
         if (!marked[w]) {

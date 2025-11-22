@@ -5,10 +5,12 @@
 #include "CCBase.h"
 #include "Graph.h"
 
-class CC : public CCBase {
-public:
-    explicit CC(const Graph &G);
-};
+namespace algs4 {
+    class CC : public CCBase {
+    public:
+        explicit CC(const Graph &G);
+    };
+}
 
 
 #endif //ALGS4_CC_H

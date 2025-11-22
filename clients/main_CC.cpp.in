@@ -25,17 +25,19 @@
 int main(int argc, char *argv[]) {
     std::ifstream in(argv[1]);
 #ifndef DIRECTED
-    Graph G(in);
+    algs4::Graph G(in);
 #else
-    Digraph G(in);
+    algs4::Digraph G(in);
 #endif
-    @CC@ cc{G};
+    algs4::@CC@ cc{G};
     int M = cc.count();
     std::cout << M << " components" << std::endl;
     std::list<int> components[M];
-    for (int v = 0; v < G.V(); ++v) components[cc.id(v)].push_front(v);
+    for (int v = 0; v < G.V(); ++v)
+        components[cc.id(v)].push_front(v);
     for (int i = 0; i < M; ++i) {
-        for (int v: components[i]) std::cout << v << " ";
+        for (int v: components[i])
+            std::cout << v << " ";
         std::cout << std::endl;
     }
     return 0;

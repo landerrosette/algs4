@@ -4,10 +4,12 @@
 
 #include "SP.h"
 
-class AcyclicSP : public SP {
-public:
-    AcyclicSP(const EdgeWeightedDigraph &G, int s);
-};
+namespace algs4 {
+    class AcyclicSP : public SP {
+    public:
+        AcyclicSP(const EdgeWeightedDigraph &G, int s);
+    };
+}
 
 
 #endif //ALGS4_ACYCLICSP_H

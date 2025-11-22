@@ -11,7 +11,7 @@ namespace algs4 {
     template<typename Key>
     class MaxPQ : public PQBase<Key, std::less<Key> > {
     public:
-        using PQBase<Key, std::less<Key> >::PQBase;
+        explicit MaxPQ(int maxN) : PQBase<Key, std::less<Key> >(maxN) {}
 
         std::optional<Key> delMax() { return this->delTop(); }
     };

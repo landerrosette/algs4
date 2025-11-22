@@ -1,6 +1,6 @@
 #include "Graph.h"
 
-Graph::Graph(std::istream &in) : GraphBase(in) {
+algs4::Graph::Graph(std::istream &in) : GraphBase(in) {
     int E;
     in >> E;
     for (int i = 0; i < E; ++i) {
@@ -10,7 +10,7 @@ Graph::Graph(std::istream &in) : GraphBase(in) {
     }
 }
 
-void Graph::addEdge(int v, int w) {
+void algs4::Graph::addEdge(int v, int w) {
     adj_[v].push_front(w);
     adj_[w].push_front(v);
     ++E_;
