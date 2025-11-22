@@ -91,7 +91,7 @@ endforeach ()
 foreach (SUBSTR_SEARCHER "KMP" "BoyerMoore" "RabinKarp")
     configure_file(main_SubstrSearch.cpp.in main_${SUBSTR_SEARCHER}.cpp @ONLY)
     add_executable(${SUBSTR_SEARCHER} main_${SUBSTR_SEARCHER}.cpp)
-    target_link_libraries(${SUBSTR_SEARCHER} PRIVATE algs4_algorithms)
+    target_link_libraries(${SUBSTR_SEARCHER} PRIVATE algs4)
 endforeach ()
 
 # 5.9

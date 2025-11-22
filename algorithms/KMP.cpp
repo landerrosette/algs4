@@ -3,7 +3,7 @@
 #include <utility>
 
 // Build DFA from pattern.
-KMP::KMP(std::string pat) : pat(std::move(pat)) {
+algs4::KMP::KMP(std::string pat) : pat(std::move(pat)) {
     int M = this->pat.length(), R = 256;
     dfa = std::vector(R, std::vector<int>(M));
     dfa[this->pat[0]][0] = 1;
@@ -15,7 +15,7 @@ KMP::KMP(std::string pat) : pat(std::move(pat)) {
     }
 }
 
-int KMP::search(std::string_view txt) const {
+int algs4::KMP::search(std::string_view txt) const {
     int i, j, N = txt.length(), M = pat.length();
     for (i = 0, j = 0; i < N && j < M; ++i) j = dfa[txt[i]][j];
     if (j == M) return i - M; // found (hit end of pattern)

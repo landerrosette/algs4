@@ -2,14 +2,14 @@
 
 #include <random>
 
-long long RabinKarp::hash(std::string_view key, int M) const {
+long long algs4::RabinKarp::hash(std::string_view key, int M) const {
     long long h = 0;
     for (int j = 0; j < M; ++j) h = (R * h + key[j]) % Q;
     return h;
 }
 
 // a random 31-bit prime
-long long RabinKarp::longRandomPrime() {
+long long algs4::RabinKarp::longRandomPrime() {
     std::default_random_engine e(std::random_device{}());
     std::uniform_int_distribution u(1LL << 30, (1LL << 31) - 1);
     while (true) {
@@ -26,12 +26,12 @@ long long RabinKarp::longRandomPrime() {
     }
 }
 
-RabinKarp::RabinKarp(std::string_view pat) : M(pat.length()) {
+algs4::RabinKarp::RabinKarp(std::string_view pat) : M(pat.length()) {
     for (int i = 1; i <= M - 1; ++i) RM = (R * RM) % Q; // Compute R^(M-1) % Q for use in removing leading digit.
     patHash = hash(pat, M);
 }
 
-int RabinKarp::search(std::string_view txt) const {
+int algs4::RabinKarp::search(std::string_view txt) const {
     int N = txt.length();
     long long txtHash = hash(txt, M);
     if (patHash == txtHash && check(0)) return 0; // match at beginning

@@ -2,7 +2,7 @@ add_library(algs4 STATIC
         AcyclicSP.cpp
         BellmanFordSP.cpp
         #        BinaryStdIO.cpp
-        #        BoyerMoore.cpp
+        BoyerMoore.cpp
         BreadthFirstPaths.cpp
         CC.cpp
         CCBase.cpp
@@ -16,7 +16,7 @@ add_library(algs4 STATIC
         Graph.cpp
         DirectedEdge.cpp
         #        Huffman.cpp
-        #        KMP.cpp
+        KMP.cpp
         KosarajuSCC.cpp
         KruskalMST.cpp
         LSD.cpp
@@ -27,7 +27,7 @@ add_library(algs4 STATIC
         Paths.cpp
         PrimMST.cpp
         Quick3string.cpp
-        #        RabinKarp.cpp
+        RabinKarp.cpp
         SP.cpp
         SymbolDigraph.cpp
         UF.cpp

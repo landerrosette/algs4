@@ -7,16 +7,18 @@
 
 #include "SubstrSearcher.h"
 
-class KMP : public SubstrSearcher {
-private:
-    std::string pat;
-    std::vector<std::vector<int> > dfa;
+namespace algs4 {
+    class KMP : public SubstrSearcher {
+    private:
+        std::string pat;
+        std::vector<std::vector<int> > dfa;
 
-public:
-    explicit KMP(std::string pat);
+    public:
+        explicit KMP(std::string pat);
 
-    int search(std::string_view txt) const override;
-};
+        int search(std::string_view txt) const override;
+    };
+}
 
 
 #endif //ALGS4_KMP_H

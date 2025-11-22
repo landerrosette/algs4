@@ -3,13 +3,13 @@
 #include <utility>
 
 // Compute skip table.
-BoyerMoore::BoyerMoore(std::string pat) : pat(std::move(pat)) {
+algs4::BoyerMoore::BoyerMoore(std::string pat) : pat(std::move(pat)) {
     int M = this->pat.length(), R = 256;
     right = std::vector(R, -1);
     for (int j = 0; j < M; ++j) right[this->pat[j]] = j;
 }
 
-int BoyerMoore::search(std::string_view txt) const {
+int algs4::BoyerMoore::search(std::string_view txt) const {
     int N = txt.length(), M = pat.length();
     // Does the pattern match the text at position i?
     for (int skip, i = 0; i <= N - M; i += skip) {
