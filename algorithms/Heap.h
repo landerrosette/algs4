@@ -18,26 +18,32 @@ namespace algs4 {
         void exch(std::vector<T> &a, int i, int j) { SortUtils::internal::exch(a, i - 1, j - 1); }
 
         template<typename T>
-        void sink(std::vector<T> &a, int k, int N) {
-            while (2 * k <= N) {
-                int j = 2 * k;
-                if (j < N && less(a, j, j + 1)) ++j;
-                if (!less(a, k, j)) break;
-                exch(a, k, j);
-                k = j;
-            }
-        }
+        void sink(std::vector<T> &a, int k, int N);
     }
+}
 
-    template<typename T>
-    void Heap::sort(std::vector<T> &a) {
-        int N = a.size();
-        for (int k = N / 2; k >= 1; --k)
-            internal::sink(a, k, N);
-        while (N > 1) {
-            internal::exch(a, 1, N--);
-            internal::sink(a, 1, N);
-        }
+template<typename T>
+void algs4::Heap::sort(std::vector<T> &a) {
+    using namespace internal;
+    int N = a.size();
+    for (int k = N / 2; k >= 1; --k)
+        sink(a, k, N);
+    while (N > 1) {
+        exch(a, 1, N--);
+        sink(a, 1, N);
+    }
+}
+
+template<typename T>
+void algs4::Heap::internal::sink(std::vector<T> &a, int k, int N) {
+    while (2 * k <= N) {
+        int j = 2 * k;
+        if (j < N && less(a, j, j + 1))
+            ++j;
+        if (!less(a, k, j))
+            break;
+        exch(a, k, j);
+        k = j;
     }
 }
 

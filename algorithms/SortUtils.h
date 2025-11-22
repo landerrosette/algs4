@@ -22,22 +22,23 @@ namespace algs4 {
         template<typename T>
         void exch(std::vector<T> &a, int i, int j) { std::swap(a[i], a[j]); }
     }
+}
 
-    template<typename T>
-    void SortUtils::show(const std::vector<T> &a) {
-        for (const auto &item: a)
-            std::cout << item << " ";
-        std::cout << std::endl;
-    }
+template<typename T>
+void algs4::SortUtils::show(const std::vector<T> &a) {
+    for (const auto &item: a)
+        std::cout << item << " ";
+    std::cout << std::endl;
+}
 
-    template<typename T>
-    bool SortUtils::isSorted(const std::vector<T> &a) {
-        for (int i = 1; i < a.size(); ++i) {
-            if (internal::less(a[i], a[i - 1]))
-                return false;
-        }
-        return true;
+template<typename T>
+bool algs4::SortUtils::isSorted(const std::vector<T> &a) {
+    using namespace internal;
+    for (int i = 1; i < a.size(); ++i) {
+        if (less(a[i], a[i - 1]))
+            return false;
     }
+    return true;
 }
 
 
