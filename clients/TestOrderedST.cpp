@@ -14,9 +14,10 @@ namespace TestST {
 
     // Remove the smallest keys.
     void removeSome(algs4::OrderedST<std::string, int> &st, std::ostream &os) {
-        for (int i = 0; i < st.size() / 2; ++i)
+        int N = st.size();
+        for (int i = 0; i < N / 2; ++i)
             st.removeMin();
-        os << "After removing the smallest " << st.size() / 2 << " keys, size = " << st.size() << std::endl;
+        os << "After removing the smallest " << N / 2 << " keys, size = " << st.size() << std::endl;
         os << "--------------------------------" << std::endl;
         listAll(st, os);
     }

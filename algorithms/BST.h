@@ -50,7 +50,9 @@ auto algs4::BST<Key, Value>::extractMin(std::unique_ptr<Node> &x) -> std::unique
         min->right = nullptr;
         return min;
     }
-    return extractMin(x->left);
+    auto min = extractMin(x->left);
+    x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
+    return min;
 }
 
 template<typename Key, typename Value>
