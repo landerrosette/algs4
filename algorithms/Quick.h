@@ -9,23 +9,17 @@
 
 namespace algs4 {
     namespace Quick {
+        namespace internal {
+            template<typename T>
+            int partition(std::vector<T> &a, int lo, int hi);
+
+            template<typename T>
+            void sort(std::vector<T> &a, int lo, int hi);
+        }
+
         template<typename T>
         void sort(std::vector<T> &a);
     }
-
-    namespace Quick::internal {
-        template<typename T>
-        int partition(std::vector<T> &a, int lo, int hi);
-
-        template<typename T>
-        void sort(std::vector<T> &a, int lo, int hi);
-    }
-}
-
-template<typename T>
-void algs4::Quick::sort(std::vector<T> &a) {
-    std::shuffle(a.begin(), a.end(), std::default_random_engine(std::random_device()()));
-    internal::sort(a, 0, a.size() - 1);
 }
 
 template<typename T>
@@ -50,6 +44,12 @@ void algs4::Quick::internal::sort(std::vector<T> &a, int lo, int hi) {
     int j = partition(a, lo, hi);
     sort(a, lo, j - 1);
     sort(a, j + 1, hi);
+}
+
+template<typename T>
+void algs4::Quick::sort(std::vector<T> &a) {
+    std::shuffle(a.begin(), a.end(), std::default_random_engine(std::random_device()()));
+    internal::sort(a, 0, a.size() - 1);
 }
 
 

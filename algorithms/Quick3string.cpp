@@ -2,10 +2,6 @@
 
 #include "SortUtils.h"
 
-void algs4::Quick3string::sort(std::vector<std::string> &a) {
-    internal::sort(a, 0, a.size() - 1, 0);
-}
-
 void algs4::Quick3string::internal::sort(std::vector<std::string> &a, int lo, int hi, int d) {
     using namespace SortUtils::internal;
     if (lo >= hi) return;

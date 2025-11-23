@@ -23,7 +23,6 @@ namespace algs4 {
     class RedBlackBST : public BSTBase<Key, Value, internal::RedBlackBSTNode<Key, Value> > {
     private:
         using Node = internal::RedBlackBSTNode<Key, Value>;
-
         static constexpr bool RED = true, BLACK = false;
 
         bool isRed(const Node *x) const;

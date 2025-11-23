@@ -2,10 +2,16 @@
 
 #include "SortUtils.h"
 
-void algs4::MSD::sort(std::vector<std::string> &a) {
-    int N = a.size();
-    internal::aux = std::vector<std::string>(N);
-    internal::sort(a, 0, N - 1, 0);
+bool algs4::MSD::internal::Insertion::internal::less(std::string_view v, std::string_view w, int d) {
+    return SortUtils::internal::less(v.substr(d), w.substr(d));
+}
+
+void algs4::MSD::internal::Insertion::sort(std::vector<std::string> &a, int lo, int hi, int d) {
+    using namespace internal;
+    using namespace SortUtils::internal;
+    for (int i = lo; i <= hi; ++i)
+        for (int j = i; j > lo && less(a[j], a[j - 1], d); --j)
+            exch(a, j, j - 1);
 }
 
 void algs4::MSD::internal::sort(std::vector<std::string> &a, int lo, int hi, int d) {
@@ -23,14 +29,8 @@ void algs4::MSD::internal::sort(std::vector<std::string> &a, int lo, int hi, int
         sort(a, lo + count[r], lo + count[r + 1] - 1, d + 1); // Recursively sort for each character value.
 }
 
-void algs4::MSD::internal::Insertion::sort(std::vector<std::string> &a, int lo, int hi, int d) {
-    using namespace internal;
-    using namespace SortUtils::internal;
-    for (int i = lo; i <= hi; ++i)
-        for (int j = i; j > lo && less(a[j], a[j - 1], d); --j)
-            exch(a, j, j - 1);
-}
-
-bool algs4::MSD::internal::Insertion::internal::less(std::string_view v, std::string_view w, int d) {
-    return SortUtils::internal::less(v.substr(d), w.substr(d));
+void algs4::MSD::sort(std::vector<std::string> &a) {
+    int N = a.size();
+    internal::aux = std::vector<std::string>(N);
+    internal::sort(a, 0, N - 1, 0);
 }

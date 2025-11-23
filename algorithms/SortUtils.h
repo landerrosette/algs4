@@ -8,19 +8,19 @@
 
 namespace algs4 {
     namespace SortUtils {
+        namespace internal {
+            template<typename T>
+            bool less(const T &v, const T &w) { return v < w; }
+
+            template<typename T>
+            void exch(std::vector<T> &a, int i, int j) { std::swap(a[i], a[j]); }
+        }
+
         template<typename T>
         void show(const std::vector<T> &a);
 
         template<typename T>
         bool isSorted(const std::vector<T> &a);
-    }
-
-    namespace SortUtils::internal {
-        template<typename T>
-        bool less(const T &v, const T &w) { return v < w; }
-
-        template<typename T>
-        void exch(std::vector<T> &a, int i, int j) { std::swap(a[i], a[j]); }
     }
 }
 

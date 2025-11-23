@@ -9,20 +9,14 @@
 
 namespace algs4 {
     namespace Quick3way {
+        namespace internal {
+            template<typename T>
+            void sort(std::vector<T> &a, int lo, int hi);
+        }
+
         template<typename T>
         void sort(std::vector<T> &a);
     }
-
-    namespace Quick3way::internal {
-        template<typename T>
-        void sort(std::vector<T> &a, int lo, int hi);
-    }
-}
-
-template<typename T>
-void algs4::Quick3way::sort(std::vector<T> &a) {
-    std::shuffle(a.begin(), a.end(), std::default_random_engine(std::random_device()()));
-    internal::sort(a, 0, a.size() - 1);
 }
 
 template<typename T>
@@ -38,6 +32,12 @@ void algs4::Quick3way::internal::sort(std::vector<T> &a, int lo, int hi) {
     } // a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi]
     sort(a, lo, lt - 1);
     sort(a, gt + 1, hi);
+}
+
+template<typename T>
+void algs4::Quick3way::sort(std::vector<T> &a) {
+    std::shuffle(a.begin(), a.end(), std::default_random_engine(std::random_device()()));
+    internal::sort(a, 0, a.size() - 1);
 }
 
 

@@ -6,27 +6,20 @@
 
 namespace algs4 {
     namespace Merge {
+        namespace internal {
+            template<typename T>
+            std::vector<T> aux;
+
+            template<typename T>
+            void merge(std::vector<T> &a, int lo, int mid, int hi);
+
+            template<typename T>
+            void sort(std::vector<T> &a, int lo, int hi);
+        }
+
         template<typename T>
         void sort(std::vector<T> &a);
     }
-
-    namespace Merge::internal {
-        template<typename T>
-        std::vector<T> aux;
-
-        template<typename T>
-        void merge(std::vector<T> &a, int lo, int mid, int hi);
-
-        template<typename T>
-        void sort(std::vector<T> &a, int lo, int hi);
-    }
-}
-
-template<typename T>
-void algs4::Merge::sort(std::vector<T> &a) {
-    using namespace internal;
-    aux<T> = std::vector<T>(a.size());
-    sort(a, 0, a.size() - 1);
 }
 
 template<typename T>
@@ -50,6 +43,13 @@ void algs4::Merge::internal::sort(std::vector<T> &a, int lo, int hi) {
     sort(a, lo, mid);
     sort(a, mid + 1, hi);
     merge(a, lo, mid, hi);
+}
+
+template<typename T>
+void algs4::Merge::sort(std::vector<T> &a) {
+    using namespace internal;
+    aux<T> = std::vector<T>(a.size());
+    sort(a, 0, a.size() - 1);
 }
 
 
