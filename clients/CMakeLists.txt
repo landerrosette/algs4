@@ -96,13 +96,13 @@ endforeach ()
 
 # 5.9
 add_executable(GREP main_GREP.cpp)
-target_link_libraries(GREP PRIVATE algs4_algorithms)
+target_link_libraries(GREP PRIVATE algs4)
 
 # 5.10, 5.11
 foreach (COMPRESSOR "Huffman" "LZW")
     configure_file(main_Compress.cpp.in main_${COMPRESSOR}.cpp @ONLY)
     add_executable(${COMPRESSOR} main_${COMPRESSOR}.cpp)
-    target_link_libraries(${COMPRESSOR} PRIVATE algs4_algorithms)
+    target_link_libraries(${COMPRESSOR} PRIVATE algs4)
 endforeach ()
 add_executable(BinaryDump main_BinaryDump.cpp)
-target_link_libraries(BinaryDump PRIVATE algs4_algorithms)
+target_link_libraries(BinaryDump PRIVATE algs4)

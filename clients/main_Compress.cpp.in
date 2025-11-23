@@ -16,7 +16,7 @@
 #include "@COMPRESSOR@.h"
 
 int main(int argc, char *argv[]) {
-    if (*argv[1] == '-') @COMPRESSOR@::compress();
-    if (*argv[1] == '+') @COMPRESSOR@::expand();
+    if (*argv[1] == '-') algs4::@COMPRESSOR@::compress();
+    if (*argv[1] == '+') algs4::@COMPRESSOR@::expand();
     return 0;
 }

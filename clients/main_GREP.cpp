@@ -24,7 +24,7 @@
 
 int main(int argc, char *argv[]) {
     std::string regexp = "(.*" + std::string(argv[1]) + ".*)";
-    NFA nfa(regexp);
+    algs4::NFA nfa(regexp);
     for (std::string txt; std::getline(std::cin, txt);)
         if (nfa.recognizes(txt)) std::cout << txt << std::endl;
     return 0;

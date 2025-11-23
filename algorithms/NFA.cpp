@@ -5,7 +5,7 @@
 
 #include "DirectedDFS.h"
 
-NFA::NFA(std::string_view regexp) : re(regexp), M(re.length()), G(M + 1) {
+algs4::NFA::NFA(std::string_view regexp) : re(regexp), M(re.length()), G(M + 1) {
     std::list<int> ops;
     for (int i = 0; i < M; ++i) {
         int lp = i; // left position
@@ -28,7 +28,7 @@ NFA::NFA(std::string_view regexp) : re(regexp), M(re.length()), G(M + 1) {
     }
 }
 
-bool NFA::recognizes(std::string_view txt) const {
+bool algs4::NFA::recognizes(std::string_view txt) const {
     std::list<int> pc;
     DirectedDFS dfs(G, 0);
     for (int v = 0; v < G.V(); ++v)
@@ -37,17 +37,15 @@ bool NFA::recognizes(std::string_view txt) const {
     // Compute possible NFA states for txt[i+1].
     for (int i = 0; i < txt.length(); ++i) {
         std::list<int> match;
-        for (int v: pc) {
+        for (int v: pc)
             if (v < M)
                 if (re[v] == txt[i] || re[v] == '.') match.push_front(v + 1);
-        }
         pc = std::list<int>();
         dfs = DirectedDFS(G, match);
         for (int v = 0; v < G.V(); ++v)
             if (dfs.marked(v)) pc.push_front(v);
     }
-    // for (int v: pc)
-    //     if (v == M) return true;
-    if (std::any_of(pc.begin(), pc.end(), [this](int v) { return v == M; })) return true;
+    for (int v: pc)
+        if (v == M) return true;
     return false;
 }

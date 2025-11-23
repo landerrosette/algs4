@@ -4,17 +4,18 @@
 #include <vector>
 
 #include "BinaryStdIO.h"
-#include "MinPQ.h"
+#include "PQBase.h"
 
 // Make a lookup table from trie.
-std::vector<std::string> Huffman::buildCode(const std::shared_ptr<Node> &root) {
+std::vector<std::string> algs4::Huffman::internal::buildCode(const std::shared_ptr<const Node> &root) {
     std::vector<std::string> st(R);
     buildCode(st, root, "");
     return st;
 }
 
 // Make a lookup table from trie (recursive).
-void Huffman::buildCode(std::vector<std::string> &st, const std::shared_ptr<Node> &x, const std::string &s) {
+void algs4::Huffman::internal::buildCode(std::vector<std::string> &st, const std::shared_ptr<const Node> &x,
+                                         const std::string &s) {
     if (x->isLeaf()) {
         st[x->ch] = s;
         return;
@@ -24,11 +25,24 @@ void Huffman::buildCode(std::vector<std::string> &st, const std::shared_ptr<Node
 }
 
 // Initialize priority queue with singleton trees.
-std::shared_ptr<Huffman::Node> Huffman::buildTrie(const std::vector<int> &freq) {
-    MinPQ<NodePtr> pq(R);
-    for (int c = 0; c < R; ++c) {
-        if (freq[c] > 0) pq.insert(std::make_shared<Node>(c, freq[c], nullptr, nullptr));
-    }
+auto algs4::Huffman::internal::buildTrie(const std::vector<int> &freq) -> std::shared_ptr<const Node> {
+    struct NodeCompare {
+        bool operator()(const std::shared_ptr<const Node> &l, const std::shared_ptr<const Node> &r) const {
+            return *l > *r;
+        }
+    };
+
+    class NodeMinPQ : public PQBase<std::shared_ptr<const Node>, NodeCompare> {
+    public:
+        explicit NodeMinPQ(int maxN) : PQBase(maxN) {}
+
+        std::optional<std::shared_ptr<const Node> > delMin() { return delTop(); }
+    };
+
+    NodeMinPQ pq(R);
+    for (int c = 0; c < R; ++c)
+        if (freq[c] > 0)
+            pq.insert(std::make_shared<Node>(c, freq[c], nullptr, nullptr));
 
     // Merge two smallest trees.
     while (pq.size() > 1) {
@@ -40,7 +54,7 @@ std::shared_ptr<Huffman::Node> Huffman::buildTrie(const std::vector<int> &freq) 
 }
 
 // Write bitstring-encoded trie.
-void Huffman::writeTrie(const std::shared_ptr<Node> &x) {
+void algs4::Huffman::internal::writeTrie(const std::shared_ptr<const Node> &x) {
     if (x->isLeaf()) {
         BinaryStdIO::write(true);
         BinaryStdIO::write(x->ch);
@@ -51,12 +65,15 @@ void Huffman::writeTrie(const std::shared_ptr<Node> &x) {
     writeTrie(x->right);
 }
 
-std::shared_ptr<Huffman::Node> Huffman::readTrie() {
-    if (BinaryStdIO::readBool()) return std::make_shared<Node>(BinaryStdIO::readChar(), 0, nullptr, nullptr);
+auto algs4::Huffman::internal::readTrie() -> std::shared_ptr<const Node> {
+    if (BinaryStdIO::readBool())
+        return std::make_shared<Node>(BinaryStdIO::readChar(), 0, nullptr, nullptr);
     return std::make_shared<Node>('\0', 0, readTrie(), readTrie());
 }
 
-void Huffman::compress() {
+void algs4::Huffman::compress() {
+    using namespace internal;
+
     std::string input = BinaryStdIO::readString();
 
     std::vector<int> freq(R);
@@ -79,7 +96,8 @@ void Huffman::compress() {
     BinaryStdIO::closeOut();
 }
 
-void Huffman::expand() {
+void algs4::Huffman::expand() {
+    using namespace internal;
     auto root = readTrie();
     int N = BinaryStdIO::readInt();
     for (int i = 0; i < N; ++i) {

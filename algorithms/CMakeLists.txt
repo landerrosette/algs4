@@ -1,7 +1,7 @@
 add_library(algs4 STATIC
         AcyclicSP.cpp
         BellmanFordSP.cpp
-        #        BinaryStdIO.cpp
+        BinaryStdIO.cpp
         BoyerMoore.cpp
         BreadthFirstPaths.cpp
         CC.cpp
@@ -10,20 +10,20 @@ add_library(algs4 STATIC
         Digraph.cpp
         DijkstraSP.cpp
         DirectedDFS.cpp
+        DirectedEdge.cpp
         Edge.cpp
         EdgeWeightedDigraph.cpp
         EdgeWeightedGraph.cpp
         Graph.cpp
-        DirectedEdge.cpp
-        #        Huffman.cpp
+        Huffman.cpp
         KMP.cpp
         KosarajuSCC.cpp
         KruskalMST.cpp
         LSD.cpp
-        #        LZW.cpp
+        LZW.cpp
         MSD.cpp
         MST.cpp
-        #        NFA.cpp
+        NFA.cpp
         Paths.cpp
         PrimMST.cpp
         Quick3string.cpp
