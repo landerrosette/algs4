@@ -8,6 +8,9 @@
  *  % ./TestRedBlackBST 10 < tinyST.txt
  *  ...
  *
+ *  % more shellsST.txt
+ *  she sells sea shells by the sea shore
+ *
  *  % ./TestTrieST < shellsST.txt
  *  ...
  *
