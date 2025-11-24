@@ -8,7 +8,7 @@
  *  % ./@SORTER@ < words3.txt
  *  all bad bed bug dad ... yes yet zoo
  *
- *  % ./@SORTER@ < shell.txt
+ *  % ./@SORTER@ < shells.txt
  *  are by sea seashells seashells sells sells she she shells shore surely the the
  *
  ******************************************************************************/
