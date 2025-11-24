@@ -16,6 +16,8 @@ namespace algs4 {
         int from() const { return v; }
         int to() const { return w; }
     };
+
+    std::ostream &operator<<(std::ostream &os, const DirectedEdge &e);
 }
 
 

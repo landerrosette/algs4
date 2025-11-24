@@ -19,6 +19,7 @@ namespace algs4 {
 
     inline bool operator<(const Edge &l, const Edge &r) { return l.weight() < r.weight(); }
     inline bool operator>(const Edge &l, const Edge &r) { return r < l; }
+    std::ostream &operator<<(std::ostream &os, const Edge &e);
 }
 
 
