@@ -47,9 +47,8 @@ void algs4::Merge::internal::sort(std::vector<T> &a, int lo, int hi) {
 
 template<typename T>
 void algs4::Merge::sort(std::vector<T> &a) {
-    using namespace internal;
-    aux<T> = std::vector<T>(a.size());
-    sort(a, 0, a.size() - 1);
+    internal::aux<T> = std::vector<T>(a.size());
+    internal::sort(a, 0, a.size() - 1);
 }
 
 
