@@ -2,13 +2,14 @@
 #define ALGS4_ORDEREDST_H
 
 
+#include <concepts>
 #include <list>
 #include <optional>
 
 #include "ST.h"
 
 namespace algs4 {
-    template<typename Key, typename Value>
+    template<std::totally_ordered Key, typename Value>
     class OrderedST : public ST<Key, Value> {
     public:
         virtual std::optional<Key> min() const = 0;
@@ -26,7 +27,7 @@ namespace algs4 {
     };
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 int algs4::OrderedST<Key, Value>::size(const Key &lo, const Key &hi) const {
     if (hi < lo) return 0;
     else if (this->contains(hi)) return rank(hi) - rank(lo) + 1;

@@ -9,7 +9,7 @@
 #include "OrderedST.h"
 
 namespace algs4 {
-    template<typename Key, typename Value>
+    template<std::totally_ordered Key, typename Value>
     class BinarySearchST : public OrderedST<Key, Value> {
     private:
         std::vector<std::optional<Key> > keys_;
@@ -33,7 +33,7 @@ namespace algs4 {
     };
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 std::optional<Value> algs4::BinarySearchST<Key, Value>::get(const Key &key) const {
     if (this->isEmpty()) return std::nullopt;
     int i = rank(key);
@@ -41,7 +41,7 @@ std::optional<Value> algs4::BinarySearchST<Key, Value>::get(const Key &key) cons
     else return std::nullopt;
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 void algs4::BinarySearchST<Key, Value>::put(const Key &key, const Value &val) {
     int i = rank(key);
     if (i < N && keys_[i] == key) {
@@ -57,7 +57,7 @@ void algs4::BinarySearchST<Key, Value>::put(const Key &key, const Value &val) {
     ++N;
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 void algs4::BinarySearchST<Key, Value>::remove(const Key &key) {
     if (this->isEmpty()) return;
     int i = rank(key);
@@ -72,20 +72,20 @@ void algs4::BinarySearchST<Key, Value>::remove(const Key &key) {
     vals[N] = std::nullopt;
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 std::optional<Key> algs4::BinarySearchST<Key, Value>::floor(const Key &key) const {
     int i = rank(key);
     if (i < N && keys_[i] == key) return keys_[i];
     else return i > 0 ? keys_[i - 1] : std::nullopt;
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 std::optional<Key> algs4::BinarySearchST<Key, Value>::ceiling(const Key &key) const {
     int i = rank(key);
     return keys_[i];
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 int algs4::BinarySearchST<Key, Value>::rank(const Key &key) const {
     int lo = 0, hi = N - 1;
     while (lo <= hi) {
@@ -97,7 +97,7 @@ int algs4::BinarySearchST<Key, Value>::rank(const Key &key) const {
     return lo;
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 std::list<Key> algs4::BinarySearchST<Key, Value>::keys(const Key &lo, const Key &hi) const {
     std::list<Key> queue;
     for (int i = rank(lo); i < rank(hi); ++i)

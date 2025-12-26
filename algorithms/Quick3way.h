@@ -3,6 +3,7 @@
 
 
 #include <algorithm>
+#include <concepts>
 #include <random>
 
 #include "SortUtils.h"
@@ -10,16 +11,16 @@
 namespace algs4 {
     namespace Quick3way {
         namespace internal {
-            template<typename T>
+            template<std::totally_ordered T>
             void sort(std::vector<T> &a, int lo, int hi);
         }
 
-        template<typename T>
-        void sort(std::vector<T> &a);
+        template<std::totally_ordered T>
+        void sort(std::vector < T > &a);
     }
 }
 
-template<typename T>
+template<std::totally_ordered T>
 void algs4::Quick3way::internal::sort(std::vector<T> &a, int lo, int hi) {
     using namespace SortUtils::internal;
     if (lo >= hi) return;
@@ -34,7 +35,7 @@ void algs4::Quick3way::internal::sort(std::vector<T> &a, int lo, int hi) {
     sort(a, gt + 1, hi);
 }
 
-template<typename T>
+template<std::totally_ordered T>
 void algs4::Quick3way::sort(std::vector<T> &a) {
     std::shuffle(a.begin(), a.end(), std::default_random_engine(std::random_device()()));
     internal::sort(a, 0, a.size() - 1);

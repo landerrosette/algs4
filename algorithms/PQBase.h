@@ -2,12 +2,13 @@
 #define ALGS4_PQBASE_H
 
 
+#include <concepts>
 #include <optional>
 #include <utility>
 #include <vector>
 
 namespace algs4 {
-    template<typename Key, typename Compare>
+    template<typename Key, std::strict_weak_order<Key, Key> Compare>
     class PQBase {
     protected:
         std::vector<std::optional<Key> > pq; // heap-ordered complete binary tree
@@ -29,7 +30,7 @@ namespace algs4 {
     };
 }
 
-template<typename Key, typename Compare>
+template<typename Key, std::strict_weak_order<Key, Key> Compare>
 void algs4::PQBase<Key, Compare>::swim(int k) {
     while (k > 1 && less(k / 2, k)) {
         exch(k / 2, k);
@@ -37,7 +38,7 @@ void algs4::PQBase<Key, Compare>::swim(int k) {
     }
 }
 
-template<typename Key, typename Compare>
+template<typename Key, std::strict_weak_order<Key, Key> Compare>
 void algs4::PQBase<Key, Compare>::sink(int k) {
     while (2 * k <= N) {
         int j = 2 * k;
@@ -50,7 +51,7 @@ void algs4::PQBase<Key, Compare>::sink(int k) {
     }
 }
 
-template<typename Key, typename Compare>
+template<typename Key, std::strict_weak_order<Key, Key> Compare>
 std::optional<Key> algs4::PQBase<Key, Compare>::delTop() {
     auto top = pq[1];
     exch(1, N--);
@@ -59,7 +60,7 @@ std::optional<Key> algs4::PQBase<Key, Compare>::delTop() {
     return top;
 }
 
-template<typename Key, typename Compare>
+template<typename Key, std::strict_weak_order<Key, Key> Compare>
 void algs4::PQBase<Key, Compare>::insert(const Key &v) {
     pq[++N] = v;
     swim(N);

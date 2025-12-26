@@ -9,7 +9,7 @@
 
 namespace algs4 {
     namespace internal {
-        template<typename Key, typename Value>
+        template<std::totally_ordered Key, typename Value>
         struct RedBlackBSTNode : public BSTNodeBase<Key, Value, RedBlackBSTNode<Key, Value> > {
             bool color;
 
@@ -19,7 +19,7 @@ namespace algs4 {
         };
     }
 
-    template<typename Key, typename Value>
+    template<std::totally_ordered Key, typename Value>
     class RedBlackBST : public BSTBase<Key, Value, internal::RedBlackBSTNode<Key, Value> > {
     private:
         using Node = internal::RedBlackBSTNode<Key, Value>;
@@ -61,13 +61,13 @@ namespace algs4 {
     };
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 bool algs4::RedBlackBST<Key, Value>::isRed(const Node *x) const {
     if (!x) return false;
     return x->color == RED;
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 auto algs4::RedBlackBST<Key, Value>::rotateLeft(std::unique_ptr<Node> &h) -> std::unique_ptr<Node> {
     auto x = std::move(h->right);
     h->right = std::move(x->left);
@@ -79,7 +79,7 @@ auto algs4::RedBlackBST<Key, Value>::rotateLeft(std::unique_ptr<Node> &h) -> std
     return x;
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 auto algs4::RedBlackBST<Key, Value>::rotateRight(std::unique_ptr<Node> &h) -> std::unique_ptr<Node> {
     auto x = std::move(h->left);
     h->left = std::move(x->right);
@@ -91,14 +91,14 @@ auto algs4::RedBlackBST<Key, Value>::rotateRight(std::unique_ptr<Node> &h) -> st
     return x;
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 void algs4::RedBlackBST<Key, Value>::flipColors(Node *h) {
     h->color = !h->color;
     h->left->color = !h->left->color;
     h->right->color = !h->right->color;
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 auto algs4::RedBlackBST<Key, Value>::moveRedLeft(std::unique_ptr<Node> &h) -> std::unique_ptr<Node> {
     flipColors(h.get());
     if (isRed(h->right->left.get())) {
@@ -109,7 +109,7 @@ auto algs4::RedBlackBST<Key, Value>::moveRedLeft(std::unique_ptr<Node> &h) -> st
     return std::move(h);
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 auto algs4::RedBlackBST<Key, Value>::moveRedRight(std::unique_ptr<Node> &h) -> std::unique_ptr<Node> {
     flipColors(h.get());
     if (isRed(h->left->left.get())) {
@@ -119,7 +119,7 @@ auto algs4::RedBlackBST<Key, Value>::moveRedRight(std::unique_ptr<Node> &h) -> s
     return std::move(h);
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 auto algs4::RedBlackBST<Key, Value>::balance(std::unique_ptr<Node> &h) -> std::unique_ptr<Node> {
     if (isRed(h->right.get()) && !isRed(h->left.get())) h = rotateLeft(h);
     if (isRed(h->left.get()) && isRed(h->left->left.get())) h = rotateRight(h);
@@ -128,7 +128,7 @@ auto algs4::RedBlackBST<Key, Value>::balance(std::unique_ptr<Node> &h) -> std::u
     return std::move(h);
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 auto algs4::RedBlackBST<Key, Value>::put(std::unique_ptr<Node> &h, const Key &key,
                                          const Value &val) -> std::unique_ptr<Node> {
     if (!h) return std::make_unique<Node>(key, val, 1, RED);
@@ -138,7 +138,7 @@ auto algs4::RedBlackBST<Key, Value>::put(std::unique_ptr<Node> &h, const Key &ke
     return balance(h);
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 auto algs4::RedBlackBST<Key, Value>::remove(std::unique_ptr<Node> &h, const Key &key) -> std::unique_ptr<Node> {
     if (!h) return nullptr;
     if (key < h->key) {
@@ -162,7 +162,7 @@ auto algs4::RedBlackBST<Key, Value>::remove(std::unique_ptr<Node> &h, const Key 
     return balance(h);
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 auto algs4::RedBlackBST<Key, Value>::removeMin(std::unique_ptr<Node> &h) -> std::unique_ptr<Node> {
     if (!h) return nullptr;
     if (!h->left)
@@ -173,7 +173,7 @@ auto algs4::RedBlackBST<Key, Value>::removeMin(std::unique_ptr<Node> &h) -> std:
     return balance(h);
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 auto algs4::RedBlackBST<Key, Value>::removeMax(std::unique_ptr<Node> &h) -> std::unique_ptr<Node> {
     if (!h) return nullptr;
     if (isRed(h->left.get()))
@@ -186,13 +186,13 @@ auto algs4::RedBlackBST<Key, Value>::removeMax(std::unique_ptr<Node> &h) -> std:
     return balance(h);
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 int algs4::RedBlackBST<Key, Value>::height(const Node *x) const {
     if (!x) return -1;
     return 1 + std::max(height(x->left.get()), height(x->right.get()));
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 bool algs4::RedBlackBST<Key, Value>::is23(const Node *x) const {
     if (!x) return true;
     if (isRed(x->right.get()))
@@ -202,14 +202,14 @@ bool algs4::RedBlackBST<Key, Value>::is23(const Node *x) const {
     return is23(x->left.get()) && is23(x->right.get());
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 bool algs4::RedBlackBST<Key, Value>::isBalanced(const Node *x, int black) const {
     if (!x) return black == 0;
     if (!isRed(x)) --black;
     return isBalanced(x->left.get(), black) && isBalanced(x->right.get(), black);
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 bool algs4::RedBlackBST<Key, Value>::isBalanced() const {
     int black = 0; // number of black links on path from root to min
     for (const Node *x = this->root.get(); x; x = x->left.get())
@@ -218,7 +218,7 @@ bool algs4::RedBlackBST<Key, Value>::isBalanced() const {
     return isBalanced(this->root.get(), black);
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 void algs4::RedBlackBST<Key, Value>::put(const Key &key, const Value &val) {
     this->root = put(this->root, key, val);
     this->root->color = BLACK;
@@ -226,7 +226,7 @@ void algs4::RedBlackBST<Key, Value>::put(const Key &key, const Value &val) {
     assert(isBalanced());
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 void algs4::RedBlackBST<Key, Value>::remove(const Key &key) {
     if (!isRed(this->root->left.get()) && !isRed(this->root->right.get()))
         this->root->color = RED;
@@ -236,7 +236,7 @@ void algs4::RedBlackBST<Key, Value>::remove(const Key &key) {
     assert(isBalanced());
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 void algs4::RedBlackBST<Key, Value>::removeMin() {
     if (!isRed(this->root->left.get()) && !isRed(this->root->right.get()))
         this->root->color = RED;
@@ -246,7 +246,7 @@ void algs4::RedBlackBST<Key, Value>::removeMin() {
     assert(isBalanced());
 }
 
-template<typename Key, typename Value>
+template<std::totally_ordered Key, typename Value>
 void algs4::RedBlackBST<Key, Value>::removeMax() {
     if (!isRed(this->root->left.get()) && !isRed(this->root->right.get()))
         this->root->color = RED;

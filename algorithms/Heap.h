@@ -2,27 +2,29 @@
 #define ALGS4_HEAP_H
 
 
+#include <concepts>
+
 #include "SortUtils.h"
 
 namespace algs4 {
     namespace Heap {
         namespace internal {
-            template<typename T>
+            template<std::totally_ordered T>
             bool less(const std::vector<T> &a, int i, int j) { return SortUtils::internal::less(a[i - 1], a[j - 1]); }
 
-            template<typename T>
+            template<std::totally_ordered T>
             void exch(std::vector<T> &a, int i, int j) { SortUtils::internal::exch(a, i - 1, j - 1); }
 
-            template<typename T>
+            template<std::totally_ordered T>
             void sink(std::vector<T> &a, int k, int N);
         }
 
-        template<typename T>
-        void sort(std::vector<T> &a);
+        template<std::totally_ordered T>
+        void sort(std::vector < T > &a);
     }
 }
 
-template<typename T>
+template<std::totally_ordered T>
 void algs4::Heap::internal::sink(std::vector<T> &a, int k, int N) {
     while (2 * k <= N) {
         int j = 2 * k;
@@ -35,7 +37,7 @@ void algs4::Heap::internal::sink(std::vector<T> &a, int k, int N) {
     }
 }
 
-template<typename T>
+template<std::totally_ordered T>
 void algs4::Heap::sort(std::vector<T> &a) {
     using namespace internal;
     int N = a.size();

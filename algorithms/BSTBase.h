@@ -8,7 +8,7 @@
 
 namespace algs4 {
     namespace internal {
-        template<typename Key, typename Value, typename Derived>
+        template<std::totally_ordered Key, typename Value, typename Derived>
         struct BSTNodeBase {
             Key key;
             Value val;
@@ -19,7 +19,7 @@ namespace algs4 {
         };
     }
 
-    template<typename Key, typename Value, typename Node>
+    template<std::totally_ordered Key, typename Value, typename Node>
     class BSTBase : public OrderedST<Key, Value> {
     protected:
         std::unique_ptr<Node> root;
@@ -48,7 +48,7 @@ namespace algs4 {
     };
 }
 
-template<typename Key, typename Value, typename Node>
+template<std::totally_ordered Key, typename Value, typename Node>
 std::optional<Value> algs4::BSTBase<Key, Value, Node>::get(const Node *x, const Key &key) const {
     if (!x) return std::nullopt;
     if (key < x->key) return get(x->left.get(), key);
@@ -56,27 +56,27 @@ std::optional<Value> algs4::BSTBase<Key, Value, Node>::get(const Node *x, const 
     else return x->val;
 }
 
-template<typename Key, typename Value, typename Node>
+template<std::totally_ordered Key, typename Value, typename Node>
 int algs4::BSTBase<Key, Value, Node>::size(const Node *x) const {
     if (!x) return 0;
     return x->N;
 }
 
-template<typename Key, typename Value, typename Node>
+template<std::totally_ordered Key, typename Value, typename Node>
 const Node *algs4::BSTBase<Key, Value, Node>::min(const Node *x) const {
     if (!x) return nullptr;
     if (!x->left) return x;
     return min(x->left.get());
 }
 
-template<typename Key, typename Value, typename Node>
+template<std::totally_ordered Key, typename Value, typename Node>
 const Node *algs4::BSTBase<Key, Value, Node>::max(const Node *x) const {
     if (!x) return nullptr;
     if (!x->right) return x;
     return max(x->right.get());
 }
 
-template<typename Key, typename Value, typename Node>
+template<std::totally_ordered Key, typename Value, typename Node>
 const Node *algs4::BSTBase<Key, Value, Node>::floor(const Node *x, const Key &key) const {
     if (!x) return nullptr;
     if (key == x->key) return x;
@@ -85,7 +85,7 @@ const Node *algs4::BSTBase<Key, Value, Node>::floor(const Node *x, const Key &ke
     else return x;
 }
 
-template<typename Key, typename Value, typename Node>
+template<std::totally_ordered Key, typename Value, typename Node>
 const Node *algs4::BSTBase<Key, Value, Node>::ceiling(const Node *x, const Key &key) const {
     if (!x) return nullptr;
     if (key == x->key) return x;
@@ -94,7 +94,7 @@ const Node *algs4::BSTBase<Key, Value, Node>::ceiling(const Node *x, const Key &
     else return x;
 }
 
-template<typename Key, typename Value, typename Node>
+template<std::totally_ordered Key, typename Value, typename Node>
 int algs4::BSTBase<Key, Value, Node>::rank(const Node *x, const Key &key) const {
     if (!x) return 0;
     if (key < x->key) return rank(x->left.get(), key);
@@ -103,7 +103,7 @@ int algs4::BSTBase<Key, Value, Node>::rank(const Node *x, const Key &key) const 
     else return size(x->left.get());
 }
 
-template<typename Key, typename Value, typename Node>
+template<std::totally_ordered Key, typename Value, typename Node>
 const Node *algs4::BSTBase<Key, Value, Node>::select(const Node *x, int k) const {
     if (!x) return nullptr;
     if (int t = size(x->left.get()); t > k) return select(x->left.get(), k);
@@ -111,7 +111,7 @@ const Node *algs4::BSTBase<Key, Value, Node>::select(const Node *x, int k) const
     else return x;
 }
 
-template<typename Key, typename Value, typename Node>
+template<std::totally_ordered Key, typename Value, typename Node>
 void algs4::BSTBase<Key, Value, Node>::keys(const Node *x, std::list<Key> &queue, const Key &lo, const Key &hi) const {
     if (!x) return;
     if (lo < x->key) keys(x->left.get(), queue, lo, hi);
@@ -119,21 +119,21 @@ void algs4::BSTBase<Key, Value, Node>::keys(const Node *x, std::list<Key> &queue
     if (hi > x->key) keys(x->right.get(), queue, lo, hi);
 }
 
-template<typename Key, typename Value, typename Node>
+template<std::totally_ordered Key, typename Value, typename Node>
 std::optional<Key> algs4::BSTBase<Key, Value, Node>::floor(const Key &key) const {
     const Node *x = floor(root.get(), key);
     if (!x) return std::nullopt;
     return x->key;
 }
 
-template<typename Key, typename Value, typename Node>
+template<std::totally_ordered Key, typename Value, typename Node>
 std::optional<Key> algs4::BSTBase<Key, Value, Node>::ceiling(const Key &key) const {
     const Node *x = ceiling(root.get(), key);
     if (!x) return std::nullopt;
     return x->key;
 }
 
-template<typename Key, typename Value, typename Node>
+template<std::totally_ordered Key, typename Value, typename Node>
 std::list<Key> algs4::BSTBase<Key, Value, Node>::keys(const Key &lo, const Key &hi) const {
     std::list<Key> queue;
     keys(root.get(), queue, lo, hi);

@@ -3,6 +3,7 @@
 
 
 #include <algorithm>
+#include <concepts>
 #include <random>
 
 #include "SortUtils.h"
@@ -10,19 +11,19 @@
 namespace algs4 {
     namespace Quick {
         namespace internal {
-            template<typename T>
+            template<std::totally_ordered T>
             int partition(std::vector<T> &a, int lo, int hi);
 
-            template<typename T>
+            template<std::totally_ordered T>
             void sort(std::vector<T> &a, int lo, int hi);
         }
 
-        template<typename T>
+        template<std::totally_ordered T>
         void sort(std::vector<T> &a);
     }
 }
 
-template<typename T>
+template<std::totally_ordered T>
 int algs4::Quick::internal::partition(std::vector<T> &a, int lo, int hi) {
     using namespace SortUtils::internal;
     int i = lo, j = hi + 1;
@@ -38,7 +39,7 @@ int algs4::Quick::internal::partition(std::vector<T> &a, int lo, int hi) {
     return j;       // with a[lo..j-1] <= a[j] <= a[j+1..hi].
 }
 
-template<typename T>
+template<std::totally_ordered T>
 void algs4::Quick::internal::sort(std::vector<T> &a, int lo, int hi) {
     if (lo >= hi) return;
     int j = partition(a, lo, hi);
@@ -46,7 +47,7 @@ void algs4::Quick::internal::sort(std::vector<T> &a, int lo, int hi) {
     sort(a, j + 1, hi);
 }
 
-template<typename T>
+template<std::totally_ordered T>
 void algs4::Quick::sort(std::vector<T> &a) {
     std::shuffle(a.begin(), a.end(), std::default_random_engine(std::random_device()()));
     internal::sort(a, 0, a.size() - 1);

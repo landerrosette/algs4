@@ -2,16 +2,18 @@
 #define ALGS4_SELECTION_H
 
 
+#include <concepts>
+
 #include "SortUtils.h"
 
 namespace algs4 {
     namespace Selection {
-        template<typename T>
+        template<std::totally_ordered T>
         void sort(std::vector<T> &a);
     }
 }
 
-template<typename T>
+template<std::totally_ordered T>
 void algs4::Selection::sort(std::vector<T> &a) {
     using namespace SortUtils::internal;
     int N = a.size();

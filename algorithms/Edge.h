@@ -2,6 +2,7 @@
 #define ALGS4_EDGE_H
 
 
+#include <compare>
 #include <iostream>
 
 #include "EdgeBase.h"
@@ -17,8 +18,8 @@ namespace algs4 {
         int other(int vertex) const;
     };
 
-    inline bool operator<(const Edge &l, const Edge &r) { return l.weight() < r.weight(); }
-    inline bool operator>(const Edge &l, const Edge &r) { return r < l; }
+    inline auto operator<=>(const Edge &l, const Edge &r) { return l.weight() <=> r.weight(); }
+    inline bool operator==(const Edge &l, const Edge &r) { return l.weight() == r.weight(); }
     std::ostream &operator<<(std::ostream &os, const Edge &e);
 }
 

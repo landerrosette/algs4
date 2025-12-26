@@ -2,27 +2,29 @@
 #define ALGS4_MERGE_H
 
 
+#include <concepts>
+
 #include "SortUtils.h"
 
 namespace algs4 {
     namespace Merge {
         namespace internal {
-            template<typename T>
+            template<std::totally_ordered T>
             std::vector<T> aux;
 
-            template<typename T>
+            template<std::totally_ordered T>
             void merge(std::vector<T> &a, int lo, int mid, int hi);
 
-            template<typename T>
+            template<std::totally_ordered T>
             void sort(std::vector<T> &a, int lo, int hi);
         }
 
-        template<typename T>
-        void sort(std::vector<T> &a);
+        template<std::totally_ordered T>
+        void sort(std::vector < T > &a);
     }
 }
 
-template<typename T>
+template<std::totally_ordered T>
 void algs4::Merge::internal::merge(std::vector<T> &a, int lo, int mid, int hi) {
     using namespace internal;
     using namespace SortUtils::internal;
@@ -36,7 +38,7 @@ void algs4::Merge::internal::merge(std::vector<T> &a, int lo, int mid, int hi) {
     }
 }
 
-template<typename T>
+template<std::totally_ordered T>
 void algs4::Merge::internal::sort(std::vector<T> &a, int lo, int hi) {
     if (hi <= lo) return;
     int mid = lo + (hi - lo) / 2;
@@ -45,9 +47,9 @@ void algs4::Merge::internal::sort(std::vector<T> &a, int lo, int hi) {
     merge(a, lo, mid, hi);
 }
 
-template<typename T>
+template<std::totally_ordered T>
 void algs4::Merge::sort(std::vector<T> &a) {
-    internal::aux<T> = std::vector<T>(a.size());
+    internal::aux<T> = std::vector < T > (a.size());
     internal::sort(a, 0, a.size() - 1);
 }
 

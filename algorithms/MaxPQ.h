@@ -2,13 +2,14 @@
 #define ALGS4_MAXPQ_H
 
 
+#include <concepts>
 #include <functional>
 #include <optional>
 
 #include "PQBase.h"
 
 namespace algs4 {
-    template<typename Key>
+    template<std::totally_ordered Key>
     class MaxPQ : public PQBase<Key, std::less<Key> > {
     public:
         explicit MaxPQ(int maxN) : PQBase<Key, std::less<Key> >(maxN) {}

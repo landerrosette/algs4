@@ -2,12 +2,13 @@
 #define ALGS4_INDEXMINPQ_H
 
 
+#include <concepts>
 #include <optional>
 #include <utility>
 #include <vector>
 
 namespace algs4 {
-    template<typename Key>
+    template<std::totally_ordered Key>
     class IndexMinPQ {
     private:
         int N = 0;
@@ -32,14 +33,14 @@ namespace algs4 {
     };
 }
 
-template<typename Key>
+template<std::totally_ordered Key>
 void algs4::IndexMinPQ<Key>::exch(int i, int j) {
     std::swap(pq[i], pq[j]);
     qp[pq[i]] = i;
     qp[pq[j]] = j;
 }
 
-template<typename Key>
+template<std::totally_ordered Key>
 void algs4::IndexMinPQ<Key>::swim(int k) {
     while (k > 1 && greater(k / 2, k)) {
         exch(k / 2, k);
@@ -47,7 +48,7 @@ void algs4::IndexMinPQ<Key>::swim(int k) {
     }
 }
 
-template<typename Key>
+template<std::totally_ordered Key>
 void algs4::IndexMinPQ<Key>::sink(int k) {
     while (2 * k <= N) {
         int j = 2 * k;
@@ -60,7 +61,7 @@ void algs4::IndexMinPQ<Key>::sink(int k) {
     }
 }
 
-template<typename Key>
+template<std::totally_ordered Key>
 void algs4::IndexMinPQ<Key>::insert(int k, const Key &key) {
     qp[k] = ++N;
     pq[N] = k;
@@ -68,14 +69,14 @@ void algs4::IndexMinPQ<Key>::insert(int k, const Key &key) {
     swim(N);
 }
 
-template<typename Key>
+template<std::totally_ordered Key>
 void algs4::IndexMinPQ<Key>::change(int k, const Key &key) {
     keys[k] = key;
     swim(qp[k]);
     sink(qp[k]);
 }
 
-template<typename Key>
+template<std::totally_ordered Key>
 int algs4::IndexMinPQ<Key>::delMin() {
     int indexOfMin = pq[1];
     exch(1, N--);
