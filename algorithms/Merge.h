@@ -3,6 +3,7 @@
 
 
 #include <concepts>
+#include <vector>
 
 #include "SortUtils.h"
 
@@ -20,7 +21,7 @@ namespace algs4 {
         }
 
         template<std::totally_ordered T>
-        void sort(std::vector < T > &a);
+        void sort(std::vector<T> &a);
     }
 }
 
@@ -49,7 +50,7 @@ void algs4::Merge::internal::sort(std::vector<T> &a, int lo, int hi) {
 
 template<std::totally_ordered T>
 void algs4::Merge::sort(std::vector<T> &a) {
-    internal::aux<T> = std::vector < T > (a.size());
+    internal::aux<T> = std::vector<T>(a.size());
     internal::sort(a, 0, a.size() - 1);
 }
 

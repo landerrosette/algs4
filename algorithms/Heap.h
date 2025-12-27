@@ -3,6 +3,7 @@
 
 
 #include <concepts>
+#include <vector>
 
 #include "SortUtils.h"
 
@@ -20,7 +21,7 @@ namespace algs4 {
         }
 
         template<std::totally_ordered T>
-        void sort(std::vector < T > &a);
+        void sort(std::vector<T> &a);
     }
 }
 

@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <concepts>
 #include <random>
+#include <vector>
 
 #include "SortUtils.h"
 
