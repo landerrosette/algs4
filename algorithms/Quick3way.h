@@ -38,7 +38,7 @@ void algs4::Quick3way::internal::sort(std::vector<T> &a, int lo, int hi) {
 
 template<std::totally_ordered T>
 void algs4::Quick3way::sort(std::vector<T> &a) {
-    std::shuffle(a.begin(), a.end(), std::default_random_engine(std::random_device()()));
+    std::ranges::shuffle(a, std::default_random_engine(std::random_device()()));
     internal::sort(a, 0, a.size() - 1);
 }
 
