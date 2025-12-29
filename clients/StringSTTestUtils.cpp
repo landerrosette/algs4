@@ -1,6 +1,6 @@
-#include "TestStringST.h"
+#include "StringSTTestUtils.h"
 
-namespace TestST {
+namespace STTestUtils {
     void testStringST(const algs4::StringST<int> &st, std::ostream &os) {
         os << "longestPrefixOf(\"shellsort\"):" << std::endl;
         os << "--------------------------------" << std::endl;

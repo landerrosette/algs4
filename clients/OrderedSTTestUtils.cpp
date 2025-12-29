@@ -1,11 +1,11 @@
-#include "TestOrderedST.h"
+#include "OrderedSTTestUtils.h"
 
 #include <array>
 #include <iomanip>
 
-#include "TestST.h"
+#include "STTestUtils.h"
 
-namespace TestST {
+namespace STTestUtils {
     void init(algs4::OrderedST<std::string, int> &st, std::istream &is, std::ostream &os) {
         init(static_cast<algs4::ST<std::string, int> &>(st), is, os);
         os << "min  = " << st.min().value_or(INVALID_KEY) << std::endl;

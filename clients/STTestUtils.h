@@ -1,13 +1,13 @@
-#ifndef ALGS4_TESTST_H
-#define ALGS4_TESTST_H
+#ifndef ALGS4_STTESTUTILS_H
+#define ALGS4_STTESTUTILS_H
 
 
 #include <iostream>
 #include <string>
 
-#include "ST.h"
+#include "algs4/ST.h"
 
-namespace TestST {
+namespace STTestUtils {
     constexpr char INVALID_KEY[] = "";
     constexpr int INVALID_VALUE = -1;
 
@@ -19,4 +19,4 @@ namespace TestST {
 }
 
 
-#endif //ALGS4_TESTST_H
+#endif //ALGS4_STTESTUTILS_H

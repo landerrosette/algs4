@@ -1,13 +1,13 @@
-#ifndef ALGS4_TESTORDEREDST_H
-#define ALGS4_TESTORDEREDST_H
+#ifndef ALGS4_ORDEREDSTTESTUTILS_H
+#define ALGS4_ORDEREDSTTESTUTILS_H
 
 
 #include <iostream>
 #include <string>
 
-#include "OrderedST.h"
+#include "algs4/OrderedST.h"
 
-namespace TestST {
+namespace STTestUtils {
     void init(algs4::OrderedST<std::string, int> &st, std::istream &is, std::ostream &os);
     void removeSome(algs4::OrderedST<std::string, int> &st, std::ostream &os);
     void removeAll(algs4::OrderedST<std::string, int> &st, std::ostream &os);
@@ -15,4 +15,4 @@ namespace TestST {
 }
 
 
-#endif //ALGS4_TESTORDEREDST_H
+#endif //ALGS4_ORDEREDSTTESTUTILS_H

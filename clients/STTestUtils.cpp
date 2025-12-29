@@ -1,8 +1,8 @@
-#include "TestST.h"
+#include "STTestUtils.h"
 
 #include <random>
 
-namespace TestST {
+namespace STTestUtils {
     void init(algs4::ST<std::string, int> &st, std::istream &is, std::ostream &os) {
         std::string word;
         for (int i = 0; is >> word; ++i)

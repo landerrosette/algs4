@@ -1,8 +1,8 @@
-#include "TestBalancedTree.h"
+#include "BalancedTreeTestUtils.h"
 
 #include <random>
 
-void TestST::testRedBlackBST(algs4::RedBlackBST<int, int> &st, int n, std::ostream &os) {
+void STTestUtils::testRedBlackBST(algs4::RedBlackBST<int, int> &st, int n, std::ostream &os) {
     // Insert N elements in order.
     os << "Inserting " << n << " elements in order" << std::endl;
     os << "--------------------------------" << std::endl;

@@ -25,23 +25,23 @@ foreach (ST "SequentialSearchST" "BinarySearchST" "BST" "RedBlackBST" "SeparateC
     endif ()
 
     configure_file(TestST.cpp.in Test${ST}.cpp @ONLY)
-    add_executable(Test${ST} Test${ST}.cpp TestST.cpp)
+    add_executable(Test${ST} Test${ST}.cpp STTestUtils.cpp)
     target_link_libraries(Test${ST} PRIVATE algs4)
     target_include_directories(Test${ST} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
     if (ST STREQUAL "BinarySearchST" OR ST STREQUAL "BST" OR ST STREQUAL "RedBlackBST")
         target_compile_definitions(Test${ST} PRIVATE ORDERED)
-        target_sources(Test${ST} PRIVATE TestOrderedST.cpp)
+        target_sources(Test${ST} PRIVATE OrderedSTTestUtils.cpp)
     endif ()
 
     if (ST STREQUAL "TrieST" OR ST STREQUAL "TST")
         target_compile_definitions(Test${ST} PRIVATE STRING)
-        target_sources(Test${ST} PRIVATE TestStringST.cpp)
+        target_sources(Test${ST} PRIVATE StringSTTestUtils.cpp)
     endif ()
 
     if (ST STREQUAL "RedBlackBST")
         target_compile_definitions(Test${ST} PRIVATE BALANCED_TREE)
-        target_sources(Test${ST} PRIVATE TestBalancedTree.cpp)
+        target_sources(Test${ST} PRIVATE BalancedTreeTestUtils.cpp)
     endif ()
 
     unset(ST_INIT_ARGS)
