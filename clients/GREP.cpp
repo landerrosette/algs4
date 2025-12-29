@@ -20,7 +20,7 @@
 #include <iostream>
 #include <string>
 
-#include "NFA.h"
+#include "algs4/NFA.h"
 
 int main(int argc, char *argv[]) {
     std::string regexp = "(.*" + std::string(argv[1]) + ".*)";

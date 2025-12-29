@@ -13,7 +13,7 @@
  ******************************************************************************/
 
 
-#include "@COMPRESSOR@.h"
+#include "algs4/@COMPRESSOR@.h"
 
 int main(int argc, char *argv[]) {
     if (*argv[1] == '-') algs4::@COMPRESSOR@::compress();

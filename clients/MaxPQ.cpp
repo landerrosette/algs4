@@ -8,7 +8,7 @@
 #include <iostream>
 #include <string>
 
-#include "MaxPQ.h"
+#include "algs4/MaxPQ.h"
 
 int main(int argc, char *argv[]) {
     algs4::MaxPQ<std::string> pq(10);

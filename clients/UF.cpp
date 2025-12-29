@@ -15,7 +15,7 @@
 
 #include <iostream>
 
-#include "UF.h"
+#include "algs4/UF.h"
 
 int main(int argc, char *argv[]) {
     int N;

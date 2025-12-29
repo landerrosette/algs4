@@ -20,7 +20,7 @@
 #include <iostream>
 #include <list>
 
-#include "@CC@.h"
+#include "algs4/@CC@.h"
 
 int main(int argc, char *argv[]) {
     std::ifstream in(argv[1]);

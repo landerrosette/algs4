@@ -22,17 +22,17 @@
 #include <iostream>
 #include <string>
 
-#include "TestST.h"
+#include "STTestUtils.h"
 #ifdef ORDERED
-#include "TestOrderedST.h"
+#include "OrderedSTTestUtils.h"
 #endif
 #ifdef STRING
-#include "TestStringST.h"
+#include "StringSTTestUtils.h"
 #endif
 #ifdef BALANCED_TREE
-#include "TestBalancedTree.h"
+#include "BalancedTreeTestUtils.h"
 #endif
-#include "@ST@.h"
+#include "algs4/@ST@.h"
 
 int main(int argc, char *argv[]) {
 #ifndef STRING
@@ -40,26 +40,26 @@ int main(int argc, char *argv[]) {
 #else
     algs4::@ST@<int> st{@ST_INIT_ARGS@};
 #endif
-    TestST::init(st, std::cin, std::cout);
+    STTestUtils::init(st, std::cin, std::cout);
     std::cout << std::endl;
-    TestST::testKeys(st, std::cout);
+    STTestUtils::testKeys(st, std::cout);
     std::cout << std::endl;
 #ifdef ORDERED
-    TestST::testOrderedST(st, std::cout);
+    STTestUtils::testOrderedST(st, std::cout);
     std::cout << std::endl;
 #endif
 #ifdef STRING
-    TestST::testStringST(st, std::cout);
+    STTestUtils::STTestUtilsringST(st, std::cout);
     std::cout << std::endl;
 #endif
-    TestST::removeSome(st, std::cout);
+    STTestUtils::removeSome(st, std::cout);
     std::cout << std::endl;
-    TestST::removeAll(st, std::cout);
+    STTestUtils::removeAll(st, std::cout);
 #ifdef BALANCED_TREE
     if (argc > 1) {
         std::cout << std::endl;
         algs4::@ST@<int, int> st2{@ST_INIT_ARGS@};
-        TestST::testRedBlackBST(st2, std::stoi(argv[1]), std::cout);
+        STTestUtils::testRedBlackBST(st2, std::stoi(argv[1]), std::cout);
     }
 #endif
     return 0;

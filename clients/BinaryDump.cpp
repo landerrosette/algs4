@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "BinaryStdIO.h"
+#include "algs4/BinaryStdIO.h"
 
 int main(int argc, char *argv[]) {
     int width = std::stoi(argv[1]), cnt;

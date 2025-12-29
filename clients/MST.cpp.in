@@ -25,7 +25,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "@MST@.h"
+#include "algs4/@MST@.h"
 
 int main(int argc, char *argv[]) {
     std::ifstream in(argv[1]);

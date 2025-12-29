@@ -16,7 +16,7 @@
 #include <list>
 #include <string>
 
-#include "DirectedDFS.h"
+#include "algs4/DirectedDFS.h"
 
 int main(int argc, char *argv[]) {
     std::ifstream in(argv[1]);

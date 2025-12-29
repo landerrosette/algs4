@@ -19,8 +19,8 @@
 
 #include <iostream>
 
-#include "SymbolDigraph.h"
-#include "Topological.h"
+#include "algs4/SymbolDigraph.h"
+#include "algs4/Topological.h"
 
 int main(int argc, char *argv[]) {
     algs4::SymbolDigraph sg(argv[1], *argv[2]);
