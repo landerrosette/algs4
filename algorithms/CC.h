@@ -12,5 +12,14 @@ namespace algs4 {
     };
 }
 
+inline algs4::CC::CC(const Graph &G) : CCBase(G) {
+    for (int s = 0; s < G.V(); ++s) {
+        if (!marked[s]) {
+            dfs(G, s);
+            ++count_;
+        }
+    }
+}
+
 
 #endif //ALGS4_CC_H

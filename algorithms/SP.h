@@ -30,5 +30,30 @@ namespace algs4 {
     };
 }
 
+inline void algs4::SP::relax(const EdgeWeightedDigraph &G, int v) {
+    for (const auto &e: G.adj(v)) {
+        int w = e.to();
+        if (distTo_[w] > distTo_[v] + e.weight()) {
+            distTo_[w] = distTo_[v] + e.weight();
+            edgeTo[w] = e;
+            onRelaxationSuccess(G, v, e, w);
+        }
+        afterRelaxation(G, v, e, w);
+    }
+}
+
+inline algs4::SP::SP(const EdgeWeightedDigraph &G, int s)
+    : edgeTo(G.V()),
+      distTo_(G.V(), std::numeric_limits<double>::infinity()) {
+    distTo_[s] = 0.0;
+}
+
+inline std::list<algs4::DirectedEdge> algs4::SP::pathTo(int v) const {
+    std::list<DirectedEdge> path;
+    for (auto e = edgeTo[v]; e; e = edgeTo[e->from()])
+        path.push_front(*e);
+    return path;
+}
+
 
 #endif //ALGS4_SP_H

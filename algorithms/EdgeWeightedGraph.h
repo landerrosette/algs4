@@ -19,5 +19,32 @@ namespace algs4 {
     };
 }
 
+inline algs4::EdgeWeightedGraph::EdgeWeightedGraph(std::istream &in) : GraphBase(in) {
+    int E;
+    in >> E;
+    for (int i = 0; i < E; ++i) {
+        int v, w;
+        double weight;
+        in >> v >> w >> weight;
+        addEdge(Edge(v, w, weight));
+    }
+}
+
+inline void algs4::EdgeWeightedGraph::addEdge(const Edge &e) {
+    int v = e.either(), w = e.other(v);
+    adj_[v].push_front(e);
+    adj_[w].push_front(e);
+    ++E_;
+}
+
+inline std::list<algs4::Edge> algs4::EdgeWeightedGraph::edges() const {
+    std::list<Edge> bag;
+    for (int v = 0; v < V_; ++v)
+        for (const auto &e: adj_[v])
+            if (e.other(v) > v)
+                bag.push_front(e);
+    return bag;
+}
+
 
 #endif //ALGS4_EDGEWEIGHTEDGRAPH_H

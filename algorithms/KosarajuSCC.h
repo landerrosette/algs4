@@ -3,6 +3,7 @@
 
 
 #include "CCBase.h"
+#include "DepthFirstOrder.h"
 #include "Digraph.h"
 
 namespace algs4 {
@@ -12,6 +13,16 @@ namespace algs4 {
 
         bool stronglyConnected(int v, int w) const { return connected(v, w); }
     };
+}
+
+inline algs4::KosarajuSCC::KosarajuSCC(const Digraph &G) : CCBase(G) {
+    DepthFirstOrder order(G.reverse());
+    for (int s: order.reversePost()) {
+        if (!marked[s]) {
+            dfs(G, s);
+            ++count_;
+        }
+    }
 }
 
 

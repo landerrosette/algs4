@@ -25,5 +25,13 @@ namespace algs4 {
     };
 }
 
+inline void algs4::CCBase::dfs(const GraphBase<int> &G, int v) {
+    marked[v] = true;
+    id_[v] = count_;
+    for (int w: G.adj(v))
+        if (!marked[w])
+            dfs(G, w);
+}
+
 
 #endif //ALGS4_CCBASE_H
