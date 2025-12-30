@@ -2,6 +2,7 @@
 #define ALGS4_INDEXMINPQ_H
 
 
+#include <cassert>
 #include <concepts>
 #include <optional>
 #include <utility>
@@ -22,11 +23,11 @@ namespace algs4 {
         void sink(int k);
 
     public:
-        explicit IndexMinPQ(int maxN) : pq(maxN + 1), qp(maxN + 1, -1), keys(maxN + 1) {}
+        explicit IndexMinPQ(int maxN) : pq(maxN + 1), qp(maxN + 1, -1), keys(maxN + 1) { assert(maxN >= 0); }
 
         bool isEmpty() const { return N == 0; }
         int size() const { return N; }
-        bool contains(int k) const { return qp[k] != -1; }
+        bool contains(int k) const;
         void insert(int k, const Key &key);
         void change(int k, const Key &key);
         int delMin();
@@ -62,7 +63,15 @@ void algs4::IndexMinPQ<Key>::sink(int k) {
 }
 
 template<std::totally_ordered Key>
+bool algs4::IndexMinPQ<Key>::contains(int k) const {
+    assert(k >= 0 && k < qp.size() - 1);
+    return qp[k] != -1;
+}
+
+template<std::totally_ordered Key>
 void algs4::IndexMinPQ<Key>::insert(int k, const Key &key) {
+    assert(k >= 0 && k < qp.size() - 1);
+    assert(!contains(k));
     qp[k] = ++N;
     pq[N] = k;
     keys[k] = key;
@@ -71,6 +80,8 @@ void algs4::IndexMinPQ<Key>::insert(int k, const Key &key) {
 
 template<std::totally_ordered Key>
 void algs4::IndexMinPQ<Key>::change(int k, const Key &key) {
+    assert(k >= 0 && k < qp.size() - 1);
+    assert(contains(k));
     keys[k] = key;
     swim(qp[k]);
     sink(qp[k]);
@@ -78,6 +89,7 @@ void algs4::IndexMinPQ<Key>::change(int k, const Key &key) {
 
 template<std::totally_ordered Key>
 int algs4::IndexMinPQ<Key>::delMin() {
+    assert(!isEmpty());
     int indexOfMin = pq[1];
     exch(1, N--);
     sink(1);

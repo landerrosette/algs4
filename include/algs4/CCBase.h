@@ -2,6 +2,7 @@
 #define ALGS4_CCBASE_H
 
 
+#include <cassert>
 #include <vector>
 
 #include "GraphBase.h"
@@ -19,8 +20,8 @@ namespace algs4 {
         void dfs(const GraphBase<int> &G, int v);
 
     public:
-        bool connected(int v, int w) const { return id_[v] == id_[w]; }
-        int id(int v) const { return id_[v]; }
+        bool connected(int v, int w) const;
+        int id(int v) const;
         int count() const { return count_; }
     };
 }
@@ -31,6 +32,17 @@ inline void algs4::CCBase::dfs(const GraphBase<int> &G, int v) {
     for (int w: G.adj(v))
         if (!marked[w])
             dfs(G, w);
+}
+
+inline bool algs4::CCBase::connected(int v, int w) const {
+    assert(v >= 0 && v < marked.size());
+    assert(w >= 0 && w < marked.size());
+    return id_[v] == id_[w];
+}
+
+inline int algs4::CCBase::id(int v) const {
+    assert(v >= 0 && v < marked.size());
+    return id_[v];
 }
 
 

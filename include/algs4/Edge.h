@@ -2,10 +2,10 @@
 #define ALGS4_EDGE_H
 
 
+#include <cassert>
 #include <compare>
 #include <iomanip>
 #include <iostream>
-#include <stdexcept>
 
 #include "EdgeBase.h"
 
@@ -28,7 +28,8 @@ namespace algs4 {
 inline int algs4::Edge::other(int vertex) const {
     if (vertex == v) return w;
     else if (vertex == w) return v;
-    else throw std::runtime_error("Inconsistent edge");
+    else
+        assert(false);
 }
 
 inline std::ostream &algs4::operator<<(std::ostream &os, const Edge &e) {

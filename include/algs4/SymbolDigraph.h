@@ -2,6 +2,7 @@
 #define ALGS4_SYMBOLDIGRAPH_H
 
 
+#include <cassert>
 #include <filesystem>
 #include <fstream>
 #include <memory>
@@ -24,7 +25,7 @@ namespace algs4 {
         SymbolDigraph(const std::filesystem::path &stream, char sp);
 
         bool contains(const std::string &s) const { return st.contains(s); }
-        std::string_view name(int v) const { return keys[v]; }
+        std::string_view name(int v) const;
         const Digraph &G() const { return *G_; }
     };
 }
@@ -53,6 +54,11 @@ inline algs4::SymbolDigraph::SymbolDigraph(const std::filesystem::path &stream, 
         while (std::getline(iss, name, sp))
             G_->addEdge(v, *st.get(name));
     }
+}
+
+inline std::string_view algs4::SymbolDigraph::name(int v) const {
+    assert(v >= 0 && v < G_->V());
+    return keys[v];
 }
 
 

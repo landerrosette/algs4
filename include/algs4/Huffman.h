@@ -2,6 +2,7 @@
 #define ALGS4_HUFFMAN_H
 
 
+#include <compare>
 #include <iostream>
 #include <memory>
 #include <string>
@@ -25,8 +26,8 @@ namespace algs4 {
                     : ch(ch), freq(freq), left(left), right(right) {}
 
                 bool isLeaf() const { return !left && !right; }
-                friend bool operator<(const Node &l, const Node &r) { return l.freq < r.freq; }
-                friend bool operator>(const Node &l, const Node &r) { return r < l; }
+                friend auto operator<=>(const Node &l, const Node &r) { return l.freq <=> r.freq; }
+                friend bool operator==(const Node &l, const Node &r) { return l.freq == r.freq; }
             };
 
             std::vector<std::string> buildCode(const std::shared_ptr<const Node> &root);
@@ -71,7 +72,7 @@ inline auto algs4::Huffman::internal::buildTrie(const std::vector<int> &freq) ->
     public:
         explicit NodeMinPQ(int maxN) : PQBase(maxN) {}
 
-        std::optional<std::shared_ptr<const Node> > delMin() { return delTop(); }
+        auto delMin() { return delTop(); }
     };
 
     NodeMinPQ pq(R);

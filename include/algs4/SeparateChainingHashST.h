@@ -2,6 +2,7 @@
 #define ALGS4_SEPARATECHAININGHASHST_H
 
 
+#include <cassert>
 #include <functional>
 #include <vector>
 
@@ -18,7 +19,7 @@ namespace algs4 {
         int hash(const Key &key) const { return std::hash<Key>()(key) % M; }
 
     public:
-        explicit SeparateChainingHashST(int M) : M(M), st(M) {}
+        explicit SeparateChainingHashST(int M) : M(M), st(M) { assert(M >= 0); }
 
         std::optional<Value> get(const Key &key) const override { return st[hash(key)].get(key); }
         void put(const Key &key, const Value &val) override { st[hash(key)].put(key, val); }

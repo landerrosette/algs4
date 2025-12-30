@@ -2,6 +2,7 @@
 #define ALGS4_UF_H
 
 
+#include <cassert>
 #include <vector>
 
 namespace algs4 {
@@ -22,6 +23,7 @@ namespace algs4 {
 }
 
 inline algs4::UF::UF(int N) : id(N), sz(N), count_(N) {
+    assert(N >= 0);
     for (int i = 0; i < N; i++) {
         id[i] = i;
         sz[i] = 1;
@@ -29,6 +31,7 @@ inline algs4::UF::UF(int N) : id(N), sz(N), count_(N) {
 }
 
 inline int algs4::UF::find(int p) const {
+    assert(p >= 0 && p < id.size());
     while (p != id[p])
         p = id[p];
     return p;

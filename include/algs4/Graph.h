@@ -2,6 +2,7 @@
 #define ALGS4_GRAPH_H
 
 
+#include <cassert>
 #include <iostream>
 
 #include "GraphBase.h"
@@ -27,6 +28,8 @@ inline algs4::Graph::Graph(std::istream &in) : GraphBase(in) {
 }
 
 inline void algs4::Graph::addEdge(int v, int w) {
+    assert(v >= 0 && v < V_);
+    assert(w >= 0 && w < V_);
     adj_[v].push_front(w);
     adj_[w].push_front(v);
     ++E_;

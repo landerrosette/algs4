@@ -2,6 +2,7 @@
 #define ALGS4_PQBASE_H
 
 
+#include <cassert>
 #include <concepts>
 #include <optional>
 #include <utility>
@@ -14,7 +15,7 @@ namespace algs4 {
         std::vector<std::optional<Key> > pq; // heap-ordered complete binary tree
         int N = 0;                           // in pq[1..N] with pq[0] unused
 
-        explicit PQBase(int maxN) : pq(maxN + 1) {}
+        explicit PQBase(int maxN) : pq(maxN + 1) { assert(maxN >= 0); }
         ~PQBase() = default;
 
         bool less(int i, int j) { return Compare()(*pq[i], *pq[j]); }
@@ -53,6 +54,7 @@ void algs4::PQBase<Key, Compare>::sink(int k) {
 
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
 std::optional<Key> algs4::PQBase<Key, Compare>::delTop() {
+    assert(!isEmpty());
     auto top = pq[1];
     exch(1, N--);
     pq[N + 1] = std::nullopt;
@@ -62,6 +64,7 @@ std::optional<Key> algs4::PQBase<Key, Compare>::delTop() {
 
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
 void algs4::PQBase<Key, Compare>::insert(const Key &v) {
+    assert(N < pq.size() - 1);
     pq[++N] = v;
     swim(N);
 }

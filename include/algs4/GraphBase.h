@@ -2,6 +2,7 @@
 #define ALGS4_GRAPHBASE_H
 
 
+#include <cassert>
 #include <iostream>
 #include <list>
 #include <vector>
@@ -14,7 +15,7 @@ namespace algs4 {
         int E_;                          // number of edges
         std::vector<std::list<T> > adj_; // adjacency lists
 
-        explicit GraphBase(int V) : V_(V), E_(0), adj_(V) {}
+        explicit GraphBase(int V) : V_(V), E_(0), adj_(V) { assert(V >= 0); }
         explicit GraphBase(std::istream &in);
         ~GraphBase() = default;
 
@@ -36,7 +37,7 @@ std::ostream &operator<<(std::ostream &os, const algs4::GraphBase<T> &G) {
     os << G.V() << " vertices, " << G.E() << " edges" << std::endl;
     for (int v = 0; v < G.V(); ++v) {
         os << v << ": ";
-        for (T w: G.adj(v)) os << w << " ";
+        for (const T &w: G.adj(v)) os << w << " ";
         os << std::endl;
     }
     return os;

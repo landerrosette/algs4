@@ -2,6 +2,7 @@
 #define ALGS4_BINARYSEARCHST_H
 
 
+#include <cassert>
 #include <optional>
 #include <utility>
 #include <vector>
@@ -17,7 +18,7 @@ namespace algs4 {
         int N = 0;
 
     public:
-        explicit BinarySearchST(int capacity) : keys_(capacity), vals(capacity) {}
+        explicit BinarySearchST(int capacity) : keys_(capacity), vals(capacity) { assert(capacity >= 0); }
 
         std::optional<Value> get(const Key &key) const override;
         void put(const Key &key, const Value &val) override;
@@ -28,7 +29,7 @@ namespace algs4 {
         std::optional<Key> floor(const Key &key) const override;
         std::optional<Key> ceiling(const Key &key) const override;
         int rank(const Key &key) const override;
-        std::optional<Key> select(int k) const override { return keys_[k]; }
+        Key select(int k) const override;
         std::list<Key> keys(const Key &lo, const Key &hi) const override;
     };
 }
@@ -48,6 +49,7 @@ void algs4::BinarySearchST<Key, Value>::put(const Key &key, const Value &val) {
         vals[i] = val;
         return;
     }
+    assert(N < keys_.size());
     for (int j = N; j > i; --j) {
         keys_[j] = std::move(keys_[j - 1]);
         vals[j] = std::move(vals[j - 1]);
@@ -61,11 +63,11 @@ template<std::totally_ordered Key, typename Value>
 void algs4::BinarySearchST<Key, Value>::remove(const Key &key) {
     if (this->isEmpty()) return;
     int i = rank(key);
-    if (i < N && keys_[i] == key) {
-        for (int j = i; j < N - 1; ++j) {
-            keys_[j] = std::move(keys_[j + 1]);
-            vals[j] = std::move(vals[j + 1]);
-        }
+    if (i == N || keys_[i] != key)
+        return;
+    for (int j = i; j < N - 1; ++j) {
+        keys_[j] = std::move(keys_[j + 1]);
+        vals[j] = std::move(vals[j + 1]);
     }
     --N;
     keys_[N] = std::nullopt;
@@ -76,13 +78,15 @@ template<std::totally_ordered Key, typename Value>
 std::optional<Key> algs4::BinarySearchST<Key, Value>::floor(const Key &key) const {
     int i = rank(key);
     if (i < N && keys_[i] == key) return keys_[i];
-    else return i > 0 ? keys_[i - 1] : std::nullopt;
+    if (i == 0) return std::nullopt;
+    else return keys_[i - 1];
 }
 
 template<std::totally_ordered Key, typename Value>
 std::optional<Key> algs4::BinarySearchST<Key, Value>::ceiling(const Key &key) const {
     int i = rank(key);
-    return keys_[i];
+    if (i == N) return std::nullopt;
+    else return keys_[i];
 }
 
 template<std::totally_ordered Key, typename Value>
@@ -95,6 +99,12 @@ int algs4::BinarySearchST<Key, Value>::rank(const Key &key) const {
         else return mid;
     }
     return lo;
+}
+
+template<std::totally_ordered Key, typename Value>
+Key algs4::BinarySearchST<Key, Value>::select(int k) const {
+    assert(k >= 0 && k < size());
+    return *keys_[k];
 }
 
 template<std::totally_ordered Key, typename Value>

@@ -2,6 +2,7 @@
 #define ALGS4_DIGRAPH_H
 
 
+#include <cassert>
 #include <iostream>
 
 #include "GraphBase.h"
@@ -28,6 +29,8 @@ inline algs4::Digraph::Digraph(std::istream &in) : GraphBase(in) {
 }
 
 inline void algs4::Digraph::addEdge(int v, int w) {
+    assert(v >= 0 && v < V_);
+    assert(w >= 0 && w < V_);
     adj_[v].push_front(w);
     ++E_;
 }

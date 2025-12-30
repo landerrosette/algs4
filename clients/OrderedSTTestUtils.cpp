@@ -25,7 +25,7 @@ namespace STTestUtils {
     // Remove all the remaining keys.
     void removeAll(algs4::OrderedST<std::string, int> &st, std::ostream &os) {
         while (!st.isEmpty())
-            st.remove(st.select(st.size() / 2).value_or(INVALID_KEY));
+            st.remove(st.select(st.size() / 2));
         std::cout << "After removing the remaining keys, size = " << st.size() << std::endl;
     }
 
@@ -34,7 +34,7 @@ namespace STTestUtils {
         os << "Testing select" << std::endl;
         os << "--------------------------------" << std::endl;
         for (int i = 0; i < st.size(); ++i)
-            os << i << " " << st.select(i).value_or(INVALID_KEY) << std::endl;
+            os << i << " " << st.select(i) << std::endl;
         os << std::endl;
 
         // Test rank, floor, ceiling.
