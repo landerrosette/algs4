@@ -98,6 +98,52 @@ For the original Java source code, visit the [official repository](https://githu
 
 ## Usage
 
-### Build
+### Build the project
 
-This project uses CMake as the build system.
+This project uses CMake as the build system. Ensure you have CMake 3.21+ and a C++20 compliant compiler.
+
+```shell
+cmake -B build
+cmake --build build
+```
+
+### Run the clients
+
+By default, all clients are built and the executables can be found in the build directory. Refer to the comments in the
+source files listed in [Clients](#clients) for instructions on how to run each client. Go to
+the [book's website](https://algs4.cs.princeton.edu/code/) for test data.
+
+### Use as a header-only library
+
+#### Option A: CMake `add_subdirectory`
+
+Add to your `CMakeLists.txt`:
+
+```cmake
+add_subdirectory(/path/to/algs4)
+target_link_libraries(your_target PRIVATE algs4)
+```
+
+#### Option B: Simple include
+
+If you are not using CMake, simply ensure the `include/` directory is in your compiler's include path and include the
+headers you need. For example:
+
+```cpp
+#include <iostream>
+#include <string>
+
+#include "algs4/BST.h"
+
+int main() {
+    algs4::BST<std::string, int> st;
+    
+    st.put("A", 1);
+    st.put("B", 2);
+    
+    if (const auto &val = st.get("A"))
+        std::cout << "Key A has value: " << *val << std::endl;
+    
+    return 0;
+}
+```
