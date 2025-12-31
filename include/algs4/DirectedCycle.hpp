@@ -1,5 +1,5 @@
-#ifndef ALGS4_DIRECTEDCYCLE_H
-#define ALGS4_DIRECTEDCYCLE_H
+#ifndef ALGS4_DIRECTEDCYCLE_HPP
+#define ALGS4_DIRECTEDCYCLE_HPP
 
 
 #include <list>
@@ -7,8 +7,8 @@
 #include <type_traits>
 #include <vector>
 
-#include "DirectedEdge.h"
-#include "GraphBase.h"
+#include "DirectedEdge.hpp"
+#include "GraphBase.hpp"
 
 namespace algs4 {
     template<typename T>
@@ -66,4 +66,4 @@ algs4::DirectedCycle<T>::DirectedCycle(const GraphBase<T> &G) : marked(G.V()), e
 }
 
 
-#endif //ALGS4_DIRECTEDCYCLE_H
+#endif //ALGS4_DIRECTEDCYCLE_HPP

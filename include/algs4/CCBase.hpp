@@ -1,11 +1,11 @@
-#ifndef ALGS4_CCBASE_H
-#define ALGS4_CCBASE_H
+#ifndef ALGS4_CCBASE_HPP
+#define ALGS4_CCBASE_HPP
 
 
 #include <cassert>
 #include <vector>
 
-#include "GraphBase.h"
+#include "GraphBase.hpp"
 
 namespace algs4 {
     class CCBase {
@@ -46,4 +46,4 @@ inline int algs4::CCBase::id(int v) const {
 }
 
 
-#endif //ALGS4_CCBASE_H
+#endif //ALGS4_CCBASE_HPP

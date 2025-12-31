@@ -1,10 +1,10 @@
-#ifndef ALGS4_MST_H
-#define ALGS4_MST_H
+#ifndef ALGS4_MST_HPP
+#define ALGS4_MST_HPP
 
 
 #include <list>
 
-#include "Edge.h"
+#include "Edge.hpp"
 
 namespace algs4 {
     class MST {
@@ -24,4 +24,4 @@ inline double algs4::MST::weight() const {
 }
 
 
-#endif //ALGS4_MST_H
+#endif //ALGS4_MST_HPP

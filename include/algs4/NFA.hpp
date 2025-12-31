@@ -1,5 +1,5 @@
-#ifndef ALGS4_NFA_H
-#define ALGS4_NFA_H
+#ifndef ALGS4_NFA_HPP
+#define ALGS4_NFA_HPP
 
 
 #include <algorithm>
@@ -7,8 +7,8 @@
 #include <string>
 #include <string_view>
 
-#include "Digraph.h"
-#include "DirectedDFS.h"
+#include "Digraph.hpp"
+#include "DirectedDFS.hpp"
 
 namespace algs4 {
     class NFA {
@@ -70,4 +70,4 @@ inline bool algs4::NFA::recognizes(std::string_view txt) const {
 }
 
 
-#endif //ALGS4_NFA_H
+#endif //ALGS4_NFA_HPP

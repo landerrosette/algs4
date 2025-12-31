@@ -1,11 +1,11 @@
-#ifndef ALGS4_SHELL_H
-#define ALGS4_SHELL_H
+#ifndef ALGS4_SHELL_HPP
+#define ALGS4_SHELL_HPP
 
 
 #include <concepts>
 #include <vector>
 
-#include "SortUtils.h"
+#include "SortUtils.hpp"
 
 namespace algs4 {
     namespace Shell {
@@ -30,4 +30,4 @@ void algs4::Shell::sort(std::vector<T> &a) {
 }
 
 
-#endif //ALGS4_SHELL_H
+#endif //ALGS4_SHELL_HPP

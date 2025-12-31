@@ -1,12 +1,12 @@
-#ifndef ALGS4_TOPOLOGICAL_H
-#define ALGS4_TOPOLOGICAL_H
+#ifndef ALGS4_TOPOLOGICAL_HPP
+#define ALGS4_TOPOLOGICAL_HPP
 
 
 #include <list>
 
-#include "DepthFirstOrder.h"
-#include "DirectedCycle.h"
-#include "GraphBase.h"
+#include "DepthFirstOrder.hpp"
+#include "DirectedCycle.hpp"
+#include "GraphBase.hpp"
 
 namespace algs4 {
     class Topological {
@@ -32,4 +32,4 @@ algs4::Topological::Topological(const GraphBase<T> &G) {
 }
 
 
-#endif //ALGS4_TOPOLOGICAL_H
+#endif //ALGS4_TOPOLOGICAL_HPP

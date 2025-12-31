@@ -1,12 +1,12 @@
-#ifndef ALGS4_BELLMANFORDSP_H
-#define ALGS4_BELLMANFORDSP_H
+#ifndef ALGS4_BELLMANFORDSP_HPP
+#define ALGS4_BELLMANFORDSP_HPP
 
 
 #include <list>
 #include <vector>
 
-#include "DirectedCycle.h"
-#include "SP.h"
+#include "DirectedCycle.hpp"
+#include "SP.hpp"
 
 namespace algs4 {
     class BellmanFordSP : public SP {
@@ -64,4 +64,4 @@ inline algs4::BellmanFordSP::BellmanFordSP(const EdgeWeightedDigraph &G, int s) 
 }
 
 
-#endif //ALGS4_BELLMANFORDSP_H
+#endif //ALGS4_BELLMANFORDSP_HPP

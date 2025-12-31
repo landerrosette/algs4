@@ -1,11 +1,11 @@
-#ifndef ALGS4_DIGRAPH_H
-#define ALGS4_DIGRAPH_H
+#ifndef ALGS4_DIGRAPH_HPP
+#define ALGS4_DIGRAPH_HPP
 
 
 #include <cassert>
 #include <iostream>
 
-#include "GraphBase.h"
+#include "GraphBase.hpp"
 
 namespace algs4 {
     class Digraph : public GraphBase<int> {
@@ -44,4 +44,4 @@ inline algs4::Digraph algs4::Digraph::reverse() const {
 }
 
 
-#endif //ALGS4_DIGRAPH_H
+#endif //ALGS4_DIGRAPH_HPP

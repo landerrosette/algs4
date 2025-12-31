@@ -1,5 +1,5 @@
-#ifndef ALGS4_UF_H
-#define ALGS4_UF_H
+#ifndef ALGS4_UF_HPP
+#define ALGS4_UF_HPP
 
 
 #include <cassert>
@@ -53,4 +53,4 @@ inline void algs4::UF::unionize(int p, int q) {
 }
 
 
-#endif //ALGS4_UF_H
+#endif //ALGS4_UF_HPP

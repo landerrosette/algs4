@@ -1,5 +1,5 @@
-#ifndef ALGS4_PQBASE_H
-#define ALGS4_PQBASE_H
+#ifndef ALGS4_PQBASE_HPP
+#define ALGS4_PQBASE_HPP
 
 
 #include <cassert>
@@ -70,4 +70,4 @@ void algs4::PQBase<Key, Compare>::insert(const Key &v) {
 }
 
 
-#endif //ALGS4_PQBASE_H
+#endif //ALGS4_PQBASE_HPP

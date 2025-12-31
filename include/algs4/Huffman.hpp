@@ -1,5 +1,5 @@
-#ifndef ALGS4_HUFFMAN_H
-#define ALGS4_HUFFMAN_H
+#ifndef ALGS4_HUFFMAN_HPP
+#define ALGS4_HUFFMAN_HPP
 
 
 #include <compare>
@@ -8,8 +8,8 @@
 #include <string>
 #include <vector>
 
-#include "BinaryStdIO.h"
-#include "PQBase.h"
+#include "BinaryStdIO.hpp"
+#include "PQBase.hpp"
 
 namespace algs4 {
     namespace Huffman {
@@ -148,4 +148,4 @@ inline void algs4::Huffman::expand() {
 }
 
 
-#endif //ALGS4_HUFFMAN_H
+#endif //ALGS4_HUFFMAN_HPP

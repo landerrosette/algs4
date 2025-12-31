@@ -1,5 +1,5 @@
-#ifndef ALGS4_SP_H
-#define ALGS4_SP_H
+#ifndef ALGS4_SP_HPP
+#define ALGS4_SP_HPP
 
 
 #include <cassert>
@@ -8,8 +8,8 @@
 #include <optional>
 #include <vector>
 
-#include "DirectedEdge.h"
-#include "EdgeWeightedDigraph.h"
+#include "DirectedEdge.hpp"
+#include "EdgeWeightedDigraph.hpp"
 
 namespace algs4 {
     class SP {
@@ -69,4 +69,4 @@ inline std::list<algs4::DirectedEdge> algs4::SP::pathTo(int v) const {
 }
 
 
-#endif //ALGS4_SP_H
+#endif //ALGS4_SP_HPP

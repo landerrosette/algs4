@@ -1,5 +1,5 @@
-#ifndef ALGS4_GRAPHBASE_H
-#define ALGS4_GRAPHBASE_H
+#ifndef ALGS4_GRAPHBASE_HPP
+#define ALGS4_GRAPHBASE_HPP
 
 
 #include <cassert>
@@ -44,4 +44,4 @@ std::ostream &operator<<(std::ostream &os, const algs4::GraphBase<T> &G) {
 }
 
 
-#endif //ALGS4_GRAPHBASE_H
+#endif //ALGS4_GRAPHBASE_HPP

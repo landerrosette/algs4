@@ -1,13 +1,13 @@
-#ifndef ALGS4_KRUSKALMST_H
-#define ALGS4_KRUSKALMST_H
+#ifndef ALGS4_KRUSKALMST_HPP
+#define ALGS4_KRUSKALMST_HPP
 
 
 #include <list>
 
-#include "EdgeWeightedGraph.h"
-#include "MinPQ.h"
-#include "MST.h"
-#include "UF.h"
+#include "EdgeWeightedGraph.hpp"
+#include "MinPQ.hpp"
+#include "MST.hpp"
+#include "UF.hpp"
 
 namespace algs4 {
     class KruskalMST : public MST {
@@ -36,4 +36,4 @@ inline algs4::KruskalMST::KruskalMST(const EdgeWeightedGraph &G) {
 }
 
 
-#endif //ALGS4_KRUSKALMST_H
+#endif //ALGS4_KRUSKALMST_HPP

@@ -1,5 +1,5 @@
-#ifndef ALGS4_QUICK_H
-#define ALGS4_QUICK_H
+#ifndef ALGS4_QUICK_HPP
+#define ALGS4_QUICK_HPP
 
 
 #include <algorithm>
@@ -7,7 +7,7 @@
 #include <random>
 #include <vector>
 
-#include "SortUtils.h"
+#include "SortUtils.hpp"
 
 namespace algs4 {
     namespace Quick {
@@ -55,4 +55,4 @@ void algs4::Quick::sort(std::vector<T> &a) {
 }
 
 
-#endif //ALGS4_QUICK_H
+#endif //ALGS4_QUICK_HPP

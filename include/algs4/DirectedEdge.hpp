@@ -1,11 +1,11 @@
-#ifndef ALGS4_DIRECTEDEDGE_H
-#define ALGS4_DIRECTEDEDGE_H
+#ifndef ALGS4_DIRECTEDEDGE_HPP
+#define ALGS4_DIRECTEDEDGE_HPP
 
 
 #include <iomanip>
 #include <iostream>
 
-#include "EdgeBase.h"
+#include "EdgeBase.hpp"
 
 namespace algs4 {
     class DirectedEdge : public EdgeBase {
@@ -26,4 +26,4 @@ inline std::ostream &algs4::operator<<(std::ostream &os, const DirectedEdge &e) 
 }
 
 
-#endif //ALGS4_DIRECTEDEDGE_H
+#endif //ALGS4_DIRECTEDEDGE_HPP

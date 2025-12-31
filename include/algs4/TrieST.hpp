@@ -1,12 +1,12 @@
-#ifndef ALGS4_TRIEST_H
-#define ALGS4_TRIEST_H
+#ifndef ALGS4_TRIEST_HPP
+#define ALGS4_TRIEST_HPP
 
 
 #include <memory>
 #include <optional>
 #include <vector>
 
-#include "StringST.h"
+#include "StringST.hpp"
 
 namespace algs4 {
     template<typename Value>
@@ -140,4 +140,4 @@ std::list<std::string> algs4::TrieST<Value>::keysThatMatch(std::string_view pat)
 }
 
 
-#endif //ALGS4_TRIEST_H
+#endif //ALGS4_TRIEST_HPP

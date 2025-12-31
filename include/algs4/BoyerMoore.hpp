@@ -1,12 +1,12 @@
-#ifndef ALGS4_BOYERMOORE_H
-#define ALGS4_BOYERMOORE_H
+#ifndef ALGS4_BOYERMOORE_HPP
+#define ALGS4_BOYERMOORE_HPP
 
 
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "SubstrSearcher.h"
+#include "SubstrSearcher.hpp"
 
 namespace algs4 {
     class BoyerMoore : public SubstrSearcher {
@@ -46,4 +46,4 @@ inline int algs4::BoyerMoore::search(std::string_view txt) const {
 }
 
 
-#endif //ALGS4_BOYERMOORE_H
+#endif //ALGS4_BOYERMOORE_HPP

@@ -1,12 +1,12 @@
-#ifndef ALGS4_DIRECTEDDFS_H
-#define ALGS4_DIRECTEDDFS_H
+#ifndef ALGS4_DIRECTEDDFS_HPP
+#define ALGS4_DIRECTEDDFS_HPP
 
 
 #include <cassert>
 #include <list>
 #include <vector>
 
-#include "Digraph.h"
+#include "Digraph.hpp"
 
 namespace algs4 {
     class DirectedDFS {
@@ -44,4 +44,4 @@ inline algs4::DirectedDFS::DirectedDFS(const Digraph &G, const std::list<int> &s
 }
 
 
-#endif //ALGS4_DIRECTEDDFS_H
+#endif //ALGS4_DIRECTEDDFS_HPP

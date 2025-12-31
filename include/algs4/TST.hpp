@@ -1,11 +1,11 @@
-#ifndef ALGS4_TST_H
-#define ALGS4_TST_H
+#ifndef ALGS4_TST_HPP
+#define ALGS4_TST_HPP
 
 
 #include <memory>
 #include <optional>
 
-#include "StringST.h"
+#include "StringST.hpp"
 
 namespace algs4 {
     template<typename Value>
@@ -177,4 +177,4 @@ std::list<std::string> algs4::TST<Value>::keysThatMatch(std::string_view pat) co
 }
 
 
-#endif //ALGS4_TST_H
+#endif //ALGS4_TST_HPP

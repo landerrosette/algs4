@@ -1,12 +1,12 @@
-#ifndef ALGS4_PATHS_H
-#define ALGS4_PATHS_H
+#ifndef ALGS4_PATHS_HPP
+#define ALGS4_PATHS_HPP
 
 
 #include <cassert>
 #include <list>
 #include <vector>
 
-#include "Graph.h"
+#include "Graph.hpp"
 
 namespace algs4 {
     class Paths {
@@ -34,4 +34,4 @@ inline std::list<int> algs4::Paths::pathTo(int v) const {
 }
 
 
-#endif //ALGS4_PATHS_H
+#endif //ALGS4_PATHS_HPP

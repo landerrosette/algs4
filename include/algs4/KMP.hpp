@@ -1,12 +1,12 @@
-#ifndef ALGS4_KMP_H
-#define ALGS4_KMP_H
+#ifndef ALGS4_KMP_HPP
+#define ALGS4_KMP_HPP
 
 
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "SubstrSearcher.h"
+#include "SubstrSearcher.hpp"
 
 namespace algs4 {
     class KMP : public SubstrSearcher {
@@ -42,4 +42,4 @@ inline int algs4::KMP::search(std::string_view txt) const {
 }
 
 
-#endif //ALGS4_KMP_H
+#endif //ALGS4_KMP_HPP

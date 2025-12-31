@@ -1,11 +1,11 @@
-#ifndef ALGS4_RABINKARP_H
-#define ALGS4_RABINKARP_H
+#ifndef ALGS4_RABINKARP_HPP
+#define ALGS4_RABINKARP_HPP
 
 
 #include <random>
 #include <string_view>
 
-#include "SubstrSearcher.h"
+#include "SubstrSearcher.hpp"
 
 namespace algs4 {
     class RabinKarp : public SubstrSearcher {
@@ -70,4 +70,4 @@ inline int algs4::RabinKarp::search(std::string_view txt) const {
 }
 
 
-#endif //ALGS4_RABINKARP_H
+#endif //ALGS4_RABINKARP_HPP

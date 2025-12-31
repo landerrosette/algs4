@@ -1,12 +1,12 @@
-#ifndef ALGS4_MSD_H
-#define ALGS4_MSD_H
+#ifndef ALGS4_MSD_HPP
+#define ALGS4_MSD_HPP
 
 
 #include <string>
 #include <string_view>
 #include <vector>
 
-#include "SortUtils.h"
+#include "SortUtils.hpp"
 
 namespace algs4 {
     namespace MSD {
@@ -64,4 +64,4 @@ inline void algs4::MSD::sort(std::vector<std::string> &a) {
 }
 
 
-#endif //ALGS4_MSD_H
+#endif //ALGS4_MSD_HPP

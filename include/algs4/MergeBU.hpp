@@ -1,12 +1,12 @@
-#ifndef ALGS4_MERGEBU_H
-#define ALGS4_MERGEBU_H
+#ifndef ALGS4_MERGEBU_HPP
+#define ALGS4_MERGEBU_HPP
 
 
 #include <algorithm>
 #include <concepts>
 #include <vector>
 
-#include "Merge.h"
+#include "Merge.hpp"
 
 namespace algs4 {
     namespace MergeBU {
@@ -26,4 +26,4 @@ void algs4::MergeBU::sort(std::vector<T> &a) {
 }
 
 
-#endif //ALGS4_MERGEBU_H
+#endif //ALGS4_MERGEBU_HPP

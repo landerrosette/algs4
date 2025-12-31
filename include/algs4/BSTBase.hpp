@@ -1,11 +1,11 @@
-#ifndef ALGS4_BSTBASE_H
-#define ALGS4_BSTBASE_H
+#ifndef ALGS4_BSTBASE_HPP
+#define ALGS4_BSTBASE_HPP
 
 
 #include <cassert>
 #include <memory>
 
-#include "OrderedST.h"
+#include "OrderedST.hpp"
 
 namespace algs4 {
     namespace internal {
@@ -164,4 +164,4 @@ std::list<Key> algs4::BSTBase<Key, Value, Node>::keys(const Key &lo, const Key &
 }
 
 
-#endif //ALGS4_BSTBASE_H
+#endif //ALGS4_BSTBASE_HPP

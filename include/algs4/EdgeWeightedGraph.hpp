@@ -1,12 +1,12 @@
-#ifndef ALGS4_EDGEWEIGHTEDGRAPH_H
-#define ALGS4_EDGEWEIGHTEDGRAPH_H
+#ifndef ALGS4_EDGEWEIGHTEDGRAPH_HPP
+#define ALGS4_EDGEWEIGHTEDGRAPH_HPP
 
 
 #include <iostream>
 #include <list>
 
-#include "Edge.h"
-#include "GraphBase.h"
+#include "Edge.hpp"
+#include "GraphBase.hpp"
 
 namespace algs4 {
     class EdgeWeightedGraph : public GraphBase<Edge> {
@@ -47,4 +47,4 @@ inline std::list<algs4::Edge> algs4::EdgeWeightedGraph::edges() const {
 }
 
 
-#endif //ALGS4_EDGEWEIGHTEDGRAPH_H
+#endif //ALGS4_EDGEWEIGHTEDGRAPH_HPP

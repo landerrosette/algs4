@@ -1,5 +1,5 @@
-#ifndef ALGS4_SORTUTILS_H
-#define ALGS4_SORTUTILS_H
+#ifndef ALGS4_SORTUTILS_HPP
+#define ALGS4_SORTUTILS_HPP
 
 
 #include <concepts>
@@ -41,4 +41,4 @@ bool algs4::SortUtils::isSorted(const std::vector<T> &a) {
 }
 
 
-#endif //ALGS4_SORTUTILS_H
+#endif //ALGS4_SORTUTILS_HPP

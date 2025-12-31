@@ -1,5 +1,5 @@
-#ifndef ALGS4_EDGE_H
-#define ALGS4_EDGE_H
+#ifndef ALGS4_EDGE_HPP
+#define ALGS4_EDGE_HPP
 
 
 #include <cassert>
@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <iostream>
 
-#include "EdgeBase.h"
+#include "EdgeBase.hpp"
 
 namespace algs4 {
     class Edge : public EdgeBase {
@@ -37,4 +37,4 @@ inline std::ostream &algs4::operator<<(std::ostream &os, const Edge &e) {
 }
 
 
-#endif //ALGS4_EDGE_H
+#endif //ALGS4_EDGE_HPP

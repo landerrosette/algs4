@@ -1,5 +1,5 @@
-#ifndef ALGS4_INDEXMINPQ_H
-#define ALGS4_INDEXMINPQ_H
+#ifndef ALGS4_INDEXMINPQ_HPP
+#define ALGS4_INDEXMINPQ_HPP
 
 
 #include <cassert>
@@ -99,4 +99,4 @@ int algs4::IndexMinPQ<Key>::delMin() {
 }
 
 
-#endif //ALGS4_INDEXMINPQ_H
+#endif //ALGS4_INDEXMINPQ_HPP

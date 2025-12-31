@@ -1,9 +1,9 @@
-#ifndef ALGS4_ACYCLICSP_H
-#define ALGS4_ACYCLICSP_H
+#ifndef ALGS4_ACYCLICSP_HPP
+#define ALGS4_ACYCLICSP_HPP
 
 
-#include "SP.h"
-#include "Topological.h"
+#include "SP.hpp"
+#include "Topological.hpp"
 
 namespace algs4 {
     class AcyclicSP : public SP {
@@ -19,4 +19,4 @@ inline algs4::AcyclicSP::AcyclicSP(const EdgeWeightedDigraph &G, int s) : SP(G, 
 }
 
 
-#endif //ALGS4_ACYCLICSP_H
+#endif //ALGS4_ACYCLICSP_HPP

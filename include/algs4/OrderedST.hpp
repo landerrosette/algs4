@@ -1,5 +1,5 @@
-#ifndef ALGS4_ORDEREDST_H
-#define ALGS4_ORDEREDST_H
+#ifndef ALGS4_ORDEREDST_HPP
+#define ALGS4_ORDEREDST_HPP
 
 
 #include <cassert>
@@ -7,7 +7,7 @@
 #include <list>
 #include <optional>
 
-#include "ST.h"
+#include "ST.hpp"
 
 namespace algs4 {
     template<std::totally_ordered Key, typename Value>
@@ -54,4 +54,4 @@ std::list<Key> algs4::OrderedST<Key, Value>::keys() const {
 }
 
 
-#endif //ALGS4_ORDEREDST_H
+#endif //ALGS4_ORDEREDST_HPP

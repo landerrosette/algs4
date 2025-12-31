@@ -1,9 +1,9 @@
-#ifndef ALGS4_CC_H
-#define ALGS4_CC_H
+#ifndef ALGS4_CC_HPP
+#define ALGS4_CC_HPP
 
 
-#include "CCBase.h"
-#include "Graph.h"
+#include "CCBase.hpp"
+#include "Graph.hpp"
 
 namespace algs4 {
     class CC : public CCBase {
@@ -22,4 +22,4 @@ inline algs4::CC::CC(const Graph &G) : CCBase(G) {
 }
 
 
-#endif //ALGS4_CC_H
+#endif //ALGS4_CC_HPP

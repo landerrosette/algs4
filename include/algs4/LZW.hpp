@@ -1,12 +1,12 @@
-#ifndef ALGS4_LZW_H
-#define ALGS4_LZW_H
+#ifndef ALGS4_LZW_HPP
+#define ALGS4_LZW_HPP
 
 
 #include <string>
 #include <vector>
 
-#include "BinaryStdIO.h"
-#include "TST.h"
+#include "BinaryStdIO.hpp"
+#include "TST.hpp"
 
 namespace algs4 {
     namespace LZW {
@@ -63,4 +63,4 @@ inline void algs4::LZW::expand() {
 }
 
 
-#endif //ALGS4_LZW_H
+#endif //ALGS4_LZW_HPP

@@ -1,11 +1,11 @@
-#ifndef ALGS4_GRAPH_H
-#define ALGS4_GRAPH_H
+#ifndef ALGS4_GRAPH_HPP
+#define ALGS4_GRAPH_HPP
 
 
 #include <cassert>
 #include <iostream>
 
-#include "GraphBase.h"
+#include "GraphBase.hpp"
 
 namespace algs4 {
     class Graph : public GraphBase<int> {
@@ -36,4 +36,4 @@ inline void algs4::Graph::addEdge(int v, int w) {
 }
 
 
-#endif //ALGS4_GRAPH_H
+#endif //ALGS4_GRAPH_HPP

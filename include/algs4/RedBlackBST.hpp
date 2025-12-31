@@ -1,11 +1,11 @@
-#ifndef ALGS4_REDBLACKBST_H
-#define ALGS4_REDBLACKBST_H
+#ifndef ALGS4_REDBLACKBST_HPP
+#define ALGS4_REDBLACKBST_HPP
 
 
 #include <algorithm>
 #include <cassert>
 
-#include "BSTBase.h"
+#include "BSTBase.hpp"
 
 namespace algs4 {
     namespace internal {
@@ -257,4 +257,4 @@ void algs4::RedBlackBST<Key, Value>::removeMax() {
 }
 
 
-#endif //ALGS4_REDBLACKBST_H
+#endif //ALGS4_REDBLACKBST_HPP

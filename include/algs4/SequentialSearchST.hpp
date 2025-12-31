@@ -1,11 +1,11 @@
-#ifndef ALGS4_SEQUENTIALSEARCHST_H
-#define ALGS4_SEQUENTIALSEARCHST_H
+#ifndef ALGS4_SEQUENTIALSEARCHST_HPP
+#define ALGS4_SEQUENTIALSEARCHST_HPP
 
 
 #include <memory>
 #include <utility>
 
-#include "ST.h"
+#include "ST.hpp"
 
 namespace algs4 {
     template<typename Key, typename Value>
@@ -74,4 +74,4 @@ std::list<Key> algs4::SequentialSearchST<Key, Value>::keys() const {
 }
 
 
-#endif //ALGS4_SEQUENTIALSEARCHST_H
+#endif //ALGS4_SEQUENTIALSEARCHST_HPP

@@ -1,13 +1,13 @@
-#ifndef ALGS4_DEPTHFIRSTORDER_H
-#define ALGS4_DEPTHFIRSTORDER_H
+#ifndef ALGS4_DEPTHFIRSTORDER_HPP
+#define ALGS4_DEPTHFIRSTORDER_HPP
 
 
 #include <list>
 #include <type_traits>
 #include <vector>
 
-#include "DirectedEdge.h"
-#include "GraphBase.h"
+#include "DirectedEdge.hpp"
+#include "GraphBase.hpp"
 
 namespace algs4 {
     class DepthFirstOrder {
@@ -51,4 +51,4 @@ algs4::DepthFirstOrder::DepthFirstOrder(const GraphBase<T> &G) : marked(G.V()) {
 }
 
 
-#endif //ALGS4_DEPTHFIRSTORDER_H
+#endif //ALGS4_DEPTHFIRSTORDER_HPP

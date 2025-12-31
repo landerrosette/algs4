@@ -1,5 +1,5 @@
-#ifndef ALGS4_EDGEBASE_H
-#define ALGS4_EDGEBASE_H
+#ifndef ALGS4_EDGEBASE_HPP
+#define ALGS4_EDGEBASE_HPP
 
 
 #include <cassert>
@@ -26,4 +26,4 @@ inline algs4::EdgeBase::EdgeBase(int v, int w, double weight) : v(v), w(w), weig
 }
 
 
-#endif //ALGS4_EDGEBASE_H
+#endif //ALGS4_EDGEBASE_HPP

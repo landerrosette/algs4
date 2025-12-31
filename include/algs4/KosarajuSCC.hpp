@@ -1,10 +1,10 @@
-#ifndef ALGS4_KOSARAJUSCC_H
-#define ALGS4_KOSARAJUSCC_H
+#ifndef ALGS4_KOSARAJUSCC_HPP
+#define ALGS4_KOSARAJUSCC_HPP
 
 
-#include "CCBase.h"
-#include "DepthFirstOrder.h"
-#include "Digraph.h"
+#include "CCBase.hpp"
+#include "DepthFirstOrder.hpp"
+#include "Digraph.hpp"
 
 namespace algs4 {
     class KosarajuSCC : public CCBase {
@@ -26,4 +26,4 @@ inline algs4::KosarajuSCC::KosarajuSCC(const Digraph &G) : CCBase(G) {
 }
 
 
-#endif //ALGS4_KOSARAJUSCC_H
+#endif //ALGS4_KOSARAJUSCC_HPP

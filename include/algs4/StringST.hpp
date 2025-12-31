@@ -1,12 +1,12 @@
-#ifndef ALGS4_STRINGST_H
-#define ALGS4_STRINGST_H
+#ifndef ALGS4_STRINGST_HPP
+#define ALGS4_STRINGST_HPP
 
 
 #include <list>
 #include <string>
 #include <string_view>
 
-#include "ST.h"
+#include "ST.hpp"
 
 namespace algs4 {
     template<typename Value>
@@ -19,4 +19,4 @@ namespace algs4 {
 }
 
 
-#endif //ALGS4_STRINGST_H
+#endif //ALGS4_STRINGST_HPP

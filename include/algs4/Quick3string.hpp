@@ -1,11 +1,11 @@
-#ifndef ALGS4_QUICK3STRING_H
-#define ALGS4_QUICK3STRING_H
+#ifndef ALGS4_QUICK3STRING_HPP
+#define ALGS4_QUICK3STRING_HPP
 
 
 #include <string>
 #include <vector>
 
-#include "SortUtils.h"
+#include "SortUtils.hpp"
 
 namespace algs4 {
     namespace Quick3string {
@@ -34,4 +34,4 @@ inline void algs4::Quick3string::internal::sort(std::vector<std::string> &a, int
 }
 
 
-#endif //ALGS4_QUICK3STRING_H
+#endif //ALGS4_QUICK3STRING_HPP

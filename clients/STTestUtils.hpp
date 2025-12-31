@@ -1,5 +1,5 @@
-#ifndef ALGS4_STTESTUTILS_H
-#define ALGS4_STTESTUTILS_H
+#ifndef ALGS4_STTESTUTILS_HPP
+#define ALGS4_STTESTUTILS_HPP
 
 
 #include <iostream>
@@ -19,4 +19,4 @@ namespace STTestUtils {
 }
 
 
-#endif //ALGS4_STTESTUTILS_H
+#endif //ALGS4_STTESTUTILS_HPP

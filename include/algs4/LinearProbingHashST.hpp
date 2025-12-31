@@ -1,5 +1,5 @@
-#ifndef ALGS4_LINEARPROBINGHASHST_H
-#define ALGS4_LINEARPROBINGHASHST_H
+#ifndef ALGS4_LINEARPROBINGHASHST_HPP
+#define ALGS4_LINEARPROBINGHASHST_HPP
 
 
 #include <functional>
@@ -7,7 +7,7 @@
 #include <utility>
 #include <vector>
 
-#include "ST.h"
+#include "ST.hpp"
 
 namespace algs4 {
     template<typename Key, typename Value>
@@ -99,4 +99,4 @@ std::list<Key> algs4::LinearProbingHashST<Key, Value>::keys() const {
 }
 
 
-#endif //ALGS4_LINEARPROBINGHASHST_H
+#endif //ALGS4_LINEARPROBINGHASHST_HPP

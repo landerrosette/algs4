@@ -1,5 +1,5 @@
-#ifndef ALGS4_BINARYSEARCHST_H
-#define ALGS4_BINARYSEARCHST_H
+#ifndef ALGS4_BINARYSEARCHST_HPP
+#define ALGS4_BINARYSEARCHST_HPP
 
 
 #include <cassert>
@@ -7,7 +7,7 @@
 #include <utility>
 #include <vector>
 
-#include "OrderedST.h"
+#include "OrderedST.hpp"
 
 namespace algs4 {
     template<std::totally_ordered Key, typename Value>
@@ -118,4 +118,4 @@ std::list<Key> algs4::BinarySearchST<Key, Value>::keys(const Key &lo, const Key 
 }
 
 
-#endif //ALGS4_BINARYSEARCHST_H
+#endif //ALGS4_BINARYSEARCHST_HPP

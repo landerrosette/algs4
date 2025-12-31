@@ -1,8 +1,8 @@
-#ifndef ALGS4_DEPTHFIRSTPATHS_H
-#define ALGS4_DEPTHFIRSTPATHS_H
+#ifndef ALGS4_DEPTHFIRSTPATHS_HPP
+#define ALGS4_DEPTHFIRSTPATHS_HPP
 
 
-#include "Paths.h"
+#include "Paths.hpp"
 
 namespace algs4 {
     class DepthFirstPaths : public Paths {
@@ -25,4 +25,4 @@ inline void algs4::DepthFirstPaths::dfs(const Graph &G, int v) {
 }
 
 
-#endif //ALGS4_DEPTHFIRSTPATHS_H
+#endif //ALGS4_DEPTHFIRSTPATHS_HPP

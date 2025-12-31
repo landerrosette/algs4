@@ -1,5 +1,5 @@
-#ifndef ALGS4_SYMBOLDIGRAPH_H
-#define ALGS4_SYMBOLDIGRAPH_H
+#ifndef ALGS4_SYMBOLDIGRAPH_HPP
+#define ALGS4_SYMBOLDIGRAPH_HPP
 
 
 #include <cassert>
@@ -12,8 +12,8 @@
 #include <string_view>
 #include <vector>
 
-#include "Digraph.h"
-#include "RedBlackBST.h"
+#include "Digraph.hpp"
+#include "RedBlackBST.hpp"
 
 namespace algs4 {
     class SymbolDigraph {
@@ -67,4 +67,4 @@ inline std::string_view algs4::SymbolDigraph::name(int v) const {
 }
 
 
-#endif //ALGS4_SYMBOLDIGRAPH_H
+#endif //ALGS4_SYMBOLDIGRAPH_HPP

@@ -1,5 +1,5 @@
-#ifndef ALGS4_LSD_H
-#define ALGS4_LSD_H
+#ifndef ALGS4_LSD_HPP
+#define ALGS4_LSD_HPP
 
 
 #include <string>
@@ -26,4 +26,4 @@ inline void algs4::LSD::sort(std::vector<std::string> &a, int W) {
 }
 
 
-#endif //ALGS4_LSD_H
+#endif //ALGS4_LSD_HPP

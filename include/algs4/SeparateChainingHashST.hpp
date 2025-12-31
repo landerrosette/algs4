@@ -1,13 +1,13 @@
-#ifndef ALGS4_SEPARATECHAININGHASHST_H
-#define ALGS4_SEPARATECHAININGHASHST_H
+#ifndef ALGS4_SEPARATECHAININGHASHST_HPP
+#define ALGS4_SEPARATECHAININGHASHST_HPP
 
 
 #include <cassert>
 #include <functional>
 #include <vector>
 
-#include "SequentialSearchST.h"
-#include "ST.h"
+#include "SequentialSearchST.hpp"
+#include "ST.hpp"
 
 namespace algs4 {
     template<typename Key, typename Value>
@@ -48,4 +48,4 @@ std::list<Key> algs4::SeparateChainingHashST<Key, Value>::keys() const {
 }
 
 
-#endif //ALGS4_SEPARATECHAININGHASHST_H
+#endif //ALGS4_SEPARATECHAININGHASHST_HPP

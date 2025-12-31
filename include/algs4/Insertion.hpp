@@ -1,11 +1,11 @@
-#ifndef ALGS4_INSERTION_H
-#define ALGS4_INSERTION_H
+#ifndef ALGS4_INSERTION_HPP
+#define ALGS4_INSERTION_HPP
 
 
 #include <concepts>
 #include <vector>
 
-#include "SortUtils.h"
+#include "SortUtils.hpp"
 
 namespace algs4 {
     namespace Insertion {
@@ -25,4 +25,4 @@ void algs4::Insertion::sort(std::vector<T> &a) {
 }
 
 
-#endif //ALGS4_INSERTION_H
+#endif //ALGS4_INSERTION_HPP

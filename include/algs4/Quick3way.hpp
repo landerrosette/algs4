@@ -1,5 +1,5 @@
-#ifndef ALGS4_QUICK3WAY_H
-#define ALGS4_QUICK3WAY_H
+#ifndef ALGS4_QUICK3WAY_HPP
+#define ALGS4_QUICK3WAY_HPP
 
 
 #include <algorithm>
@@ -7,7 +7,7 @@
 #include <random>
 #include <vector>
 
-#include "SortUtils.h"
+#include "SortUtils.hpp"
 
 namespace algs4 {
     namespace Quick3way {
@@ -43,4 +43,4 @@ void algs4::Quick3way::sort(std::vector<T> &a) {
 }
 
 
-#endif //ALGS4_QUICK3WAY_H
+#endif //ALGS4_QUICK3WAY_HPP

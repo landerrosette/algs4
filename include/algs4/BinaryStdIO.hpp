@@ -1,5 +1,5 @@
-#ifndef ALGS4_BINARYSTDIO_H
-#define ALGS4_BINARYSTDIO_H
+#ifndef ALGS4_BINARYSTDIO_HPP
+#define ALGS4_BINARYSTDIO_HPP
 
 
 #include <cstddef>
@@ -141,4 +141,4 @@ inline void algs4::BinaryStdIO::closeIn() {
 }
 
 
-#endif //ALGS4_BINARYSTDIO_H
+#endif //ALGS4_BINARYSTDIO_HPP

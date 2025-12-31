@@ -1,5 +1,5 @@
-#ifndef ALGS4_ST_H
-#define ALGS4_ST_H
+#ifndef ALGS4_ST_HPP
+#define ALGS4_ST_HPP
 
 
 #include <list>
@@ -22,4 +22,4 @@ namespace algs4 {
 }
 
 
-#endif //ALGS4_ST_H
+#endif //ALGS4_ST_HPP

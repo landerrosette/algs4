@@ -1,14 +1,14 @@
-#ifndef ALGS4_PRIMMST_H
-#define ALGS4_PRIMMST_H
+#ifndef ALGS4_PRIMMST_HPP
+#define ALGS4_PRIMMST_HPP
 
 
 #include <limits>
 #include <optional>
 #include <vector>
 
-#include "EdgeWeightedGraph.h"
-#include "IndexMinPQ.h"
-#include "MST.h"
+#include "EdgeWeightedGraph.hpp"
+#include "IndexMinPQ.hpp"
+#include "MST.hpp"
 
 namespace algs4 {
     class PrimMST : public MST {
@@ -57,4 +57,4 @@ inline std::list<algs4::Edge> algs4::PrimMST::edges() const {
 }
 
 
-#endif //ALGS4_PRIMMST_H
+#endif //ALGS4_PRIMMST_HPP

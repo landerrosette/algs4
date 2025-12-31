@@ -1,9 +1,9 @@
-#ifndef ALGS4_DIJKSTRASP_H
-#define ALGS4_DIJKSTRASP_H
+#ifndef ALGS4_DIJKSTRASP_HPP
+#define ALGS4_DIJKSTRASP_HPP
 
 
-#include "IndexMinPQ.h"
-#include "SP.h"
+#include "IndexMinPQ.hpp"
+#include "SP.hpp"
 
 namespace algs4 {
     class DijkstraSP : public SP {
@@ -29,4 +29,4 @@ inline algs4::DijkstraSP::DijkstraSP(const EdgeWeightedDigraph &G, int s) : SP(G
 }
 
 
-#endif //ALGS4_DIJKSTRASP_H
+#endif //ALGS4_DIJKSTRASP_HPP

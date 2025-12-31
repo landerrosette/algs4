@@ -1,10 +1,10 @@
-#ifndef ALGS4_BREADTHFIRSTPATHS_H
-#define ALGS4_BREADTHFIRSTPATHS_H
+#ifndef ALGS4_BREADTHFIRSTPATHS_HPP
+#define ALGS4_BREADTHFIRSTPATHS_HPP
 
 
 #include <queue>
 
-#include "Paths.h"
+#include "Paths.hpp"
 
 namespace algs4 {
     class BreadthFirstPaths : public Paths {
@@ -34,4 +34,4 @@ inline void algs4::BreadthFirstPaths::bfs(const Graph &G, int s) {
 }
 
 
-#endif //ALGS4_BREADTHFIRSTPATHS_H
+#endif //ALGS4_BREADTHFIRSTPATHS_HPP

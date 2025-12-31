@@ -1,12 +1,12 @@
-#ifndef ALGS4_MINPQ_H
-#define ALGS4_MINPQ_H
+#ifndef ALGS4_MINPQ_HPP
+#define ALGS4_MINPQ_HPP
 
 
 #include <concepts>
 #include <functional>
 #include <optional>
 
-#include "PQBase.h"
+#include "PQBase.hpp"
 
 namespace algs4 {
     template<std::totally_ordered Key>
@@ -19,4 +19,4 @@ namespace algs4 {
 }
 
 
-#endif //ALGS4_MINPQ_H
+#endif //ALGS4_MINPQ_HPP

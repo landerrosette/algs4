@@ -1,11 +1,11 @@
-#ifndef ALGS4_MERGE_H
-#define ALGS4_MERGE_H
+#ifndef ALGS4_MERGE_HPP
+#define ALGS4_MERGE_HPP
 
 
 #include <concepts>
 #include <vector>
 
-#include "SortUtils.h"
+#include "SortUtils.hpp"
 
 namespace algs4 {
     namespace Merge {
@@ -55,4 +55,4 @@ void algs4::Merge::sort(std::vector<T> &a) {
 }
 
 
-#endif //ALGS4_MERGE_H
+#endif //ALGS4_MERGE_HPP

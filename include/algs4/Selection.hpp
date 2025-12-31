@@ -1,11 +1,11 @@
-#ifndef ALGS4_SELECTION_H
-#define ALGS4_SELECTION_H
+#ifndef ALGS4_SELECTION_HPP
+#define ALGS4_SELECTION_HPP
 
 
 #include <concepts>
 #include <vector>
 
-#include "SortUtils.h"
+#include "SortUtils.hpp"
 
 namespace algs4 {
     namespace Selection {
@@ -29,4 +29,4 @@ void algs4::Selection::sort(std::vector<T> &a) {
 }
 
 
-#endif //ALGS4_SELECTION_H
+#endif //ALGS4_SELECTION_HPP

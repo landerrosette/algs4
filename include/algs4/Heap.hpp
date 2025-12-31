@@ -1,11 +1,11 @@
-#ifndef ALGS4_HEAP_H
-#define ALGS4_HEAP_H
+#ifndef ALGS4_HEAP_HPP
+#define ALGS4_HEAP_HPP
 
 
 #include <concepts>
 #include <vector>
 
-#include "SortUtils.h"
+#include "SortUtils.hpp"
 
 namespace algs4 {
     namespace Heap {
@@ -51,4 +51,4 @@ void algs4::Heap::sort(std::vector<T> &a) {
 }
 
 
-#endif //ALGS4_HEAP_H
+#endif //ALGS4_HEAP_HPP
