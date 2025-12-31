@@ -16,7 +16,7 @@
  ******************************************************************************/
 
 
-#include "algs4/@CC@.h"
+#include "algs4/@CC@.hpp"
 
 #include <fstream>
 #include <iostream>

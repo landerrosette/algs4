@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "algs4/BinaryStdIO.h"
+#include "algs4/BinaryStdIO.hpp"
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {

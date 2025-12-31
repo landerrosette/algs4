@@ -11,7 +11,7 @@
  ******************************************************************************/
 
 
-#include "algs4/DirectedDFS.h"
+#include "algs4/DirectedDFS.hpp"
 
 #include <fstream>
 #include <iostream>

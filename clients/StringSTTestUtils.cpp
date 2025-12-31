@@ -1,4 +1,4 @@
-#include "StringSTTestUtils.h"
+#include "StringSTTestUtils.hpp"
 
 namespace STTestUtils {
     void testStringST(const algs4::StringST<int> &st, std::ostream &os) {

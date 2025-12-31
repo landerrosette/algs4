@@ -17,11 +17,11 @@
  ******************************************************************************/
 
 
-#include "algs4/Topological.h"
+#include "algs4/Topological.hpp"
 
 #include <iostream>
 
-#include "algs4/SymbolDigraph.h"
+#include "algs4/SymbolDigraph.hpp"
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {

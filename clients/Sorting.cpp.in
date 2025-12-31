@@ -19,8 +19,8 @@
 #include <string>
 #include <vector>
 
-#include "algs4/@SORTER@.h"
-#include "algs4/SortUtils.h"
+#include "algs4/@SORTER@.hpp"
+#include "algs4/SortUtils.hpp"
 
 int main(int argc, char *argv[]) {
     std::vector<std::string> a;

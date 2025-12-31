@@ -22,7 +22,7 @@
  ******************************************************************************/
 
 
-#include "algs4/@MST@.h"
+#include "algs4/@MST@.hpp"
 
 #include <fstream>
 #include <iostream>

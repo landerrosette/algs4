@@ -1,4 +1,4 @@
-#include "BalancedTreeTestUtils.h"
+#include "BalancedTreeTestUtils.hpp"
 
 #include <random>
 

@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include "algs4/RedBlackBST.h"
+#include "algs4/RedBlackBST.hpp"
 
 namespace STTestUtils {
     void testRedBlackBST(algs4::RedBlackBST<int, int> &st, int n, std::ostream &os);

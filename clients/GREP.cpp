@@ -20,7 +20,7 @@
 #include <iostream>
 #include <string>
 
-#include "algs4/NFA.h"
+#include "algs4/NFA.hpp"
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {

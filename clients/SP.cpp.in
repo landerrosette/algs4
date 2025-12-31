@@ -32,7 +32,7 @@
  ******************************************************************************/
 
 
-#include "algs4/@SP@.h"
+#include "algs4/@SP@.hpp"
 
 #include <fstream>
 #include <iomanip>

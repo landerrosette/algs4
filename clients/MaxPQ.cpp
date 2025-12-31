@@ -5,7 +5,7 @@
  ******************************************************************************/
 
 
-#include "algs4/MaxPQ.h"
+#include "algs4/MaxPQ.hpp"
 
 #include <iostream>
 #include <string>

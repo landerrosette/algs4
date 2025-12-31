@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-#include "algs4/ST.h"
+#include "algs4/ST.hpp"
 
 namespace STTestUtils {
     constexpr char INVALID_KEY[] = "null";

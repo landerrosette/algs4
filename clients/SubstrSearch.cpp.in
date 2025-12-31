@@ -6,7 +6,7 @@
  ******************************************************************************/
 
 
-#include "algs4/@SUBSTR_SEARCHER@.h"
+#include "algs4/@SUBSTR_SEARCHER@.hpp"
 
 #include <iostream>
 #include <string>

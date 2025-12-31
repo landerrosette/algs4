@@ -22,17 +22,17 @@
 #include <iostream>
 #include <string>
 
-#include "STTestUtils.h"
+#include "STTestUtils.hpp"
 #ifdef ORDERED
-#include "OrderedSTTestUtils.h"
+#include "OrderedSTTestUtils.hpp"
 #endif
 #ifdef STRING
-#include "StringSTTestUtils.h"
+#include "StringSTTestUtils.hpp"
 #endif
 #ifdef BALANCED_TREE
-#include "BalancedTreeTestUtils.h"
+#include "BalancedTreeTestUtils.hpp"
 #endif
-#include "algs4/@ST@.h"
+#include "algs4/@ST@.hpp"
 
 int main(int argc, char *argv[]) {
 #ifndef STRING

@@ -18,7 +18,7 @@
  ******************************************************************************/
 
 
-#include "algs4/@PATHS_SEARCHER@.h"
+#include "algs4/@PATHS_SEARCHER@.hpp"
 
 #include <fstream>
 #include <iostream>

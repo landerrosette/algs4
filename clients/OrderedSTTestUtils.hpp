@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-#include "algs4/OrderedST.h"
+#include "algs4/OrderedST.hpp"
 
 namespace STTestUtils {
     void init(algs4::OrderedST<std::string, int> &st, std::istream &is, std::ostream &os);

@@ -1,9 +1,9 @@
-#include "OrderedSTTestUtils.h"
+#include "OrderedSTTestUtils.hpp"
 
 #include <array>
 #include <iomanip>
 
-#include "STTestUtils.h"
+#include "STTestUtils.hpp"
 
 namespace STTestUtils {
     void init(algs4::OrderedST<std::string, int> &st, std::istream &is, std::ostream &os) {

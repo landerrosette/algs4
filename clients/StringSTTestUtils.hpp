@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include "algs4/StringST.h"
+#include "algs4/StringST.hpp"
 
 namespace STTestUtils {
     void testStringST(const algs4::StringST<int> &st, std::ostream &os);
