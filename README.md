@@ -9,56 +9,56 @@ For the original Java source code, visit the [official repository](https://githu
 
 ### Fundamentals
 
-- **1.5** Union-find: [UF.h](include/algs4/UF.h)
+- **1.5** Union-find: [UF.hpp](include/algs4/UF.hpp)
 
 ### Sorting
 
-- **2.1** Selection sort: [Selection.h](include/algs4/Selection.h)
-- **2.2** Insertion sort: [Insertion.h](include/algs4/Insertion.h)
-- **2.3** Shellsort: [Shell.h](include/algs4/Shell.h)
-- **2.4** Top-down mergesort: [Merge.h](include/algs4/Merge.h)
-- Bottom-up mergesort: [MergeBU.h](include/algs4/MergeBU.h)
-- **2.5** Quicksort: [Quick.h](include/algs4/Quick.h)
-- Quicksort with 3-way partitioning: [Quick3way.h](include/algs4/Quick3way.h)
-- **2.6** Heap priority queue: [MaxPQ.h](include/algs4/MaxPQ.h)
-- **2.7** Heapsort: [Heap.h](include/algs4/Heap.h)
+- **2.1** Selection sort: [Selection.hpp](include/algs4/Selection.hpp)
+- **2.2** Insertion sort: [Insertion.hpp](include/algs4/Insertion.hpp)
+- **2.3** Shellsort: [Shell.hpp](include/algs4/Shell.hpp)
+- **2.4** Top-down mergesort: [Merge.hpp](include/algs4/Merge.hpp)
+- Bottom-up mergesort: [MergeBU.hpp](include/algs4/MergeBU.hpp)
+- **2.5** Quicksort: [Quick.hpp](include/algs4/Quick.hpp)
+- Quicksort with 3-way partitioning: [Quick3way.hpp](include/algs4/Quick3way.hpp)
+- **2.6** Heap priority queue: [MaxPQ.hpp](include/algs4/MaxPQ.hpp)
+- **2.7** Heapsort: [Heap.hpp](include/algs4/Heap.hpp)
 
 ### Symbol Tables
 
-- **3.1** Sequential search: [SequentialSearchST.h](include/algs4/SequentialSearchST.h)
-- **3.2** Binary search: [BinarySearchST.h](include/algs4/BinarySearchST.h)
-- **3.3** Binary tree search: [BST.h](include/algs4/BST.h)
-- **3.4** Red-black BST search: [RedBlackBST.h](include/algs4/RedBlackBST.h)
-- **3.5** Hashing with separate chaining: [SeparateChainingHashST.h](include/algs4/SeparateChainingHashST.h)
-- **3.6** Hashing with linear probing: [LinearProbingHashST.h](include/algs4/LinearProbingHashST.h)
+- **3.1** Sequential search: [SequentialSearchST.hpp](include/algs4/SequentialSearchST.hpp)
+- **3.2** Binary search: [BinarySearchST.hpp](include/algs4/BinarySearchST.hpp)
+- **3.3** Binary tree search: [BST.hpp](include/algs4/BST.hpp)
+- **3.4** Red-black BST search: [RedBlackBST.hpp](include/algs4/RedBlackBST.hpp)
+- **3.5** Hashing with separate chaining: [SeparateChainingHashST.hpp](include/algs4/SeparateChainingHashST.hpp)
+- **3.6** Hashing with linear probing: [LinearProbingHashST.hpp](include/algs4/LinearProbingHashST.hpp)
 
 ### Graphs
 
-- **4.1** Depth-first search: [DepthFirstPaths.h](include/algs4/DepthFirstPaths.h)
-- **4.2** Breadth-first search: [BreadthFirstPaths.h](include/algs4/BreadthFirstPaths.h)
-- **4.3** Connected components: [CC.h](include/algs4/CC.h)
-- **4.4** Reachability: [DirectedDFS.h](include/algs4/DirectedDFS.h)
-- **4.5** Topological order: [Topological.h](include/algs4/Topological.h)
-- **4.6** Strong components (Kosaraju): [KosarajuSCC.h](include/algs4/KosarajuSCC.h)
-- **4.7** Minimum spanning tree (Prim): [PrimMST.h](include/algs4/PrimMST.h)
-- **4.8** Minimum spanning tree (Kruskal): [KruskalMST.h](include/algs4/KruskalMST.h)
-- **4.9** Shortest paths (Dijkstra): [DijkstraSP.h](include/algs4/DijkstraSP.h)
-- **4.10** Shortest paths in DAGs: [AcyclicSP.h](include/algs4/AcyclicSP.h)
-- **4.11** Shortest paths (Bellman-Ford): [BellmanFordSP.h](include/algs4/BellmanFordSP.h)
+- **4.1** Depth-first search: [DepthFirstPaths.hpp](include/algs4/DepthFirstPaths.hpp)
+- **4.2** Breadth-first search: [BreadthFirstPaths.hpp](include/algs4/BreadthFirstPaths.hpp)
+- **4.3** Connected components: [CC.hpp](include/algs4/CC.hpp)
+- **4.4** Reachability: [DirectedDFS.hpp](include/algs4/DirectedDFS.hpp)
+- **4.5** Topological order: [Topological.hpp](include/algs4/Topological.hpp)
+- **4.6** Strong components (Kosaraju): [KosarajuSCC.hpp](include/algs4/KosarajuSCC.hpp)
+- **4.7** Minimum spanning tree (Prim): [PrimMST.hpp](include/algs4/PrimMST.hpp)
+- **4.8** Minimum spanning tree (Kruskal): [KruskalMST.hpp](include/algs4/KruskalMST.hpp)
+- **4.9** Shortest paths (Dijkstra): [DijkstraSP.hpp](include/algs4/DijkstraSP.hpp)
+- **4.10** Shortest paths in DAGs: [AcyclicSP.hpp](include/algs4/AcyclicSP.hpp)
+- **4.11** Shortest paths (Bellman-Ford): [BellmanFordSP.hpp](include/algs4/BellmanFordSP.hpp)
 
 ### Strings
 
-- **5.1** LSD string sort: [LSD.h](include/algs4/LSD.h)
-- **5.2** MSD string sort: [MSD.h](include/algs4/MSD.h)
-- **5.3** Three-way string quicksort: [Quick3string.h](include/algs4/Quick3string.h)
-- **5.4** Trie symbol table: [TrieST.h](include/algs4/TrieST.h)
-- **5.5** TST symbol table: [TST.h](include/algs4/TST.h)
-- **5.6** Substring search (Knuth-Morris-Pratt): [KMP.h](include/algs4/KMP.h)
-- **5.7** Substring search (Boyer-Moore): [BoyerMoore.h](include/algs4/BoyerMoore.h)
-- **5.8** Substring search (Rabin-Karp): [RabinKarp.h](include/algs4/RabinKarp.h)
-- **5.9** Regular expression pattern matching: [NFA.h](include/algs4/NFA.h)
-- **5.10** Huffman compression/expansion: [Huffman.h](include/algs4/Huffman.h)
-- **5.11** LZW compression/expansion: [LZW.h](include/algs4/LZW.h)
+- **5.1** LSD string sort: [LSD.hpp](include/algs4/LSD.hpp)
+- **5.2** MSD string sort: [MSD.hpp](include/algs4/MSD.hpp)
+- **5.3** Three-way string quicksort: [Quick3string.hpp](include/algs4/Quick3string.hpp)
+- **5.4** Trie symbol table: [TrieST.hpp](include/algs4/TrieST.hpp)
+- **5.5** TST symbol table: [TST.hpp](include/algs4/TST.hpp)
+- **5.6** Substring search (Knuth-Morris-Pratt): [KMP.hpp](include/algs4/KMP.hpp)
+- **5.7** Substring search (Boyer-Moore): [BoyerMoore.hpp](include/algs4/BoyerMoore.hpp)
+- **5.8** Substring search (Rabin-Karp): [RabinKarp.hpp](include/algs4/RabinKarp.hpp)
+- **5.9** Regular expression pattern matching: [NFA.hpp](include/algs4/NFA.hpp)
+- **5.10** Huffman compression/expansion: [Huffman.hpp](include/algs4/Huffman.hpp)
+- **5.11** LZW compression/expansion: [LZW.hpp](include/algs4/LZW.hpp)
 
 ## Clients
 
@@ -133,7 +133,7 @@ headers you need. For example:
 #include <iostream>
 #include <string>
 
-#include "algs4/BST.h"
+#include "algs4/BST.hpp"
 
 int main() {
     algs4::BST<std::string, int> st;
