@@ -4,7 +4,16 @@
 #include "algs4/BinaryStdIO.h"
 
 int main(int argc, char *argv[]) {
-    int width = std::stoi(argv[1]), cnt;
+    if (argc < 2) {
+        std::cerr << "Not enough arguments" << std::endl;
+        return 1;
+    }
+    int width = std::stoi(argv[1]);
+    if (width < 0) {
+        std::cerr << "Width must be nonnegative" << std::endl;
+        return 1;
+    }
+    int cnt;
     for (cnt = 0; !algs4::BinaryStdIO::isEmpty(); ++cnt) {
         if (width == 0) {
             algs4::BinaryStdIO::readBool();

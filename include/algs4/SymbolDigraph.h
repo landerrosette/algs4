@@ -7,6 +7,7 @@
 #include <fstream>
 #include <memory>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -32,6 +33,8 @@ namespace algs4 {
 
 inline algs4::SymbolDigraph::SymbolDigraph(const std::filesystem::path &stream, char sp) {
     std::ifstream in(stream);
+    if (!in.is_open())
+        throw std::invalid_argument("Cannot open file: " + stream.string());
     // First pass builds the index by reading strings to associate each distinct string with an index.
     for (std::string line; std::getline(in, line);) {
         std::string name;
@@ -45,6 +48,8 @@ inline algs4::SymbolDigraph::SymbolDigraph(const std::filesystem::path &stream, 
 
     G_ = std::make_unique<Digraph>(st.size());
     in = std::ifstream(stream);
+    if (!in.is_open())
+        throw std::invalid_argument("Cannot open file: " + stream.string());
     // Second pass builds the graph by connecting the first vertex on each line to all the others.
     for (std::string line; std::getline(in, line);) {
         std::string name;

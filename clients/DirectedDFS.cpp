@@ -11,19 +11,33 @@
  ******************************************************************************/
 
 
+#include "algs4/DirectedDFS.h"
+
 #include <fstream>
 #include <iostream>
 #include <list>
 #include <string>
 
-#include "algs4/DirectedDFS.h"
-
 int main(int argc, char *argv[]) {
+    if (argc < 3) {
+        std::cerr << "Not enough arguments" << std::endl;
+        return 1;
+    }
     std::ifstream in(argv[1]);
+    if (!in.is_open()) {
+        std::cerr << "Cannot open file: " << argv[1] << std::endl;
+        return 1;
+    }
     algs4::Digraph G(in);
     std::list<int> sources;
-    for (int i = 2; i < argc; ++i)
-        sources.push_front(std::stoi(argv[i]));
+    for (int i = 2; i < argc; ++i) {
+        int s = std::stoi(argv[i]);
+        if (s < 0 || s >= G.V()) {
+            std::cerr << "Source vertex out of range" << std::endl;
+            return 1;
+        }
+        sources.push_front(s);
+    }
     algs4::DirectedDFS reachable(G, sources);
     for (int v = 0; v < G.V(); ++v)
         if (reachable.marked(v))

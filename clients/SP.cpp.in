@@ -32,17 +32,29 @@
  ******************************************************************************/
 
 
+#include "algs4/@SP@.h"
+
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <string>
 
-#include "algs4/@SP@.h"
-
 int main(int argc, char *argv[]) {
+    if (argc < 3) {
+        std::cerr << "Not enough arguments" << std::endl;
+        return 1;
+    }
     std::ifstream in(argv[1]);
+    if (!in.is_open()) {
+        std::cerr << "Cannot open file: " << argv[1] << std::endl;
+        return 1;
+    }
     algs4::EdgeWeightedDigraph G(in);
     int s = std::stoi(argv[2]);
+    if (s < 0 || s >= G.V()) {
+        std::cerr << "Source vertex out of range" << std::endl;
+        return 1;
+    }
     algs4::@SP@ sp(G, s);
     for (int t = 0; t < G.V(); ++t) {
         std::cout << s << " to " << t;

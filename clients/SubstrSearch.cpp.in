@@ -6,12 +6,16 @@
  ******************************************************************************/
 
 
+#include "algs4/@SUBSTR_SEARCHER@.h"
+
 #include <iostream>
 #include <string>
 
-#include "algs4/@SUBSTR_SEARCHER@.h"
-
 int main(int argc, char *argv[]) {
+    if (argc < 3) {
+        std::cerr << "Not enough arguments" << std::endl;
+        return 1;
+    }
     std::string pat = argv[1], txt = argv[2];
     algs4::@SUBSTR_SEARCHER@ search(pat);
     std::cout << "text:    " << txt << std::endl;

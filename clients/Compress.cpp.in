@@ -16,7 +16,15 @@
 #include "algs4/@COMPRESSOR@.h"
 
 int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        std::cerr << "Not enough arguments" << std::endl;
+        return 1;
+    }
     if (*argv[1] == '-') algs4::@COMPRESSOR@::compress();
-    if (*argv[1] == '+') algs4::@COMPRESSOR@::expand();
+    else if (*argv[1] == '+') algs4::@COMPRESSOR@::expand();
+    else {
+        std::cerr << "Illegal command line argument" << std::endl;
+        return 1;
+    }
     return 0;
 }

@@ -5,10 +5,10 @@
  ******************************************************************************/
 
 
+#include "algs4/MaxPQ.h"
+
 #include <iostream>
 #include <string>
-
-#include "algs4/MaxPQ.h"
 
 int main(int argc, char *argv[]) {
     algs4::MaxPQ<std::string> pq(10);

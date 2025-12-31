@@ -22,13 +22,21 @@
  ******************************************************************************/
 
 
+#include "algs4/@MST@.h"
+
 #include <fstream>
 #include <iostream>
 
-#include "algs4/@MST@.h"
-
 int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        std::cerr << "Not enough arguments" << std::endl;
+        return 1;
+    }
     std::ifstream in(argv[1]);
+    if (!in.is_open()) {
+        std::cerr << "Cannot open file: " << argv[1] << std::endl;
+        return 1;
+    }
     algs4::EdgeWeightedGraph G(in);
     algs4::@MST@ mst(G);
     for (const auto &e: mst.edges())
