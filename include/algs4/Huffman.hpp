@@ -62,13 +62,10 @@ inline void algs4::Huffman::internal::buildCode(std::vector<std::string> &st, co
 
 // Initialize priority queue with singleton trees.
 inline auto algs4::Huffman::internal::buildTrie(const std::vector<int> &freq) -> std::shared_ptr<const Node> {
-    struct NodeCompare {
-        bool operator()(const std::shared_ptr<const Node> &l, const std::shared_ptr<const Node> &r) const {
-            return *l > *r;
-        }
-    };
-
-    class NodeMinPQ : public PQBase<std::shared_ptr<const Node>, NodeCompare> {
+    class NodeMinPQ : public PQBase<std::shared_ptr<const Node>, decltype([](const std::shared_ptr<const Node> &l,
+                                                                             const std::shared_ptr<const Node> &r) {
+                return *l > *r;
+            })> {
     public:
         explicit NodeMinPQ(int maxN) : PQBase(maxN) {}
 
