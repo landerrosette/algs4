@@ -4,6 +4,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <compare>
 
 namespace algs4 {
     class EdgeBase {
@@ -17,6 +18,9 @@ namespace algs4 {
     public:
         double weight() const { return weight_; }
     };
+
+    inline auto operator<=>(const EdgeBase &l, const EdgeBase &r) { return l.weight() <=> r.weight(); }
+    inline bool operator==(const EdgeBase &l, const EdgeBase &r) { return l.weight() == r.weight(); }
 }
 
 inline algs4::EdgeBase::EdgeBase(int v, int w, double weight) : v(v), w(w), weight_(weight) {

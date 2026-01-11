@@ -2,8 +2,11 @@
 #define ALGS4_BINARYSTDIO_HPP
 
 
+#include <cassert>
+#include <concepts>
 #include <cstddef>
 #include <iostream>
+#include <limits>
 #include <string>
 
 namespace algs4 {
@@ -14,120 +17,163 @@ namespace algs4 {
             inline std::byte inBuffer;
             inline int inN = 0;
 
-            void writeBit(std::byte bit);
+            void writeBit(bool bit);
             void writeByte(std::byte byte);
+
             void fillInBuffer();
+            bool readBit();
+            std::byte readByte();
         }
 
-        inline void write(bool x) { internal::writeBit(static_cast<std::byte>(x)); }
-        inline void write(char x) { internal::writeByte(static_cast<std::byte>(x)); }
-        void write(int x);
-        void write(int x, int r);
-        void write(const std::string &s);
-        bool readBool();
-        char readChar();
-        int readInt();
-        int readInt(int r);
-        std::string readString();
+        inline void write(bool x) { internal::writeBit(x); }
+
+        template<std::integral T>
+        void write(T x);
+
+        template<std::integral T> requires(!std::same_as<T, bool>)
+        void write(T x, int r);
+
+        inline void write(const std::string &x) { for (char c: x) write(c); }
+
         inline bool isEmpty() { return internal::inN < 0; }
+
+        template<typename T> requires(std::same_as<T, bool>)
+        T read() { return internal::readBit(); }
+
+        template<std::integral T> requires(!std::same_as<T, bool> && sizeof(T) == 1)
+        T read() { return std::to_integer<T>(internal::readByte()); }
+
+        template<std::integral T> requires(sizeof(T) > 1)
+        T read();
+
+        template<std::integral T> requires(!std::same_as<T, bool>)
+        T read(int r);
+
+        template<typename T> requires(std::same_as<T, std::string>)
+        T read();
+
         void closeOut();
         void closeIn();
     }
 }
 
-inline void algs4::BinaryStdIO::internal::writeBit(std::byte bit) {
-    outBuffer = (outBuffer << 1) | bit; // Add bit to buffer.
-    if (++outN == 8) {
+inline void algs4::BinaryStdIO::internal::writeBit(bool bit) {
+    // Add bit to buffer.
+    outBuffer <<= 1;
+    if (bit) outBuffer |= std::byte{1};
+
+    // If buffer is full (8 bits), write out as a single byte.
+    if (++outN == std::numeric_limits<unsigned char>::digits) {
         std::cout.put(std::to_integer<char>(outBuffer));
         outBuffer = std::byte();
         outN = 0;
-    } // If buffer is full (8 bits), write out as a single byte.
+    }
 }
 
 inline void algs4::BinaryStdIO::internal::writeByte(std::byte byte) {
+    // optimized if byte-aligned
     if (outN == 0) {
         std::cout.put(std::to_integer<char>(byte));
         return;
-    } // optimized if byte-aligned
-    for (int i = 0; i < 8; ++i)
-        writeBit(byte >> (8 - i - 1) & std::byte{1}); // Otherwise write one bit at a time.
+    }
+
+    // Otherwise write one bit at a time.
+    for (int i = std::numeric_limits<unsigned char>::digits - 1; i >= 0; --i) {
+        bool bit = ((byte >> i) & std::byte{1}) == std::byte{1};
+        writeBit(bit);
+    }
 }
 
 inline void algs4::BinaryStdIO::internal::fillInBuffer() {
-    inBuffer = static_cast<std::byte>(std::cin.get());
-    if (std::cin.eof()) inN = -1;
-    else if (inN == 0) inN = 8;
-}
-
-inline void algs4::BinaryStdIO::write(int x) {
-    for (int i = 0; i < sizeof(int); ++i)
-        internal::writeByte(static_cast<std::byte>(x >> (sizeof(int) - i - 1) * 8 & 0xFF));
-}
-
-inline void algs4::BinaryStdIO::write(int x, int r) {
-    if (r == sizeof(int)) {
-        write(x);
+    auto c = std::cin.get();
+    if (c == std::char_traits<char>::eof()) {
+        inN = -1;
         return;
     }
-    for (int i = 0; i < r; ++i)
-        internal::writeBit(static_cast<std::byte>(x >> (r - i - 1) & 1));
+    inBuffer = static_cast<std::byte>(c);
+    if (inN == 0) inN = std::numeric_limits<unsigned char>::digits;
 }
 
-inline void algs4::BinaryStdIO::write(const std::string &s) {
-    for (int i = 0; i < s.length(); ++i)
-        write(s[i]);
-}
-
-inline bool algs4::BinaryStdIO::readBool() {
-    using namespace internal;
+inline bool algs4::BinaryStdIO::internal::readBit() {
+    assert(!isEmpty());
     if (inN == 0) fillInBuffer();
-    bool bit = std::to_integer<bool>((inBuffer >> --inN) & std::byte{1});
+    bool bit = ((inBuffer >> --inN) & std::byte{1}) == std::byte{1};
     if (inN == 0) fillInBuffer();
     return bit;
 }
 
-inline char algs4::BinaryStdIO::readChar() {
-    using namespace internal;
+inline std::byte algs4::BinaryStdIO::internal::readByte() {
+    assert(!isEmpty());
     if (inN == 0) fillInBuffer();
     auto x = inBuffer;
-    if (inN == 8) fillInBuffer(); // special case when aligned byte
+    if (inN == std::numeric_limits<unsigned char>::digits) fillInBuffer(); // special case when aligned byte
     else {
-        x <<= 8 - inN;
+        // Combine last n bits of current buffer with first 8-n bits of new buffer.
+        x <<= std::numeric_limits<unsigned char>::digits - inN;
         fillInBuffer();
         x |= inBuffer >> inN;
-    } // Combine last n bits of current buffer with first 8-n bits of new buffer.
-    return std::to_integer<char>(x);
-}
-
-inline int algs4::BinaryStdIO::readInt() {
-    int x = 0;
-    for (int i = 0; i < sizeof(int); ++i) {
-        x <<= 8;
-        x |= readChar() & 0xFF;
     }
     return x;
 }
 
-inline int algs4::BinaryStdIO::readInt(int r) {
-    if (r == sizeof(int)) readInt();
-    int x = 0;
+template<std::integral T>
+void algs4::BinaryStdIO::write(T x) {
+    using namespace internal;
+    for (int i = sizeof(T) - 1; i >= 0; --i)
+        writeByte(static_cast<std::byte>((x >> i * std::numeric_limits<unsigned char>::digits) & 0xFF));
+}
+
+template<std::integral T> requires(!std::same_as<T, bool>)
+void algs4::BinaryStdIO::write(T x, int r) {
+    using namespace internal;
+    if (r == std::numeric_limits<T>::digits + (std::numeric_limits<T>::is_signed ? 1 : 0)) {
+        write(x);
+        return;
+    }
+    assert(r >= 1 && r <= std::numeric_limits<T>::digits + (std::numeric_limits<T>::is_signed ? 1 : 0));
+    for (int i = r - 1; i >= 0; --i) {
+        bool bit = ((x >> i) & 1) == 1;
+        writeBit(bit);
+    }
+}
+
+template<std::integral T> requires(sizeof(T) > 1)
+T algs4::BinaryStdIO::read() {
+    using namespace internal;
+    T x = 0;
+    for (int i = 0; i < sizeof(T); ++i) {
+        x <<= std::numeric_limits<unsigned char>::digits;
+        x |= std::to_integer<unsigned char>(readByte());
+    }
+    return x;
+}
+
+template<std::integral T> requires(!std::same_as<T, bool>)
+T algs4::BinaryStdIO::read(int r) {
+    using namespace internal;
+    if (r == std::numeric_limits<T>::digits + (std::numeric_limits<T>::is_signed ? 1 : 0))
+        return read<T>();
+    assert(r >= 1 && r <= std::numeric_limits<T>::digits + (std::numeric_limits<T>::is_signed ? 1 : 0));
+    T x = 0;
     for (int i = 0; i < r; ++i) {
         x <<= 1;
-        x |= readBool();
+        x |= readBit();
     }
     return x;
 }
 
-inline std::string algs4::BinaryStdIO::readString() {
+template<typename T> requires(std::same_as<T, std::string>)
+T algs4::BinaryStdIO::read() {
     std::string s;
-    while (!isEmpty()) s += readChar();
+    while (!isEmpty()) s += read<char>();
     return s;
 }
 
 inline void algs4::BinaryStdIO::closeOut() {
     using namespace internal;
     if (outN > 0) {
-        outBuffer <<= 8 - outN; // Pad 0s if number of bits written so far is not a multiple of 8.
+        // Pad 0s if number of bits written so far is not a multiple of 8.
+        outBuffer <<= std::numeric_limits<unsigned char>::digits - outN;
         std::cout.put(std::to_integer<char>(outBuffer));
     }
     outN = 0;

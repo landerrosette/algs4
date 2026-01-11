@@ -2,8 +2,8 @@
 #define ALGS4_ORDEREDST_HPP
 
 
-#include <cassert>
 #include <concepts>
+#include <cstddef>
 #include <list>
 #include <optional>
 
@@ -17,12 +17,12 @@ namespace algs4 {
         virtual std::optional<Key> max() const = 0;
         virtual std::optional<Key> floor(const Key &key) const = 0;
         virtual std::optional<Key> ceiling(const Key &key) const = 0;
-        virtual int rank(const Key &key) const = 0;
-        virtual Key select(int k) const = 0;
+        virtual std::ptrdiff_t rank(const Key &key) const = 0;
+        virtual Key select(std::ptrdiff_t k) const = 0;
         virtual void removeMin();
         virtual void removeMax();
         using ST<Key, Value>::size;
-        int size(const Key &lo, const Key &hi) const;
+        std::ptrdiff_t size(const Key &lo, const Key &hi) const;
         std::list<Key> keys() const override;
         virtual std::list<Key> keys(const Key &lo, const Key &hi) const = 0;
     };
@@ -41,7 +41,7 @@ void algs4::OrderedST<Key, Value>::removeMax() {
 }
 
 template<std::totally_ordered Key, typename Value>
-int algs4::OrderedST<Key, Value>::size(const Key &lo, const Key &hi) const {
+std::ptrdiff_t algs4::OrderedST<Key, Value>::size(const Key &lo, const Key &hi) const {
     if (hi < lo) return 0;
     else if (this->contains(hi)) return rank(hi) - rank(lo) + 1;
     else return rank(hi) - rank(lo);

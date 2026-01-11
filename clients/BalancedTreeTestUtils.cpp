@@ -1,5 +1,6 @@
 #include "BalancedTreeTestUtils.hpp"
 
+#include <ostream>
 #include <random>
 
 void STTestUtils::testRedBlackBST(algs4::RedBlackBST<int, int> &st, int n, std::ostream &os) {

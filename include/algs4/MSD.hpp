@@ -2,64 +2,74 @@
 #define ALGS4_MSD_HPP
 
 
+#include <cstddef>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 #include "SortUtils.hpp"
+#include "StringSortUtils.h"
 
 namespace algs4 {
     namespace MSD {
         namespace internal {
-            inline int R = 256;
-            constexpr int M = 10;
-            inline std::vector<std::string> aux;
+            constexpr int R = 256;               // radix
+            constexpr int M = 15;                // cutoff for small subarrays
+            inline std::vector<std::string> aux; // auxiliary array for distribution
+
+            void sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi, std::ptrdiff_t d);
 
             namespace Insertion {
                 namespace internal {
-                    bool less(std::string_view v, std::string_view w, int d);
+                    bool less(std::string_view v, std::string_view w, std::ptrdiff_t d);
                 }
 
-                void sort(std::vector<std::string> &a, int lo, int hi, int d);
+                void sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi, std::ptrdiff_t d);
             }
-
-            void sort(std::vector<std::string> &a, int lo, int hi, int d);
         }
 
         void sort(std::vector<std::string> &a);
     }
 }
 
-inline bool algs4::MSD::internal::Insertion::internal::less(std::string_view v, std::string_view w, int d) {
-    return SortUtils::internal::less(v.substr(d), w.substr(d));
-}
-
-inline void algs4::MSD::internal::Insertion::sort(std::vector<std::string> &a, int lo, int hi, int d) {
+inline void algs4::MSD::internal::sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
+                                       std::ptrdiff_t d) {
     using namespace internal;
-    using namespace SortUtils::internal;
-    for (int i = lo; i <= hi; ++i)
-        for (int j = i; j > lo && less(a[j], a[j - 1], d); --j)
-            exch(a, j, j - 1);
-}
-
-inline void algs4::MSD::internal::sort(std::vector<std::string> &a, int lo, int hi, int d) {
-    using namespace internal;
+    using namespace StringSortUtils::internal;
     if (hi <= lo + M) {
         Insertion::sort(a, lo, hi, d);
         return;
     }
-    std::vector<int> count(R + 1);
-    for (int i = lo; i <= hi; ++i) ++count[a[i][d] + 1];
-    for (int r = 0; r < R; ++r) count[r + 1] += count[r];
-    for (int i = lo; i <= hi; ++i) aux[count[a[i][d]]++] = a[i];
-    for (int i = lo; i <= hi; ++i) a[i] = aux[i - lo];
-    for (int r = 0; r < R; ++r)
-        sort(a, lo + count[r], lo + count[r + 1] - 1, d + 1); // Recursively sort for each character value.
+    std::vector<std::ptrdiff_t> count(R + 2);
+    // Compute frequency counts.
+    for (auto i = lo; i <= hi; ++i) ++count[charAt(a[i], d) + 2];
+    // Transform counts to indices.
+    for (int r = 0; r < R + 1; ++r) count[r + 1] += count[r];
+    // Distribute.
+    for (auto i = lo; i <= hi; ++i) aux[count[charAt(a[i], d) + 1]++] = std::move(a[i]);
+    // Copy back.
+    for (auto i = lo; i <= hi; ++i) a[i] = std::move(aux[i - lo]);
+    // Recursively sort for each character value.
+    for (int r = 0; r < R; ++r) sort(a, lo + count[r], lo + count[r + 1] - 1, d + 1);
+}
+
+inline bool algs4::MSD::internal::Insertion::internal::less(std::string_view v, std::string_view w, std::ptrdiff_t d) {
+    return SortUtils::internal::less(v.substr(d), w.substr(d));
+}
+
+inline void algs4::MSD::internal::Insertion::sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
+                                                  std::ptrdiff_t d) {
+    using namespace internal;
+    using namespace SortUtils::internal;
+    for (auto i = lo; i < hi; ++i)
+        for (auto j = i; j > lo && less(a[j], a[j - 1], d); --j)
+            exch(a, j, j - 1);
 }
 
 inline void algs4::MSD::sort(std::vector<std::string> &a) {
-    int N = a.size();
-    internal::aux = std::vector<std::string>(N);
+    auto N = std::ssize(a);
+    internal::aux.resize(N);
     internal::sort(a, 0, N - 1, 0);
 }
 

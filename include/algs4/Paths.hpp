@@ -16,7 +16,7 @@ namespace algs4 {
         const int s;              // source
 
     public:
-        Paths(const Graph &G, int s) : marked(G.V()), edgeTo(G.V()), s(s) { assert(s >= 0 && s < marked.size()); }
+        Paths(const Graph &G, int s) : marked(G.V()), edgeTo(G.V()), s(s) { assert(s >= 0 && s < std::ssize(marked)); }
         virtual ~Paths() = default;
 
         bool hasPathTo(int v) const { return marked[v]; }
@@ -25,7 +25,7 @@ namespace algs4 {
 }
 
 inline std::list<int> algs4::Paths::pathTo(int v) const {
-    assert(v >= 0 && v < marked.size());
+    assert(v >= 0 && v < std::ssize(marked));
     std::list<int> path;
     for (int x = v; x != s; x = edgeTo[x])
         path.push_front(x);

@@ -1,5 +1,7 @@
 #include "StringSTTestUtils.hpp"
 
+#include <ostream>
+
 namespace STTestUtils {
     void testStringST(const algs4::StringST<int> &st, std::ostream &os) {
         os << "longestPrefixOf(\"shellsort\"):" << std::endl;

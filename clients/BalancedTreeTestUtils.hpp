@@ -2,7 +2,7 @@
 #define ALGS4_BALANCEDTREETESTUTILS_HPP
 
 
-#include <iostream>
+#include <iosfwd>
 
 #include "algs4/RedBlackBST.hpp"
 

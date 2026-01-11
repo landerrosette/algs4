@@ -3,7 +3,7 @@
 
 
 #include <compare>
-#include <iostream>
+#include <cstddef>
 #include <memory>
 #include <string>
 #include <vector>
@@ -14,14 +14,14 @@
 namespace algs4 {
     namespace Huffman {
         namespace internal {
-            inline int R = 256; // ASCII alphabet
+            constexpr int R = 256; // ASCII alphabet
 
             struct Node {
                 char ch;
-                int freq;
+                std::ptrdiff_t freq;
                 const std::shared_ptr<const Node> left, right;
 
-                Node(char ch, int freq, const std::shared_ptr<const Node> &left,
+                Node(char ch, std::ptrdiff_t freq, const std::shared_ptr<const Node> &left,
                      const std::shared_ptr<const Node> &right)
                     : ch(ch), freq(freq), left(left), right(right) {}
 
@@ -32,7 +32,7 @@ namespace algs4 {
 
             std::vector<std::string> buildCode(const std::shared_ptr<const Node> &root);
             void buildCode(std::vector<std::string> &st, const std::shared_ptr<const Node> &x, const std::string &s);
-            std::shared_ptr<const Node> buildTrie(const std::vector<int> &freq);
+            std::shared_ptr<const Node> buildTrie(const std::vector<std::ptrdiff_t> &freq);
             void writeTrie(const std::shared_ptr<const Node> &x);
             std::shared_ptr<const Node> readTrie();
         }
@@ -61,13 +61,14 @@ inline void algs4::Huffman::internal::buildCode(std::vector<std::string> &st, co
 }
 
 // Initialize priority queue with singleton trees.
-inline auto algs4::Huffman::internal::buildTrie(const std::vector<int> &freq) -> std::shared_ptr<const Node> {
+inline auto algs4::Huffman::internal::buildTrie(const std::vector<std::ptrdiff_t> &freq)
+    -> std::shared_ptr<const Node> {
     class NodeMinPQ : public PQBase<std::shared_ptr<const Node>, decltype([](const std::shared_ptr<const Node> &l,
                                                                              const std::shared_ptr<const Node> &r) {
                 return *l > *r;
             })> {
     public:
-        explicit NodeMinPQ(int maxN) : PQBase(maxN) {}
+        explicit NodeMinPQ(std::ptrdiff_t maxN) : PQBase(maxN) {}
 
         auto delMin() { return delTop(); }
     };
@@ -99,18 +100,18 @@ inline void algs4::Huffman::internal::writeTrie(const std::shared_ptr<const Node
 }
 
 inline auto algs4::Huffman::internal::readTrie() -> std::shared_ptr<const Node> {
-    if (BinaryStdIO::readBool())
-        return std::make_shared<Node>(BinaryStdIO::readChar(), 0, nullptr, nullptr);
+    if (BinaryStdIO::read<bool>())
+        return std::make_shared<Node>(BinaryStdIO::read<char>(), 0, nullptr, nullptr);
     return std::make_shared<Node>('\0', 0, readTrie(), readTrie());
 }
 
 inline void algs4::Huffman::compress() {
     using namespace internal;
 
-    std::string input = BinaryStdIO::readString();
+    auto input = BinaryStdIO::read<std::string>();
 
-    std::vector<int> freq(R);
-    for (int i = 0; i < input.length(); ++i) ++freq[input[i]];
+    std::vector<std::ptrdiff_t> freq(R);
+    for (unsigned char c: input) ++freq[c];
 
     auto root = buildTrie(freq);
 
@@ -118,11 +119,10 @@ inline void algs4::Huffman::compress() {
     buildCode(st, root, "");
 
     writeTrie(root);
-    BinaryStdIO::write(static_cast<int>(input.length()));
-    for (int i = 0; i < input.length(); ++i) {
-        const auto &code = st[input[i]];
-        for (int j = 0; j < code.length(); ++j) {
-            if (code[j] == '1') BinaryStdIO::write(true);
+    BinaryStdIO::write(std::ssize(input));
+    for (unsigned char i: input) {
+        for (const auto &code = st[i]; char j: code) {
+            if (j == '1') BinaryStdIO::write(true);
             else BinaryStdIO::write(false);
         }
     }
@@ -132,11 +132,11 @@ inline void algs4::Huffman::compress() {
 inline void algs4::Huffman::expand() {
     using namespace internal;
     auto root = readTrie();
-    int N = BinaryStdIO::readInt();
-    for (int i = 0; i < N; ++i) {
+    auto N = BinaryStdIO::read<std::ptrdiff_t>();
+    for (auto i = N; i > 0; --i) {
         auto x = root;
         while (!x->isLeaf()) {
-            if (BinaryStdIO::readBool()) x = x->right;
+            if (BinaryStdIO::read<bool>()) x = x->right;
             else x = x->left;
         }
         BinaryStdIO::write(x->ch);

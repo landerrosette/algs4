@@ -12,7 +12,7 @@ namespace algs4 {
     template<std::totally_ordered Key>
     class MinPQ : public PQBase<Key, std::greater<Key> > {
     public:
-        explicit MinPQ(int maxN) : PQBase<Key, std::greater<Key> >(maxN) {}
+        explicit MinPQ(std::ptrdiff_t maxN) : PQBase<Key, std::greater<Key> >(maxN) {}
 
         std::optional<Key> delMin() { return this->delTop(); }
     };

@@ -46,12 +46,12 @@ inline algs4::PrimMST::PrimMST(const EdgeWeightedGraph &G)
     distTo[0] = 0.0;
     pq.insert(0, 0.0);
     while (!pq.isEmpty())
-        visit(G, pq.delMin());
+        visit(G, static_cast<int>(pq.delMin()));
 }
 
 inline std::list<algs4::Edge> algs4::PrimMST::edges() const {
     std::list<Edge> mst;
-    for (int v = 1; v < edgeTo.size(); ++v)
+    for (int v = 1; v < std::ssize(edgeTo); ++v)
         mst.push_front(*edgeTo[v]);
     return mst;
 }

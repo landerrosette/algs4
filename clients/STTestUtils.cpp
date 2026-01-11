@@ -1,5 +1,7 @@
 #include "STTestUtils.hpp"
 
+#include <istream>
+#include <ostream>
 #include <random>
 
 namespace STTestUtils {

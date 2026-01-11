@@ -31,7 +31,7 @@ inline algs4::UF::UF(int N) : id(N), sz(N), count_(N) {
 }
 
 inline int algs4::UF::find(int p) const {
-    assert(p >= 0 && p < id.size());
+    assert(p >= 0 && p < std::ssize(id));
     while (p != id[p])
         p = id[p];
     return p;

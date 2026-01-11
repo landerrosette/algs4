@@ -2,6 +2,7 @@
 #define ALGS4_ST_HPP
 
 
+#include <cstddef>
 #include <list>
 #include <optional>
 
@@ -16,7 +17,7 @@ namespace algs4 {
         virtual void remove(const Key &key) = 0;
         bool contains(const Key &key) const { return get(key).has_value(); }
         bool isEmpty() const { return size() == 0; }
-        virtual int size() const = 0;
+        virtual std::ptrdiff_t size() const = 0;
         virtual std::list<Key> keys() const = 0;
     };
 }

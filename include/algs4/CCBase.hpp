@@ -35,13 +35,13 @@ inline void algs4::CCBase::dfs(const GraphBase<int> &G, int v) {
 }
 
 inline bool algs4::CCBase::connected(int v, int w) const {
-    assert(v >= 0 && v < marked.size());
-    assert(w >= 0 && w < marked.size());
+    assert(v >= 0 && v < std::ssize(marked));
+    assert(w >= 0 && w < std::ssize(marked));
     return id_[v] == id_[w];
 }
 
 inline int algs4::CCBase::id(int v) const {
-    assert(v >= 0 && v < marked.size());
+    assert(v >= 0 && v < std::ssize(marked));
     return id_[v];
 }
 

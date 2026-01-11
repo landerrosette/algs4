@@ -13,7 +13,7 @@ namespace algs4 {
         struct RedBlackBSTNode : public BSTNodeBase<Key, Value, RedBlackBSTNode<Key, Value> > {
             bool color;
 
-            RedBlackBSTNode(const Key &key, const Value &val, int N, bool color)
+            RedBlackBSTNode(const Key &key, const Value &val, std::ptrdiff_t N, bool color)
                 : BSTNodeBase<Key, Value, RedBlackBSTNode>(key, val, N),
                   color(color) {}
         };
@@ -25,31 +25,26 @@ namespace algs4 {
         using Node = internal::RedBlackBSTNode<Key, Value>;
         static constexpr bool RED = true, BLACK = false;
 
-        bool isRed(const Node *x) const;
+        bool isRed(const Node *h) const;
         std::unique_ptr<Node> rotateLeft(std::unique_ptr<Node> &h);  // Make a right-leaning link lean to the left.
         std::unique_ptr<Node> rotateRight(std::unique_ptr<Node> &h); // Make a left-leaning link lean to the right.
         void flipColors(Node *h);                                    // Flip the colors of a node and its two children.
 
-        // Assuming that h is red and both h.left and h.left.left are black, make h.left or one of its children red.
+        // Assuming that h is red and both h->left and h->left->left are black, make h->left or one of its children red.
         std::unique_ptr<Node> moveRedLeft(std::unique_ptr<Node> &h);
-
-        // Assuming that h is red and both h.right and h.right.left are black, make h.right or one of its children red.
+        // Assuming that h is red and both h->right and h->right->left are black, make h->right or one of its children red.
         std::unique_ptr<Node> moveRedRight(std::unique_ptr<Node> &h);
-
         std::unique_ptr<Node> balance(std::unique_ptr<Node> &h); // Restore red-black tree invariant.
         std::unique_ptr<Node> put(std::unique_ptr<Node> &h, const Key &key, const Value &val);
         std::unique_ptr<Node> remove(std::unique_ptr<Node> &h, const Key &key);
         std::unique_ptr<Node> removeMin(std::unique_ptr<Node> &h);
         std::unique_ptr<Node> removeMax(std::unique_ptr<Node> &h);
-        int height(const Node *x) const;
-        bool is23(const Node *x) const;
-
+        int height(const Node *h) const;
+        bool is23(const Node *h) const;
         // Does the tree have no red right links, and at most one (left) red links in a row on any path?
         bool is23() const { return is23(this->root.get()); }
-
         // Does every path from the root to a leaf have the given number of black links?
-        bool isBalanced(const Node *x, int black) const;
-
+        bool isBalanced(const Node *h, int black) const;
         bool isBalanced() const; // Do all paths from root to leaf have same number of black edges?
 
     public:
@@ -62,9 +57,9 @@ namespace algs4 {
 }
 
 template<std::totally_ordered Key, typename Value>
-bool algs4::RedBlackBST<Key, Value>::isRed(const Node *x) const {
-    if (!x) return false;
-    return x->color == RED;
+bool algs4::RedBlackBST<Key, Value>::isRed(const Node *h) const {
+    if (!h) return false;
+    return h->color == RED;
 }
 
 template<std::totally_ordered Key, typename Value>
@@ -187,26 +182,26 @@ auto algs4::RedBlackBST<Key, Value>::removeMax(std::unique_ptr<Node> &h) -> std:
 }
 
 template<std::totally_ordered Key, typename Value>
-int algs4::RedBlackBST<Key, Value>::height(const Node *x) const {
-    if (!x) return -1;
-    return 1 + std::max(height(x->left.get()), height(x->right.get()));
+int algs4::RedBlackBST<Key, Value>::height(const Node *h) const {
+    if (!h) return -1;
+    return 1 + std::max(height(h->left.get()), height(h->right.get()));
 }
 
 template<std::totally_ordered Key, typename Value>
-bool algs4::RedBlackBST<Key, Value>::is23(const Node *x) const {
-    if (!x) return true;
-    if (isRed(x->right.get()))
+bool algs4::RedBlackBST<Key, Value>::is23(const Node *h) const {
+    if (!h) return true;
+    if (isRed(h->right.get()))
         return false;
-    if (x != this->root.get() && isRed(x) && isRed(x->left.get()))
+    if (h != this->root.get() && isRed(h) && isRed(h->left.get()))
         return false;
-    return is23(x->left.get()) && is23(x->right.get());
+    return is23(h->left.get()) && is23(h->right.get());
 }
 
 template<std::totally_ordered Key, typename Value>
-bool algs4::RedBlackBST<Key, Value>::isBalanced(const Node *x, int black) const {
-    if (!x) return black == 0;
-    if (!isRed(x)) --black;
-    return isBalanced(x->left.get(), black) && isBalanced(x->right.get(), black);
+bool algs4::RedBlackBST<Key, Value>::isBalanced(const Node *h, int black) const {
+    if (!h) return black == 0;
+    if (!isRed(h)) --black;
+    return isBalanced(h->left.get(), black) && isBalanced(h->right.get(), black);
 }
 
 template<std::totally_ordered Key, typename Value>

@@ -2,6 +2,7 @@
 #define ALGS4_TRIEST_HPP
 
 
+#include <cstddef>
 #include <memory>
 #include <optional>
 #include <vector>
@@ -12,8 +13,8 @@ namespace algs4 {
     template<typename Value>
     class TrieST : public StringST<Value> {
     private:
-        inline static int R = 256; // radix
-        int N = 0;
+        static constexpr int R = 256; // radix
+        std::ptrdiff_t N = 0;
 
         struct Node {
             std::optional<Value> val;
@@ -22,18 +23,18 @@ namespace algs4 {
 
         std::unique_ptr<Node> root;
 
-        const Node *get(const Node *x, std::string_view key, int d) const;
-        std::unique_ptr<Node> put(std::unique_ptr<Node> &x, std::string_view key, const Value &val, int d);
-        std::unique_ptr<Node> remove(std::unique_ptr<Node> &x, std::string_view key, int d);
+        const Node *get(const Node *x, std::string_view key, std::ptrdiff_t d) const;
+        std::unique_ptr<Node> put(std::unique_ptr<Node> &x, std::string_view key, const Value &val, std::ptrdiff_t d);
+        std::unique_ptr<Node> remove(std::unique_ptr<Node> &x, std::string_view key, std::ptrdiff_t d);
         void collect(const Node *x, const std::string &pre, std::list<std::string> &q) const;
         void collect(const Node *x, const std::string &pre, std::string_view pat, std::list<std::string> &q) const;
-        int search(const Node *x, std::string_view s, int d, int length) const;
+        std::ptrdiff_t search(const Node *x, std::string_view s, std::ptrdiff_t d, std::ptrdiff_t length) const;
 
     public:
         std::optional<Value> get(const std::string &key) const override;
         void put(const std::string &key, const Value &val) override { root = put(root, key, val, 0); }
         void remove(const std::string &key) override { root = remove(root, key, 0); }
-        int size() const override { return N; }
+        std::ptrdiff_t size() const override { return N; }
         std::list<std::string> keys() const override { return keysWithPrefix(""); }
         std::string longestPrefixOf(std::string_view s) const override;
         std::list<std::string> keysWithPrefix(const std::string &pre) const override;
@@ -42,35 +43,36 @@ namespace algs4 {
 }
 
 template<typename Value>
-auto algs4::TrieST<Value>::get(const Node *x, std::string_view key, int d) const -> const Node * {
+auto algs4::TrieST<Value>::get(const Node *x, std::string_view key, std::ptrdiff_t d) const -> const Node * {
     if (!x) return nullptr;
-    if (d == key.length()) return x;
-    char c = key[d];
+    if (d == std::ssize(key)) return x;
+    unsigned char c = key[d];
     return get(x->next[c].get(), key, d + 1);
 }
 
 template<typename Value>
 auto algs4::TrieST<Value>::put(std::unique_ptr<Node> &x, std::string_view key, const Value &val,
-                               int d) -> std::unique_ptr<Node> {
+                               std::ptrdiff_t d) -> std::unique_ptr<Node> {
     if (!x) x = std::make_unique<Node>();
-    if (d == key.length()) {
+    if (d == std::ssize(key)) {
         if (!x->val) ++N;
         x->val = val;
         return std::move(x);
     }
-    char c = key[d];
+    unsigned char c = key[d];
     x->next[c] = put(x->next[c], key, val, d + 1);
     return std::move(x);
 }
 
 template<typename Value>
-auto algs4::TrieST<Value>::remove(std::unique_ptr<Node> &x, std::string_view key, int d) -> std::unique_ptr<Node> {
+auto algs4::TrieST<Value>::remove(std::unique_ptr<Node> &x, std::string_view key,
+                                  std::ptrdiff_t d) -> std::unique_ptr<Node> {
     if (!x) return nullptr;
-    if (d == key.length()) {
+    if (d == std::ssize(key)) {
         if (x->val) --N;
         x->val = std::nullopt;
     } else {
-        char c = key[d];
+        unsigned char c = key[d];
         x->next[c] = remove(x->next[c], key, d + 1);
     }
 
@@ -93,9 +95,9 @@ template<typename Value>
 void algs4::TrieST<Value>::collect(const Node *x, const std::string &pre, std::string_view pat,
                                    std::list<std::string> &q) const {
     if (!x) return;
-    int d = pre.length();
-    if (d == pat.length() && x->val) q.push_back(pre);
-    if (d == pat.length()) return;
+    auto d = std::ssize(pre);
+    if (d == std::ssize(pat) && x->val) q.push_back(pre);
+    if (d == std::ssize(pat)) return;
 
     char next = pat[d];
     for (int c = 0; c < R; ++c)
@@ -104,11 +106,12 @@ void algs4::TrieST<Value>::collect(const Node *x, const std::string &pre, std::s
 }
 
 template<typename Value>
-int algs4::TrieST<Value>::search(const Node *x, std::string_view s, int d, int length) const {
+std::ptrdiff_t algs4::TrieST<Value>::search(const Node *x, std::string_view s, std::ptrdiff_t d,
+                                            std::ptrdiff_t length) const {
     if (!x) return length;
     if (x->val) length = d;
-    if (d == s.length()) return length;
-    char c = s[d];
+    if (d == std::ssize(s)) return length;
+    unsigned char c = s[d];
     return search(x->next[c].get(), s, d + 1, length);
 }
 
@@ -121,7 +124,7 @@ std::optional<Value> algs4::TrieST<Value>::get(const std::string &key) const {
 
 template<typename Value>
 std::string algs4::TrieST<Value>::longestPrefixOf(std::string_view s) const {
-    int length = search(root.get(), s, 0, 0);
+    auto length = search(root.get(), s, 0, 0);
     return std::string(s.substr(0, length));
 }
 

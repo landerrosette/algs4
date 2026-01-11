@@ -4,6 +4,7 @@
 
 #include <cassert>
 #include <concepts>
+#include <cstddef>
 #include <optional>
 #include <utility>
 #include <vector>
@@ -13,26 +14,32 @@ namespace algs4 {
     class PQBase {
     protected:
         std::vector<std::optional<Key> > pq; // heap-ordered complete binary tree
-        int N = 0;                           // in pq[1..N] with pq[0] unused
+        std::ptrdiff_t N = 0;                // in pq[1..N] with pq[0] unused
 
-        explicit PQBase(int maxN) : pq(maxN + 1) { assert(maxN >= 0); }
+        explicit PQBase(std::ptrdiff_t maxN) : pq(maxN + 1) { assert(maxN >= 0); }
         ~PQBase() = default;
 
-        bool less(int i, int j) { return Compare()(*pq[i], *pq[j]); }
-        void exch(int i, int j) { std::swap(pq[i], pq[j]); }
-        void swim(int k);
-        void sink(int k);
+        bool less(std::ptrdiff_t i, std::ptrdiff_t j) { return Compare()(*pq[i], *pq[j]); }
+        void exch(std::ptrdiff_t i, std::ptrdiff_t j);
+        void swim(std::ptrdiff_t k);
+        void sink(std::ptrdiff_t k);
         std::optional<Key> delTop();
 
     public:
         bool isEmpty() const { return N == 0; }
-        int size() const { return N; }
+        std::ptrdiff_t size() const { return N; }
         void insert(const Key &v);
     };
 }
 
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
-void algs4::PQBase<Key, Compare>::swim(int k) {
+void algs4::PQBase<Key, Compare>::exch(std::ptrdiff_t i, std::ptrdiff_t j) {
+    using std::swap;
+    swap(pq[i], pq[j]);
+}
+
+template<typename Key, std::strict_weak_order<Key, Key> Compare>
+void algs4::PQBase<Key, Compare>::swim(std::ptrdiff_t k) {
     while (k > 1 && less(k / 2, k)) {
         exch(k / 2, k);
         k = k / 2;
@@ -40,9 +47,9 @@ void algs4::PQBase<Key, Compare>::swim(int k) {
 }
 
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
-void algs4::PQBase<Key, Compare>::sink(int k) {
+void algs4::PQBase<Key, Compare>::sink(std::ptrdiff_t k) {
     while (2 * k <= N) {
-        int j = 2 * k;
+        auto j = 2 * k;
         if (j < N && less(j, j + 1))
             ++j;
         if (!less(k, j))
@@ -55,7 +62,7 @@ void algs4::PQBase<Key, Compare>::sink(int k) {
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
 std::optional<Key> algs4::PQBase<Key, Compare>::delTop() {
     assert(!isEmpty());
-    auto top = pq[1];
+    auto top = std::move(pq[1]);
     exch(1, N--);
     pq[N + 1] = std::nullopt;
     sink(1);

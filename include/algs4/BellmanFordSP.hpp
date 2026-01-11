@@ -42,7 +42,7 @@ inline void algs4::BellmanFordSP::afterRelaxation(const EdgeWeightedDigraph &G, 
 }
 
 inline void algs4::BellmanFordSP::findNegativeCycle() {
-    int V = edgeTo.size();
+    int V = static_cast<int>(std::ssize(edgeTo));
     EdgeWeightedDigraph spt(V);
     for (int v = 0; v < V; ++v) {
         if (edgeTo[v])

@@ -2,6 +2,7 @@
 #define ALGS4_BOYERMOORE_HPP
 
 
+#include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>
@@ -11,31 +12,32 @@
 namespace algs4 {
     class BoyerMoore : public SubstrSearcher {
     private:
-        std::vector<int> right;
+        std::vector<std::ptrdiff_t> right;
         std::string pat;
 
     public:
         explicit BoyerMoore(std::string pat);
 
-        int search(std::string_view txt) const override;
+        std::ptrdiff_t search(std::string_view txt) const override;
     };
 }
 
 // Compute skip table.
 inline algs4::BoyerMoore::BoyerMoore(std::string pat) : pat(std::move(pat)) {
-    int M = this->pat.length(), R = 256;
-    right = std::vector(R, -1);
-    for (int j = 0; j < M; ++j) right[this->pat[j]] = j;
+    auto M = std::ssize(this->pat);
+    int R = 256;
+    right.assign(R, -1);
+    for (decltype(M) j = 0; j < M; ++j) right[static_cast<unsigned char>(this->pat[j])] = j;
 }
 
-inline int algs4::BoyerMoore::search(std::string_view txt) const {
-    int N = txt.length(), M = pat.length();
+inline std::ptrdiff_t algs4::BoyerMoore::search(std::string_view txt) const {
+    auto N = std::ssize(txt), M = std::ssize(pat);
     // Does the pattern match the text at position i?
-    for (int skip, i = 0; i <= N - M; i += skip) {
+    for (decltype(N) skip, i = 0; i <= N - M; i += skip) {
         skip = 0;
-        for (int j = M - 1; j >= 0; --j) {
+        for (auto j = M - 1; j >= 0; --j) {
             if (pat[j] != txt[i + j]) {
-                skip = j - right[txt[i + j]];
+                skip = j - right[static_cast<unsigned char>(txt[i + j])];
                 if (skip < 1) skip = 1;
                 break;
             }

@@ -25,7 +25,7 @@ inline void algs4::DijkstraSP::onRelaxationSuccess(const EdgeWeightedDigraph &G,
 inline algs4::DijkstraSP::DijkstraSP(const EdgeWeightedDigraph &G, int s) : SP(G, s), pq(G.V()) {
     pq.insert(s, 0.0);
     while (!pq.isEmpty())
-        relax(G, pq.delMin());
+        relax(G, static_cast<int>(pq.delMin()));
 }
 
 

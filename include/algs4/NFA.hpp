@@ -2,7 +2,6 @@
 #define ALGS4_NFA_HPP
 
 
-#include <algorithm>
 #include <list>
 #include <string>
 #include <string_view>
@@ -24,7 +23,7 @@ namespace algs4 {
     };
 }
 
-inline algs4::NFA::NFA(std::string_view regexp) : re(regexp), M(re.length()), G(M + 1) {
+inline algs4::NFA::NFA(std::string_view regexp) : re(regexp), M(static_cast<int>(std::ssize(re))), G(M + 1) {
     std::list<int> ops;
     for (int i = 0; i < M; ++i) {
         int lp = i; // left position
@@ -54,11 +53,11 @@ inline bool algs4::NFA::recognizes(std::string_view txt) const {
         if (dfs.marked(v)) pc.push_front(v);
 
     // Compute possible NFA states for txt[i+1].
-    for (int i = 0; i < txt.length(); ++i) {
+    for (char c: txt) {
         std::list<int> match;
         for (int v: pc)
             if (v < M)
-                if (re[v] == txt[i] || re[v] == '.') match.push_front(v + 1);
+                if (re[v] == c || re[v] == '.') match.push_front(v + 1);
         pc = std::list<int>();
         dfs = DirectedDFS(G, match);
         for (int v = 0; v < G.V(); ++v)

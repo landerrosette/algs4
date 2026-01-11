@@ -30,14 +30,14 @@ inline void algs4::DirectedDFS::dfs(const Digraph &G, int v) {
 }
 
 inline algs4::DirectedDFS::DirectedDFS(const Digraph &G, int s) : marked_(G.V()) {
-    assert(s >= 0 && s < marked_.size());
+    assert(s >= 0 && s < std::ssize(marked_));
     dfs(G, s);
 }
 
 inline algs4::DirectedDFS::DirectedDFS(const Digraph &G, const std::list<int> &sources) : marked_(G.V()) {
     assert(!sources.empty());
     for (int s: sources) {
-        assert(s >= 0 && s < marked_.size());
+        assert(s >= 0 && s < std::ssize(marked_));
         if (!marked_[s])
             dfs(G, s);
     }

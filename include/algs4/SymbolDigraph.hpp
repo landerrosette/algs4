@@ -40,9 +40,9 @@ inline algs4::SymbolDigraph::SymbolDigraph(const std::filesystem::path &stream, 
         std::string name;
         for (std::istringstream iss(line); std::getline(iss, name, sp);)
             if (!st.contains(name))
-                st.put(name, st.size());
+                st.put(name, static_cast<int>(st.size()));
     }
-    keys = std::vector<std::string>(st.size()); // Inverted index to get string keys is an array.
+    keys.resize(st.size()); // Inverted index to get string keys is an array.
     for (const auto &name: st.keys())
         keys[*st.get(name)] = name;
 

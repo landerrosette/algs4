@@ -4,6 +4,7 @@
 
 #include <cassert>
 #include <concepts>
+#include <cstddef>
 #include <optional>
 #include <utility>
 #include <vector>
@@ -12,37 +13,38 @@ namespace algs4 {
     template<std::totally_ordered Key>
     class IndexMinPQ {
     private:
-        int N = 0;
-        std::vector<int> pq;                   // binary heap using 1-based indexing
-        std::vector<int> qp;                   // inverse: qp[pq[i]] = pq[qp[i]] = i
+        std::ptrdiff_t N = 0;
+        std::vector<std::ptrdiff_t> pq;        // binary heap using 1-based indexing
+        std::vector<std::ptrdiff_t> qp;        // inverse: qp[pq[i]] = pq[qp[i]] = i
         std::vector<std::optional<Key> > keys; // items with priorities
 
-        bool greater(int i, int j) const { return keys[pq[i]] > keys[pq[j]]; }
-        void exch(int i, int j);
-        void swim(int k);
-        void sink(int k);
+        bool greater(std::ptrdiff_t i, std::ptrdiff_t j) const { return keys[pq[i]] > keys[pq[j]]; }
+        void exch(std::ptrdiff_t i, std::ptrdiff_t j);
+        void swim(std::ptrdiff_t k);
+        void sink(std::ptrdiff_t k);
 
     public:
-        explicit IndexMinPQ(int maxN) : pq(maxN + 1), qp(maxN + 1, -1), keys(maxN + 1) { assert(maxN >= 0); }
+        explicit IndexMinPQ(std::ptrdiff_t maxN) : pq(maxN + 1), qp(maxN + 1, -1), keys(maxN + 1) { assert(maxN >= 0); }
 
         bool isEmpty() const { return N == 0; }
-        int size() const { return N; }
-        bool contains(int k) const;
-        void insert(int k, const Key &key);
-        void change(int k, const Key &key);
-        int delMin();
+        std::ptrdiff_t size() const { return N; }
+        bool contains(std::ptrdiff_t k) const;
+        void insert(std::ptrdiff_t k, const Key &key);
+        void change(std::ptrdiff_t k, const Key &key);
+        std::ptrdiff_t delMin();
     };
 }
 
 template<std::totally_ordered Key>
-void algs4::IndexMinPQ<Key>::exch(int i, int j) {
-    std::swap(pq[i], pq[j]);
+void algs4::IndexMinPQ<Key>::exch(std::ptrdiff_t i, std::ptrdiff_t j) {
+    using std::swap;
+    swap(pq[i], pq[j]);
     qp[pq[i]] = i;
     qp[pq[j]] = j;
 }
 
 template<std::totally_ordered Key>
-void algs4::IndexMinPQ<Key>::swim(int k) {
+void algs4::IndexMinPQ<Key>::swim(std::ptrdiff_t k) {
     while (k > 1 && greater(k / 2, k)) {
         exch(k / 2, k);
         k = k / 2;
@@ -50,9 +52,9 @@ void algs4::IndexMinPQ<Key>::swim(int k) {
 }
 
 template<std::totally_ordered Key>
-void algs4::IndexMinPQ<Key>::sink(int k) {
+void algs4::IndexMinPQ<Key>::sink(std::ptrdiff_t k) {
     while (2 * k <= N) {
-        int j = 2 * k;
+        auto j = 2 * k;
         if (j < N && greater(j, j + 1))
             ++j;
         if (!greater(k, j))
@@ -63,14 +65,14 @@ void algs4::IndexMinPQ<Key>::sink(int k) {
 }
 
 template<std::totally_ordered Key>
-bool algs4::IndexMinPQ<Key>::contains(int k) const {
-    assert(k >= 0 && k < qp.size() - 1);
+bool algs4::IndexMinPQ<Key>::contains(std::ptrdiff_t k) const {
+    assert(k >= 0 && k < std::ssize(qp) - 1);
     return qp[k] != -1;
 }
 
 template<std::totally_ordered Key>
-void algs4::IndexMinPQ<Key>::insert(int k, const Key &key) {
-    assert(k >= 0 && k < qp.size() - 1);
+void algs4::IndexMinPQ<Key>::insert(std::ptrdiff_t k, const Key &key) {
+    assert(k >= 0 && k < std::ssize(qp) - 1);
     assert(!contains(k));
     qp[k] = ++N;
     pq[N] = k;
@@ -79,8 +81,8 @@ void algs4::IndexMinPQ<Key>::insert(int k, const Key &key) {
 }
 
 template<std::totally_ordered Key>
-void algs4::IndexMinPQ<Key>::change(int k, const Key &key) {
-    assert(k >= 0 && k < qp.size() - 1);
+void algs4::IndexMinPQ<Key>::change(std::ptrdiff_t k, const Key &key) {
+    assert(k >= 0 && k < std::ssize(qp) - 1);
     assert(contains(k));
     keys[k] = key;
     swim(qp[k]);
@@ -88,9 +90,9 @@ void algs4::IndexMinPQ<Key>::change(int k, const Key &key) {
 }
 
 template<std::totally_ordered Key>
-int algs4::IndexMinPQ<Key>::delMin() {
+std::ptrdiff_t algs4::IndexMinPQ<Key>::delMin() {
     assert(!isEmpty());
-    int indexOfMin = pq[1];
+    auto indexOfMin = pq[1];
     exch(1, N--);
     sink(1);
     keys[pq[N + 1]] = std::nullopt;

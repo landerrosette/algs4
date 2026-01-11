@@ -2,6 +2,7 @@
 #define ALGS4_SUBSTRSEARCHER_HPP
 
 
+#include <cstddef>
 #include <string_view>
 
 namespace algs4 {
@@ -9,7 +10,7 @@ namespace algs4 {
     public:
         virtual ~SubstrSearcher() = default;
 
-        virtual int search(std::string_view txt) const = 0;
+        virtual std::ptrdiff_t search(std::string_view txt) const = 0;
     };
 }
 

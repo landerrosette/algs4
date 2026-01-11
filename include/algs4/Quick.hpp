@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <concepts>
+#include <cstddef>
 #include <random>
 #include <vector>
 
@@ -13,10 +14,10 @@ namespace algs4 {
     namespace Quick {
         namespace internal {
             template<std::totally_ordered T>
-            int partition(std::vector<T> &a, int lo, int hi);
+            std::ptrdiff_t partition(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi);
 
             template<std::totally_ordered T>
-            void sort(std::vector<T> &a, int lo, int hi);
+            void sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi);
         }
 
         template<std::totally_ordered T>
@@ -25,9 +26,9 @@ namespace algs4 {
 }
 
 template<std::totally_ordered T>
-int algs4::Quick::internal::partition(std::vector<T> &a, int lo, int hi) {
+std::ptrdiff_t algs4::Quick::internal::partition(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
     using namespace SortUtils::internal;
-    int i = lo, j = hi + 1;
+    auto i = lo, j = hi + 1;
     T v = a[lo];
     // Scan right, scan left, check for scan complete, and exchange.
     while (true) {
@@ -41,9 +42,9 @@ int algs4::Quick::internal::partition(std::vector<T> &a, int lo, int hi) {
 }
 
 template<std::totally_ordered T>
-void algs4::Quick::internal::sort(std::vector<T> &a, int lo, int hi) {
-    if (lo >= hi) return;
-    int j = partition(a, lo, hi);
+void algs4::Quick::internal::sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
+    if (hi <= lo) return;
+    auto j = partition(a, lo, hi);
     sort(a, lo, j - 1);
     sort(a, j + 1, hi);
 }
@@ -51,7 +52,7 @@ void algs4::Quick::internal::sort(std::vector<T> &a, int lo, int hi) {
 template<std::totally_ordered T>
 void algs4::Quick::sort(std::vector<T> &a) {
     std::ranges::shuffle(a, std::default_random_engine(std::random_device()()));
-    internal::sort(a, 0, a.size() - 1);
+    internal::sort(a, 0, std::ssize(a) - 1);
 }
 
 

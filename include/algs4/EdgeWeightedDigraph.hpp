@@ -2,7 +2,7 @@
 #define ALGS4_EDGEWEIGHTEDDIGRAPH_HPP
 
 
-#include <iostream>
+#include <cstddef>
 #include <list>
 
 #include "DirectedEdge.hpp"
@@ -20,9 +20,9 @@ namespace algs4 {
 }
 
 inline algs4::EdgeWeightedDigraph::EdgeWeightedDigraph(std::istream &in) : GraphBase(in) {
-    int E;
+    std::ptrdiff_t E;
     in >> E;
-    for (int i = 0; i < E; ++i) {
+    for (decltype(E) i = 0; i < E; ++i) {
         int v, w;
         double weight;
         in >> v >> w >> weight;

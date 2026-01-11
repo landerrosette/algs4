@@ -3,9 +3,8 @@
 
 
 #include <cassert>
-#include <compare>
 #include <iomanip>
-#include <iostream>
+#include <ostream>
 
 #include "EdgeBase.hpp"
 
@@ -20,8 +19,6 @@ namespace algs4 {
         int other(int vertex) const;
     };
 
-    inline auto operator<=>(const Edge &l, const Edge &r) { return l.weight() <=> r.weight(); }
-    inline bool operator==(const Edge &l, const Edge &r) { return l.weight() == r.weight(); }
     std::ostream &operator<<(std::ostream &os, const Edge &e);
 }
 

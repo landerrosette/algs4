@@ -3,8 +3,10 @@
 
 
 #include <cassert>
-#include <iostream>
+#include <cstddef>
+#include <istream>
 #include <list>
+#include <ostream>
 #include <vector>
 
 namespace algs4 {
@@ -12,7 +14,7 @@ namespace algs4 {
     class GraphBase {
     protected:
         const int V_;                    // number of vertices
-        int E_;                          // number of edges
+        std::ptrdiff_t E_;               // number of edges
         std::vector<std::list<T> > adj_; // adjacency lists
 
         explicit GraphBase(int V) : V_(V), E_(0), adj_(V) { assert(V >= 0); }
@@ -21,7 +23,7 @@ namespace algs4 {
 
     public:
         int V() const { return V_; }
-        int E() const { return E_; }
+        auto E() const { return E_; }
         std::list<T> adj(int v) const { return adj_[v]; }
     };
 }

@@ -2,6 +2,8 @@
 
 #include <array>
 #include <iomanip>
+#include <istream>
+#include <ostream>
 
 #include "STTestUtils.hpp"
 
@@ -14,7 +16,7 @@ namespace STTestUtils {
 
     // Remove the smallest keys.
     void removeSome(algs4::OrderedST<std::string, int> &st, std::ostream &os) {
-        int N = st.size();
+        auto N = st.size();
         for (int i = 0; i < N / 2; ++i)
             st.removeMin();
         os << "After removing the smallest " << N / 2 << " keys, size = " << st.size() << std::endl;
@@ -26,7 +28,7 @@ namespace STTestUtils {
     void removeAll(algs4::OrderedST<std::string, int> &st, std::ostream &os) {
         while (!st.isEmpty())
             st.remove(st.select(st.size() / 2));
-        std::cout << "After removing the remaining keys, size = " << st.size() << std::endl;
+        os << "After removing the remaining keys, size = " << st.size() << std::endl;
     }
 
     void testOrderedST(const algs4::OrderedST<std::string, int> &st, std::ostream &os) {
@@ -54,7 +56,7 @@ namespace STTestUtils {
         std::array<std::string, 6> to = {"Z", "A", "X", "Z", "G", "L"};
         os << "range search" << std::endl;
         os << "-------------------" << std::endl;
-        for (int i = 0; i < from.size(); ++i) {
+        for (int i = 0; i < std::ssize(from); ++i) {
             os << from[i] << "-" << to[i] << " (" << std::setw(2) << st.size(from[i], to[i]) << ") : ";
             for (const auto &s: st.keys(from[i], to[i]))
                 os << s << " ";

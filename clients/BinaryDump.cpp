@@ -16,11 +16,11 @@ int main(int argc, char *argv[]) {
     int cnt;
     for (cnt = 0; !algs4::BinaryStdIO::isEmpty(); ++cnt) {
         if (width == 0) {
-            algs4::BinaryStdIO::readBool();
+            algs4::BinaryStdIO::read<bool>();
             continue;
         }
         if (cnt != 0 && cnt % width == 0) std::cout << std::endl;
-        if (algs4::BinaryStdIO::readBool()) std::cout << "1";
+        if (algs4::BinaryStdIO::read<bool>()) std::cout << "1";
         else std::cout << "0";
     }
     if (width != 0) std::cout << std::endl;

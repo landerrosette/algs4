@@ -3,6 +3,8 @@
 
 
 #include <concepts>
+#include <cstddef>
+#include <utility>
 #include <vector>
 
 #include "SortUtils.hpp"
@@ -14,10 +16,10 @@ namespace algs4 {
             std::vector<T> aux;
 
             template<std::totally_ordered T>
-            void merge(std::vector<T> &a, int lo, int mid, int hi);
+            void merge(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t mid, std::ptrdiff_t hi);
 
             template<std::totally_ordered T>
-            void sort(std::vector<T> &a, int lo, int hi);
+            void sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi);
         }
 
         template<std::totally_ordered T>
@@ -26,23 +28,23 @@ namespace algs4 {
 }
 
 template<std::totally_ordered T>
-void algs4::Merge::internal::merge(std::vector<T> &a, int lo, int mid, int hi) {
+void algs4::Merge::internal::merge(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t mid, std::ptrdiff_t hi) {
     using namespace internal;
     using namespace SortUtils::internal;
-    int i = lo, j = mid + 1;
-    for (int k = lo; k <= hi; ++k) aux<T>[k] = a[k];
-    for (int k = lo; k <= hi; ++k) {
-        if (i > mid) a[k] = aux<T>[j++];
-        else if (j > hi) a[k] = aux<T>[i++];
-        else if (less(aux<T>[j], aux<T>[i])) a[k] = aux<T>[j++];
-        else a[k] = aux<T>[i++];
+    auto i = lo, j = mid + 1;
+    for (auto k = lo; k <= hi; ++k) aux<T>[k] = std::move(a[k]);
+    for (auto k = lo; k <= hi; ++k) {
+        if (i > mid) a[k] = std::move(aux<T>[j++]);
+        else if (j > hi) a[k] = std::move(aux<T>[i++]);
+        else if (less(aux<T>[j], aux<T>[i])) a[k] = std::move(aux<T>[j++]);
+        else a[k] = std::move(aux<T>[i++]);
     }
 }
 
 template<std::totally_ordered T>
-void algs4::Merge::internal::sort(std::vector<T> &a, int lo, int hi) {
+void algs4::Merge::internal::sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
     if (hi <= lo) return;
-    int mid = lo + (hi - lo) / 2;
+    auto mid = lo + (hi - lo) / 2;
     sort(a, lo, mid);
     sort(a, mid + 1, hi);
     merge(a, lo, mid, hi);
@@ -50,8 +52,8 @@ void algs4::Merge::internal::sort(std::vector<T> &a, int lo, int hi) {
 
 template<std::totally_ordered T>
 void algs4::Merge::sort(std::vector<T> &a) {
-    internal::aux<T> = std::vector<T>(a.size());
-    internal::sort(a, 0, a.size() - 1);
+    internal::aux<T>.resize(std::ssize(a));
+    internal::sort(a, 0, std::ssize(a) - 1);
 }
 
 

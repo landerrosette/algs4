@@ -2,7 +2,7 @@
 #define ALGS4_STRINGSTTESTUTILS_HPP
 
 
-#include <iostream>
+#include <iosfwd>
 
 #include "algs4/StringST.hpp"
 

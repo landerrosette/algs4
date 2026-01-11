@@ -26,7 +26,7 @@ inline algs4::KruskalMST::KruskalMST(const EdgeWeightedGraph &G) {
     for (const auto &e: G.edges())
         pq.insert(e);
     UF uf(G.V());
-    while (!pq.isEmpty() && mst.size() < G.V() - 1) {
+    while (!pq.isEmpty() && std::ssize(mst) < G.V() - 1) {
         auto e = pq.delMin();
         int v = e->either(), w = e->other(v);
         if (uf.connected(v, w)) continue;

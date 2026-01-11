@@ -2,26 +2,35 @@
 #define ALGS4_LSD_HPP
 
 
+#include <cstddef>
 #include <string>
+#include <utility>
 #include <vector>
+
+#include "StringSortUtils.h"
 
 namespace algs4 {
     namespace LSD {
-        void sort(std::vector<std::string> &a, int W = 3);
+        void sort(std::vector<std::string> &a, std::ptrdiff_t W = 3);
     }
 }
 
-inline void algs4::LSD::sort(std::vector<std::string> &a, int W) {
-    int N = a.size();
+inline void algs4::LSD::sort(std::vector<std::string> &a, std::ptrdiff_t W) {
+    using namespace StringSortUtils::internal;
+    auto N = std::ssize(a);
     int R = 256;
     std::vector<std::string> aux(N);
 
-    for (int d = W - 1; d >= 0; --d) {
-        std::vector<int> count(R + 1);
-        for (int i = 0; i < N; ++i) ++count[a[i][d] + 1];         // Compute frequency counts.
-        for (int r = 0; r < R; ++r) count[r + 1] += count[r];     // Transform counts to indices.
-        for (int i = 0; i < N; ++i) aux[count[a[i][d]]++] = a[i]; // Distribute.
-        for (int i = 0; i < N; ++i) a[i] = aux[i];                // Copy back.
+    for (auto d = W - 1; d >= 0; --d) {
+        std::vector<std::ptrdiff_t> count(R + 1);
+        // Compute frequency counts.
+        for (decltype(N) i = 0; i < N; ++i) ++count[charAt(a[i], d) + 1];
+        // Transform counts to indices.
+        for (int r = 0; r < R; ++r) count[r + 1] += count[r];
+        // Distribute.
+        for (decltype(N) i = 0; i < N; ++i) aux[count[charAt(a[i], d)]++] = std::move(a[i]);
+        // Copy back.
+        for (decltype(N) i = 0; i < N; ++i) a[i] = std::move(aux[i]);
     }
 }
 

@@ -3,6 +3,7 @@
 
 
 #include <cassert>
+#include <cstddef>
 #include <memory>
 
 #include "OrderedST.hpp"
@@ -14,9 +15,9 @@ namespace algs4 {
             Key key;
             Value val;
             std::unique_ptr<Derived> left, right;
-            int N; // number of nodes in subtree rooted here
+            std::ptrdiff_t N; // number of nodes in subtree rooted here
 
-            BSTNodeBase(const Key &key, const Value &val, int N) : key(key), val(val), N(N) {}
+            BSTNodeBase(const Key &key, const Value &val, std::ptrdiff_t N) : key(key), val(val), N(N) {}
         };
     }
 
@@ -26,24 +27,24 @@ namespace algs4 {
         std::unique_ptr<Node> root;
 
         std::optional<Value> get(const Node *x, const Key &key) const;
-        int size(const Node *x) const;
+        std::ptrdiff_t size(const Node *x) const;
         const Node *min(const Node *x) const;
         const Node *max(const Node *x) const;
         const Node *floor(const Node *x, const Key &key) const;
         const Node *ceiling(const Node *x, const Key &key) const;
-        int rank(const Node *x, const Key &key) const;
-        const Node *select(const Node *x, int k) const;
+        std::ptrdiff_t rank(const Node *x, const Key &key) const;
+        const Node *select(const Node *x, std::ptrdiff_t k) const;
         void keys(const Node *x, std::list<Key> &queue, const Key &lo, const Key &hi) const;
 
     public:
         std::optional<Value> get(const Key &key) const override { return get(root.get(), key); }
-        int size() const override { return size(root.get()); }
+        std::ptrdiff_t size() const override { return size(root.get()); }
         std::optional<Key> min() const override;
         std::optional<Key> max() const override;
         std::optional<Key> floor(const Key &key) const override;
         std::optional<Key> ceiling(const Key &key) const override;
-        int rank(const Key &key) const override { return rank(root.get(), key); }
-        Key select(int k) const override;
+        std::ptrdiff_t rank(const Key &key) const override { return rank(root.get(), key); }
+        Key select(std::ptrdiff_t k) const override;
         using OrderedST<Key, Value>::keys;
         std::list<Key> keys(const Key &lo, const Key &hi) const override;
     };
@@ -58,7 +59,7 @@ std::optional<Value> algs4::BSTBase<Key, Value, Node>::get(const Node *x, const 
 }
 
 template<std::totally_ordered Key, typename Value, typename Node>
-int algs4::BSTBase<Key, Value, Node>::size(const Node *x) const {
+std::ptrdiff_t algs4::BSTBase<Key, Value, Node>::size(const Node *x) const {
     if (!x) return 0;
     return x->N;
 }
@@ -94,7 +95,7 @@ const Node *algs4::BSTBase<Key, Value, Node>::ceiling(const Node *x, const Key &
 }
 
 template<std::totally_ordered Key, typename Value, typename Node>
-int algs4::BSTBase<Key, Value, Node>::rank(const Node *x, const Key &key) const {
+std::ptrdiff_t algs4::BSTBase<Key, Value, Node>::rank(const Node *x, const Key &key) const {
     if (!x) return 0;
     if (key < x->key) return rank(x->left.get(), key);
     else if (key > x->key)
@@ -103,9 +104,9 @@ int algs4::BSTBase<Key, Value, Node>::rank(const Node *x, const Key &key) const 
 }
 
 template<std::totally_ordered Key, typename Value, typename Node>
-const Node *algs4::BSTBase<Key, Value, Node>::select(const Node *x, int k) const {
+const Node *algs4::BSTBase<Key, Value, Node>::select(const Node *x, std::ptrdiff_t k) const {
     if (!x) return nullptr;
-    if (int t = size(x->left.get()); t > k) return select(x->left.get(), k);
+    if (auto t = size(x->left.get()); t > k) return select(x->left.get(), k);
     else if (t < k) return select(x->right.get(), k - t - 1);
     else return x;
 }
@@ -151,8 +152,8 @@ std::optional<Key> algs4::BSTBase<Key, Value, Node>::ceiling(const Key &key) con
 }
 
 template<std::totally_ordered Key, typename Value, typename Node>
-Key algs4::BSTBase<Key, Value, Node>::select(int k) const {
-    assert(k >= 0 && k < size());
+Key algs4::BSTBase<Key, Value, Node>::select(std::ptrdiff_t k) const {
+    assert(k < size());
     return select(root.get(), k)->key;
 }
 

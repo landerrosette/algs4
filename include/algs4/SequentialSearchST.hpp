@@ -2,6 +2,7 @@
 #define ALGS4_SEQUENTIALSEARCHST_HPP
 
 
+#include <cstddef>
 #include <memory>
 #include <utility>
 
@@ -20,7 +21,7 @@ namespace algs4 {
                 : key(key), val(val), next(std::move(next)) {}
         };
 
-        int N = 0;
+        std::ptrdiff_t N = 0;
         std::unique_ptr<Node> first;
 
         std::unique_ptr<Node> remove(std::unique_ptr<Node> &x, const Key &key);
@@ -29,7 +30,7 @@ namespace algs4 {
         std::optional<Value> get(const Key &key) const override;
         void put(const Key &key, const Value &val) override;
         void remove(const Key &key) override { first = remove(first, key); }
-        int size() const override { return N; }
+        std::ptrdiff_t size() const override { return N; }
         std::list<Key> keys() const override;
     };
 }

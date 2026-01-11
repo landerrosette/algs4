@@ -12,7 +12,7 @@ namespace algs4 {
     template<std::totally_ordered Key>
     class MaxPQ : public PQBase<Key, std::less<Key> > {
     public:
-        explicit MaxPQ(int maxN) : PQBase<Key, std::less<Key> >(maxN) {}
+        explicit MaxPQ(std::ptrdiff_t maxN) : PQBase<Key, std::less<Key> >(maxN) {}
 
         std::optional<Key> delMax() { return this->delTop(); }
     };

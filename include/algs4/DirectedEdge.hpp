@@ -3,7 +3,7 @@
 
 
 #include <iomanip>
-#include <iostream>
+#include <ostream>
 
 #include "EdgeBase.hpp"
 

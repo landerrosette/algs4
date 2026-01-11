@@ -46,22 +46,22 @@ inline void algs4::SP::relax(const EdgeWeightedDigraph &G, int v) {
 inline algs4::SP::SP(const EdgeWeightedDigraph &G, int s)
     : edgeTo(G.V()),
       distTo_(G.V(), std::numeric_limits<double>::infinity()) {
-    assert(s >= 0 && s < distTo_.size());
+    assert(s >= 0 && s < std::ssize(distTo_));
     distTo_[s] = 0.0;
 }
 
 inline double algs4::SP::distTo(int v) const {
-    assert(v >= 0 && v < distTo_.size());
+    assert(v >= 0 && v < std::ssize(distTo_));
     return distTo_[v];
 }
 
 inline bool algs4::SP::hasPathTo(int v) const {
-    assert(v >= 0 && v < distTo_.size());
+    assert(v >= 0 && v < std::ssize(distTo_));
     return distTo_[v] < std::numeric_limits<double>::infinity();
 }
 
 inline std::list<algs4::DirectedEdge> algs4::SP::pathTo(int v) const {
-    assert(v >= 0 && v < distTo_.size());
+    assert(v >= 0 && v < std::ssize(distTo_));
     std::list<DirectedEdge> path;
     for (auto e = edgeTo[v]; e; e = edgeTo[e->from()])
         path.push_front(*e);
