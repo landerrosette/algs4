@@ -37,7 +37,7 @@ namespace algs4 {
 
         inline bool isEmpty() { return internal::inN < 0; }
 
-        template<typename T> requires std::same_as<T, bool>
+        template<std::same_as<bool> T>
         T read() { return internal::readBit(); }
 
         template<std::integral T> requires (!std::same_as<T, bool> && sizeof(T) == 1)
@@ -49,7 +49,7 @@ namespace algs4 {
         template<std::integral T> requires (!std::same_as<T, bool>)
         T read(int r);
 
-        template<typename T> requires std::same_as<T, std::string>
+        template<std::same_as<std::string> T>
         T read();
 
         void closeOut();
@@ -162,7 +162,7 @@ T algs4::BinaryStdIO::read(int r) {
     return x;
 }
 
-template<typename T> requires std::same_as<T, std::string>
+template<std::same_as<std::string> T>
 T algs4::BinaryStdIO::read() {
     std::string s;
     while (!isEmpty()) s += read<char>();

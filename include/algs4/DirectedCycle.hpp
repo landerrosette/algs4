@@ -2,6 +2,7 @@
 #define ALGS4_DIRECTEDCYCLE_HPP
 
 
+#include <concepts>
 #include <ranges>
 #include <type_traits>
 #include <vector>
@@ -34,14 +35,14 @@ void algs4::DirectedCycle<EdgeType>::dfs(const GraphBase<EdgeType> &G, int v) {
     marked[v] = true;
     for (const auto &e: G.adj(v)) {
         int w;
-        if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>) w = e.to();
+        if constexpr (std::same_as<std::remove_cvref_t<decltype(e)>, DirectedEdge>) w = e.to();
         else w = e;
         if (hasCycle()) return;
         else if (!marked[w]) {
             edgeTo[w] = e;
             dfs(G, w);
         } else if (onStack[w]) {
-            if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>) {
+            if constexpr (std::same_as<std::remove_cvref_t<decltype(e)>, DirectedEdge>) {
                 auto x = e;
                 for (; x.from() != w; x = edgeTo[x.from()])
                     cycle_.push_back(x);

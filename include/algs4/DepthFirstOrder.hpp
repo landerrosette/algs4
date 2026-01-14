@@ -2,6 +2,7 @@
 #define ALGS4_DEPTHFIRSTORDER_HPP
 
 
+#include <concepts>
 #include <ranges>
 #include <type_traits>
 #include <vector>
@@ -34,7 +35,7 @@ void algs4::DepthFirstOrder::dfs(const GraphBase<EdgeType> &G, int v) {
     marked[v] = true;
     for (const auto &e: G.adj(v)) {
         int w;
-        if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>) w = e.to();
+        if constexpr (std::same_as<std::remove_cvref_t<decltype(e)>, DirectedEdge>) w = e.to();
         else w = e;
         if (!marked[w])
             dfs(G, w);

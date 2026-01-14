@@ -82,7 +82,7 @@ void algs4::IndexMinPQ<Key>::insert(std::ptrdiff_t k, K &&key) {
     assert(!contains(k));
     qp[k] = ++N;
     pq[N] = k;
-    keys[k] = std::forward<K>(key);
+    keys[k].emplace(std::forward<K>(key));
     swim(N);
 }
 
@@ -91,7 +91,7 @@ template<typename K> requires std::constructible_from<Key, K>
 void algs4::IndexMinPQ<Key>::change(std::ptrdiff_t k, K &&key) {
     assert(k >= 0 && k < std::ssize(qp) - 1);
     assert(contains(k));
-    keys[k] = std::forward<K>(key);
+    keys[k].emplace(std::forward<K>(key));
     swim(qp[k]);
     sink(qp[k]);
 }
