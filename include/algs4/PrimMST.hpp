@@ -2,8 +2,8 @@
 #define ALGS4_PRIMMST_HPP
 
 
+#include <algorithm>
 #include <limits>
-#include <optional>
 #include <vector>
 
 #include "EdgeWeightedGraph.hpp"
@@ -13,17 +13,17 @@
 namespace algs4 {
     class PrimMST : public MST {
     private:
-        std::vector<std::optional<Edge> > edgeTo; // shortest edge from tree vertex
-        std::vector<double> distTo;               // distTo[w] = edgeTo[w].weight()
-        std::vector<bool> marked;                 // true if v on tree
-        IndexMinPQ<double> pq;                    // eligible crossing edges
+        std::vector<Edge> edgeTo;   // shortest edge from tree vertex
+        std::vector<double> distTo; // distTo[w] = edgeTo[w].weight()
+        std::vector<bool> marked;   // true if v on tree
+        IndexMinPQ<double> pq;      // eligible crossing edges
 
         void visit(const EdgeWeightedGraph &G, int v);
 
     public:
         explicit PrimMST(const EdgeWeightedGraph &G);
 
-        std::list<Edge> edges() const override;
+        std::vector<Edge> edges() const override;
     };
 }
 
@@ -49,10 +49,11 @@ inline algs4::PrimMST::PrimMST(const EdgeWeightedGraph &G)
         visit(G, static_cast<int>(pq.delMin()));
 }
 
-inline std::list<algs4::Edge> algs4::PrimMST::edges() const {
-    std::list<Edge> mst;
+inline std::vector<algs4::Edge> algs4::PrimMST::edges() const {
+    std::vector<Edge> mst;
     for (int v = 1; v < std::ssize(edgeTo); ++v)
-        mst.push_front(*edgeTo[v]);
+        mst.push_back(edgeTo[v]);
+    std::ranges::reverse(mst);
     return mst;
 }
 

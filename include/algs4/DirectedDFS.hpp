@@ -3,7 +3,6 @@
 
 
 #include <cassert>
-#include <list>
 #include <vector>
 
 #include "Digraph.hpp"
@@ -16,7 +15,7 @@ namespace algs4 {
 
     public:
         DirectedDFS(const Digraph &G, int s);
-        DirectedDFS(const Digraph &G, const std::list<int> &sources);
+        DirectedDFS(const Digraph &G, const std::vector<int> &sources);
 
         bool marked(int v) const { return marked_[v]; }
     };
@@ -34,7 +33,7 @@ inline algs4::DirectedDFS::DirectedDFS(const Digraph &G, int s) : marked_(G.V())
     dfs(G, s);
 }
 
-inline algs4::DirectedDFS::DirectedDFS(const Digraph &G, const std::list<int> &sources) : marked_(G.V()) {
+inline algs4::DirectedDFS::DirectedDFS(const Digraph &G, const std::vector<int> &sources) : marked_(G.V()) {
     assert(!sources.empty());
     for (int s: sources) {
         assert(s >= 0 && s < std::ssize(marked_));

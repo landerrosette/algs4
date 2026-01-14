@@ -7,6 +7,13 @@
 
 namespace algs4 {
     class SubstrSearcher {
+    protected:
+        SubstrSearcher() = default;
+        SubstrSearcher(const SubstrSearcher &) = default;
+        SubstrSearcher &operator=(const SubstrSearcher &) = default;
+        SubstrSearcher(SubstrSearcher &&) noexcept = default;
+        SubstrSearcher &operator=(SubstrSearcher &&) noexcept = default;
+
     public:
         virtual ~SubstrSearcher() = default;
 

@@ -2,7 +2,8 @@
 #define ALGS4_TOPOLOGICAL_HPP
 
 
-#include <list>
+#include <ranges>
+#include <vector>
 
 #include "DepthFirstOrder.hpp"
 #include "DirectedCycle.hpp"
@@ -11,23 +12,24 @@
 namespace algs4 {
     class Topological {
     private:
-        std::list<int> order_; // topological order
+        std::vector<int> order_; // topological order
 
     public:
-        template<typename T>
-        explicit Topological(const GraphBase<T> &G);
+        template<typename EdgeType>
+        explicit Topological(const GraphBase<EdgeType> &G);
 
-        std::list<int> order() const { return order_; }
+        auto order() const & { return std::views::all(order_); }
         bool isDAG() const { return !order_.empty(); }
     };
 }
 
-template<typename T>
-algs4::Topological::Topological(const GraphBase<T> &G) {
+template<typename EdgeType>
+algs4::Topological::Topological(const GraphBase<EdgeType> &G) {
     DirectedCycle cyclefinder(G);
     if (!cyclefinder.hasCycle()) {
         DepthFirstOrder dfs(G);
-        order_ = dfs.reversePost();
+        auto reversePost = dfs.reversePost();
+        order_ = {reversePost.begin(), reversePost.end()};
     }
 }
 

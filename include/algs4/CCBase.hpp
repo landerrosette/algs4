@@ -16,6 +16,10 @@ namespace algs4 {
 
         explicit CCBase(const GraphBase<int> &G) : marked(G.V()), id_(G.V()) {}
         ~CCBase() = default;
+        CCBase(const CCBase &) = default;
+        CCBase &operator=(const CCBase &) = default;
+        CCBase(CCBase &&) noexcept = default;
+        CCBase &operator=(CCBase &&) noexcept = default;
 
         void dfs(const GraphBase<int> &G, int v);
 

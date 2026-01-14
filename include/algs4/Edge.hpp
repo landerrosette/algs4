@@ -13,6 +13,7 @@ namespace algs4 {
         friend std::ostream &operator<<(std::ostream &os, const Edge &e);
 
     public:
+        Edge() = default;
         Edge(int v, int w, double weight) : EdgeBase(v, w, weight) {}
 
         int either() const { return v; }

@@ -5,7 +5,6 @@
 #include <cassert>
 #include <concepts>
 #include <cstddef>
-#include <optional>
 #include <utility>
 #include <vector>
 
@@ -13,29 +12,36 @@ namespace algs4 {
     template<typename Key, std::strict_weak_order<Key, Key> Compare>
     class PQBase {
     protected:
-        std::vector<std::optional<Key> > pq; // heap-ordered complete binary tree
-        std::ptrdiff_t N = 0;                // in pq[1..N] with pq[0] unused
+        std::vector<Key> pq;
+        [[no_unique_address]] Compare comp;
 
-        explicit PQBase(std::ptrdiff_t maxN) : pq(maxN + 1) { assert(maxN >= 0); }
+        PQBase() = default;
+        explicit PQBase(const Compare &comp) : comp(comp) {}
         ~PQBase() = default;
+        PQBase(const PQBase &) = default;
+        PQBase &operator=(const PQBase &) = default;
+        PQBase(PQBase &&) noexcept = default;
+        PQBase &operator=(PQBase &&) noexcept = default;
 
-        bool less(std::ptrdiff_t i, std::ptrdiff_t j) { return Compare()(*pq[i], *pq[j]); }
+        bool less(std::ptrdiff_t i, std::ptrdiff_t j) { return comp(pq[i - 1], pq[j - 1]); }
         void exch(std::ptrdiff_t i, std::ptrdiff_t j);
         void swim(std::ptrdiff_t k);
         void sink(std::ptrdiff_t k);
-        std::optional<Key> delTop();
+        Key delTop();
 
     public:
-        bool isEmpty() const { return N == 0; }
-        std::ptrdiff_t size() const { return N; }
-        void insert(const Key &v);
+        bool isEmpty() const { return pq.empty(); }
+        std::ptrdiff_t size() const { return std::ssize(pq); }
+
+        template<typename K> requires std::constructible_from<Key, K>
+        void insert(K &&v);
     };
 }
 
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
 void algs4::PQBase<Key, Compare>::exch(std::ptrdiff_t i, std::ptrdiff_t j) {
     using std::swap;
-    swap(pq[i], pq[j]);
+    swap(pq[i - 1], pq[j - 1]);
 }
 
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
@@ -48,9 +54,9 @@ void algs4::PQBase<Key, Compare>::swim(std::ptrdiff_t k) {
 
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
 void algs4::PQBase<Key, Compare>::sink(std::ptrdiff_t k) {
-    while (2 * k <= N) {
+    while (2 * k <= size()) {
         auto j = 2 * k;
-        if (j < N && less(j, j + 1))
+        if (j < size() && less(j, j + 1))
             ++j;
         if (!less(k, j))
             break;
@@ -60,20 +66,20 @@ void algs4::PQBase<Key, Compare>::sink(std::ptrdiff_t k) {
 }
 
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
-std::optional<Key> algs4::PQBase<Key, Compare>::delTop() {
+Key algs4::PQBase<Key, Compare>::delTop() {
     assert(!isEmpty());
-    auto top = std::move(pq[1]);
-    exch(1, N--);
-    pq[N + 1] = std::nullopt;
+    auto top = std::move(pq[0]);
+    exch(1, size());
+    pq.pop_back();
     sink(1);
     return top;
 }
 
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
-void algs4::PQBase<Key, Compare>::insert(const Key &v) {
-    assert(N < pq.size() - 1);
-    pq[++N] = v;
-    swim(N);
+template<typename K> requires std::constructible_from<Key, K>
+void algs4::PQBase<Key, Compare>::insert(K &&v) {
+    pq.emplace_back(std::forward<K>(v));
+    swim(size());
 }
 
 

@@ -20,8 +20,6 @@ foreach (ST "SequentialSearchST" "BinarySearchST" "BST" "RedBlackBST" "SeparateC
         "TrieST" "TST")
     if (ST STREQUAL "SeparateChainingHashST")
         set(ST_INIT_ARGS "4")
-    elseif (ST STREQUAL "BinarySearchST")
-        set(ST_INIT_ARGS "20")
     endif ()
 
     configure_file(TestST.cpp.in Test${ST}.cpp @ONLY)

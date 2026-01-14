@@ -12,6 +12,7 @@ namespace algs4 {
         friend std::ostream &operator<<(std::ostream &os, const DirectedEdge &e);
 
     public:
+        DirectedEdge() = default;
         DirectedEdge(int v, int w, double weight) : EdgeBase(v, w, weight) {}
 
         int from() const { return v; }

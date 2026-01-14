@@ -33,7 +33,7 @@ bool algs4::Heap::internal::less(const std::vector<T> &a, std::ptrdiff_t i, std:
 
 template<std::totally_ordered T>
 void algs4::Heap::internal::exch(std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j) {
-    SortUtils::internal::exch(a[i - 1], a[j - 1]);
+    SortUtils::internal::exch(a, i - 1, j - 1);
 }
 
 template<std::totally_ordered T>

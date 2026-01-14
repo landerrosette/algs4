@@ -2,8 +2,8 @@
 #define ALGS4_PATHS_HPP
 
 
+#include <algorithm>
 #include <cassert>
-#include <list>
 #include <vector>
 
 #include "Graph.hpp"
@@ -13,23 +13,29 @@ namespace algs4 {
     protected:
         std::vector<bool> marked; // Has dfs() been called for this vertex?
         std::vector<int> edgeTo;  // last vertex on known path for this vertex
-        const int s;              // source
+        int s;                    // source
+
+        Paths(const Graph &G, int s) : marked(G.V()), edgeTo(G.V()), s(s) { assert(s >= 0 && s < std::ssize(marked)); }
+        Paths(const Paths &) = default;
+        Paths &operator=(const Paths &) = default;
+        Paths(Paths &&) noexcept = default;
+        Paths &operator=(Paths &&) noexcept = default;
 
     public:
-        Paths(const Graph &G, int s) : marked(G.V()), edgeTo(G.V()), s(s) { assert(s >= 0 && s < std::ssize(marked)); }
         virtual ~Paths() = default;
 
         bool hasPathTo(int v) const { return marked[v]; }
-        std::list<int> pathTo(int v) const;
+        std::vector<int> pathTo(int v) const;
     };
 }
 
-inline std::list<int> algs4::Paths::pathTo(int v) const {
+inline std::vector<int> algs4::Paths::pathTo(int v) const {
     assert(v >= 0 && v < std::ssize(marked));
-    std::list<int> path;
+    std::vector<int> path;
     for (int x = v; x != s; x = edgeTo[x])
-        path.push_front(x);
-    path.push_front(s);
+        path.push_back(x);
+    path.push_back(s);
+    std::ranges::reverse(path);
     return path;
 }
 

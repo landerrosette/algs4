@@ -6,6 +6,8 @@
 #include <cstddef>
 #include <memory>
 #include <optional>
+#include <string_view>
+#include <utility>
 
 #include "StringST.hpp"
 
@@ -26,22 +28,23 @@ namespace algs4 {
         std::unique_ptr<Node> root;
 
         const Node *get(const Node *x, std::string_view key, std::ptrdiff_t d) const;
-        std::unique_ptr<Node> put(std::unique_ptr<Node> &x, std::string_view key, const Value &val, std::ptrdiff_t d);
-        std::unique_ptr<Node> remove(std::unique_ptr<Node> &x, std::string_view key, std::ptrdiff_t d);
-        void collect(const Node *x, const std::string &pre, std::list<std::string> &q) const;
-        void collect(const Node *x, const std::string &pre, std::string_view pat, std::list<std::string> &q) const;
+        std::unique_ptr<Node> put(std::unique_ptr<Node> x, std::string_view key, Value val, std::ptrdiff_t d);
+        std::unique_ptr<Node> remove(std::unique_ptr<Node> x, std::string_view key, std::ptrdiff_t d);
+        void collect(const Node *x, const std::string &pre, std::vector<std::string> &q) const;
+        void collect(const Node *x, const std::string &pre, std::string_view pat, std::vector<std::string> &q) const;
         std::ptrdiff_t search(const Node *x, std::string_view s, std::ptrdiff_t d, std::ptrdiff_t length) const;
         std::unique_ptr<Node> extractMin(std::unique_ptr<Node> &x);
 
     public:
-        std::optional<Value> get(const std::string &key) const override;
-        void put(const std::string &key, const Value &val) override;
+        using ST<std::string, Value>::get;
+        const Value *get(const std::string &key) const override;
+        void put(std::string key, Value val) override;
         void remove(const std::string &key) override;
         std::ptrdiff_t size() const override { return N; }
-        std::list<std::string> keys() const override;
+        std::vector<std::string> keys() const override;
         std::string longestPrefixOf(std::string_view s) const override;
-        std::list<std::string> keysWithPrefix(const std::string &pre) const override;
-        std::list<std::string> keysThatMatch(std::string_view pat) const override;
+        std::vector<std::string> keysWithPrefix(const std::string &pre) const override;
+        std::vector<std::string> keysThatMatch(std::string_view pat) const override;
     };
 }
 
@@ -56,28 +59,28 @@ auto algs4::TST<Value>::get(const Node *x, std::string_view key, std::ptrdiff_t 
 }
 
 template<typename Value>
-auto algs4::TST<Value>::put(std::unique_ptr<Node> &x, std::string_view key, const Value &val,
+auto algs4::TST<Value>::put(std::unique_ptr<Node> x, std::string_view key, Value val,
                             std::ptrdiff_t d) -> std::unique_ptr<Node> {
     char c = key[d];
     if (!x) x = std::make_unique<Node>(c);
-    if (c < x->c) x->left = put(x->left, key, val, d);
-    else if (c > x->c) x->right = put(x->right, key, val, d);
-    else if (d + 1 < std::ssize(key)) x->mid = put(x->mid, key, val, d + 1);
+    if (c < x->c) x->left = put(std::move(x->left), key, std::move(val), d);
+    else if (c > x->c) x->right = put(std::move(x->right), key, std::move(val), d);
+    else if (d + 1 < std::ssize(key)) x->mid = put(std::move(x->mid), key, std::move(val), d + 1);
     else {
         if (!x->val) ++N;
-        x->val = val;
+        x->val = std::move(val);
     }
-    return std::move(x);
+    return x;
 }
 
 template<typename Value>
-auto algs4::TST<Value>::remove(std::unique_ptr<Node> &x, std::string_view key,
+auto algs4::TST<Value>::remove(std::unique_ptr<Node> x, std::string_view key,
                                std::ptrdiff_t d) -> std::unique_ptr<Node> {
     if (!x) return nullptr;
     char c = key[d];
-    if (c < x->c) x->left = remove(x->left, key, d);
-    else if (c > x->c) x->right = remove(x->right, key, d);
-    else if (d + 1 < std::ssize(key)) x->mid = remove(x->mid, key, d + 1);
+    if (c < x->c) x->left = remove(std::move(x->left), key, d);
+    else if (c > x->c) x->right = remove(std::move(x->right), key, d);
+    else if (d + 1 < std::ssize(key)) x->mid = remove(std::move(x->mid), key, d + 1);
     else {
         if (x->val) --N;
         x->val = std::nullopt;
@@ -91,11 +94,11 @@ auto algs4::TST<Value>::remove(std::unique_ptr<Node> &x, std::string_view key,
         x->right = std::move(t->right);
         x->left = std::move(t->left);
     }
-    return std::move(x);
+    return x;
 }
 
 template<typename Value>
-void algs4::TST<Value>::collect(const Node *x, const std::string &pre, std::list<std::string> &q) const {
+void algs4::TST<Value>::collect(const Node *x, const std::string &pre, std::vector<std::string> &q) const {
     if (!x) return;
     collect(x->left.get(), pre, q);
     if (x->val) q.push_back(pre + x->c);
@@ -105,7 +108,7 @@ void algs4::TST<Value>::collect(const Node *x, const std::string &pre, std::list
 
 template<typename Value>
 void algs4::TST<Value>::collect(const Node *x, const std::string &pre, std::string_view pat,
-                                std::list<std::string> &q) const {
+                                std::vector<std::string> &q) const {
     if (!x) return;
     auto d = std::ssize(pre);
     char next = pat[d];
@@ -143,29 +146,29 @@ auto algs4::TST<Value>::extractMin(std::unique_ptr<Node> &x) -> std::unique_ptr<
 }
 
 template<typename Value>
-std::optional<Value> algs4::TST<Value>::get(const std::string &key) const {
+const Value *algs4::TST<Value>::get(const std::string &key) const {
     assert(!key.empty());
     const Node *x = get(root.get(), key, 0);
-    if (!x) return std::nullopt;
-    return x->val;
+    if (!x) return nullptr;
+    return &*x->val;
 }
 
 template<typename Value>
-void algs4::TST<Value>::put(const std::string &key, const Value &val) {
+void algs4::TST<Value>::put(std::string key, Value val) {
     assert(!key.empty());
-    root = put(root, key, val, 0);
+    root = put(std::move(root), key, std::move(val), 0);
 }
 
 template<typename Value>
 void algs4::TST<Value>::remove(const std::string &key) {
     assert(!key.empty());
-    root = remove(root, key, 0);
+    root = remove(std::move(root), key, 0);
 }
 
 template<typename Value>
-std::list<std::string> algs4::TST<Value>::keys() const {
+std::vector<std::string> algs4::TST<Value>::keys() const {
     // return keysWithPrefix(""); // Passing an empty key to get() is undefined.
-    std::list<std::string> q;
+    std::vector<std::string> q;
     collect(root.get(), "", q);
     return q;
 }
@@ -178,8 +181,8 @@ std::string algs4::TST<Value>::longestPrefixOf(std::string_view s) const {
 }
 
 template<typename Value>
-std::list<std::string> algs4::TST<Value>::keysWithPrefix(const std::string &pre) const {
-    std::list<std::string> q;
+std::vector<std::string> algs4::TST<Value>::keysWithPrefix(const std::string &pre) const {
+    std::vector<std::string> q;
     if (const Node *x = get(root.get(), pre, 0)) {
         if (x->val) q.push_back(pre);
         collect(x->mid.get(), pre, q);
@@ -188,8 +191,8 @@ std::list<std::string> algs4::TST<Value>::keysWithPrefix(const std::string &pre)
 }
 
 template<typename Value>
-std::list<std::string> algs4::TST<Value>::keysThatMatch(std::string_view pat) const {
-    std::list<std::string> q;
+std::vector<std::string> algs4::TST<Value>::keysThatMatch(std::string_view pat) const {
+    std::vector<std::string> q;
     collect(root.get(), "", pat, q);
     return q;
 }

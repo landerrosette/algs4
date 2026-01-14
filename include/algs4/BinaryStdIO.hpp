@@ -30,26 +30,26 @@ namespace algs4 {
         template<std::integral T>
         void write(T x);
 
-        template<std::integral T> requires(!std::same_as<T, bool>)
+        template<std::integral T> requires (!std::same_as<T, bool>)
         void write(T x, int r);
 
         inline void write(const std::string &x) { for (char c: x) write(c); }
 
         inline bool isEmpty() { return internal::inN < 0; }
 
-        template<typename T> requires(std::same_as<T, bool>)
+        template<typename T> requires std::same_as<T, bool>
         T read() { return internal::readBit(); }
 
-        template<std::integral T> requires(!std::same_as<T, bool> && sizeof(T) == 1)
+        template<std::integral T> requires (!std::same_as<T, bool> && sizeof(T) == 1)
         T read() { return std::to_integer<T>(internal::readByte()); }
 
-        template<std::integral T> requires(sizeof(T) > 1)
+        template<std::integral T> requires (sizeof(T) > 1)
         T read();
 
-        template<std::integral T> requires(!std::same_as<T, bool>)
+        template<std::integral T> requires (!std::same_as<T, bool>)
         T read(int r);
 
-        template<typename T> requires(std::same_as<T, std::string>)
+        template<typename T> requires std::same_as<T, std::string>
         T read();
 
         void closeOut();
@@ -123,7 +123,7 @@ void algs4::BinaryStdIO::write(T x) {
         writeByte(static_cast<std::byte>((x >> i * std::numeric_limits<unsigned char>::digits) & 0xFF));
 }
 
-template<std::integral T> requires(!std::same_as<T, bool>)
+template<std::integral T> requires (!std::same_as<T, bool>)
 void algs4::BinaryStdIO::write(T x, int r) {
     using namespace internal;
     if (r == std::numeric_limits<T>::digits + (std::numeric_limits<T>::is_signed ? 1 : 0)) {
@@ -137,7 +137,7 @@ void algs4::BinaryStdIO::write(T x, int r) {
     }
 }
 
-template<std::integral T> requires(sizeof(T) > 1)
+template<std::integral T> requires (sizeof(T) > 1)
 T algs4::BinaryStdIO::read() {
     using namespace internal;
     T x = 0;
@@ -148,7 +148,7 @@ T algs4::BinaryStdIO::read() {
     return x;
 }
 
-template<std::integral T> requires(!std::same_as<T, bool>)
+template<std::integral T> requires (!std::same_as<T, bool>)
 T algs4::BinaryStdIO::read(int r) {
     using namespace internal;
     if (r == std::numeric_limits<T>::digits + (std::numeric_limits<T>::is_signed ? 1 : 0))
@@ -162,7 +162,7 @@ T algs4::BinaryStdIO::read(int r) {
     return x;
 }
 
-template<typename T> requires(std::same_as<T, std::string>)
+template<typename T> requires std::same_as<T, std::string>
 T algs4::BinaryStdIO::read() {
     std::string s;
     while (!isEmpty()) s += read<char>();

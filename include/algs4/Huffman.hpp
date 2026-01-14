@@ -53,7 +53,7 @@ inline std::vector<std::string> algs4::Huffman::internal::buildCode(const std::s
 inline void algs4::Huffman::internal::buildCode(std::vector<std::string> &st, const std::shared_ptr<const Node> &x,
                                                 const std::string &s) {
     if (x->isLeaf()) {
-        st[x->ch] = s;
+        st[static_cast<unsigned char>(x->ch)] = s;
         return;
     }
     buildCode(st, x->left, s + '0');
@@ -63,28 +63,26 @@ inline void algs4::Huffman::internal::buildCode(std::vector<std::string> &st, co
 // Initialize priority queue with singleton trees.
 inline auto algs4::Huffman::internal::buildTrie(const std::vector<std::ptrdiff_t> &freq)
     -> std::shared_ptr<const Node> {
-    class NodeMinPQ : public PQBase<std::shared_ptr<const Node>, decltype([](const std::shared_ptr<const Node> &l,
-                                                                             const std::shared_ptr<const Node> &r) {
-                return *l > *r;
-            })> {
+    class NodeMinPQ : public PQBase<std::shared_ptr<const Node>,
+                decltype([](const std::shared_ptr<const Node> &l, const std::shared_ptr<const Node> &r) {
+                    return *l > *r;
+                })> {
     public:
-        explicit NodeMinPQ(std::ptrdiff_t maxN) : PQBase(maxN) {}
-
         auto delMin() { return delTop(); }
     };
 
-    NodeMinPQ pq(R);
+    NodeMinPQ pq;
     for (int c = 0; c < R; ++c)
         if (freq[c] > 0)
             pq.insert(std::make_shared<Node>(c, freq[c], nullptr, nullptr));
 
     // Merge two smallest trees.
     while (pq.size() > 1) {
-        auto x = *pq.delMin();
-        auto y = *pq.delMin();
+        auto x = pq.delMin();
+        auto y = pq.delMin();
         pq.insert(std::make_shared<Node>('\0', x->freq + y->freq, x, y));
     }
-    return *pq.delMin();
+    return pq.delMin();
 }
 
 // Write bitstring-encoded trie.
@@ -119,10 +117,10 @@ inline void algs4::Huffman::compress() {
     buildCode(st, root, "");
 
     writeTrie(root);
-    BinaryStdIO::write(std::ssize(input));
+    BinaryStdIO::write(static_cast<int>(std::ssize(input)));
     for (unsigned char i: input) {
-        for (const auto &code = st[i]; char j: code) {
-            if (j == '1') BinaryStdIO::write(true);
+        for (const auto &code = st[i]; char c: code) {
+            if (c == '1') BinaryStdIO::write(true);
             else BinaryStdIO::write(false);
         }
     }
@@ -132,7 +130,7 @@ inline void algs4::Huffman::compress() {
 inline void algs4::Huffman::expand() {
     using namespace internal;
     auto root = readTrie();
-    auto N = BinaryStdIO::read<std::ptrdiff_t>();
+    auto N = BinaryStdIO::read<int>();
     for (auto i = N; i > 0; --i) {
         auto x = root;
         while (!x->isLeaf()) {

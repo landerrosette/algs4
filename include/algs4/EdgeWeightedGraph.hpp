@@ -2,8 +2,10 @@
 #define ALGS4_EDGEWEIGHTEDGRAPH_HPP
 
 
+#include <algorithm>
+#include <cassert>
 #include <cstddef>
-#include <list>
+#include <vector>
 
 #include "Edge.hpp"
 #include "GraphBase.hpp"
@@ -15,13 +17,14 @@ namespace algs4 {
         explicit EdgeWeightedGraph(std::istream &in);
 
         void addEdge(const Edge &e);
-        std::list<Edge> edges() const;
+        std::vector<Edge> edges() const;
     };
 }
 
 inline algs4::EdgeWeightedGraph::EdgeWeightedGraph(std::istream &in) : GraphBase(in) {
     std::ptrdiff_t E;
     in >> E;
+    assert(E >= 0);
     for (decltype(E) i = 0; i < E; ++i) {
         int v, w;
         double weight;
@@ -32,17 +35,18 @@ inline algs4::EdgeWeightedGraph::EdgeWeightedGraph(std::istream &in) : GraphBase
 
 inline void algs4::EdgeWeightedGraph::addEdge(const Edge &e) {
     int v = e.either(), w = e.other(v);
-    adj_[v].push_front(e);
-    adj_[w].push_front(e);
+    adj_[v].push_back(e);
+    adj_[w].push_back(e);
     ++E_;
 }
 
-inline std::list<algs4::Edge> algs4::EdgeWeightedGraph::edges() const {
-    std::list<Edge> bag;
+inline std::vector<algs4::Edge> algs4::EdgeWeightedGraph::edges() const {
+    std::vector<Edge> bag;
     for (int v = 0; v < V_; ++v)
-        for (const auto &e: adj_[v])
+        for (const auto &e: adj(v))
             if (e.other(v) > v)
-                bag.push_front(e);
+                bag.push_back(e);
+    std::ranges::reverse(bag);
     return bag;
 }
 

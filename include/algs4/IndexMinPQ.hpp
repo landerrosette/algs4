@@ -29,8 +29,13 @@ namespace algs4 {
         bool isEmpty() const { return N == 0; }
         std::ptrdiff_t size() const { return N; }
         bool contains(std::ptrdiff_t k) const;
-        void insert(std::ptrdiff_t k, const Key &key);
-        void change(std::ptrdiff_t k, const Key &key);
+
+        template<typename K> requires std::constructible_from<Key, K>
+        void insert(std::ptrdiff_t k, K &&key);
+
+        template<typename K> requires std::constructible_from<Key, K>
+        void change(std::ptrdiff_t k, K &&key);
+
         std::ptrdiff_t delMin();
     };
 }
@@ -71,20 +76,22 @@ bool algs4::IndexMinPQ<Key>::contains(std::ptrdiff_t k) const {
 }
 
 template<std::totally_ordered Key>
-void algs4::IndexMinPQ<Key>::insert(std::ptrdiff_t k, const Key &key) {
+template<typename K> requires std::constructible_from<Key, K>
+void algs4::IndexMinPQ<Key>::insert(std::ptrdiff_t k, K &&key) {
     assert(k >= 0 && k < std::ssize(qp) - 1);
     assert(!contains(k));
     qp[k] = ++N;
     pq[N] = k;
-    keys[k] = key;
+    keys[k] = std::forward<K>(key);
     swim(N);
 }
 
 template<std::totally_ordered Key>
-void algs4::IndexMinPQ<Key>::change(std::ptrdiff_t k, const Key &key) {
+template<typename K> requires std::constructible_from<Key, K>
+void algs4::IndexMinPQ<Key>::change(std::ptrdiff_t k, K &&key) {
     assert(k >= 0 && k < std::ssize(qp) - 1);
     assert(contains(k));
-    keys[k] = key;
+    keys[k] = std::forward<K>(key);
     swim(qp[k]);
     sink(qp[k]);
 }

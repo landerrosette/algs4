@@ -8,7 +8,8 @@ namespace algs4 {
     namespace internal {
         template<std::totally_ordered Key, typename Value>
         struct BSTNode : public BSTNodeBase<Key, Value, BSTNode<Key, Value> > {
-            using BSTNodeBase<Key, Value, BSTNode>::BSTNodeBase;
+            BSTNode(Key key, Value val, std::ptrdiff_t N)
+                : BSTNodeBase<Key, Value, BSTNode>(std::move(key), std::move(val), N) {}
         };
     }
 
@@ -17,28 +18,28 @@ namespace algs4 {
     private:
         using Node = internal::BSTNode<Key, Value>;
 
-        std::unique_ptr<Node> put(std::unique_ptr<Node> &x, const Key &key, const Value &val);
+        std::unique_ptr<Node> put(std::unique_ptr<Node> x, Key key, Value val);
         std::unique_ptr<Node> extractMin(std::unique_ptr<Node> &x);
-        std::unique_ptr<Node> remove(std::unique_ptr<Node> &x, const Key &key);
-        std::unique_ptr<Node> removeMin(std::unique_ptr<Node> &x);
-        std::unique_ptr<Node> removeMax(std::unique_ptr<Node> &x);
+        std::unique_ptr<Node> remove(std::unique_ptr<Node> x, const Key &key);
+        std::unique_ptr<Node> removeMin(std::unique_ptr<Node> x);
+        std::unique_ptr<Node> removeMax(std::unique_ptr<Node> x);
 
     public:
-        void put(const Key &key, const Value &val) override { this->root = put(this->root, key, val); }
-        void remove(const Key &key) override { this->root = remove(this->root, key); }
-        void removeMin() override { this->root = removeMin(this->root); }
-        void removeMax() override { this->root = removeMax(this->root); }
+        void put(Key key, Value val) override { this->root = put(std::move(this->root), key, val); }
+        void remove(const Key &key) override { this->root = remove(std::move(this->root), key); }
+        void removeMin() override { this->root = removeMin(std::move(this->root)); }
+        void removeMax() override { this->root = removeMax(std::move(this->root)); }
     };
 }
 
 template<std::totally_ordered Key, typename Value>
-auto algs4::BST<Key, Value>::put(std::unique_ptr<Node> &x, const Key &key, const Value &val) -> std::unique_ptr<Node> {
-    if (!x) return std::make_unique<Node>(key, val, 1);
-    if (key < x->key) x->left = put(x->left, key, val);
-    else if (key > x->key) x->right = put(x->right, key, val);
-    else x->val = val;
+auto algs4::BST<Key, Value>::put(std::unique_ptr<Node> x, Key key, Value val) -> std::unique_ptr<Node> {
+    if (!x) return std::make_unique<Node>(std::move(key), std::move(val), 1);
+    if (key < x->key) x->left = put(std::move(x->left), std::move(key), std::move(val));
+    else if (key > x->key) x->right = put(std::move(x->right), std::move(key), std::move(val));
+    else x->val = std::move(val);
     x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
-    return std::move(x);
+    return x;
 }
 
 template<std::totally_ordered Key, typename Value>
@@ -56,10 +57,10 @@ auto algs4::BST<Key, Value>::extractMin(std::unique_ptr<Node> &x) -> std::unique
 }
 
 template<std::totally_ordered Key, typename Value>
-auto algs4::BST<Key, Value>::remove(std::unique_ptr<Node> &x, const Key &key) -> std::unique_ptr<Node> {
+auto algs4::BST<Key, Value>::remove(std::unique_ptr<Node> x, const Key &key) -> std::unique_ptr<Node> {
     if (!x) return nullptr;
-    if (key < x->key) x->left = remove(x->left, key);
-    else if (key > x->key) x->right = remove(x->right, key);
+    if (key < x->key) x->left = remove(std::move(x->left), key);
+    else if (key > x->key) x->right = remove(std::move(x->right), key);
     else {
         if (!x->right) return std::move(x->left);
         if (!x->left) return std::move(x->right);
@@ -69,25 +70,25 @@ auto algs4::BST<Key, Value>::remove(std::unique_ptr<Node> &x, const Key &key) ->
         x->left = std::move(t->left);
     }
     x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
-    return std::move(x);
+    return x;
 }
 
 template<std::totally_ordered Key, typename Value>
-auto algs4::BST<Key, Value>::removeMin(std::unique_ptr<Node> &x) -> std::unique_ptr<Node> {
+auto algs4::BST<Key, Value>::removeMin(std::unique_ptr<Node> x) -> std::unique_ptr<Node> {
     if (!x) return nullptr;
     if (!x->left) return std::move(x->right);
-    x->left = removeMin(x->left);
+    x->left = removeMin(std::move(x->left));
     x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
-    return std::move(x);
+    return x;
 }
 
 template<std::totally_ordered Key, typename Value>
-auto algs4::BST<Key, Value>::removeMax(std::unique_ptr<Node> &x) -> std::unique_ptr<Node> {
+auto algs4::BST<Key, Value>::removeMax(std::unique_ptr<Node> x) -> std::unique_ptr<Node> {
     if (!x) return nullptr;
     if (!x->right) return std::move(x->left);
-    x->right = removeMax(x->right);
+    x->right = removeMax(std::move(x->right));
     x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
-    return std::move(x);
+    return x;
 }
 
 

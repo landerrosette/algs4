@@ -3,19 +3,22 @@
 #include <istream>
 #include <ostream>
 #include <random>
+#include <utility>
 
 namespace STTestUtils {
     void init(algs4::ST<std::string, int> &st, std::istream &is, std::ostream &os) {
         std::string word;
         for (int i = 0; is >> word; ++i)
-            st.put(word, i);
+            st.put(std::move(word), i);
         os << "size = " << st.size() << std::endl;
     }
 
     // Print keys using keys().
     void listAll(const algs4::ST<std::string, int> &st, std::ostream &os) {
-        for (const auto &s: st.keys())
-            os << s << " " << st.get(s).value_or(INVALID_VALUE) << std::endl;
+        for (const auto &s: st.keys()) {
+            const int *val = st.get(s);
+            os << s << " " << (val ? *val : INVALID_VALUE) << std::endl;
+        }
     }
 
     // Remove some randomly selected keys.

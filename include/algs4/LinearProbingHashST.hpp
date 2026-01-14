@@ -21,17 +21,18 @@ namespace algs4 {
 
         explicit LinearProbingHashST(std::ptrdiff_t M) : M(M), keys_(M), vals(M) {}
 
-        std::ptrdiff_t hash(const Key &key) const { return std::hash<Key>()(key) % M; }
+        auto hash(const Key &key) const { return std::hash<Key>()(key) % M; }
         void resize(std::ptrdiff_t cap);
 
     public:
         LinearProbingHashST() : keys_(M), vals(M) {}
 
-        std::optional<Value> get(const Key &key) const override;
-        void put(const Key &key, const Value &val) override;
+        using ST<Key, Value>::get;
+        const Value *get(const Key &key) const override;
+        void put(Key key, Value val) override;
         void remove(const Key &key) override;
         std::ptrdiff_t size() const override { return N; }
-        std::list<Key> keys() const override;
+        std::vector<Key> keys() const override;
     };
 }
 
@@ -40,32 +41,32 @@ void algs4::LinearProbingHashST<Key, Value>::resize(std::ptrdiff_t cap) {
     LinearProbingHashST t(cap);
     for (decltype(M) i = 0; i < M; ++i)
         if (keys_[i])
-            t.put(*keys_[i], *vals[i]);
+            t.put(std::move(*keys_[i]), std::move(*vals[i]));
     keys_ = std::move(t.keys_);
     vals = std::move(t.vals);
     M = t.M;
 }
 
 template<typename Key, typename Value>
-std::optional<Value> algs4::LinearProbingHashST<Key, Value>::get(const Key &key) const {
+const Value *algs4::LinearProbingHashST<Key, Value>::get(const Key &key) const {
     for (auto i = hash(key); keys_[i]; i = (i + 1) % M)
         if (keys_[i] == key)
-            return vals[i];
-    return std::nullopt;
+            return &*vals[i];
+    return nullptr;
 }
 
 template<typename Key, typename Value>
-void algs4::LinearProbingHashST<Key, Value>::put(const Key &key, const Value &val) {
+void algs4::LinearProbingHashST<Key, Value>::put(Key key, Value val) {
     if (N >= M / 2) resize(2 * M);
 
     auto i = hash(key);
     for (; keys_[i]; i = (i + 1) % M)
         if (keys_[i] == key) {
-            vals[i] = val;
+            vals[i] = std::move(val);
             return;
         }
-    keys_[i] = key;
-    vals[i] = val;
+    keys_[i] = std::move(key);
+    vals[i] = std::move(val);
     ++N;
 }
 
@@ -83,7 +84,7 @@ void algs4::LinearProbingHashST<Key, Value>::remove(const Key &key) {
         keys_[i] = std::nullopt;
         vals[i] = std::nullopt;
         --N;
-        put(keyToRedo, valToRedo);
+        put(std::move(keyToRedo), std::move(valToRedo));
         i = (i + 1) % M;
     }
     --N;
@@ -91,8 +92,8 @@ void algs4::LinearProbingHashST<Key, Value>::remove(const Key &key) {
 }
 
 template<typename Key, typename Value>
-std::list<Key> algs4::LinearProbingHashST<Key, Value>::keys() const {
-    std::list<Key> queue;
+std::vector<Key> algs4::LinearProbingHashST<Key, Value>::keys() const {
+    std::vector<Key> queue;
     for (decltype(M) i = 0; i < M; ++i)
         if (keys_[i])
             queue.push_back(*keys_[i]);

@@ -5,6 +5,7 @@
 #include <cassert>
 #include <cstddef>
 #include <functional>
+#include <utility>
 #include <vector>
 
 #include "SequentialSearchST.hpp"
@@ -17,32 +18,34 @@ namespace algs4 {
         std::ptrdiff_t M; // hash table size
         std::vector<SequentialSearchST<Key, Value> > st;
 
-        std::ptrdiff_t hash(const Key &key) const { return std::hash<Key>()(key) % M; }
+        auto hash(const Key &key) const { return std::hash<Key>()(key) % M; }
 
     public:
+        SeparateChainingHashST() : SeparateChainingHashST(997) {}
         explicit SeparateChainingHashST(std::ptrdiff_t M) : M(M), st(M) { assert(M >= 0); }
 
-        std::optional<Value> get(const Key &key) const override { return st[hash(key)].get(key); }
-        void put(const Key &key, const Value &val) override { st[hash(key)].put(key, val); }
+        using ST<Key, Value>::get;
+        const Value *get(const Key &key) const override { return st[hash(key)].get(key); }
+        void put(Key key, Value val) override { st[hash(key)].put(std::move(key), std::move(val)); }
         void remove(const Key &key) override { st[hash(key)].remove(key); }
         std::ptrdiff_t size() const override;
-        std::list<Key> keys() const override;
+        std::vector<Key> keys() const override;
     };
 }
 
 template<typename Key, typename Value>
-ptrdiff_t algs4::SeparateChainingHashST<Key, Value>::size() const {
+std::ptrdiff_t algs4::SeparateChainingHashST<Key, Value>::size() const {
     std::ptrdiff_t N = 0;
-    for (decltype(M) i = 0; i < M; ++i)
-        N += st[i].size();
+    for (const auto &t: st)
+        N += t.size();
     return N;
 }
 
 template<typename Key, typename Value>
-std::list<Key> algs4::SeparateChainingHashST<Key, Value>::keys() const {
-    std::list<Key> queue;
-    for (decltype(M) i = 0; i < M; ++i) {
-        for (const auto &key: st[i].keys())
+std::vector<Key> algs4::SeparateChainingHashST<Key, Value>::keys() const {
+    std::vector<Key> queue;
+    for (const auto &t: st) {
+        for (const auto &key: t.keys())
             queue.push_back(key);
     }
     return queue;

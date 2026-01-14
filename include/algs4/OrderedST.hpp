@@ -4,8 +4,7 @@
 
 #include <concepts>
 #include <cstddef>
-#include <list>
-#include <optional>
+#include <vector>
 
 #include "ST.hpp"
 
@@ -13,18 +12,18 @@ namespace algs4 {
     template<std::totally_ordered Key, typename Value>
     class OrderedST : public ST<Key, Value> {
     public:
-        virtual std::optional<Key> min() const = 0;
-        virtual std::optional<Key> max() const = 0;
-        virtual std::optional<Key> floor(const Key &key) const = 0;
-        virtual std::optional<Key> ceiling(const Key &key) const = 0;
+        virtual const Key *min() const = 0;
+        virtual const Key *max() const = 0;
+        virtual const Key *floor(const Key &key) const = 0;
+        virtual const Key *ceiling(const Key &key) const = 0;
         virtual std::ptrdiff_t rank(const Key &key) const = 0;
-        virtual Key select(std::ptrdiff_t k) const = 0;
+        virtual const Key *select(std::ptrdiff_t k) const = 0;
         virtual void removeMin();
         virtual void removeMax();
         using ST<Key, Value>::size;
         std::ptrdiff_t size(const Key &lo, const Key &hi) const;
-        std::list<Key> keys() const override;
-        virtual std::list<Key> keys(const Key &lo, const Key &hi) const = 0;
+        std::vector<Key> keys() const override;
+        virtual std::vector<Key> keys(const Key &lo, const Key &hi) const = 0;
     };
 }
 
@@ -48,7 +47,7 @@ std::ptrdiff_t algs4::OrderedST<Key, Value>::size(const Key &lo, const Key &hi) 
 }
 
 template<std::totally_ordered Key, typename Value>
-std::list<Key> algs4::OrderedST<Key, Value>::keys() const {
+std::vector<Key> algs4::OrderedST<Key, Value>::keys() const {
     if (this->isEmpty()) return {};
     return keys(*min(), *max());
 }

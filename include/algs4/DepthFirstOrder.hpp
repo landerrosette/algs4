@@ -2,7 +2,7 @@
 #define ALGS4_DEPTHFIRSTORDER_HPP
 
 
-#include <list>
+#include <ranges>
 #include <type_traits>
 #include <vector>
 
@@ -13,23 +13,23 @@ namespace algs4 {
     class DepthFirstOrder {
     private:
         std::vector<bool> marked;
-        std::list<int> pre_, post_, reversePost_;
+        std::vector<int> pre_, post_;
 
-        template<typename T>
-        void dfs(const GraphBase<T> &G, int v);
+        template<typename EdgeType>
+        void dfs(const GraphBase<EdgeType> &G, int v);
 
     public:
-        template<typename T>
-        explicit DepthFirstOrder(const GraphBase<T> &G);
+        template<typename Edge>
+        explicit DepthFirstOrder(const GraphBase<Edge> &G);
 
-        std::list<int> pre() const { return pre_; }
-        std::list<int> post() const { return post_; }
-        std::list<int> reversePost() const { return reversePost_; }
+        auto pre() const & { return std::views::all(pre_); }
+        auto post() const & { return std::views::all(post_); }
+        auto reversePost() const & { return std::views::reverse(post_); }
     };
 }
 
-template<typename T>
-void algs4::DepthFirstOrder::dfs(const GraphBase<T> &G, int v) {
+template<typename EdgeType>
+void algs4::DepthFirstOrder::dfs(const GraphBase<EdgeType> &G, int v) {
     pre_.push_back(v);
     marked[v] = true;
     for (const auto &e: G.adj(v)) {
@@ -40,11 +40,10 @@ void algs4::DepthFirstOrder::dfs(const GraphBase<T> &G, int v) {
             dfs(G, w);
     }
     post_.push_back(v);
-    reversePost_.push_front(v);
 }
 
-template<typename T>
-algs4::DepthFirstOrder::DepthFirstOrder(const GraphBase<T> &G) : marked(G.V()) {
+template<typename EdgeType>
+algs4::DepthFirstOrder::DepthFirstOrder(const GraphBase<EdgeType> &G) : marked(G.V()) {
     for (int v = 0; v < G.V(); ++v)
         if (!marked[v])
             dfs(G, v);

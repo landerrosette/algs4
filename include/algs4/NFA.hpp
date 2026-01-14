@@ -2,9 +2,10 @@
 #define ALGS4_NFA_HPP
 
 
-#include <list>
+#include <stack>
 #include <string>
 #include <string_view>
+#include <vector>
 
 #include "Digraph.hpp"
 #include "DirectedDFS.hpp"
@@ -17,23 +18,23 @@ namespace algs4 {
         Digraph G;      // epsilon transitions
 
     public:
-        explicit NFA(std::string_view regexp);
+        explicit NFA(std::string regexp);
 
         bool recognizes(std::string_view txt) const;
     };
 }
 
-inline algs4::NFA::NFA(std::string_view regexp) : re(regexp), M(static_cast<int>(std::ssize(re))), G(M + 1) {
-    std::list<int> ops;
+inline algs4::NFA::NFA(std::string regexp) : re(std::move(regexp)), M(static_cast<int>(std::ssize(re))), G(M + 1) {
+    std::stack<int> ops;
     for (int i = 0; i < M; ++i) {
         int lp = i; // left position
-        if (re[i] == '(' || re[i] == '|') ops.push_front(i);
+        if (re[i] == '(' || re[i] == '|') ops.push(i);
         else if (re[i] == ')') {
-            int orPos = ops.front();
-            ops.pop_front();
+            int orPos = ops.top();
+            ops.pop();
             if (re[orPos] == '|') {
-                lp = ops.front();
-                ops.pop_front();
+                lp = ops.top();
+                ops.pop();
                 G.addEdge(lp, orPos + 1);
                 G.addEdge(orPos, i);
             } else lp = orPos;
@@ -47,24 +48,23 @@ inline algs4::NFA::NFA(std::string_view regexp) : re(regexp), M(static_cast<int>
 }
 
 inline bool algs4::NFA::recognizes(std::string_view txt) const {
-    std::list<int> pc;
+    std::vector<int> pc;
     DirectedDFS dfs(G, 0);
     for (int v = 0; v < G.V(); ++v)
-        if (dfs.marked(v)) pc.push_front(v);
+        if (dfs.marked(v)) pc.push_back(v);
 
     // Compute possible NFA states for txt[i+1].
     for (char c: txt) {
-        std::list<int> match;
+        std::vector<int> match;
         for (int v: pc)
             if (v < M)
-                if (re[v] == c || re[v] == '.') match.push_front(v + 1);
-        pc = std::list<int>();
+                if (re[v] == c || re[v] == '.') match.push_back(v + 1);
+        pc.clear();
         dfs = DirectedDFS(G, match);
         for (int v = 0; v < G.V(); ++v)
-            if (dfs.marked(v)) pc.push_front(v);
+            if (dfs.marked(v)) pc.push_back(v);
     }
-    for (int v: pc)
-        if (v == M) return true;
+    for (int v: pc) if (v == M) return true;
     return false;
 }
 

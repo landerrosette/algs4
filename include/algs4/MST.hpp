@@ -2,16 +2,23 @@
 #define ALGS4_MST_HPP
 
 
-#include <list>
+#include <vector>
 
 #include "Edge.hpp"
 
 namespace algs4 {
     class MST {
+    protected:
+        MST() = default;
+        MST(const MST &) = default;
+        MST &operator=(const MST &) = default;
+        MST(MST &&) noexcept = default;
+        MST &operator=(MST &&) noexcept = default;
+
     public:
         virtual ~MST() = default;
 
-        virtual std::list<Edge> edges() const = 0;
+        virtual std::vector<Edge> edges() const = 0;
         double weight() const;
     };
 }

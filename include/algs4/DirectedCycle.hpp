@@ -2,8 +2,7 @@
 #define ALGS4_DIRECTEDCYCLE_HPP
 
 
-#include <list>
-#include <optional>
+#include <ranges>
 #include <type_traits>
 #include <vector>
 
@@ -11,26 +10,26 @@
 #include "GraphBase.hpp"
 
 namespace algs4 {
-    template<typename T>
+    template<typename EdgeType>
     class DirectedCycle {
     private:
         std::vector<bool> marked;
-        std::vector<std::optional<T> > edgeTo;
-        std::list<T> cycle_;
+        std::vector<EdgeType> edgeTo;
+        std::vector<EdgeType> cycle_;
         std::vector<bool> onStack; // vertices on recursive call stack
 
-        void dfs(const GraphBase<T> &G, int v);
+        void dfs(const GraphBase<EdgeType> &G, int v);
 
     public:
-        explicit DirectedCycle(const GraphBase<T> &G);
+        explicit DirectedCycle(const GraphBase<EdgeType> &G);
 
         bool hasCycle() const { return !cycle_.empty(); }
-        std::list<T> cycle() const { return cycle_; }
+        auto cycle() const & { return std::views::reverse(cycle_); }
     };
 }
 
-template<typename T>
-void algs4::DirectedCycle<T>::dfs(const GraphBase<T> &G, int v) {
+template<typename EdgeType>
+void algs4::DirectedCycle<EdgeType>::dfs(const GraphBase<EdgeType> &G, int v) {
     onStack[v] = true;
     marked[v] = true;
     for (const auto &e: G.adj(v)) {
@@ -44,22 +43,23 @@ void algs4::DirectedCycle<T>::dfs(const GraphBase<T> &G, int v) {
         } else if (onStack[w]) {
             if constexpr (std::is_same_v<std::decay_t<decltype(e)>, DirectedEdge>) {
                 auto x = e;
-                for (; x.from() != w; x = *edgeTo[x.from()])
-                    cycle_.push_front(x);
-                cycle_.push_front(x);
+                for (; x.from() != w; x = edgeTo[x.from()])
+                    cycle_.push_back(x);
+                cycle_.push_back(x);
             } else {
-                for (int x = v; x != w; x = *edgeTo[x])
-                    cycle_.push_front(x);
-                cycle_.push_front(w);
-                cycle_.push_front(v);
+                for (int x = v; x != w; x = edgeTo[x])
+                    cycle_.push_back(x);
+                cycle_.push_back(w);
+                cycle_.push_back(v);
             }
         }
     }
     onStack[v] = false;
 }
 
-template<typename T>
-algs4::DirectedCycle<T>::DirectedCycle(const GraphBase<T> &G) : marked(G.V()), edgeTo(G.V()), onStack(G.V()) {
+template<typename EdgeType>
+algs4::DirectedCycle<EdgeType>::DirectedCycle(const GraphBase<EdgeType> &G) : marked(G.V()), edgeTo(G.V()),
+                                                                              onStack(G.V()) {
     for (int v = 0; v < G.V(); ++v)
         if (!marked[v])
             dfs(G, v);

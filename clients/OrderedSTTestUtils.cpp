@@ -10,8 +10,9 @@
 namespace STTestUtils {
     void init(algs4::OrderedST<std::string, int> &st, std::istream &is, std::ostream &os) {
         init(static_cast<algs4::ST<std::string, int> &>(st), is, os);
-        os << "min  = " << st.min().value_or(INVALID_KEY) << std::endl;
-        os << "max  = " << st.max().value_or(INVALID_KEY) << std::endl;
+        const auto *min = st.min(), *max = st.max();
+        os << "min  = " << (min ? *min : INVALID_KEY) << std::endl;
+        os << "max  = " << (max ? *max : INVALID_KEY) << std::endl;
     }
 
     // Remove the smallest keys.
@@ -27,7 +28,7 @@ namespace STTestUtils {
     // Remove all the remaining keys.
     void removeAll(algs4::OrderedST<std::string, int> &st, std::ostream &os) {
         while (!st.isEmpty())
-            st.remove(st.select(st.size() / 2));
+            st.remove(*st.select(st.size() / 2));
         os << "After removing the remaining keys, size = " << st.size() << std::endl;
     }
 
@@ -36,7 +37,7 @@ namespace STTestUtils {
         os << "Testing select" << std::endl;
         os << "--------------------------------" << std::endl;
         for (int i = 0; i < st.size(); ++i)
-            os << i << " " << st.select(i) << std::endl;
+            os << i << " " << *st.select(i) << std::endl;
         os << std::endl;
 
         // Test rank, floor, ceiling.
@@ -44,10 +45,11 @@ namespace STTestUtils {
         os << "-------------------" << std::endl;
         for (char i = 'A'; i <= 'Z'; ++i) {
             std::string s(1, i);
+            const auto *floor = st.floor(s), *ceiling = st.ceiling(s);
             os << std::setw(2) << s << " "
                     << std::setw(4) << st.rank(s) << " "
-                    << std::setw(4) << st.floor(s).value_or(INVALID_KEY) << " "
-                    << std::setw(4) << st.ceiling(s).value_or(INVALID_KEY) << std::endl;
+                    << std::setw(4) << (floor ? *floor : INVALID_KEY) << " "
+                    << std::setw(4) << (ceiling ? *ceiling : INVALID_KEY) << std::endl;
         }
         os << std::endl;
 
