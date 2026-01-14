@@ -141,7 +141,7 @@ int main() {
     st.put("A", 1);
     st.put("B", 2);
     
-    if (const auto &val = st.get("A"))
+    if (const auto *val = st.get("A"))
         std::cout << "Key A has value: " << *val << std::endl;
     
     return 0;
