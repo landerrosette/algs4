@@ -3,7 +3,6 @@
 
 
 #include <cassert>
-#include <cmath>
 #include <compare>
 #include <limits>
 
@@ -23,7 +22,7 @@ namespace algs4 {
 
     public:
         constexpr double weight() const { return weight_; }
-        constexpr explicit operator bool() const { return !std::isnan(weight_); }
+        constexpr explicit operator bool() const { return weight_ == weight_; }
     };
 
     constexpr auto operator<=>(const EdgeBase &l, const EdgeBase &r) { return l.weight() <=> r.weight(); }
@@ -33,7 +32,7 @@ namespace algs4 {
 constexpr algs4::EdgeBase::EdgeBase(int v, int w, double weight) : v(v), w(w), weight_(weight) {
     assert(v >= 0);
     assert(w >= 0);
-    assert(!std::isnan(weight));
+    assert(weight == weight);
 }
 
 
