@@ -16,14 +16,14 @@ namespace algs4 {
         std::vector<std::vector<std::ptrdiff_t> > dfa;
 
     public:
-        explicit KMP(std::string pat);
+        constexpr explicit KMP(std::string pat);
 
-        std::ptrdiff_t search(std::string_view txt) const override;
+        constexpr std::ptrdiff_t search(std::string_view txt) const override;
     };
 }
 
 // Build DFA from pattern.
-inline algs4::KMP::KMP(std::string pat) : pat(std::move(pat)) {
+constexpr algs4::KMP::KMP(std::string pat) : pat(std::move(pat)) {
     auto M = std::ssize(this->pat);
     int R = 256;
     dfa.assign(R, std::vector<std::ptrdiff_t>(M));
@@ -36,7 +36,7 @@ inline algs4::KMP::KMP(std::string pat) : pat(std::move(pat)) {
     }
 }
 
-inline std::ptrdiff_t algs4::KMP::search(std::string_view txt) const {
+constexpr std::ptrdiff_t algs4::KMP::search(std::string_view txt) const {
     auto N = std::ssize(txt), M = std::ssize(pat);
     decltype(N) i, j;
     for (i = 0, j = 0; i < N && j < M; ++i) j = dfa[static_cast<unsigned char>(txt[i])][j];

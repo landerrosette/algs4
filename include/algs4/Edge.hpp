@@ -13,17 +13,17 @@ namespace algs4 {
         friend std::ostream &operator<<(std::ostream &os, const Edge &e);
 
     public:
-        Edge() = default;
-        Edge(int v, int w, double weight) : EdgeBase(v, w, weight) {}
+        constexpr Edge() = default;
+        constexpr Edge(int v, int w, double weight) : EdgeBase(v, w, weight) {}
 
-        int either() const { return v; }
-        int other(int vertex) const;
+        constexpr int either() const { return v; }
+        constexpr int other(int vertex) const;
     };
 
     std::ostream &operator<<(std::ostream &os, const Edge &e);
 }
 
-inline int algs4::Edge::other(int vertex) const {
+constexpr int algs4::Edge::other(int vertex) const {
     if (vertex == v) return w;
     else if (vertex == w) return v;
     else

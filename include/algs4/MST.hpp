@@ -9,21 +9,21 @@
 namespace algs4 {
     class MST {
     protected:
-        MST() = default;
-        MST(const MST &) = default;
-        MST &operator=(const MST &) = default;
-        MST(MST &&) noexcept = default;
-        MST &operator=(MST &&) noexcept = default;
+        constexpr MST() = default;
+        constexpr MST(const MST &) = default;
+        constexpr MST &operator=(const MST &) = default;
+        constexpr MST(MST &&) noexcept = default;
+        constexpr MST &operator=(MST &&) noexcept = default;
 
     public:
-        virtual ~MST() = default;
+        virtual constexpr ~MST() = default;
 
-        virtual std::vector<Edge> edges() const = 0;
-        double weight() const;
+        virtual constexpr std::vector<Edge> edges() const = 0;
+        constexpr double weight() const;
     };
 }
 
-inline double algs4::MST::weight() const {
+constexpr double algs4::MST::weight() const {
     double weight = 0.0;
     for (const auto &e: edges())
         weight += e.weight();

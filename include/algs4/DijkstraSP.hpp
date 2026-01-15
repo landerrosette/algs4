@@ -10,19 +10,19 @@ namespace algs4 {
     private:
         IndexMinPQ<double> pq;
 
-        void onEdgeRelaxed(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) override;
+        constexpr void onEdgeRelaxed(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) override;
 
     public:
-        DijkstraSP(const EdgeWeightedDigraph &G, int s);
+        constexpr DijkstraSP(const EdgeWeightedDigraph &G, int s);
     };
 }
 
-inline void algs4::DijkstraSP::onEdgeRelaxed(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) {
+constexpr void algs4::DijkstraSP::onEdgeRelaxed(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) {
     if (pq.contains(w)) pq.change(w, distTo_[w]);
     else pq.insert(w, distTo_[w]);
 }
 
-inline algs4::DijkstraSP::DijkstraSP(const EdgeWeightedDigraph &G, int s) : SP(G, s), pq(G.V()) {
+constexpr algs4::DijkstraSP::DijkstraSP(const EdgeWeightedDigraph &G, int s) : SP(G, s), pq(G.V()) {
     pq.insert(s, 0.0);
     while (!pq.isEmpty())
         relax(G, static_cast<int>(pq.delMin()));

@@ -8,11 +8,11 @@
 namespace algs4 {
     class CC : public CCBase {
     public:
-        explicit CC(const Graph &G);
+        constexpr explicit CC(const Graph &G);
     };
 }
 
-inline algs4::CC::CC(const Graph &G) : CCBase(G) {
+constexpr algs4::CC::CC(const Graph &G) : CCBase(G) {
     for (int s = 0; s < G.V(); ++s) {
         if (!marked[s]) {
             dfs(G, s);

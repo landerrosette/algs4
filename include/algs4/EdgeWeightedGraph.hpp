@@ -13,11 +13,11 @@
 namespace algs4 {
     class EdgeWeightedGraph : public GraphBase<Edge> {
     public:
-        explicit EdgeWeightedGraph(int V) : GraphBase(V) {}
+        constexpr explicit EdgeWeightedGraph(int V) : GraphBase(V) {}
         explicit EdgeWeightedGraph(std::istream &in);
 
-        void addEdge(const Edge &e);
-        std::vector<Edge> edges() const;
+        constexpr void addEdge(const Edge &e);
+        constexpr std::vector<Edge> edges() const;
     };
 }
 
@@ -33,14 +33,14 @@ inline algs4::EdgeWeightedGraph::EdgeWeightedGraph(std::istream &in) : GraphBase
     }
 }
 
-inline void algs4::EdgeWeightedGraph::addEdge(const Edge &e) {
+constexpr void algs4::EdgeWeightedGraph::addEdge(const Edge &e) {
     int v = e.either(), w = e.other(v);
     adj_[v].push_back(e);
     adj_[w].push_back(e);
     ++E_;
 }
 
-inline std::vector<algs4::Edge> algs4::EdgeWeightedGraph::edges() const {
+constexpr std::vector<algs4::Edge> algs4::EdgeWeightedGraph::edges() const {
     std::vector<Edge> bag;
     for (int v = 0; v < V_; ++v)
         for (const auto &e: adj(v))

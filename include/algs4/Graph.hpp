@@ -10,10 +10,10 @@
 namespace algs4 {
     class Graph : public GraphBase<int> {
     public:
-        explicit Graph(int V) : GraphBase(V) {}
+        constexpr explicit Graph(int V) : GraphBase(V) {}
         explicit Graph(std::istream &in);
 
-        void addEdge(int v, int w);
+        constexpr void addEdge(int v, int w);
     };
 }
 
@@ -28,7 +28,7 @@ inline algs4::Graph::Graph(std::istream &in) : GraphBase(in) {
     }
 }
 
-inline void algs4::Graph::addEdge(int v, int w) {
+constexpr void algs4::Graph::addEdge(int v, int w) {
     assert(v >= 0 && v < V_);
     assert(w >= 0 && w < V_);
     adj_[v].push_back(w);

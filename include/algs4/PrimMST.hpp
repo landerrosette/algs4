@@ -18,16 +18,16 @@ namespace algs4 {
         std::vector<bool> marked;   // true if v on tree
         IndexMinPQ<double> pq;      // eligible crossing edges
 
-        void visit(const EdgeWeightedGraph &G, int v);
+        constexpr void visit(const EdgeWeightedGraph &G, int v);
 
     public:
-        explicit PrimMST(const EdgeWeightedGraph &G);
+        constexpr explicit PrimMST(const EdgeWeightedGraph &G);
 
-        std::vector<Edge> edges() const override;
+        constexpr std::vector<Edge> edges() const override;
     };
 }
 
-inline void algs4::PrimMST::visit(const EdgeWeightedGraph &G, int v) {
+constexpr void algs4::PrimMST::visit(const EdgeWeightedGraph &G, int v) {
     marked[v] = true;
     for (const auto &e: G.adj(v)) {
         int w = e.other(v);
@@ -41,7 +41,7 @@ inline void algs4::PrimMST::visit(const EdgeWeightedGraph &G, int v) {
     }
 }
 
-inline algs4::PrimMST::PrimMST(const EdgeWeightedGraph &G)
+constexpr algs4::PrimMST::PrimMST(const EdgeWeightedGraph &G)
     : edgeTo(G.V()), distTo(G.V(), std::numeric_limits<double>::infinity()), marked(G.V()), pq(G.V()) {
     distTo[0] = 0.0;
     pq.insert(0, 0.0);
@@ -49,7 +49,7 @@ inline algs4::PrimMST::PrimMST(const EdgeWeightedGraph &G)
         visit(G, static_cast<int>(pq.delMin()));
 }
 
-inline std::vector<algs4::Edge> algs4::PrimMST::edges() const {
+constexpr std::vector<algs4::Edge> algs4::PrimMST::edges() const {
     std::vector<Edge> mst;
     for (int v = 1; v < std::ssize(edgeTo); ++v)
         mst.push_back(edgeTo[v]);

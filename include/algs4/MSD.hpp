@@ -14,27 +14,28 @@
 namespace algs4 {
     namespace MSD {
         namespace internal {
-            constexpr int R = 256;               // radix
-            constexpr int M = 15;                // cutoff for small subarrays
-            inline std::vector<std::string> aux; // auxiliary array for distribution
+            constexpr int R = 256; // radix
+            constexpr int M = 15;  // cutoff for small subarrays
 
-            void sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi, std::ptrdiff_t d);
+            constexpr void sort(std::vector<std::string> &a, std::vector<std::string> &aux, std::ptrdiff_t lo,
+                                std::ptrdiff_t hi, std::ptrdiff_t d);
 
             namespace Insertion {
                 namespace internal {
-                    bool less(std::string_view v, std::string_view w, std::ptrdiff_t d);
+                    constexpr bool less(std::string_view v, std::string_view w, std::ptrdiff_t d);
                 }
 
-                void sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi, std::ptrdiff_t d);
+                constexpr void sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
+                                    std::ptrdiff_t d);
             }
         }
 
-        void sort(std::vector<std::string> &a);
+        constexpr void sort(std::vector<std::string> &a);
     }
 }
 
-inline void algs4::MSD::internal::sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
-                                       std::ptrdiff_t d) {
+constexpr void algs4::MSD::internal::sort(std::vector<std::string> &a, std::vector<std::string> &aux, std::ptrdiff_t lo,
+                                          std::ptrdiff_t hi, std::ptrdiff_t d) {
     using namespace internal;
     using namespace StringSortUtils::internal;
     if (hi <= lo + M) {
@@ -51,26 +52,27 @@ inline void algs4::MSD::internal::sort(std::vector<std::string> &a, std::ptrdiff
     // Copy back.
     for (auto i = lo; i <= hi; ++i) a[i] = std::move(aux[i - lo]);
     // Recursively sort for each character value.
-    for (int r = 0; r < R; ++r) sort(a, lo + count[r], lo + count[r + 1] - 1, d + 1);
+    for (int r = 0; r < R; ++r) sort(a, aux, lo + count[r], lo + count[r + 1] - 1, d + 1);
 }
 
-inline bool algs4::MSD::internal::Insertion::internal::less(std::string_view v, std::string_view w, std::ptrdiff_t d) {
+constexpr bool algs4::MSD::internal::Insertion::internal::less(std::string_view v, std::string_view w,
+                                                               std::ptrdiff_t d) {
     return SortUtils::internal::less(v.substr(d), w.substr(d));
 }
 
-inline void algs4::MSD::internal::Insertion::sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
-                                                  std::ptrdiff_t d) {
+constexpr void algs4::MSD::internal::Insertion::sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
+                                                     std::ptrdiff_t d) {
     using namespace internal;
     using namespace SortUtils::internal;
-    for (auto i = lo; i < hi; ++i)
+    for (auto i = lo; i <= hi; ++i)
         for (auto j = i; j > lo && less(a[j], a[j - 1], d); --j)
             exch(a, j, j - 1);
 }
 
-inline void algs4::MSD::sort(std::vector<std::string> &a) {
+constexpr void algs4::MSD::sort(std::vector<std::string> &a) {
     auto N = std::ssize(a);
-    internal::aux.resize(N);
-    internal::sort(a, 0, N - 1, 0);
+    std::vector<std::string> aux(N);
+    internal::sort(a, aux, 0, N - 1, 0);
 }
 
 

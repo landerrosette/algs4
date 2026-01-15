@@ -17,18 +17,18 @@ namespace algs4 {
         std::ptrdiff_t E_;                        // number of edges
         std::vector<std::vector<EdgeType> > adj_; // adjacency lists
 
-        explicit GraphBase(int V) : V_(V), E_(0), adj_(V) { assert(V >= 0); }
+        constexpr explicit GraphBase(int V) : V_(V), E_(0), adj_(V) { assert(V >= 0); }
         explicit GraphBase(std::istream &in);
-        ~GraphBase() = default;
-        GraphBase(const GraphBase &) = default;
-        GraphBase &operator=(const GraphBase &) = default;
-        GraphBase(GraphBase &&) noexcept = default;
-        GraphBase &operator=(GraphBase &&) noexcept = default;
+        constexpr ~GraphBase() = default;
+        constexpr GraphBase(const GraphBase &) = default;
+        constexpr GraphBase &operator=(const GraphBase &) = default;
+        constexpr GraphBase(GraphBase &&) noexcept = default;
+        constexpr GraphBase &operator=(GraphBase &&) noexcept = default;
 
     public:
-        int V() const { return V_; }
-        auto E() const { return E_; }
-        auto adj(int v) const & { return std::views::reverse(adj_[v]); }
+        constexpr int V() const { return V_; }
+        constexpr auto E() const { return E_; }
+        constexpr auto adj(int v) const &;
     };
 }
 
@@ -38,6 +38,12 @@ algs4::GraphBase<EdgeType>::GraphBase(std::istream &in) : GraphBase([&in] {
     in >> i;
     return i;
 }()) {}
+
+template<typename EdgeType>
+constexpr auto algs4::GraphBase<EdgeType>::adj(int v) const & {
+    assert(v >= 0 && v < V());
+    return std::views::reverse(adj_[v]);
+}
 
 template<typename EdgeType>
 std::ostream &operator<<(std::ostream &os, const algs4::GraphBase<EdgeType> &G) {

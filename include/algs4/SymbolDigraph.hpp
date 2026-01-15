@@ -18,7 +18,7 @@
 #include "ST.hpp"
 
 namespace algs4 {
-    template<std::derived_from<ST<std::string, int>> STType = RedBlackBST<std::string, int> >
+    template<std::derived_from<ST<std::string, int> > STType = RedBlackBST<std::string, int> >
     class SymbolDigraph {
     private:
         STType st;                     // symbol -> index
@@ -34,7 +34,7 @@ namespace algs4 {
     };
 }
 
-template<std::derived_from<algs4::ST<std::string, int>> STType>
+template<std::derived_from<algs4::ST<std::string, int> > STType>
 algs4::SymbolDigraph<STType>::SymbolDigraph(const std::filesystem::path &filepath, char sp) {
     std::ifstream in(filepath);
     if (!in.is_open())
@@ -65,7 +65,7 @@ algs4::SymbolDigraph<STType>::SymbolDigraph(const std::filesystem::path &filepat
     }
 }
 
-template<std::derived_from<algs4::ST<std::string, int>> STType>
+template<std::derived_from<algs4::ST<std::string, int> > STType>
 std::string_view algs4::SymbolDigraph<STType>::name(int v) const & {
     assert(v >= 0 && v < G_->V());
     return keys[v];

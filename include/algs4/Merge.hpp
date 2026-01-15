@@ -13,47 +13,47 @@ namespace algs4 {
     namespace Merge {
         namespace internal {
             template<std::totally_ordered T>
-            std::vector<T> aux;
+            constexpr void merge(std::vector<T> &a, std::vector<T> &aux, std::ptrdiff_t lo, std::ptrdiff_t mid,
+                                 std::ptrdiff_t hi);
 
             template<std::totally_ordered T>
-            void merge(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t mid, std::ptrdiff_t hi);
-
-            template<std::totally_ordered T>
-            void sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi);
+            constexpr void sort(std::vector<T> &a, std::vector<T> &aux, std::ptrdiff_t lo, std::ptrdiff_t hi);
         }
 
         template<std::totally_ordered T>
-        void sort(std::vector<T> &a);
+        constexpr void sort(std::vector<T> &a);
     }
 }
 
 template<std::totally_ordered T>
-void algs4::Merge::internal::merge(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t mid, std::ptrdiff_t hi) {
+constexpr void algs4::Merge::internal::merge(std::vector<T> &a, std::vector<T> &aux, std::ptrdiff_t lo,
+                                             std::ptrdiff_t mid, std::ptrdiff_t hi) {
     using namespace internal;
     using namespace SortUtils::internal;
     auto i = lo, j = mid + 1;
-    for (auto k = lo; k <= hi; ++k) aux<T>[k] = std::move(a[k]);
+    for (auto k = lo; k <= hi; ++k) aux[k] = std::move(a[k]);
     for (auto k = lo; k <= hi; ++k) {
-        if (i > mid) a[k] = std::move(aux<T>[j++]);
-        else if (j > hi) a[k] = std::move(aux<T>[i++]);
-        else if (less(aux<T>[j], aux<T>[i])) a[k] = std::move(aux<T>[j++]);
-        else a[k] = std::move(aux<T>[i++]);
+        if (i > mid) a[k] = std::move(aux[j++]);
+        else if (j > hi) a[k] = std::move(aux[i++]);
+        else if (less(aux[j], aux[i])) a[k] = std::move(aux[j++]);
+        else a[k] = std::move(aux[i++]);
     }
 }
 
 template<std::totally_ordered T>
-void algs4::Merge::internal::sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
+constexpr void algs4::Merge::internal::sort(std::vector<T> &a, std::vector<T> &aux, std::ptrdiff_t lo,
+                                            std::ptrdiff_t hi) {
     if (hi <= lo) return;
     auto mid = lo + (hi - lo) / 2;
-    sort(a, lo, mid);
-    sort(a, mid + 1, hi);
-    merge(a, lo, mid, hi);
+    sort(a, aux, lo, mid);
+    sort(a, aux, mid + 1, hi);
+    merge(a, aux, lo, mid, hi);
 }
 
 template<std::totally_ordered T>
-void algs4::Merge::sort(std::vector<T> &a) {
-    internal::aux<T>.resize(std::ssize(a));
-    internal::sort(a, 0, std::ssize(a) - 1);
+constexpr void algs4::Merge::sort(std::vector<T> &a) {
+    std::vector<T> aux(std::ssize(a));
+    internal::sort(a, aux, 0, std::ssize(a) - 1);
 }
 
 

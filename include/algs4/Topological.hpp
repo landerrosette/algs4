@@ -16,15 +16,15 @@ namespace algs4 {
 
     public:
         template<typename EdgeType>
-        explicit Topological(const GraphBase<EdgeType> &G);
+        constexpr explicit Topological(const GraphBase<EdgeType> &G);
 
-        auto order() const & { return std::views::all(order_); }
-        bool isDAG() const { return !order_.empty(); }
+        constexpr auto order() const & { return std::views::all(order_); }
+        constexpr bool isDAG() const { return !order_.empty(); }
     };
 }
 
 template<typename EdgeType>
-algs4::Topological::Topological(const GraphBase<EdgeType> &G) {
+constexpr algs4::Topological::Topological(const GraphBase<EdgeType> &G) {
     DirectedCycle cyclefinder(G);
     if (!cyclefinder.hasCycle()) {
         DepthFirstOrder dfs(G);

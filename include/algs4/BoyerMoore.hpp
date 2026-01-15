@@ -16,21 +16,21 @@ namespace algs4 {
         std::string pat;
 
     public:
-        explicit BoyerMoore(std::string pat);
+        constexpr explicit BoyerMoore(std::string pat);
 
-        std::ptrdiff_t search(std::string_view txt) const override;
+        constexpr std::ptrdiff_t search(std::string_view txt) const override;
     };
 }
 
 // Compute skip table.
-inline algs4::BoyerMoore::BoyerMoore(std::string pat) : pat(std::move(pat)) {
+constexpr algs4::BoyerMoore::BoyerMoore(std::string pat) : pat(std::move(pat)) {
     auto M = std::ssize(this->pat);
     int R = 256;
     right.assign(R, -1);
     for (decltype(M) j = 0; j < M; ++j) right[static_cast<unsigned char>(this->pat[j])] = j;
 }
 
-inline std::ptrdiff_t algs4::BoyerMoore::search(std::string_view txt) const {
+constexpr std::ptrdiff_t algs4::BoyerMoore::search(std::string_view txt) const {
     auto N = std::ssize(txt), M = std::ssize(pat);
     // Does the pattern match the text at position i?
     for (decltype(N) skip, i = 0; i <= N - M; i += skip) {

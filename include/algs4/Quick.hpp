@@ -14,10 +14,10 @@ namespace algs4 {
     namespace Quick {
         namespace internal {
             template<std::totally_ordered T>
-            std::ptrdiff_t partition(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi);
+            constexpr std::ptrdiff_t partition(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi);
 
             template<std::totally_ordered T>
-            void sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi);
+            constexpr void sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi);
         }
 
         template<std::totally_ordered T>
@@ -26,7 +26,7 @@ namespace algs4 {
 }
 
 template<std::totally_ordered T>
-std::ptrdiff_t algs4::Quick::internal::partition(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
+constexpr std::ptrdiff_t algs4::Quick::internal::partition(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
     using namespace SortUtils::internal;
     auto i = lo, j = hi + 1;
     T v = a[lo];
@@ -42,7 +42,7 @@ std::ptrdiff_t algs4::Quick::internal::partition(std::vector<T> &a, std::ptrdiff
 }
 
 template<std::totally_ordered T>
-void algs4::Quick::internal::sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
+constexpr void algs4::Quick::internal::sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
     if (hi <= lo) return;
     auto j = partition(a, lo, hi);
     sort(a, lo, j - 1);

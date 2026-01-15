@@ -18,30 +18,32 @@ namespace algs4 {
         std::vector<std::ptrdiff_t> qp;        // inverse: qp[pq[i]] = pq[qp[i]] = i
         std::vector<std::optional<Key> > keys; // items with priorities
 
-        bool greater(std::ptrdiff_t i, std::ptrdiff_t j) const { return keys[pq[i]] > keys[pq[j]]; }
-        void exch(std::ptrdiff_t i, std::ptrdiff_t j);
-        void swim(std::ptrdiff_t k);
-        void sink(std::ptrdiff_t k);
+        constexpr bool greater(std::ptrdiff_t i, std::ptrdiff_t j) const { return keys[pq[i]] > keys[pq[j]]; }
+        constexpr void exch(std::ptrdiff_t i, std::ptrdiff_t j);
+        constexpr void swim(std::ptrdiff_t k);
+        constexpr void sink(std::ptrdiff_t k);
 
     public:
-        explicit IndexMinPQ(std::ptrdiff_t maxN) : pq(maxN + 1), qp(maxN + 1, -1), keys(maxN + 1) { assert(maxN >= 0); }
+        constexpr explicit IndexMinPQ(std::ptrdiff_t maxN) : pq(maxN + 1), qp(maxN + 1, -1), keys(maxN + 1) {
+            assert(maxN >= 0);
+        }
 
-        bool isEmpty() const { return N == 0; }
-        std::ptrdiff_t size() const { return N; }
-        bool contains(std::ptrdiff_t k) const;
+        constexpr bool isEmpty() const { return N == 0; }
+        constexpr std::ptrdiff_t size() const { return N; }
+        constexpr bool contains(std::ptrdiff_t k) const;
 
         template<typename K> requires std::constructible_from<Key, K>
-        void insert(std::ptrdiff_t k, K &&key);
+        constexpr void insert(std::ptrdiff_t k, K &&key);
 
         template<typename K> requires std::constructible_from<Key, K>
-        void change(std::ptrdiff_t k, K &&key);
+        constexpr void change(std::ptrdiff_t k, K &&key);
 
-        std::ptrdiff_t delMin();
+        constexpr std::ptrdiff_t delMin();
     };
 }
 
 template<std::totally_ordered Key>
-void algs4::IndexMinPQ<Key>::exch(std::ptrdiff_t i, std::ptrdiff_t j) {
+constexpr void algs4::IndexMinPQ<Key>::exch(std::ptrdiff_t i, std::ptrdiff_t j) {
     using std::swap;
     swap(pq[i], pq[j]);
     qp[pq[i]] = i;
@@ -49,7 +51,7 @@ void algs4::IndexMinPQ<Key>::exch(std::ptrdiff_t i, std::ptrdiff_t j) {
 }
 
 template<std::totally_ordered Key>
-void algs4::IndexMinPQ<Key>::swim(std::ptrdiff_t k) {
+constexpr void algs4::IndexMinPQ<Key>::swim(std::ptrdiff_t k) {
     while (k > 1 && greater(k / 2, k)) {
         exch(k / 2, k);
         k = k / 2;
@@ -57,7 +59,7 @@ void algs4::IndexMinPQ<Key>::swim(std::ptrdiff_t k) {
 }
 
 template<std::totally_ordered Key>
-void algs4::IndexMinPQ<Key>::sink(std::ptrdiff_t k) {
+constexpr void algs4::IndexMinPQ<Key>::sink(std::ptrdiff_t k) {
     while (2 * k <= N) {
         auto j = 2 * k;
         if (j < N && greater(j, j + 1))
@@ -70,14 +72,14 @@ void algs4::IndexMinPQ<Key>::sink(std::ptrdiff_t k) {
 }
 
 template<std::totally_ordered Key>
-bool algs4::IndexMinPQ<Key>::contains(std::ptrdiff_t k) const {
+constexpr bool algs4::IndexMinPQ<Key>::contains(std::ptrdiff_t k) const {
     assert(k >= 0 && k < std::ssize(qp) - 1);
     return qp[k] != -1;
 }
 
 template<std::totally_ordered Key>
 template<typename K> requires std::constructible_from<Key, K>
-void algs4::IndexMinPQ<Key>::insert(std::ptrdiff_t k, K &&key) {
+constexpr void algs4::IndexMinPQ<Key>::insert(std::ptrdiff_t k, K &&key) {
     assert(k >= 0 && k < std::ssize(qp) - 1);
     assert(!contains(k));
     qp[k] = ++N;
@@ -88,7 +90,7 @@ void algs4::IndexMinPQ<Key>::insert(std::ptrdiff_t k, K &&key) {
 
 template<std::totally_ordered Key>
 template<typename K> requires std::constructible_from<Key, K>
-void algs4::IndexMinPQ<Key>::change(std::ptrdiff_t k, K &&key) {
+constexpr void algs4::IndexMinPQ<Key>::change(std::ptrdiff_t k, K &&key) {
     assert(k >= 0 && k < std::ssize(qp) - 1);
     assert(contains(k));
     keys[k].emplace(std::forward<K>(key));
@@ -97,7 +99,7 @@ void algs4::IndexMinPQ<Key>::change(std::ptrdiff_t k, K &&key) {
 }
 
 template<std::totally_ordered Key>
-std::ptrdiff_t algs4::IndexMinPQ<Key>::delMin() {
+constexpr std::ptrdiff_t algs4::IndexMinPQ<Key>::delMin() {
     assert(!isEmpty());
     auto indexOfMin = pq[1];
     exch(1, N--);

@@ -10,12 +10,12 @@
 namespace algs4 {
     namespace Selection {
         template<std::totally_ordered T>
-        void sort(std::vector<T> &a);
+        constexpr void sort(std::vector<T> &a);
     }
 }
 
 template<std::totally_ordered T>
-void algs4::Selection::sort(std::vector<T> &a) {
+constexpr void algs4::Selection::sort(std::vector<T> &a) {
     using namespace SortUtils::internal;
     auto N = std::ssize(a);
     // Exchange a[i] with the smallest entry in a[i+1..N).

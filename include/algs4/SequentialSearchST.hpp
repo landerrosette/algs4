@@ -27,6 +27,7 @@ namespace algs4 {
         std::unique_ptr<Node> remove(std::unique_ptr<Node> x, const Key &key);
 
     public:
+        constexpr SequentialSearchST() = default;
         using ST<Key, Value>::get;
         const Value *get(const Key &key) const override;
         void put(Key key, Value val) override;

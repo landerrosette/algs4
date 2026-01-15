@@ -127,23 +127,4 @@ target_link_libraries(your_target PRIVATE algs4)
 #### Option B: Simple include
 
 If you are not using CMake, simply ensure the `include/` directory is in your compiler's include path and include the
-headers you need. For example:
-
-```cpp
-#include <iostream>
-#include <string>
-
-#include "algs4/BST.hpp"
-
-int main() {
-    algs4::BST<std::string, int> st;
-    
-    st.put("A", 1);
-    st.put("B", 2);
-    
-    if (const auto *val = st.get("A"))
-        std::cout << "Key A has value: " << *val << std::endl;
-    
-    return 0;
-}
-```
+headers you need.

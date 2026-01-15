@@ -19,18 +19,18 @@ namespace algs4 {
         std::vector<EdgeType> cycle_;
         std::vector<bool> onStack; // vertices on recursive call stack
 
-        void dfs(const GraphBase<EdgeType> &G, int v);
+        constexpr void dfs(const GraphBase<EdgeType> &G, int v);
 
     public:
-        explicit DirectedCycle(const GraphBase<EdgeType> &G);
+        constexpr explicit DirectedCycle(const GraphBase<EdgeType> &G);
 
-        bool hasCycle() const { return !cycle_.empty(); }
-        auto cycle() const & { return std::views::reverse(cycle_); }
+        constexpr bool hasCycle() const { return !cycle_.empty(); }
+        constexpr auto cycle() const & { return std::views::reverse(cycle_); }
     };
 }
 
 template<typename EdgeType>
-void algs4::DirectedCycle<EdgeType>::dfs(const GraphBase<EdgeType> &G, int v) {
+constexpr void algs4::DirectedCycle<EdgeType>::dfs(const GraphBase<EdgeType> &G, int v) {
     onStack[v] = true;
     marked[v] = true;
     for (const auto &e: G.adj(v)) {
@@ -59,8 +59,8 @@ void algs4::DirectedCycle<EdgeType>::dfs(const GraphBase<EdgeType> &G, int v) {
 }
 
 template<typename EdgeType>
-algs4::DirectedCycle<EdgeType>::DirectedCycle(const GraphBase<EdgeType> &G) : marked(G.V()), edgeTo(G.V()),
-                                                                              onStack(G.V()) {
+constexpr algs4::DirectedCycle<EdgeType>::DirectedCycle(const GraphBase<EdgeType> &G)
+    : marked(G.V()), edgeTo(G.V()), onStack(G.V()) {
     for (int v = 0; v < G.V(); ++v)
         if (!marked[v])
             dfs(G, v);

@@ -15,13 +15,13 @@ namespace algs4 {
         std::vector<Edge> mst;
 
     public:
-        explicit KruskalMST(const EdgeWeightedGraph &G);
+        constexpr explicit KruskalMST(const EdgeWeightedGraph &G);
 
-        std::vector<Edge> edges() const override { return mst; }
+        constexpr std::vector<Edge> edges() const override { return mst; }
     };
 }
 
-inline algs4::KruskalMST::KruskalMST(const EdgeWeightedGraph &G) {
+constexpr algs4::KruskalMST::KruskalMST(const EdgeWeightedGraph &G) {
     MinPQ<Edge> pq;
     for (const auto &e: G.edges())
         pq.insert(e);

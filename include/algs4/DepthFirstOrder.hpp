@@ -17,20 +17,20 @@ namespace algs4 {
         std::vector<int> pre_, post_;
 
         template<typename EdgeType>
-        void dfs(const GraphBase<EdgeType> &G, int v);
+        constexpr void dfs(const GraphBase<EdgeType> &G, int v);
 
     public:
         template<typename Edge>
-        explicit DepthFirstOrder(const GraphBase<Edge> &G);
+        constexpr explicit DepthFirstOrder(const GraphBase<Edge> &G);
 
-        auto pre() const & { return std::views::all(pre_); }
-        auto post() const & { return std::views::all(post_); }
-        auto reversePost() const & { return std::views::reverse(post_); }
+        constexpr auto pre() const & { return std::views::all(pre_); }
+        constexpr auto post() const & { return std::views::all(post_); }
+        constexpr auto reversePost() const & { return std::views::reverse(post_); }
     };
 }
 
 template<typename EdgeType>
-void algs4::DepthFirstOrder::dfs(const GraphBase<EdgeType> &G, int v) {
+constexpr void algs4::DepthFirstOrder::dfs(const GraphBase<EdgeType> &G, int v) {
     pre_.push_back(v);
     marked[v] = true;
     for (const auto &e: G.adj(v)) {
@@ -44,7 +44,7 @@ void algs4::DepthFirstOrder::dfs(const GraphBase<EdgeType> &G, int v) {
 }
 
 template<typename EdgeType>
-algs4::DepthFirstOrder::DepthFirstOrder(const GraphBase<EdgeType> &G) : marked(G.V()) {
+constexpr algs4::DepthFirstOrder::DepthFirstOrder(const GraphBase<EdgeType> &G) : marked(G.V()) {
     for (int v = 0; v < G.V(); ++v)
         if (!marked[v])
             dfs(G, v);

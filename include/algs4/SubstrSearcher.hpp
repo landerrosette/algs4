@@ -8,16 +8,16 @@
 namespace algs4 {
     class SubstrSearcher {
     protected:
-        SubstrSearcher() = default;
-        SubstrSearcher(const SubstrSearcher &) = default;
-        SubstrSearcher &operator=(const SubstrSearcher &) = default;
-        SubstrSearcher(SubstrSearcher &&) noexcept = default;
-        SubstrSearcher &operator=(SubstrSearcher &&) noexcept = default;
+        constexpr SubstrSearcher() = default;
+        constexpr SubstrSearcher(const SubstrSearcher &) = default;
+        constexpr SubstrSearcher &operator=(const SubstrSearcher &) = default;
+        constexpr SubstrSearcher(SubstrSearcher &&) noexcept = default;
+        constexpr SubstrSearcher &operator=(SubstrSearcher &&) noexcept = default;
 
     public:
-        virtual ~SubstrSearcher() = default;
+        virtual constexpr ~SubstrSearcher() = default;
 
-        virtual std::ptrdiff_t search(std::string_view txt) const = 0;
+        virtual constexpr std::ptrdiff_t search(std::string_view txt) const = 0;
     };
 }
 

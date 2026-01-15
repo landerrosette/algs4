@@ -12,32 +12,32 @@ namespace algs4 {
     namespace Heap {
         namespace internal {
             template<std::totally_ordered T>
-            bool less(const std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j);
+            constexpr bool less(const std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j);
 
             template<std::totally_ordered T>
-            void exch(std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j);
+            constexpr void exch(std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j);
 
             template<std::totally_ordered T>
-            void sink(std::vector<T> &a, std::ptrdiff_t k, std::ptrdiff_t N);
+            constexpr void sink(std::vector<T> &a, std::ptrdiff_t k, std::ptrdiff_t N);
         }
 
         template<std::totally_ordered T>
-        void sort(std::vector<T> &a);
+        constexpr void sort(std::vector<T> &a);
     }
 }
 
 template<std::totally_ordered T>
-bool algs4::Heap::internal::less(const std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j) {
+constexpr bool algs4::Heap::internal::less(const std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j) {
     return SortUtils::internal::less(a[i - 1], a[j - 1]);
 }
 
 template<std::totally_ordered T>
-void algs4::Heap::internal::exch(std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j) {
+constexpr void algs4::Heap::internal::exch(std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j) {
     SortUtils::internal::exch(a, i - 1, j - 1);
 }
 
 template<std::totally_ordered T>
-void algs4::Heap::internal::sink(std::vector<T> &a, std::ptrdiff_t k, std::ptrdiff_t N) {
+constexpr void algs4::Heap::internal::sink(std::vector<T> &a, std::ptrdiff_t k, std::ptrdiff_t N) {
     while (2 * k <= N) {
         auto j = 2 * k;
         if (j < N && less(a, j, j + 1))
@@ -50,7 +50,7 @@ void algs4::Heap::internal::sink(std::vector<T> &a, std::ptrdiff_t k, std::ptrdi
 }
 
 template<std::totally_ordered T>
-void algs4::Heap::sort(std::vector<T> &a) {
+constexpr void algs4::Heap::sort(std::vector<T> &a) {
     using namespace internal;
     auto N = std::ssize(a);
     for (auto k = N / 2; k >= 1; --k)

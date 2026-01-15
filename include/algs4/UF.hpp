@@ -13,16 +13,16 @@ namespace algs4 {
         int count_;          // number of components
 
     public:
-        explicit UF(int N);
+        constexpr explicit UF(int N);
 
-        int count() const { return count_; }
-        bool connected(int p, int q) const { return find(p) == find(q); }
-        int find(int p) const;
-        void unionize(int p, int q);
+        constexpr int count() const { return count_; }
+        constexpr bool connected(int p, int q) const { return find(p) == find(q); }
+        constexpr int find(int p) const;
+        constexpr void unionize(int p, int q);
     };
 }
 
-inline algs4::UF::UF(int N) : id(N), sz(N), count_(N) {
+constexpr algs4::UF::UF(int N) : id(N), sz(N), count_(N) {
     assert(N >= 0);
     for (int i = 0; i < N; i++) {
         id[i] = i;
@@ -30,14 +30,14 @@ inline algs4::UF::UF(int N) : id(N), sz(N), count_(N) {
     }
 }
 
-inline int algs4::UF::find(int p) const {
+constexpr int algs4::UF::find(int p) const {
     assert(p >= 0 && p < std::ssize(id));
     while (p != id[p])
         p = id[p];
     return p;
 }
 
-inline void algs4::UF::unionize(int p, int q) {
+constexpr void algs4::UF::unionize(int p, int q) {
     int i = find(p);
     int j = find(q);
     if (i == j)

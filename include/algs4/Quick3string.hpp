@@ -12,15 +12,15 @@
 namespace algs4 {
     namespace Quick3string {
         namespace internal {
-            void sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi, std::ptrdiff_t d);
+            constexpr void sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi, std::ptrdiff_t d);
         }
 
-        inline void sort(std::vector<std::string> &a) { internal::sort(a, 0, std::ssize(a) - 1, 0); }
+        constexpr void sort(std::vector<std::string> &a) { internal::sort(a, 0, std::ssize(a) - 1, 0); }
     }
 }
 
-inline void algs4::Quick3string::internal::sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
-                                                std::ptrdiff_t d) {
+constexpr void algs4::Quick3string::internal::sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
+                                                   std::ptrdiff_t d) {
     using namespace SortUtils::internal;
     using namespace StringSortUtils::internal;
     if (hi <= lo) return;

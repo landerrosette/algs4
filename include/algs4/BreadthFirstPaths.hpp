@@ -12,7 +12,7 @@ namespace algs4 {
         void bfs(const Graph &G, int s);
 
     public:
-        BreadthFirstPaths(const Graph &G, int s) : Paths(G, s) { bfs(G, s); }
+        constexpr BreadthFirstPaths(const Graph &G, int s) : Paths(G, s) { bfs(G, s); }
     };
 }
 

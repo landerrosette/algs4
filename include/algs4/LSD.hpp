@@ -11,11 +11,11 @@
 
 namespace algs4 {
     namespace LSD {
-        void sort(std::vector<std::string> &a, std::ptrdiff_t W = 3);
+        constexpr void sort(std::vector<std::string> &a, std::ptrdiff_t W = 3);
     }
 }
 
-inline void algs4::LSD::sort(std::vector<std::string> &a, std::ptrdiff_t W) {
+constexpr void algs4::LSD::sort(std::vector<std::string> &a, std::ptrdiff_t W) {
     using namespace StringSortUtils::internal;
     auto N = std::ssize(a);
     int R = 256;

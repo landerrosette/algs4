@@ -14,7 +14,7 @@ namespace algs4 {
     namespace Quick3way {
         namespace internal {
             template<std::totally_ordered T>
-            void sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi);
+            constexpr void sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi);
         }
 
         template<std::totally_ordered T>
@@ -23,7 +23,7 @@ namespace algs4 {
 }
 
 template<std::totally_ordered T>
-void algs4::Quick3way::internal::sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
+constexpr void algs4::Quick3way::internal::sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
     using namespace SortUtils::internal;
     if (hi <= lo) return;
     auto lt = lo, i = lo + 1, gt = hi;

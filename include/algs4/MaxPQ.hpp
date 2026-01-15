@@ -11,7 +11,7 @@ namespace algs4 {
     template<std::totally_ordered Key>
     class MaxPQ : public PQBase<Key, std::less<Key> > {
     public:
-        Key delMax() { return this->delTop(); }
+        constexpr Key delMax() { return this->delTop(); }
     };
 }
 

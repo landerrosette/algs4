@@ -11,7 +11,7 @@ namespace algs4 {
     template<std::totally_ordered Key>
     class MinPQ : public PQBase<Key, std::greater<Key> > {
     public:
-        Key delMin() { return this->delTop(); }
+        constexpr Key delMin() { return this->delTop(); }
     };
 }
 

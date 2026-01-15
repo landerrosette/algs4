@@ -7,14 +7,14 @@
 namespace algs4 {
     class DepthFirstPaths : public Paths {
     private:
-        void dfs(const Graph &G, int v);
+        constexpr void dfs(const Graph &G, int v);
 
     public:
-        DepthFirstPaths(const Graph &G, int s) : Paths(G, s) { dfs(G, s); }
+        constexpr DepthFirstPaths(const Graph &G, int s) : Paths(G, s) { dfs(G, s); }
     };
 }
 
-inline void algs4::DepthFirstPaths::dfs(const Graph &G, int v) {
+constexpr void algs4::DepthFirstPaths::dfs(const Graph &G, int v) {
     marked[v] = true;
     for (int w: G.adj(v)) {
         if (!marked[w]) {
