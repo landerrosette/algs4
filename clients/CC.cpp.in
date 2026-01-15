@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
     algs4::@CC@ cc(G);
     int M = cc.count();
     std::cout << M << " components" << std::endl;
-    std::vector<int> components[M];
+    std::vector<std::vector<int>> components(M);
     for (int v = 0; v < G.V(); ++v)
         components[cc.id(v)].push_back(v);
     for (int i = 0; i < M; ++i) {
