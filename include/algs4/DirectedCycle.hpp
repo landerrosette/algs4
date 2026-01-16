@@ -14,10 +14,10 @@ namespace algs4 {
     template<typename EdgeType>
     class DirectedCycle {
     private:
-        std::vector<bool> marked;
-        std::vector<EdgeType> edgeTo;
+        std::vector<bool> marked_;
+        std::vector<EdgeType> edgeTo_;
         std::vector<EdgeType> cycle_;
-        std::vector<bool> onStack; // vertices on recursive call stack
+        std::vector<bool> onStack_; // vertices on recursive call stack
 
         constexpr void dfs(const GraphBase<EdgeType> &G, int v);
 
@@ -31,38 +31,38 @@ namespace algs4 {
 
 template<typename EdgeType>
 constexpr void algs4::DirectedCycle<EdgeType>::dfs(const GraphBase<EdgeType> &G, int v) {
-    onStack[v] = true;
-    marked[v] = true;
+    onStack_[v] = true;
+    marked_[v] = true;
     for (const auto &e: G.adj(v)) {
         int w;
         if constexpr (std::same_as<std::remove_cvref_t<decltype(e)>, DirectedEdge>) w = e.to();
         else w = e;
         if (hasCycle()) return;
-        else if (!marked[w]) {
-            edgeTo[w] = e;
+        else if (!marked_[w]) {
+            edgeTo_[w] = e;
             dfs(G, w);
-        } else if (onStack[w]) {
+        } else if (onStack_[w]) {
             if constexpr (std::same_as<std::remove_cvref_t<decltype(e)>, DirectedEdge>) {
                 auto x = e;
-                for (; x.from() != w; x = edgeTo[x.from()])
+                for (; x.from() != w; x = edgeTo_[x.from()])
                     cycle_.push_back(x);
                 cycle_.push_back(x);
             } else {
-                for (int x = v; x != w; x = edgeTo[x])
+                for (int x = v; x != w; x = edgeTo_[x])
                     cycle_.push_back(x);
                 cycle_.push_back(w);
                 cycle_.push_back(v);
             }
         }
     }
-    onStack[v] = false;
+    onStack_[v] = false;
 }
 
 template<typename EdgeType>
 constexpr algs4::DirectedCycle<EdgeType>::DirectedCycle(const GraphBase<EdgeType> &G)
-    : marked(G.V()), edgeTo(G.V()), onStack(G.V()) {
+    : marked_(G.V()), edgeTo_(G.V()), onStack_(G.V()) {
     for (int v = 0; v < G.V(); ++v)
-        if (!marked[v])
+        if (!marked_[v])
             dfs(G, v);
 }
 

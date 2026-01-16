@@ -12,26 +12,26 @@ namespace algs4 {
     template<typename Key, std::strict_weak_order<Key, Key> Compare>
     class PQBase {
     protected:
-        std::vector<Key> pq;
-        [[no_unique_address]] Compare comp;
+        std::vector<Key> pq_;
+        [[no_unique_address]] Compare comp_;
 
         constexpr PQBase() = default;
-        constexpr explicit PQBase(const Compare &comp) : comp(comp) {}
+        constexpr explicit PQBase(const Compare &comp) : comp_(comp) {}
         constexpr ~PQBase() = default;
         constexpr PQBase(const PQBase &) = default;
         constexpr PQBase &operator=(const PQBase &) = default;
         constexpr PQBase(PQBase &&) noexcept = default;
         constexpr PQBase &operator=(PQBase &&) noexcept = default;
 
-        constexpr bool less(std::ptrdiff_t i, std::ptrdiff_t j) { return comp(pq[i - 1], pq[j - 1]); }
+        constexpr bool less(std::ptrdiff_t i, std::ptrdiff_t j) { return comp_(pq_[i - 1], pq_[j - 1]); }
         constexpr void exch(std::ptrdiff_t i, std::ptrdiff_t j);
         constexpr void swim(std::ptrdiff_t k);
         constexpr void sink(std::ptrdiff_t k);
         constexpr Key delTop();
 
     public:
-        constexpr bool isEmpty() const { return pq.empty(); }
-        constexpr std::ptrdiff_t size() const { return std::ssize(pq); }
+        constexpr bool isEmpty() const { return pq_.empty(); }
+        constexpr std::ptrdiff_t size() const { return std::ssize(pq_); }
 
         template<typename K> requires std::constructible_from<Key, K>
         constexpr void insert(K &&v);
@@ -41,7 +41,7 @@ namespace algs4 {
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
 constexpr void algs4::PQBase<Key, Compare>::exch(std::ptrdiff_t i, std::ptrdiff_t j) {
     using std::swap;
-    swap(pq[i - 1], pq[j - 1]);
+    swap(pq_[i - 1], pq_[j - 1]);
 }
 
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
@@ -68,9 +68,9 @@ constexpr void algs4::PQBase<Key, Compare>::sink(std::ptrdiff_t k) {
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
 constexpr Key algs4::PQBase<Key, Compare>::delTop() {
     assert(!isEmpty());
-    auto top = std::move(pq[0]);
+    auto top = std::move(pq_[0]);
     exch(1, size());
-    pq.pop_back();
+    pq_.pop_back();
     sink(1);
     return top;
 }
@@ -78,7 +78,7 @@ constexpr Key algs4::PQBase<Key, Compare>::delTop() {
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
 template<typename K> requires std::constructible_from<Key, K>
 constexpr void algs4::PQBase<Key, Compare>::insert(K &&v) {
-    pq.emplace_back(std::forward<K>(v));
+    pq_.emplace_back(std::forward<K>(v));
     swim(size());
 }
 

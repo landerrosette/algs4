@@ -13,16 +13,16 @@ namespace algs4 {
     class SequentialSearchST : public ST<Key, Value> {
     private:
         struct Node {
-            Key key;
-            Value val;
-            std::unique_ptr<Node> next;
+            Key key_;
+            Value val_;
+            std::unique_ptr<Node> next_;
 
             Node(Key key, Value val, std::unique_ptr<Node> next)
-                : key(std::move(key)), val(std::move(val)), next(std::move(next)) {}
+                : key_(std::move(key)), val_(std::move(val)), next_(std::move(next)) {}
         };
 
-        std::ptrdiff_t N = 0;
-        std::unique_ptr<Node> first;
+        std::ptrdiff_t N_ = 0;
+        std::unique_ptr<Node> first_;
 
         std::unique_ptr<Node> remove(std::unique_ptr<Node> x, const Key &key);
 
@@ -31,8 +31,8 @@ namespace algs4 {
         using ST<Key, Value>::get;
         const Value *get(const Key &key) const override;
         void put(Key key, Value val) override;
-        void remove(const Key &key) override { first = remove(std::move(first), key); }
-        std::ptrdiff_t size() const override { return N; }
+        void remove(const Key &key) override { first_ = remove(std::move(first_), key); }
+        std::ptrdiff_t size() const override { return N_; }
         std::vector<Key> keys() const override;
     };
 }
@@ -41,38 +41,38 @@ template<typename Key, typename Value>
 auto algs4::SequentialSearchST<Key, Value>::remove(std::unique_ptr<Node> x, const Key &key) -> std::unique_ptr<Node> {
     if (!x)
         return nullptr;
-    if (key == x->key) {
-        --N;
-        return std::move(x->next);
+    if (key == x->key_) {
+        --N_;
+        return std::move(x->next_);
     }
-    x->next = remove(std::move(x->next), key);
+    x->next_ = remove(std::move(x->next_), key);
     return x;
 }
 
 template<typename Key, typename Value>
 const Value *algs4::SequentialSearchST<Key, Value>::get(const Key &key) const {
-    for (const Node *x = first.get(); x; x = x->next.get())
-        if (key == x->key)
-            return &x->val;
+    for (const Node *x = first_.get(); x; x = x->next_.get())
+        if (key == x->key_)
+            return &x->val_;
     return nullptr;
 }
 
 template<typename Key, typename Value>
 void algs4::SequentialSearchST<Key, Value>::put(Key key, Value val) {
-    for (Node *x = first.get(); x; x = x->next.get())
-        if (key == x->key) {
-            x->val = std::move(val);
+    for (Node *x = first_.get(); x; x = x->next_.get())
+        if (key == x->key_) {
+            x->val_ = std::move(val);
             return;
         }
-    first = std::make_unique<Node>(std::move(key), std::move(val), std::move(first));
-    ++N;
+    first_ = std::make_unique<Node>(std::move(key), std::move(val), std::move(first_));
+    ++N_;
 }
 
 template<typename Key, typename Value>
 std::vector<Key> algs4::SequentialSearchST<Key, Value>::keys() const {
     std::vector<Key> queue;
-    for (const Node *x = first.get(); x; x = x->next.get())
-        queue.push_back(x->key);
+    for (const Node *x = first_.get(); x; x = x->next_.get())
+        queue.push_back(x->key_);
     return queue;
 }
 

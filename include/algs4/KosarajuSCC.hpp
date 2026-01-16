@@ -18,7 +18,7 @@ namespace algs4 {
 constexpr algs4::KosarajuSCC::KosarajuSCC(const Digraph &G) : CCBase(G) {
     DepthFirstOrder order(G.reverse());
     for (int s: order.reversePost()) {
-        if (!marked[s]) {
+        if (!marked_[s]) {
             dfs(G, s);
             ++count_;
         }

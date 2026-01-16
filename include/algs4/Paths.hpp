@@ -11,9 +11,9 @@
 namespace algs4 {
     class Paths {
     protected:
-        std::vector<bool> marked; // Has dfs() been called for this vertex?
-        std::vector<int> edgeTo;  // last vertex on known path for this vertex
-        int s;                    // source
+        std::vector<bool> marked_; // Has dfs() been called for this vertex?
+        std::vector<int> edgeTo_;  // last vertex on known path for this vertex
+        int s_;                    // source
 
         constexpr Paths(const Graph &G, int s);
 
@@ -25,21 +25,21 @@ namespace algs4 {
     public:
         virtual constexpr ~Paths() = default;
 
-        constexpr bool hasPathTo(int v) const { return marked[v]; }
+        constexpr bool hasPathTo(int v) const { return marked_[v]; }
         constexpr std::vector<int> pathTo(int v) const;
     };
 }
 
-constexpr algs4::Paths::Paths(const Graph &G, int s) : marked(G.V()), edgeTo(G.V()), s(s) {
-    assert(s >= 0 && s < std::ssize(marked));
+constexpr algs4::Paths::Paths(const Graph &G, int s) : marked_(G.V()), edgeTo_(G.V()), s_(s) {
+    assert(s >= 0 && s < std::ssize(marked_));
 }
 
 constexpr std::vector<int> algs4::Paths::pathTo(int v) const {
-    assert(v >= 0 && v < std::ssize(marked));
+    assert(v >= 0 && v < std::ssize(marked_));
     std::vector<int> path;
-    for (int x = v; x != s; x = edgeTo[x])
+    for (int x = v; x != s_; x = edgeTo_[x])
         path.push_back(x);
-    path.push_back(s);
+    path.push_back(s_);
     std::ranges::reverse(path);
     return path;
 }

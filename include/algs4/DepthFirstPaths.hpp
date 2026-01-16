@@ -15,10 +15,10 @@ namespace algs4 {
 }
 
 constexpr void algs4::DepthFirstPaths::dfs(const Graph &G, int v) {
-    marked[v] = true;
+    marked_[v] = true;
     for (int w: G.adj(v)) {
-        if (!marked[w]) {
-            edgeTo[w] = v;
+        if (!marked_[w]) {
+            edgeTo_[w] = v;
             dfs(G, w);
         }
     }

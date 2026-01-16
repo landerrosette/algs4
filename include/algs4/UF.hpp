@@ -8,9 +8,9 @@
 namespace algs4 {
     class UF {
     private:
-        std::vector<int> id; // parent link (site indexed)
-        std::vector<int> sz; // size of component for roots (site indexed)
-        int count_;          // number of components
+        std::vector<int> id_; // parent link (site indexed)
+        std::vector<int> sz_; // size of component for roots (site indexed)
+        int count_;           // number of components
 
     public:
         constexpr explicit UF(int N);
@@ -22,18 +22,18 @@ namespace algs4 {
     };
 }
 
-constexpr algs4::UF::UF(int N) : id(N), sz(N), count_(N) {
+constexpr algs4::UF::UF(int N) : id_(N), sz_(N), count_(N) {
     assert(N >= 0);
     for (int i = 0; i < N; i++) {
-        id[i] = i;
-        sz[i] = 1;
+        id_[i] = i;
+        sz_[i] = 1;
     }
 }
 
 constexpr int algs4::UF::find(int p) const {
-    assert(p >= 0 && p < std::ssize(id));
-    while (p != id[p])
-        p = id[p];
+    assert(p >= 0 && p < std::ssize(id_));
+    while (p != id_[p])
+        p = id_[p];
     return p;
 }
 
@@ -42,12 +42,12 @@ constexpr void algs4::UF::unionize(int p, int q) {
     int j = find(q);
     if (i == j)
         return;
-    if (sz[i] < sz[j]) {
-        id[i] = j;
-        sz[j] += sz[i];
+    if (sz_[i] < sz_[j]) {
+        id_[i] = j;
+        sz_[j] += sz_[i];
     } else {
-        id[j] = i;
-        sz[i] += sz[j];
+        id_[j] = i;
+        sz_[i] += sz_[j];
     }
     --count_;
 }

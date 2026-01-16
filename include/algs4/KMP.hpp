@@ -12,8 +12,8 @@
 namespace algs4 {
     class KMP : public SubstrSearcher {
     private:
-        std::string pat;
-        std::vector<std::vector<std::ptrdiff_t> > dfa;
+        std::string pat_;
+        std::vector<std::vector<std::ptrdiff_t> > dfa_;
 
     public:
         constexpr explicit KMP(std::string pat);
@@ -23,23 +23,23 @@ namespace algs4 {
 }
 
 // Build DFA from pattern.
-constexpr algs4::KMP::KMP(std::string pat) : pat(std::move(pat)) {
-    auto M = std::ssize(this->pat);
+constexpr algs4::KMP::KMP(std::string pat) : pat_(std::move(pat)) {
+    auto M = std::ssize(pat_);
     int R = 256;
-    dfa.assign(R, std::vector<std::ptrdiff_t>(M));
-    dfa[static_cast<unsigned char>(this->pat[0])][0] = 1;
-    // Compute dfa[][j].
+    dfa_.assign(R, std::vector<std::ptrdiff_t>(M));
+    dfa_[static_cast<unsigned char>(pat_[0])][0] = 1;
+    // Compute dfa_[][j].
     for (decltype(M) X = 0, j = 1; j < M; ++j) {
-        for (int c = 0; c < R; ++c) dfa[c][j] = dfa[c][X];        // Copy mismatch cases.
-        dfa[static_cast<unsigned char>(this->pat[j])][j] = j + 1; // Set match case.
-        X = dfa[static_cast<unsigned char>(this->pat[j])][X];     // Update restart state.
+        for (int c = 0; c < R; ++c) dfa_[c][j] = dfa_[c][X];  // Copy mismatch cases.
+        dfa_[static_cast<unsigned char>(pat_[j])][j] = j + 1; // Set match case.
+        X = dfa_[static_cast<unsigned char>(pat_[j])][X];     // Update restart state.
     }
 }
 
 constexpr std::ptrdiff_t algs4::KMP::search(std::string_view txt) const {
-    auto N = std::ssize(txt), M = std::ssize(pat);
+    auto N = std::ssize(txt), M = std::ssize(pat_);
     decltype(N) i, j;
-    for (i = 0, j = 0; i < N && j < M; ++i) j = dfa[static_cast<unsigned char>(txt[i])][j];
+    for (i = 0, j = 0; i < N && j < M; ++i) j = dfa_[static_cast<unsigned char>(txt[i])][j];
     if (j == M) return i - M; // found (hit end of pattern)
     else return N;            // not found (hit end of text)
 }

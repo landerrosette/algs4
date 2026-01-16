@@ -15,15 +15,15 @@ namespace algs4 {
         constexpr DirectedEdge() = default;
         constexpr DirectedEdge(int v, int w, double weight) : EdgeBase(v, w, weight) {}
 
-        constexpr int from() const { return v; }
-        constexpr int to() const { return w; }
+        constexpr int from() const { return v_; }
+        constexpr int to() const { return w_; }
     };
 
     std::ostream &operator<<(std::ostream &os, const DirectedEdge &e);
 }
 
 inline std::ostream &algs4::operator<<(std::ostream &os, const DirectedEdge &e) {
-    return os << e.v << "->" << e.w << " " << std::fixed << std::setprecision(2) << e.weight_ << " ";
+    return os << e.v_ << "->" << e.w_ << " " << std::fixed << std::setprecision(2) << e.weight_ << " ";
 }
 
 

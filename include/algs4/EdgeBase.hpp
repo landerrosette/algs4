@@ -9,7 +9,7 @@
 namespace algs4 {
     class EdgeBase {
     protected:
-        int v, w;
+        int v_, w_;
         double weight_ = std::numeric_limits<double>::quiet_NaN();
 
         constexpr EdgeBase() = default;
@@ -29,7 +29,7 @@ namespace algs4 {
     constexpr bool operator==(const EdgeBase &l, const EdgeBase &r) { return l.weight() == r.weight(); }
 }
 
-constexpr algs4::EdgeBase::EdgeBase(int v, int w, double weight) : v(v), w(w), weight_(weight) {
+constexpr algs4::EdgeBase::EdgeBase(int v, int w, double weight) : v_(v), w_(w), weight_(weight) {
     assert(v >= 0);
     assert(w >= 0);
     assert(weight == weight);

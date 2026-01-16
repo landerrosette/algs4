@@ -18,15 +18,15 @@ namespace algs4 {
 
 inline void algs4::BreadthFirstPaths::bfs(const Graph &G, int s) {
     std::queue<int> queue;
-    marked[s] = true;
+    marked_[s] = true;
     queue.push(s);
     while (!queue.empty()) {
         int v = queue.front();
         queue.pop();
         for (int w: G.adj(v)) {
-            if (!marked[w]) {
-                edgeTo[w] = v;
-                marked[w] = true;
+            if (!marked_[w]) {
+                edgeTo_[w] = v;
+                marked_[w] = true;
                 queue.push(w);
             }
         }

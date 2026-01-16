@@ -14,7 +14,7 @@ namespace algs4 {
     class BinarySearchST : public OrderedST<Key, Value> {
     private:
         std::vector<Key> keys_;
-        std::vector<Value> vals;
+        std::vector<Value> vals_;
 
     public:
         using OrderedST<Key, Value>::get;
@@ -36,7 +36,7 @@ template<std::totally_ordered Key, typename Value>
 constexpr const Value *algs4::BinarySearchST<Key, Value>::get(const Key &key) const {
     if (this->isEmpty()) return nullptr;
     auto i = rank(key);
-    if (i < size() && keys_[i] == key) return &vals[i];
+    if (i < size() && keys_[i] == key) return &vals_[i];
     else return nullptr;
 }
 
@@ -44,22 +44,22 @@ template<std::totally_ordered Key, typename Value>
 constexpr void algs4::BinarySearchST<Key, Value>::put(Key key, Value val) {
     auto i = rank(key);
     if (i < size() && keys_[i] == key) {
-        vals[i] = std::move(val);
+        vals_[i] = std::move(val);
         return;
     }
     if (i == size()) {
         keys_.push_back(std::move(key));
-        vals.push_back(std::move(val));
+        vals_.push_back(std::move(val));
         return;
     }
     keys_.push_back(std::move(keys_.back()));
-    vals.push_back(std::move(vals.back()));
+    vals_.push_back(std::move(vals_.back()));
     for (auto j = size() - 2; j > i; --j) {
         keys_[j] = std::move(keys_[j - 1]);
-        vals[j] = std::move(vals[j - 1]);
+        vals_[j] = std::move(vals_[j - 1]);
     }
     keys_[i] = std::move(key);
-    vals[i] = std::move(val);
+    vals_[i] = std::move(val);
 }
 
 template<std::totally_ordered Key, typename Value>
@@ -70,10 +70,10 @@ constexpr void algs4::BinarySearchST<Key, Value>::remove(const Key &key) {
         return;
     for (auto j = i; j < size() - 1; ++j) {
         keys_[j] = std::move(keys_[j + 1]);
-        vals[j] = std::move(vals[j + 1]);
+        vals_[j] = std::move(vals_[j + 1]);
     }
     keys_.pop_back();
-    vals.pop_back();
+    vals_.pop_back();
 }
 
 template<std::totally_ordered Key, typename Value>

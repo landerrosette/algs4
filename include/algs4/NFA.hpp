@@ -13,9 +13,9 @@
 namespace algs4 {
     class NFA {
     private:
-        std::string re; // match transitions
-        int M;          // number of states
-        Digraph G;      // epsilon transitions
+        std::string re_; // match transitions
+        int M_;          // number of states
+        Digraph G_;      // epsilon transitions
 
     public:
         explicit NFA(std::string regexp);
@@ -24,47 +24,47 @@ namespace algs4 {
     };
 }
 
-inline algs4::NFA::NFA(std::string regexp) : re(std::move(regexp)), M(static_cast<int>(std::ssize(re))), G(M + 1) {
+inline algs4::NFA::NFA(std::string regexp) : re_(std::move(regexp)), M_(static_cast<int>(std::ssize(re_))), G_(M_ + 1) {
     std::stack<int> ops;
-    for (int i = 0; i < M; ++i) {
+    for (int i = 0; i < M_; ++i) {
         int lp = i; // left position
-        if (re[i] == '(' || re[i] == '|') ops.push(i);
-        else if (re[i] == ')') {
+        if (re_[i] == '(' || re_[i] == '|') ops.push(i);
+        else if (re_[i] == ')') {
             int orPos = ops.top();
             ops.pop();
-            if (re[orPos] == '|') {
+            if (re_[orPos] == '|') {
                 lp = ops.top();
                 ops.pop();
-                G.addEdge(lp, orPos + 1);
-                G.addEdge(orPos, i);
+                G_.addEdge(lp, orPos + 1);
+                G_.addEdge(orPos, i);
             } else lp = orPos;
         }
-        if (i < M - 1 && re[i + 1] == '*') {
-            G.addEdge(lp, i + 1);
-            G.addEdge(i + 1, lp);
+        if (i < M_ - 1 && re_[i + 1] == '*') {
+            G_.addEdge(lp, i + 1);
+            G_.addEdge(i + 1, lp);
         } // lookahead
-        if (re[i] == '(' || re[i] == '*' || re[i] == ')') G.addEdge(i, i + 1);
+        if (re_[i] == '(' || re_[i] == '*' || re_[i] == ')') G_.addEdge(i, i + 1);
     }
 }
 
 inline bool algs4::NFA::recognizes(std::string_view txt) const {
     std::vector<int> pc;
-    DirectedDFS dfs(G, 0);
-    for (int v = 0; v < G.V(); ++v)
+    DirectedDFS dfs(G_, 0);
+    for (int v = 0; v < G_.V(); ++v)
         if (dfs.marked(v)) pc.push_back(v);
 
     // Compute possible NFA states for txt[i+1].
     for (char c: txt) {
         std::vector<int> match;
         for (int v: pc)
-            if (v < M)
-                if (re[v] == c || re[v] == '.') match.push_back(v + 1);
+            if (v < M_)
+                if (re_[v] == c || re_[v] == '.') match.push_back(v + 1);
         pc.clear();
-        dfs = DirectedDFS(G, match);
-        for (int v = 0; v < G.V(); ++v)
+        dfs = DirectedDFS(G_, match);
+        for (int v = 0; v < G_.V(); ++v)
             if (dfs.marked(v)) pc.push_back(v);
     }
-    for (int v: pc) if (v == M) return true;
+    for (int v: pc) if (v == M_) return true;
     return false;
 }
 

@@ -16,7 +16,7 @@ namespace algs4 {
         constexpr Edge() = default;
         constexpr Edge(int v, int w, double weight) : EdgeBase(v, w, weight) {}
 
-        constexpr int either() const { return v; }
+        constexpr int either() const { return v_; }
         constexpr int other(int vertex) const;
     };
 
@@ -24,14 +24,14 @@ namespace algs4 {
 }
 
 constexpr int algs4::Edge::other(int vertex) const {
-    if (vertex == v) return w;
-    else if (vertex == w) return v;
+    if (vertex == v_) return w_;
+    else if (vertex == w_) return v_;
     else
         assert(false);
 }
 
 inline std::ostream &algs4::operator<<(std::ostream &os, const Edge &e) {
-    return os << e.v << "-" << e.w << " " << std::fixed << std::setprecision(2) << e.weight_ << " ";
+    return os << e.v_ << "-" << e.w_ << " " << std::fixed << std::setprecision(2) << e.weight_ << " ";
 }
 
 

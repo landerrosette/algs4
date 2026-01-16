@@ -8,7 +8,7 @@
 namespace algs4 {
     class DijkstraSP : public SP {
     private:
-        IndexMinPQ<double> pq;
+        IndexMinPQ<double> pq_;
 
         constexpr void onEdgeRelaxed(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) override;
 
@@ -18,14 +18,14 @@ namespace algs4 {
 }
 
 constexpr void algs4::DijkstraSP::onEdgeRelaxed(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) {
-    if (pq.contains(w)) pq.change(w, distTo_[w]);
-    else pq.insert(w, distTo_[w]);
+    if (pq_.contains(w)) pq_.change(w, distTo_[w]);
+    else pq_.insert(w, distTo_[w]);
 }
 
-constexpr algs4::DijkstraSP::DijkstraSP(const EdgeWeightedDigraph &G, int s) : SP(G, s), pq(G.V()) {
-    pq.insert(s, 0.0);
-    while (!pq.isEmpty())
-        relax(G, static_cast<int>(pq.delMin()));
+constexpr algs4::DijkstraSP::DijkstraSP(const EdgeWeightedDigraph &G, int s) : SP(G, s), pq_(G.V()) {
+    pq_.insert(s, 0.0);
+    while (!pq_.isEmpty())
+        relax(G, static_cast<int>(pq_.delMin()));
 }
 
 

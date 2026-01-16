@@ -21,14 +21,14 @@ namespace algs4 {
     template<std::derived_from<algs4::ST<std::string, int> > STType = RedBlackBST<std::string, int> >
     class SymbolDigraph {
     private:
-        STType st;                     // symbol -> index
-        std::vector<std::string> keys; // index -> symbol
-        std::unique_ptr<Digraph> G_;   // the graph
+        STType st_;                     // symbol -> index
+        std::vector<std::string> keys_; // index -> symbol
+        std::unique_ptr<Digraph> G_;    // the graph
 
     public:
         SymbolDigraph(const std::filesystem::path &filepath, char sp);
 
-        bool contains(const std::string &s) const { return st.contains(s); }
+        bool contains(const std::string &s) const { return st_.contains(s); }
         std::string_view name(int v) const &;
         const Digraph &G() const & { return *G_; }
     };
@@ -43,14 +43,14 @@ algs4::SymbolDigraph<STType>::SymbolDigraph(const std::filesystem::path &filepat
     for (std::string line; std::getline(in, line);) {
         std::string name;
         for (std::istringstream iss(line); std::getline(iss, name, sp);)
-            if (!st.contains(name))
-                st.put(name, static_cast<int>(st.size()));
+            if (!st_.contains(name))
+                st_.put(name, static_cast<int>(st_.size()));
     }
-    keys.resize(st.size()); // Inverted index to get string keys is an array.
-    for (const auto &name: st.keys())
-        keys[*st.get(name)] = name;
+    keys_.resize(st_.size()); // Inverted index to get string keys is an array.
+    for (const auto &name: st_.keys())
+        keys_[*st_.get(name)] = name;
 
-    G_ = std::make_unique<Digraph>(st.size());
+    G_ = std::make_unique<Digraph>(st_.size());
     in = std::ifstream(filepath);
     if (!in.is_open())
         throw std::invalid_argument("Cannot open file: " + filepath.string());
@@ -59,16 +59,16 @@ algs4::SymbolDigraph<STType>::SymbolDigraph(const std::filesystem::path &filepat
         std::string name;
         std::istringstream iss(line);
         std::getline(iss, name, sp);
-        int v = *st.get(name);
+        int v = *st_.get(name);
         while (std::getline(iss, name, sp))
-            G_->addEdge(v, *st.get(name));
+            G_->addEdge(v, *st_.get(name));
     }
 }
 
 template<std::derived_from<algs4::ST<std::string, int> > STType>
 std::string_view algs4::SymbolDigraph<STType>::name(int v) const & {
     assert(v >= 0 && v < G_->V());
-    return keys[v];
+    return keys_[v];
 }
 
 

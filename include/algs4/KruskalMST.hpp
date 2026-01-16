@@ -12,12 +12,12 @@
 namespace algs4 {
     class KruskalMST : public MST {
     private:
-        std::vector<Edge> mst;
+        std::vector<Edge> mst_;
 
     public:
         constexpr explicit KruskalMST(const EdgeWeightedGraph &G);
 
-        constexpr std::vector<Edge> edges() const override { return mst; }
+        constexpr std::vector<Edge> edges() const override { return mst_; }
     };
 }
 
@@ -26,12 +26,12 @@ constexpr algs4::KruskalMST::KruskalMST(const EdgeWeightedGraph &G) {
     for (const auto &e: G.edges())
         pq.insert(e);
     UF uf(G.V());
-    while (!pq.isEmpty() && std::ssize(mst) < G.V() - 1) {
+    while (!pq.isEmpty() && std::ssize(mst_) < G.V() - 1) {
         auto e = pq.delMin();
         int v = e.either(), w = e.other(v);
         if (uf.connected(v, w)) continue;
         uf.unionize(v, w);
-        mst.push_back(e);
+        mst_.push_back(e);
     }
 }
 

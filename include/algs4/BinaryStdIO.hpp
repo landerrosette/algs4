@@ -12,10 +12,10 @@
 namespace algs4 {
     namespace BinaryStdIO {
         namespace internal {
-            inline std::byte outBuffer;
-            inline int outN = 0;
-            inline std::byte inBuffer;
-            inline int inN = 0;
+            inline std::byte outBuffer_;
+            inline int outN_ = 0;
+            inline std::byte inBuffer_;
+            inline int inN_ = 0;
 
             void writeBit(bool bit);
             void writeByte(std::byte byte);
@@ -35,7 +35,7 @@ namespace algs4 {
 
         inline void write(const std::string &x) { for (char c: x) write(c); }
 
-        inline bool isEmpty() { return internal::inN < 0; }
+        inline bool isEmpty() { return internal::inN_ < 0; }
 
         template<std::same_as<bool> T>
         T read() { return internal::readBit(); }
@@ -59,20 +59,20 @@ namespace algs4 {
 
 inline void algs4::BinaryStdIO::internal::writeBit(bool bit) {
     // Add bit to buffer.
-    outBuffer <<= 1;
-    if (bit) outBuffer |= std::byte{1};
+    outBuffer_ <<= 1;
+    if (bit) outBuffer_ |= std::byte{1};
 
     // If buffer is full (8 bits), write out as a single byte.
-    if (++outN == std::numeric_limits<unsigned char>::digits) {
-        std::cout.put(std::to_integer<char>(outBuffer));
-        outBuffer = std::byte();
-        outN = 0;
+    if (++outN_ == std::numeric_limits<unsigned char>::digits) {
+        std::cout.put(std::to_integer<char>(outBuffer_));
+        outBuffer_ = std::byte();
+        outN_ = 0;
     }
 }
 
 inline void algs4::BinaryStdIO::internal::writeByte(std::byte byte) {
     // optimized if byte-aligned
-    if (outN == 0) {
+    if (outN_ == 0) {
         std::cout.put(std::to_integer<char>(byte));
         return;
     }
@@ -87,31 +87,31 @@ inline void algs4::BinaryStdIO::internal::writeByte(std::byte byte) {
 inline void algs4::BinaryStdIO::internal::fillInBuffer() {
     auto c = std::cin.get();
     if (c == std::char_traits<char>::eof()) {
-        inN = -1;
+        inN_ = -1;
         return;
     }
-    inBuffer = static_cast<std::byte>(c);
-    if (inN == 0) inN = std::numeric_limits<unsigned char>::digits;
+    inBuffer_ = static_cast<std::byte>(c);
+    if (inN_ == 0) inN_ = std::numeric_limits<unsigned char>::digits;
 }
 
 inline bool algs4::BinaryStdIO::internal::readBit() {
     assert(!isEmpty());
-    if (inN == 0) fillInBuffer();
-    bool bit = ((inBuffer >> --inN) & std::byte{1}) == std::byte{1};
-    if (inN == 0) fillInBuffer();
+    if (inN_ == 0) fillInBuffer();
+    bool bit = ((inBuffer_ >> --inN_) & std::byte{1}) == std::byte{1};
+    if (inN_ == 0) fillInBuffer();
     return bit;
 }
 
 inline std::byte algs4::BinaryStdIO::internal::readByte() {
     assert(!isEmpty());
-    if (inN == 0) fillInBuffer();
-    auto x = inBuffer;
-    if (inN == std::numeric_limits<unsigned char>::digits) fillInBuffer(); // special case when aligned byte
+    if (inN_ == 0) fillInBuffer();
+    auto x = inBuffer_;
+    if (inN_ == std::numeric_limits<unsigned char>::digits) fillInBuffer(); // special case when aligned byte
     else {
         // Combine last n bits of current buffer with first 8-n bits of new buffer.
-        x <<= std::numeric_limits<unsigned char>::digits - inN;
+        x <<= std::numeric_limits<unsigned char>::digits - inN_;
         fillInBuffer();
-        x |= inBuffer >> inN;
+        x |= inBuffer_ >> inN_;
     }
     return x;
 }
@@ -171,19 +171,19 @@ T algs4::BinaryStdIO::read() {
 
 inline void algs4::BinaryStdIO::closeOut() {
     using namespace internal;
-    if (outN > 0) {
+    if (outN_ > 0) {
         // Pad 0s if number of bits written so far is not a multiple of 8.
-        outBuffer <<= std::numeric_limits<unsigned char>::digits - outN;
-        std::cout.put(std::to_integer<char>(outBuffer));
+        outBuffer_ <<= std::numeric_limits<unsigned char>::digits - outN_;
+        std::cout.put(std::to_integer<char>(outBuffer_));
     }
-    outN = 0;
-    outBuffer = std::byte();
+    outN_ = 0;
+    outBuffer_ = std::byte();
 }
 
 inline void algs4::BinaryStdIO::closeIn() {
     using namespace internal;
-    inN = 0;
-    inBuffer = std::byte();
+    inN_ = 0;
+    inBuffer_ = std::byte();
 }
 
 

@@ -14,7 +14,7 @@ namespace algs4 {
 
 constexpr algs4::CC::CC(const Graph &G) : CCBase(G) {
     for (int s = 0; s < G.V(); ++s) {
-        if (!marked[s]) {
+        if (!marked_[s]) {
             dfs(G, s);
             ++count_;
         }
