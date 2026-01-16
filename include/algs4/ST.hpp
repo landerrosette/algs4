@@ -1,7 +1,6 @@
 #ifndef ALGS4_ST_HPP
 #define ALGS4_ST_HPP
 
-
 #include <cstddef>
 #include <utility>
 #include <vector>
@@ -30,5 +29,4 @@ namespace algs4 {
     };
 }
 
-
-#endif //ALGS4_ST_HPP
+#endif // ALGS4_ST_HPP

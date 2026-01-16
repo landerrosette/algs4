@@ -1,7 +1,6 @@
 #ifndef ALGS4_ORDEREDST_HPP
 #define ALGS4_ORDEREDST_HPP
 
-
 #include <concepts>
 #include <cstddef>
 #include <vector>
@@ -52,5 +51,4 @@ constexpr std::vector<Key> algs4::OrderedST<Key, Value>::keys() const {
     return keys(*min(), *max());
 }
 
-
-#endif //ALGS4_ORDEREDST_HPP
+#endif // ALGS4_ORDEREDST_HPP

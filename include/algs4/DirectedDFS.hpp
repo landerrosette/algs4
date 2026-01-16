@@ -1,7 +1,6 @@
 #ifndef ALGS4_DIRECTEDDFS_HPP
 #define ALGS4_DIRECTEDDFS_HPP
 
-
 #include <cassert>
 #include <vector>
 
@@ -43,5 +42,4 @@ constexpr algs4::DirectedDFS::DirectedDFS(const Digraph &G, const std::vector<in
     }
 }
 
-
-#endif //ALGS4_DIRECTEDDFS_HPP
+#endif // ALGS4_DIRECTEDDFS_HPP

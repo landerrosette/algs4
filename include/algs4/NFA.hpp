@@ -1,7 +1,6 @@
 #ifndef ALGS4_NFA_HPP
 #define ALGS4_NFA_HPP
 
-
 #include <stack>
 #include <string>
 #include <string_view>
@@ -68,5 +67,4 @@ inline bool algs4::NFA::recognizes(std::string_view txt) const {
     return false;
 }
 
-
-#endif //ALGS4_NFA_HPP
+#endif // ALGS4_NFA_HPP

@@ -1,7 +1,6 @@
 #ifndef ALGS4_STRINGST_HPP
 #define ALGS4_STRINGST_HPP
 
-
 #include <string>
 #include <string_view>
 #include <vector>
@@ -18,5 +17,4 @@ namespace algs4 {
     };
 }
 
-
-#endif //ALGS4_STRINGST_HPP
+#endif // ALGS4_STRINGST_HPP

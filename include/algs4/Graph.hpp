@@ -1,7 +1,6 @@
 #ifndef ALGS4_GRAPH_HPP
 #define ALGS4_GRAPH_HPP
 
-
 #include <cassert>
 #include <cstddef>
 
@@ -36,5 +35,4 @@ constexpr void algs4::Graph::addEdge(int v, int w) {
     ++E_;
 }
 
-
-#endif //ALGS4_GRAPH_HPP
+#endif // ALGS4_GRAPH_HPP

@@ -1,7 +1,6 @@
 #ifndef ALGS4_DEPTHFIRSTORDER_HPP
 #define ALGS4_DEPTHFIRSTORDER_HPP
 
-
 #include <concepts>
 #include <ranges>
 #include <type_traits>
@@ -50,5 +49,4 @@ constexpr algs4::DepthFirstOrder::DepthFirstOrder(const GraphBase<EdgeType> &G) 
             dfs(G, v);
 }
 
-
-#endif //ALGS4_DEPTHFIRSTORDER_HPP
+#endif // ALGS4_DEPTHFIRSTORDER_HPP

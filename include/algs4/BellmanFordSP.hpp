@@ -1,7 +1,6 @@
 #ifndef ALGS4_BELLMANFORDSP_HPP
 #define ALGS4_BELLMANFORDSP_HPP
 
-
 #include <queue>
 #include <vector>
 
@@ -63,5 +62,4 @@ inline algs4::BellmanFordSP::BellmanFordSP(const EdgeWeightedDigraph &G, int s) 
     }
 }
 
-
-#endif //ALGS4_BELLMANFORDSP_HPP
+#endif // ALGS4_BELLMANFORDSP_HPP

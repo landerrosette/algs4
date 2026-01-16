@@ -1,7 +1,6 @@
 #ifndef ALGS4_DIGRAPH_HPP
 #define ALGS4_DIGRAPH_HPP
 
-
 #include <cassert>
 #include <cstddef>
 
@@ -44,5 +43,4 @@ constexpr algs4::Digraph algs4::Digraph::reverse() const {
     return R;
 }
 
-
-#endif //ALGS4_DIGRAPH_HPP
+#endif // ALGS4_DIGRAPH_HPP

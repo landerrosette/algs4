@@ -1,7 +1,6 @@
 #ifndef ALGS4_INSERTION_HPP
 #define ALGS4_INSERTION_HPP
 
-
 #include <concepts>
 #include <vector>
 
@@ -24,5 +23,4 @@ constexpr void algs4::Insertion::sort(std::vector<T> &a) {
             exch(a, j, j - 1);
 }
 
-
-#endif //ALGS4_INSERTION_HPP
+#endif // ALGS4_INSERTION_HPP

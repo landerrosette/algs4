@@ -1,7 +1,6 @@
 #ifndef ALGS4_EDGEBASE_HPP
 #define ALGS4_EDGEBASE_HPP
 
-
 #include <cassert>
 #include <compare>
 #include <limits>
@@ -35,5 +34,4 @@ constexpr algs4::EdgeBase::EdgeBase(int v, int w, double weight) : v_(v), w_(w),
     assert(weight == weight);
 }
 
-
-#endif //ALGS4_EDGEBASE_HPP
+#endif // ALGS4_EDGEBASE_HPP

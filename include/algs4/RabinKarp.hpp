@@ -1,7 +1,6 @@
 #ifndef ALGS4_RABINKARP_HPP
 #define ALGS4_RABINKARP_HPP
 
-
 #include <cstddef>
 #include <random>
 #include <string_view>
@@ -72,5 +71,4 @@ inline std::ptrdiff_t algs4::RabinKarp::search(std::string_view txt) const {
     return N; // no match found
 }
 
-
-#endif //ALGS4_RABINKARP_HPP
+#endif // ALGS4_RABINKARP_HPP

@@ -1,7 +1,6 @@
 #ifndef ALGS4_MINPQ_HPP
 #define ALGS4_MINPQ_HPP
 
-
 #include <concepts>
 #include <functional>
 
@@ -15,5 +14,4 @@ namespace algs4 {
     };
 }
 
-
-#endif //ALGS4_MINPQ_HPP
+#endif // ALGS4_MINPQ_HPP

@@ -1,7 +1,6 @@
 #ifndef ALGS4_GRAPHBASE_HPP
 #define ALGS4_GRAPHBASE_HPP
 
-
 #include <cassert>
 #include <cstddef>
 #include <istream>
@@ -56,5 +55,4 @@ std::ostream &operator<<(std::ostream &os, const algs4::GraphBase<EdgeType> &G) 
     return os;
 }
 
-
-#endif //ALGS4_GRAPHBASE_HPP
+#endif // ALGS4_GRAPHBASE_HPP

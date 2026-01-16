@@ -1,7 +1,6 @@
 #ifndef ALGS4_CC_HPP
 #define ALGS4_CC_HPP
 
-
 #include "CCBase.hpp"
 #include "Graph.hpp"
 
@@ -21,5 +20,4 @@ constexpr algs4::CC::CC(const Graph &G) : CCBase(G) {
     }
 }
 
-
-#endif //ALGS4_CC_HPP
+#endif // ALGS4_CC_HPP

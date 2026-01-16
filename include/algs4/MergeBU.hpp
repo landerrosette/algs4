@@ -1,7 +1,6 @@
 #ifndef ALGS4_MERGEBU_HPP
 #define ALGS4_MERGEBU_HPP
 
-
 #include <algorithm>
 #include <concepts>
 #include <vector>
@@ -25,5 +24,4 @@ constexpr void algs4::MergeBU::sort(std::vector<T> &a) {
             merge(a, aux, lo, lo + sz - 1, std::min(lo + sz + sz - 1, N - 1));
 }
 
-
-#endif //ALGS4_MERGEBU_HPP
+#endif // ALGS4_MERGEBU_HPP

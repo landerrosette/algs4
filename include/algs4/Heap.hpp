@@ -1,7 +1,6 @@
 #ifndef ALGS4_HEAP_HPP
 #define ALGS4_HEAP_HPP
 
-
 #include <concepts>
 #include <cstddef>
 #include <vector>
@@ -61,5 +60,4 @@ constexpr void algs4::Heap::sort(std::vector<T> &a) {
     }
 }
 
-
-#endif //ALGS4_HEAP_HPP
+#endif // ALGS4_HEAP_HPP

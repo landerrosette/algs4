@@ -1,7 +1,6 @@
 #ifndef ALGS4_PRIMMST_HPP
 #define ALGS4_PRIMMST_HPP
 
-
 #include <algorithm>
 #include <limits>
 #include <vector>
@@ -57,5 +56,4 @@ constexpr std::vector<algs4::Edge> algs4::PrimMST::edges() const {
     return mst;
 }
 
-
-#endif //ALGS4_PRIMMST_HPP
+#endif // ALGS4_PRIMMST_HPP

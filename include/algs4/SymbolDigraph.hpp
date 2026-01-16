@@ -1,7 +1,6 @@
 #ifndef ALGS4_SYMBOLDIGRAPH_HPP
 #define ALGS4_SYMBOLDIGRAPH_HPP
 
-
 #include <cassert>
 #include <concepts>
 #include <filesystem>
@@ -71,5 +70,4 @@ std::string_view algs4::SymbolDigraph<STType>::name(int v) const & {
     return keys_[v];
 }
 
-
-#endif //ALGS4_SYMBOLDIGRAPH_HPP
+#endif // ALGS4_SYMBOLDIGRAPH_HPP

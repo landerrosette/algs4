@@ -1,7 +1,6 @@
 #ifndef ALGS4_UF_HPP
 #define ALGS4_UF_HPP
 
-
 #include <cassert>
 #include <vector>
 
@@ -52,5 +51,4 @@ constexpr void algs4::UF::unionize(int p, int q) {
     --count_;
 }
 
-
-#endif //ALGS4_UF_HPP
+#endif // ALGS4_UF_HPP

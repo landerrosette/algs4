@@ -1,7 +1,6 @@
 #ifndef ALGS4_SEPARATECHAININGHASHST_HPP
 #define ALGS4_SEPARATECHAININGHASHST_HPP
 
-
 #include <cassert>
 #include <cstddef>
 #include <functional>
@@ -51,5 +50,4 @@ std::vector<Key> algs4::SeparateChainingHashST<Key, Value>::keys() const {
     return queue;
 }
 
-
-#endif //ALGS4_SEPARATECHAININGHASHST_HPP
+#endif // ALGS4_SEPARATECHAININGHASHST_HPP

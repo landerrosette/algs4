@@ -1,7 +1,6 @@
 #ifndef ALGS4_TOPOLOGICAL_HPP
 #define ALGS4_TOPOLOGICAL_HPP
 
-
 #include <ranges>
 #include <vector>
 
@@ -33,5 +32,4 @@ constexpr algs4::Topological::Topological(const GraphBase<EdgeType> &G) {
     }
 }
 
-
-#endif //ALGS4_TOPOLOGICAL_HPP
+#endif // ALGS4_TOPOLOGICAL_HPP

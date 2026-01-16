@@ -1,7 +1,6 @@
 #ifndef ALGS4_BREADTHFIRSTPATHS_HPP
 #define ALGS4_BREADTHFIRSTPATHS_HPP
 
-
 #include <queue>
 
 #include "Paths.hpp"
@@ -33,5 +32,4 @@ inline void algs4::BreadthFirstPaths::bfs(const Graph &G, int s) {
     }
 }
 
-
-#endif //ALGS4_BREADTHFIRSTPATHS_HPP
+#endif // ALGS4_BREADTHFIRSTPATHS_HPP

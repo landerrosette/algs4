@@ -1,7 +1,6 @@
 #ifndef ALGS4_ACYCLICSP_HPP
 #define ALGS4_ACYCLICSP_HPP
 
-
 #include "SP.hpp"
 #include "Topological.hpp"
 
@@ -18,5 +17,4 @@ constexpr algs4::AcyclicSP::AcyclicSP(const EdgeWeightedDigraph &G, int s) : SP(
         relax(G, v);
 }
 
-
-#endif //ALGS4_ACYCLICSP_HPP
+#endif // ALGS4_ACYCLICSP_HPP

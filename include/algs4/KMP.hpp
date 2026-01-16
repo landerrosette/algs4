@@ -1,7 +1,6 @@
 #ifndef ALGS4_KMP_HPP
 #define ALGS4_KMP_HPP
 
-
 #include <cstddef>
 #include <string>
 #include <utility>
@@ -44,5 +43,4 @@ constexpr std::ptrdiff_t algs4::KMP::search(std::string_view txt) const {
     else return N;            // not found (hit end of text)
 }
 
-
-#endif //ALGS4_KMP_HPP
+#endif // ALGS4_KMP_HPP

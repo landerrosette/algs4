@@ -1,7 +1,6 @@
 #ifndef ALGS4_DIJKSTRASP_HPP
 #define ALGS4_DIJKSTRASP_HPP
 
-
 #include "IndexMinPQ.hpp"
 #include "SP.hpp"
 
@@ -28,5 +27,4 @@ constexpr algs4::DijkstraSP::DijkstraSP(const EdgeWeightedDigraph &G, int s) : S
         relax(G, static_cast<int>(pq_.delMin()));
 }
 
-
-#endif //ALGS4_DIJKSTRASP_HPP
+#endif // ALGS4_DIJKSTRASP_HPP

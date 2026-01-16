@@ -1,7 +1,6 @@
 #ifndef ALGS4_DIRECTEDCYCLE_HPP
 #define ALGS4_DIRECTEDCYCLE_HPP
 
-
 #include <concepts>
 #include <ranges>
 #include <type_traits>
@@ -66,5 +65,4 @@ constexpr algs4::DirectedCycle<EdgeType>::DirectedCycle(const GraphBase<EdgeType
             dfs(G, v);
 }
 
-
-#endif //ALGS4_DIRECTEDCYCLE_HPP
+#endif // ALGS4_DIRECTEDCYCLE_HPP

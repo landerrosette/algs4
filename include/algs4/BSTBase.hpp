@@ -1,7 +1,6 @@
 #ifndef ALGS4_BSTBASE_HPP
 #define ALGS4_BSTBASE_HPP
 
-
 #include <cassert>
 #include <cstddef>
 #include <memory>
@@ -167,5 +166,4 @@ std::vector<Key> algs4::BSTBase<Key, Value, Node>::keys(const Key &lo, const Key
     return queue;
 }
 
-
-#endif //ALGS4_BSTBASE_HPP
+#endif // ALGS4_BSTBASE_HPP

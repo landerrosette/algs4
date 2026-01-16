@@ -1,7 +1,6 @@
 #ifndef ALGS4_LZW_HPP
 #define ALGS4_LZW_HPP
 
-
 #include <string>
 #include <utility>
 #include <vector>
@@ -65,5 +64,4 @@ inline void algs4::LZW::expand() {
     BinaryStdIO::closeOut();
 }
 
-
-#endif //ALGS4_LZW_HPP
+#endif // ALGS4_LZW_HPP

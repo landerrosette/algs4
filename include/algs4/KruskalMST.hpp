@@ -1,7 +1,6 @@
 #ifndef ALGS4_KRUSKALMST_HPP
 #define ALGS4_KRUSKALMST_HPP
 
-
 #include <vector>
 
 #include "EdgeWeightedGraph.hpp"
@@ -35,5 +34,4 @@ constexpr algs4::KruskalMST::KruskalMST(const EdgeWeightedGraph &G) {
     }
 }
 
-
-#endif //ALGS4_KRUSKALMST_HPP
+#endif // ALGS4_KRUSKALMST_HPP

@@ -1,7 +1,6 @@
 #ifndef ALGS4_BOYERMOORE_HPP
 #define ALGS4_BOYERMOORE_HPP
 
-
 #include <cstddef>
 #include <string>
 #include <utility>
@@ -47,5 +46,4 @@ constexpr std::ptrdiff_t algs4::BoyerMoore::search(std::string_view txt) const {
     return N; // not found
 }
 
-
-#endif //ALGS4_BOYERMOORE_HPP
+#endif // ALGS4_BOYERMOORE_HPP

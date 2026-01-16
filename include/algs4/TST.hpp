@@ -1,7 +1,6 @@
 #ifndef ALGS4_TST_HPP
 #define ALGS4_TST_HPP
 
-
 #include <cassert>
 #include <cstddef>
 #include <memory>
@@ -197,5 +196,4 @@ std::vector<std::string> algs4::TST<Value>::keysThatMatch(std::string_view pat) 
     return q;
 }
 
-
-#endif //ALGS4_TST_HPP
+#endif // ALGS4_TST_HPP

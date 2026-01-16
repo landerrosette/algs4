@@ -1,7 +1,6 @@
 #ifndef ALGS4_CCBASE_HPP
 #define ALGS4_CCBASE_HPP
 
-
 #include <cassert>
 #include <vector>
 
@@ -49,5 +48,4 @@ constexpr int algs4::CCBase::id(int v) const {
     return id_[v];
 }
 
-
-#endif //ALGS4_CCBASE_HPP
+#endif // ALGS4_CCBASE_HPP

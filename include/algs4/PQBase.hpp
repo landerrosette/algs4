@@ -1,7 +1,6 @@
 #ifndef ALGS4_PQBASE_HPP
 #define ALGS4_PQBASE_HPP
 
-
 #include <cassert>
 #include <concepts>
 #include <cstddef>
@@ -82,5 +81,4 @@ constexpr void algs4::PQBase<Key, Compare>::insert(K &&v) {
     swim(size());
 }
 
-
-#endif //ALGS4_PQBASE_HPP
+#endif // ALGS4_PQBASE_HPP

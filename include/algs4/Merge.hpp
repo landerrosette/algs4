@@ -1,7 +1,6 @@
 #ifndef ALGS4_MERGE_HPP
 #define ALGS4_MERGE_HPP
 
-
 #include <concepts>
 #include <cstddef>
 #include <utility>
@@ -56,5 +55,4 @@ constexpr void algs4::Merge::sort(std::vector<T> &a) {
     internal::sort(a, aux, 0, std::ssize(a) - 1);
 }
 
-
-#endif //ALGS4_MERGE_HPP
+#endif // ALGS4_MERGE_HPP

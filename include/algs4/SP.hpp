@@ -1,7 +1,6 @@
 #ifndef ALGS4_SP_HPP
 #define ALGS4_SP_HPP
 
-
 #include <algorithm>
 #include <cassert>
 #include <limits>
@@ -72,5 +71,4 @@ constexpr std::vector<algs4::DirectedEdge> algs4::SP::pathTo(int v) const {
     return path;
 }
 
-
-#endif //ALGS4_SP_HPP
+#endif // ALGS4_SP_HPP

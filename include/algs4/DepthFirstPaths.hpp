@@ -1,7 +1,6 @@
 #ifndef ALGS4_DEPTHFIRSTPATHS_HPP
 #define ALGS4_DEPTHFIRSTPATHS_HPP
 
-
 #include "Paths.hpp"
 
 namespace algs4 {
@@ -24,5 +23,4 @@ constexpr void algs4::DepthFirstPaths::dfs(const Graph &G, int v) {
     }
 }
 
-
-#endif //ALGS4_DEPTHFIRSTPATHS_HPP
+#endif // ALGS4_DEPTHFIRSTPATHS_HPP

@@ -1,7 +1,6 @@
 #ifndef ALGS4_LINEARPROBINGHASHST_HPP
 #define ALGS4_LINEARPROBINGHASHST_HPP
 
-
 #include <cstddef>
 #include <functional>
 #include <optional>
@@ -100,5 +99,4 @@ constexpr std::vector<Key> algs4::LinearProbingHashST<Key, Value>::keys() const 
     return queue;
 }
 
-
-#endif //ALGS4_LINEARPROBINGHASHST_HPP
+#endif // ALGS4_LINEARPROBINGHASHST_HPP

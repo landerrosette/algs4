@@ -1,7 +1,6 @@
 #ifndef ALGS4_QUICK3STRING_HPP
 #define ALGS4_QUICK3STRING_HPP
 
-
 #include <cstddef>
 #include <string>
 #include <vector>
@@ -37,5 +36,4 @@ constexpr void algs4::Quick3string::internal::sort(std::vector<std::string> &a, 
     sort(a, gt + 1, hi, d);
 }
 
-
-#endif //ALGS4_QUICK3STRING_HPP
+#endif // ALGS4_QUICK3STRING_HPP

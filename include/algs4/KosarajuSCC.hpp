@@ -1,7 +1,6 @@
 #ifndef ALGS4_KOSARAJUSCC_HPP
 #define ALGS4_KOSARAJUSCC_HPP
 
-
 #include "CCBase.hpp"
 #include "DepthFirstOrder.hpp"
 #include "Digraph.hpp"
@@ -25,5 +24,4 @@ constexpr algs4::KosarajuSCC::KosarajuSCC(const Digraph &G) : CCBase(G) {
     }
 }
 
-
-#endif //ALGS4_KOSARAJUSCC_HPP
+#endif // ALGS4_KOSARAJUSCC_HPP

@@ -1,7 +1,6 @@
 #ifndef ALGS4_BST_HPP
 #define ALGS4_BST_HPP
 
-
 #include "BSTBase.hpp"
 
 namespace algs4 {
@@ -91,5 +90,4 @@ auto algs4::BST<Key, Value>::removeMax(std::unique_ptr<Node> x) -> std::unique_p
     return x;
 }
 
-
-#endif //ALGS4_BST_HPP
+#endif // ALGS4_BST_HPP

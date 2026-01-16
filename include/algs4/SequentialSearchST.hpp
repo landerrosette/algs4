@@ -1,7 +1,6 @@
 #ifndef ALGS4_SEQUENTIALSEARCHST_HPP
 #define ALGS4_SEQUENTIALSEARCHST_HPP
 
-
 #include <cstddef>
 #include <memory>
 #include <utility>
@@ -76,5 +75,4 @@ std::vector<Key> algs4::SequentialSearchST<Key, Value>::keys() const {
     return queue;
 }
 
-
-#endif //ALGS4_SEQUENTIALSEARCHST_HPP
+#endif // ALGS4_SEQUENTIALSEARCHST_HPP

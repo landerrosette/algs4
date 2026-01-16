@@ -1,7 +1,6 @@
 #ifndef ALGS4_TRIEST_HPP
 #define ALGS4_TRIEST_HPP
 
-
 #include <array>
 #include <cstddef>
 #include <memory>
@@ -150,5 +149,4 @@ std::vector<std::string> algs4::TrieST<Value>::keysThatMatch(std::string_view pa
     return q;
 }
 
-
-#endif //ALGS4_TRIEST_HPP
+#endif // ALGS4_TRIEST_HPP

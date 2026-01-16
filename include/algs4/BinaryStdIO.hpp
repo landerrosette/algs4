@@ -1,7 +1,6 @@
 #ifndef ALGS4_BINARYSTDIO_HPP
 #define ALGS4_BINARYSTDIO_HPP
 
-
 #include <cassert>
 #include <concepts>
 #include <cstddef>
@@ -186,5 +185,4 @@ inline void algs4::BinaryStdIO::closeIn() {
     inBuffer_ = std::byte();
 }
 
-
-#endif //ALGS4_BINARYSTDIO_HPP
+#endif // ALGS4_BINARYSTDIO_HPP

@@ -1,7 +1,6 @@
 #ifndef ALGS4_REDBLACKBST_HPP
 #define ALGS4_REDBLACKBST_HPP
 
-
 #include <algorithm>
 #include <cassert>
 #include <utility>
@@ -251,5 +250,4 @@ void algs4::RedBlackBST<Key, Value>::removeMax() {
     assert(isBalanced());
 }
 
-
-#endif //ALGS4_REDBLACKBST_HPP
+#endif // ALGS4_REDBLACKBST_HPP

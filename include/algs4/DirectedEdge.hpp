@@ -1,7 +1,6 @@
 #ifndef ALGS4_DIRECTEDEDGE_HPP
 #define ALGS4_DIRECTEDEDGE_HPP
 
-
 #include <iomanip>
 #include <ostream>
 
@@ -26,5 +25,4 @@ inline std::ostream &algs4::operator<<(std::ostream &os, const DirectedEdge &e) 
     return os << e.v_ << "->" << e.w_ << " " << std::fixed << std::setprecision(2) << e.weight_ << " ";
 }
 
-
-#endif //ALGS4_DIRECTEDEDGE_HPP
+#endif // ALGS4_DIRECTEDEDGE_HPP

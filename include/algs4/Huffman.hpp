@@ -1,7 +1,6 @@
 #ifndef ALGS4_HUFFMAN_HPP
 #define ALGS4_HUFFMAN_HPP
 
-
 #include <compare>
 #include <cstddef>
 #include <memory>
@@ -142,5 +141,4 @@ inline void algs4::Huffman::expand() {
     BinaryStdIO::closeOut();
 }
 
-
-#endif //ALGS4_HUFFMAN_HPP
+#endif // ALGS4_HUFFMAN_HPP

@@ -1,7 +1,6 @@
 #ifndef ALGS4_SELECTION_HPP
 #define ALGS4_SELECTION_HPP
 
-
 #include <concepts>
 #include <vector>
 
@@ -28,5 +27,4 @@ constexpr void algs4::Selection::sort(std::vector<T> &a) {
     }
 }
 
-
-#endif //ALGS4_SELECTION_HPP
+#endif // ALGS4_SELECTION_HPP

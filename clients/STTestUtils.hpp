@@ -1,7 +1,6 @@
 #ifndef ALGS4_STTESTUTILS_HPP
 #define ALGS4_STTESTUTILS_HPP
 
-
 #include <iosfwd>
 #include <string>
 
@@ -18,5 +17,4 @@ namespace STTestUtils {
     void testKeys(const algs4::ST<std::string, int> &st, std::ostream &os);
 }
 
-
-#endif //ALGS4_STTESTUTILS_HPP
+#endif // ALGS4_STTESTUTILS_HPP

@@ -1,7 +1,6 @@
 #ifndef ALGS4_SUBSTRSEARCHER_HPP
 #define ALGS4_SUBSTRSEARCHER_HPP
 
-
 #include <cstddef>
 #include <string_view>
 
@@ -21,5 +20,4 @@ namespace algs4 {
     };
 }
 
-
-#endif //ALGS4_SUBSTRSEARCHER_HPP
+#endif // ALGS4_SUBSTRSEARCHER_HPP

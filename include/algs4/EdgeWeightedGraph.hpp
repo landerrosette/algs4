@@ -1,7 +1,6 @@
 #ifndef ALGS4_EDGEWEIGHTEDGRAPH_HPP
 #define ALGS4_EDGEWEIGHTEDGRAPH_HPP
 
-
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
@@ -50,5 +49,4 @@ constexpr std::vector<algs4::Edge> algs4::EdgeWeightedGraph::edges() const {
     return bag;
 }
 
-
-#endif //ALGS4_EDGEWEIGHTEDGRAPH_HPP
+#endif // ALGS4_EDGEWEIGHTEDGRAPH_HPP

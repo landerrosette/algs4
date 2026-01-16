@@ -1,7 +1,6 @@
 #ifndef ALGS4_EDGEWEIGHTEDDIGRAPH_HPP
 #define ALGS4_EDGEWEIGHTEDDIGRAPH_HPP
 
-
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
@@ -47,5 +46,4 @@ constexpr std::vector<algs4::DirectedEdge> algs4::EdgeWeightedDigraph::edges() c
     return bag;
 }
 
-
-#endif //ALGS4_EDGEWEIGHTEDDIGRAPH_HPP
+#endif // ALGS4_EDGEWEIGHTEDDIGRAPH_HPP

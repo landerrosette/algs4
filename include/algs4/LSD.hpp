@@ -1,7 +1,6 @@
 #ifndef ALGS4_LSD_HPP
 #define ALGS4_LSD_HPP
 
-
 #include <cstddef>
 #include <string>
 #include <utility>
@@ -34,5 +33,4 @@ constexpr void algs4::LSD::sort(std::vector<std::string> &a, std::ptrdiff_t W) {
     }
 }
 
-
-#endif //ALGS4_LSD_HPP
+#endif // ALGS4_LSD_HPP

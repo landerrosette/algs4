@@ -1,7 +1,6 @@
 #ifndef ALGS4_PATHS_HPP
 #define ALGS4_PATHS_HPP
 
-
 #include <algorithm>
 #include <cassert>
 #include <vector>
@@ -44,5 +43,4 @@ constexpr std::vector<int> algs4::Paths::pathTo(int v) const {
     return path;
 }
 
-
-#endif //ALGS4_PATHS_HPP
+#endif // ALGS4_PATHS_HPP

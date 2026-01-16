@@ -1,7 +1,6 @@
 #ifndef ALGS4_MST_HPP
 #define ALGS4_MST_HPP
 
-
 #include <vector>
 
 #include "Edge.hpp"
@@ -30,5 +29,4 @@ constexpr double algs4::MST::weight() const {
     return weight;
 }
 
-
-#endif //ALGS4_MST_HPP
+#endif // ALGS4_MST_HPP

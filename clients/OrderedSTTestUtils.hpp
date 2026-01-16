@@ -1,7 +1,6 @@
 #ifndef ALGS4_ORDEREDSTTESTUTILS_HPP
 #define ALGS4_ORDEREDSTTESTUTILS_HPP
 
-
 #include <iosfwd>
 #include <string>
 
@@ -14,5 +13,4 @@ namespace STTestUtils {
     void testOrderedST(const algs4::OrderedST<std::string, int> &st, std::ostream &os);
 }
 
-
-#endif //ALGS4_ORDEREDSTTESTUTILS_HPP
+#endif // ALGS4_ORDEREDSTTESTUTILS_HPP

@@ -1,7 +1,6 @@
 #ifndef ALGS4_INDEXMINPQ_HPP
 #define ALGS4_INDEXMINPQ_HPP
 
-
 #include <cassert>
 #include <concepts>
 #include <cstddef>
@@ -109,5 +108,4 @@ constexpr std::ptrdiff_t algs4::IndexMinPQ<Key>::delMin() {
     return indexOfMin;
 }
 
-
-#endif //ALGS4_INDEXMINPQ_HPP
+#endif // ALGS4_INDEXMINPQ_HPP

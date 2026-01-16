@@ -1,7 +1,6 @@
 #ifndef ALGS4_QUICK_HPP
 #define ALGS4_QUICK_HPP
 
-
 #include <algorithm>
 #include <concepts>
 #include <cstddef>
@@ -55,5 +54,4 @@ void algs4::Quick::sort(std::vector<T> &a) {
     internal::sort(a, 0, std::ssize(a) - 1);
 }
 
-
-#endif //ALGS4_QUICK_HPP
+#endif // ALGS4_QUICK_HPP

@@ -1,7 +1,6 @@
 #ifndef ALGS4_EDGE_HPP
 #define ALGS4_EDGE_HPP
 
-
 #include <cassert>
 #include <iomanip>
 #include <ostream>
@@ -34,5 +33,4 @@ inline std::ostream &algs4::operator<<(std::ostream &os, const Edge &e) {
     return os << e.v_ << "-" << e.w_ << " " << std::fixed << std::setprecision(2) << e.weight_ << " ";
 }
 
-
-#endif //ALGS4_EDGE_HPP
+#endif // ALGS4_EDGE_HPP

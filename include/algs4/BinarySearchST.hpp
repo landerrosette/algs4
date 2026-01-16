@@ -1,7 +1,6 @@
 #ifndef ALGS4_BINARYSEARCHST_HPP
 #define ALGS4_BINARYSEARCHST_HPP
 
-
 #include <cassert>
 #include <utility>
 #include <vector>
@@ -131,5 +130,4 @@ constexpr std::vector<Key> algs4::BinarySearchST<Key, Value>::keys(const Key &lo
     return queue;
 }
 
-
-#endif //ALGS4_BINARYSEARCHST_HPP
+#endif // ALGS4_BINARYSEARCHST_HPP

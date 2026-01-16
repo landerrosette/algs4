@@ -1,7 +1,6 @@
 #ifndef ALGS4_STRINGSORTUTILS_H
 #define ALGS4_STRINGSORTUTILS_H
 
-
 #include <cassert>
 #include <cstddef>
 #include <string>
@@ -20,5 +19,4 @@ constexpr int algs4::StringSortUtils::internal::charAt(const std::string &s, std
     return static_cast<unsigned char>(s[d]);
 }
 
-
-#endif //ALGS4_STRINGSORTUTILS_H
+#endif // ALGS4_STRINGSORTUTILS_H
