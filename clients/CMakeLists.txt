@@ -15,6 +15,21 @@
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
+# 1.1, 1.2
+foreach (STACK "Stack" "LinkedStack")
+    configure_file(Stack.cpp.in ${STACK}.cpp @ONLY)
+    add_executable(${STACK} ${STACK}.cpp)
+    target_link_libraries(${STACK} PRIVATE algs4)
+endforeach ()
+
+# 1.3
+add_executable(Queue Queue.cpp)
+target_link_libraries(Queue PRIVATE algs4)
+
+# 1.4
+add_executable(Bag Bag.cpp)
+target_link_libraries(Bag PRIVATE algs4)
+
 # 1.5
 add_executable(UF UF.cpp)
 target_link_libraries(UF PRIVATE algs4)

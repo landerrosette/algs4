@@ -68,6 +68,9 @@ For the original Java source code, visit the [official repository](https://githu
 
 ### Fundamentals
 
+- Stack (`Stack`, `LinkedStack`): [Stack.cpp.in](clients/Stack.cpp.in)
+- Queue (`Queue`): [Queue.cpp](clients/Queue.cpp)
+- Bag (`Bag`): [Bag.cpp](clients/Bag.cpp)
 - Union-find (`UF`): [UF.cpp](clients/UF.cpp)
 
 ### Sorting

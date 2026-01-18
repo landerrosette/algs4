@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 landerrosette
+ * Copyright (C) 2026 landerrosette
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,24 +16,39 @@
  */
 
 /******************************************************************************
- * % ./MaxPQ < tinyPQ.txt
- * Q X P (6 left on pq)
+ * % more tobe.txt
+ * to be or not to - be - - that - - - is
+ *
+ * % ./Bag < tobe.txt
+ * size of bag = 14
+ * is
+ * -
+ * -
+ * -
+ * that
+ * -
+ * -
+ * be
+ * -
+ * to
+ * not
+ * or
+ * be
+ * to
  ******************************************************************************/
 
-#include "algs4/MaxPQ.hpp"
+#include "algs4/Bag.hpp"
 
 #include <iostream>
 #include <string>
 #include <utility>
 
 int main(int argc, char *argv[]) {
-    algs4::MaxPQ<std::string> pq;
-    for (std::string item; std::cin >> item;) {
-        if (item != "-")
-            pq.insert(std::move(item));
-        else if (!pq.isEmpty())
-            std::cout << pq.delMax() << " ";
-    }
-    std::cout << "(" << pq.size() << " left on pq)" << std::endl;
+    algs4::Bag<std::string> b;
+    for (std::string item; std::cin >> item;)
+        b.add(std::move(item));
+    std::cout << "size of bag = " << b.size() << std::endl;
+    for (const auto &item: b)
+        std::cout << item << std::endl;
     return 0;
 }

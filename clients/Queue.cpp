@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 landerrosette
+ * Copyright (C) 2026 landerrosette
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,24 +16,27 @@
  */
 
 /******************************************************************************
- * % ./MaxPQ < tinyPQ.txt
- * Q X P (6 left on pq)
+ * % more tobe.txt
+ * to be or not to - be - - that - - - is
+ *
+ * % ./Queue < tobe.txt
+ * to be or not to be (2 left on queue)
  ******************************************************************************/
 
-#include "algs4/MaxPQ.hpp"
+#include "algs4/Queue.hpp"
 
 #include <iostream>
 #include <string>
 #include <utility>
 
 int main(int argc, char *argv[]) {
-    algs4::MaxPQ<std::string> pq;
+    algs4::Queue<std::string> q;
     for (std::string item; std::cin >> item;) {
         if (item != "-")
-            pq.insert(std::move(item));
-        else if (!pq.isEmpty())
-            std::cout << pq.delMax() << " ";
+            q.enqueue(std::move(item));
+        else if (!q.isEmpty())
+            std::cout << q.dequeue() << " ";
     }
-    std::cout << "(" << pq.size() << " left on pq)" << std::endl;
+    std::cout << "(" << q.size() << " left on queue)" << std::endl;
     return 0;
 }

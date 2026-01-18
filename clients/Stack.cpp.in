@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 landerrosette
+ * Copyright (C) 2026 landerrosette
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,24 +16,27 @@
  */
 
 /******************************************************************************
- * % ./MaxPQ < tinyPQ.txt
- * Q X P (6 left on pq)
+ * % more tobe.txt
+ * to be or not to - be - - that - - - is
+ *
+ * % ./@STACK@ < tobe.txt
+ * to be not that or be (2 left on stack)
  ******************************************************************************/
 
-#include "algs4/MaxPQ.hpp"
+#include "algs4/@STACK@.hpp"
 
 #include <iostream>
 #include <string>
 #include <utility>
 
 int main(int argc, char *argv[]) {
-    algs4::MaxPQ<std::string> pq;
+    algs4::@STACK@<std::string> s;
     for (std::string item; std::cin >> item;) {
         if (item != "-")
-            pq.insert(std::move(item));
-        else if (!pq.isEmpty())
-            std::cout << pq.delMax() << " ";
+            s.push(std::move(item));
+        else if (!s.isEmpty())
+            std::cout << s.pop() << " ";
     }
-    std::cout << "(" << pq.size() << " left on pq)" << std::endl;
+    std::cout << "(" << s.size() << " left on stack)" << std::endl;
     return 0;
 }
