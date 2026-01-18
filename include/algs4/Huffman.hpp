@@ -38,8 +38,7 @@ namespace algs4 {
                 const std::shared_ptr<const Node> left_, right_;
 
                 Node(char ch, std::ptrdiff_t freq, const std::shared_ptr<const Node> &left,
-                     const std::shared_ptr<const Node> &right)
-                    : ch_(ch), freq_(freq), left_(left), right_(right) {}
+                     const std::shared_ptr<const Node> &right) : ch_(ch), freq_(freq), left_(left), right_(right) {}
 
                 bool isLeaf() const { return !left_ && !right_; }
                 friend auto operator<=>(const Node &l, const Node &r) { return l.freq_ <=> r.freq_; }
@@ -124,16 +123,24 @@ inline void algs4::Huffman::compress() {
 
     auto input = BinaryStdIO::read<std::string>();
 
+    // Tabulate frequency counts.
     std::vector<std::ptrdiff_t> freq(R);
     for (unsigned char c: input) ++freq[c];
 
+    // Build Huffman code trie.
     auto root = buildTrie(freq);
 
+    // Build code table (recursive).
     std::vector<std::string> st(R);
     buildCode(st, root, "");
 
+    // Print trie for decoder (recursive).
     writeTrie(root);
+
+    // Print number of chars.
     BinaryStdIO::write(static_cast<int>(std::ssize(input)));
+
+    // Use Huffman code to encode input.
     for (unsigned char i: input) {
         for (const auto &code = st[i]; char c: code) {
             if (c == '1') BinaryStdIO::write(true);
@@ -147,12 +154,11 @@ inline void algs4::Huffman::expand() {
     using namespace internal;
     auto root = readTrie();
     auto N = BinaryStdIO::read<int>();
-    for (auto i = N; i > 0; --i) {
+    while (N--) {
         auto x = root;
-        while (!x->isLeaf()) {
+        while (!x->isLeaf())
             if (BinaryStdIO::read<bool>()) x = x->right_;
             else x = x->left_;
-        }
         BinaryStdIO::write(x->ch_);
     }
     BinaryStdIO::closeOut();

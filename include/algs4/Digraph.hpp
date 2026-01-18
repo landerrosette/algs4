@@ -48,7 +48,7 @@ inline algs4::Digraph::Digraph(std::istream &in) : GraphBase(in) {
 constexpr void algs4::Digraph::addEdge(int v, int w) {
     assert(v >= 0 && v < V_);
     assert(w >= 0 && w < V_);
-    adj_[v].push_back(w);
+    adj_[v].add(w);
     ++E_;
 }
 

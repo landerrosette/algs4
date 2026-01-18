@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
     std::cout << "text:    " << txt << std::endl;
     auto offset = search.search(txt);
     std::cout << "pattern: ";
-    for (decltype(offset) i = 0; i < offset; ++i) std::cout << " ";
+    for (decltype(offset) i = 0; i < offset; ++i)
+        std::cout << " ";
     std::cout << pat << std::endl;
 }

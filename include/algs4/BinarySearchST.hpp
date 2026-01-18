@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "OrderedST.hpp"
+#include "Queue.hpp"
 #include "SequentialSearchST.hpp"
 
 namespace algs4 {
@@ -33,9 +34,9 @@ namespace algs4 {
         std::vector<Value> vals_;
 
     public:
+        constexpr void put(Key key, Value val) override;
         using OrderedST<Key, Value>::get;
         constexpr const Value *get(const Key &key) const override;
-        constexpr void put(Key key, Value val) override;
         constexpr void remove(const Key &key) override;
         constexpr std::ptrdiff_t size() const override { return std::ssize(keys_); }
         constexpr const Key *min() const override;
@@ -44,16 +45,8 @@ namespace algs4 {
         constexpr const Key *ceiling(const Key &key) const override;
         constexpr std::ptrdiff_t rank(const Key &key) const override;
         constexpr const Key *select(std::ptrdiff_t k) const override;
-        constexpr std::vector<Key> keys(const Key &lo, const Key &hi) const override;
+        Queue<Key> keys(const Key &lo, const Key &hi) const override;
     };
-}
-
-template<std::totally_ordered Key, typename Value>
-constexpr const Value *algs4::BinarySearchST<Key, Value>::get(const Key &key) const {
-    if (this->isEmpty()) return nullptr;
-    auto i = rank(key);
-    if (i < size() && keys_[i] == key) return &vals_[i];
-    else return nullptr;
 }
 
 template<std::totally_ordered Key, typename Value>
@@ -76,6 +69,14 @@ constexpr void algs4::BinarySearchST<Key, Value>::put(Key key, Value val) {
     }
     keys_[i] = std::move(key);
     vals_[i] = std::move(val);
+}
+
+template<std::totally_ordered Key, typename Value>
+constexpr const Value *algs4::BinarySearchST<Key, Value>::get(const Key &key) const {
+    if (this->isEmpty()) return nullptr;
+    auto i = rank(key);
+    if (i < size() && keys_[i] == key) return &vals_[i];
+    else return nullptr;
 }
 
 template<std::totally_ordered Key, typename Value>
@@ -138,12 +139,12 @@ constexpr const Key *algs4::BinarySearchST<Key, Value>::select(ptrdiff_t k) cons
 }
 
 template<std::totally_ordered Key, typename Value>
-constexpr std::vector<Key> algs4::BinarySearchST<Key, Value>::keys(const Key &lo, const Key &hi) const {
-    std::vector<Key> queue;
+algs4::Queue<Key> algs4::BinarySearchST<Key, Value>::keys(const Key &lo, const Key &hi) const {
+    Queue<Key> queue;
     for (auto i = rank(lo); i < rank(hi); ++i)
-        queue.push_back(keys_[i]);
+        queue.enqueue(keys_[i]);
     if (this->contains(hi))
-        queue.push_back(keys_[rank(hi)]);
+        queue.enqueue(keys_[rank(hi)]);
     return queue;
 }
 

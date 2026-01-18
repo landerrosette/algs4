@@ -40,12 +40,9 @@ namespace algs4 {
         constexpr void sink(std::ptrdiff_t k);
 
     public:
-        constexpr explicit IndexMinPQ(std::ptrdiff_t maxN) : pq_(maxN + 1), qp_(maxN + 1, -1), keys_(maxN + 1) {
-            assert(maxN >= 0);
-        }
+        constexpr explicit IndexMinPQ(std::ptrdiff_t maxN);
 
         constexpr bool isEmpty() const { return N_ == 0; }
-        constexpr std::ptrdiff_t size() const { return N_; }
         constexpr bool contains(std::ptrdiff_t k) const;
 
         template<typename K> requires std::constructible_from<Key, K>
@@ -85,6 +82,11 @@ constexpr void algs4::IndexMinPQ<Key>::sink(std::ptrdiff_t k) {
         exch(k, j);
         k = j;
     }
+}
+
+template<std::totally_ordered Key>
+constexpr algs4::IndexMinPQ<Key>::IndexMinPQ(std::ptrdiff_t maxN) : pq_(maxN + 1), qp_(maxN + 1, -1), keys_(maxN + 1) {
+    assert(maxN >= 0);
 }
 
 template<std::totally_ordered Key>

@@ -24,6 +24,7 @@
 #include <utility>
 #include <vector>
 
+#include "Queue.hpp"
 #include "ST.hpp"
 
 namespace algs4 {
@@ -43,12 +44,12 @@ namespace algs4 {
     public:
         constexpr LinearProbingHashST() : keys_(M_), vals_(M_) {}
 
+        constexpr void put(Key key, Value val) override;
         using ST<Key, Value>::get;
         constexpr const Value *get(const Key &key) const override;
-        constexpr void put(Key key, Value val) override;
         constexpr void remove(const Key &key) override;
         constexpr std::ptrdiff_t size() const override { return N_; }
-        constexpr std::vector<Key> keys() const override;
+        Queue<Key> keys() const override;
     };
 }
 
@@ -64,14 +65,6 @@ constexpr void algs4::LinearProbingHashST<Key, Value>::resize(std::ptrdiff_t cap
 }
 
 template<typename Key, typename Value>
-constexpr const Value *algs4::LinearProbingHashST<Key, Value>::get(const Key &key) const {
-    for (auto i = hash(key); keys_[i]; i = (i + 1) % M_)
-        if (keys_[i] == key)
-            return &*vals_[i];
-    return nullptr;
-}
-
-template<typename Key, typename Value>
 constexpr void algs4::LinearProbingHashST<Key, Value>::put(Key key, Value val) {
     if (N_ >= M_ / 2) resize(2 * M_);
 
@@ -84,6 +77,14 @@ constexpr void algs4::LinearProbingHashST<Key, Value>::put(Key key, Value val) {
     keys_[i] = std::move(key);
     vals_[i] = std::move(val);
     ++N_;
+}
+
+template<typename Key, typename Value>
+constexpr const Value *algs4::LinearProbingHashST<Key, Value>::get(const Key &key) const {
+    for (auto i = hash(key); keys_[i]; i = (i + 1) % M_)
+        if (keys_[i] == key)
+            return &*vals_[i];
+    return nullptr;
 }
 
 template<typename Key, typename Value>
@@ -108,11 +109,10 @@ constexpr void algs4::LinearProbingHashST<Key, Value>::remove(const Key &key) {
 }
 
 template<typename Key, typename Value>
-constexpr std::vector<Key> algs4::LinearProbingHashST<Key, Value>::keys() const {
-    std::vector<Key> queue;
+algs4::Queue<Key> algs4::LinearProbingHashST<Key, Value>::keys() const {
+    Queue<Key> queue;
     for (decltype(M_) i = 0; i < M_; ++i)
-        if (keys_[i])
-            queue.push_back(*keys_[i]);
+        if (keys_[i]) queue.enqueue(*keys_[i]);
     return queue;
 }
 

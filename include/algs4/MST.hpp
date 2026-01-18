@@ -18,9 +18,8 @@
 #ifndef ALGS4_MST_HPP
 #define ALGS4_MST_HPP
 
-#include <vector>
-
 #include "Edge.hpp"
+#include "Queue.hpp"
 
 namespace algs4 {
     class MST {
@@ -34,12 +33,12 @@ namespace algs4 {
     public:
         virtual constexpr ~MST() = default;
 
-        virtual constexpr std::vector<Edge> edges() const = 0;
-        constexpr double weight() const;
+        virtual Queue<Edge> edges() const = 0;
+        double weight() const;
     };
 }
 
-constexpr double algs4::MST::weight() const {
+inline double algs4::MST::weight() const {
     double weight = 0.0;
     for (const auto &e: edges())
         weight += e.weight();

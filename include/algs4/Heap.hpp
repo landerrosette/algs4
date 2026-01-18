@@ -18,6 +18,7 @@
 #ifndef ALGS4_HEAP_HPP
 #define ALGS4_HEAP_HPP
 
+#include <cassert>
 #include <concepts>
 #include <cstddef>
 #include <vector>
@@ -75,6 +76,7 @@ constexpr void algs4::Heap::sort(std::vector<T> &a) {
         exch(a, 1, N--);
         sink(a, 1, N);
     }
+    assert(SortUtils::isSorted(a));
 }
 
 #endif // ALGS4_HEAP_HPP

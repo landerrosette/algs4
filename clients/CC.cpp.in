@@ -33,10 +33,11 @@
 
 #include "algs4/@CC@.hpp"
 
-#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <vector>
+
+#include "algs4/Bag.hpp"
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -56,11 +57,10 @@ int main(int argc, char *argv[]) {
     algs4::@CC@ cc(G);
     int M = cc.count();
     std::cout << M << " components" << std::endl;
-    std::vector<std::vector<int>> components(M);
+    std::vector<algs4::Bag<int>> components(M);
     for (int v = 0; v < G.V(); ++v)
-        components[cc.id(v)].push_back(v);
+        components[cc.id(v)].add(v);
     for (int i = 0; i < M; ++i) {
-        std::ranges::reverse(components[i]);
         for (int v: components[i])
             std::cout << v << " ";
         std::cout << std::endl;

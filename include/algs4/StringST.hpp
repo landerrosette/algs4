@@ -20,17 +20,20 @@
 
 #include <string>
 #include <string_view>
-#include <vector>
 
+#include "Queue.hpp"
 #include "ST.hpp"
 
 namespace algs4 {
     template<typename Value>
     class StringST : public ST<std::string, Value> {
+    protected:
+        constexpr StringST() = default;
+
     public:
         virtual constexpr std::string longestPrefixOf(std::string_view s) const = 0;
-        virtual constexpr std::vector<std::string> keysWithPrefix(const std::string &pre) const = 0;
-        virtual constexpr std::vector<std::string> keysThatMatch(std::string_view pat) const = 0;
+        virtual Queue<std::string> keysWithPrefix(const std::string &pre) const = 0;
+        virtual Queue<std::string> keysThatMatch(std::string_view pat) const = 0;
     };
 }
 

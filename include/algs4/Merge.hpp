@@ -18,6 +18,7 @@
 #ifndef ALGS4_MERGE_HPP
 #define ALGS4_MERGE_HPP
 
+#include <cassert>
 #include <concepts>
 #include <cstddef>
 #include <utility>
@@ -70,6 +71,7 @@ template<std::totally_ordered T>
 constexpr void algs4::Merge::sort(std::vector<T> &a) {
     std::vector<T> aux(std::ssize(a));
     internal::sort(a, aux, 0, std::ssize(a) - 1);
+    assert(SortUtils::isSorted(a));
 }
 
 #endif // ALGS4_MERGE_HPP

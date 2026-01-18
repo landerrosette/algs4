@@ -21,6 +21,7 @@
 #include <cassert>
 #include <vector>
 
+#include "Bag.hpp"
 #include "Digraph.hpp"
 
 namespace algs4 {
@@ -32,7 +33,7 @@ namespace algs4 {
 
     public:
         constexpr DirectedDFS(const Digraph &G, int s);
-        constexpr DirectedDFS(const Digraph &G, const std::vector<int> &sources);
+        constexpr DirectedDFS(const Digraph &G, const Bag<int> &sources);
 
         constexpr bool marked(int v) const { return marked_[v]; }
     };
@@ -50,8 +51,8 @@ constexpr algs4::DirectedDFS::DirectedDFS(const Digraph &G, int s) : marked_(G.V
     dfs(G, s);
 }
 
-constexpr algs4::DirectedDFS::DirectedDFS(const Digraph &G, const std::vector<int> &sources) : marked_(G.V()) {
-    assert(!sources.empty());
+constexpr algs4::DirectedDFS::DirectedDFS(const Digraph &G, const Bag<int> &sources) : marked_(G.V()) {
+    assert(!sources.isEmpty());
     for (int s: sources) {
         assert(s >= 0 && s < std::ssize(marked_));
         if (!marked_[s])

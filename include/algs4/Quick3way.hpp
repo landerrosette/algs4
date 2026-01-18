@@ -19,6 +19,7 @@
 #define ALGS4_QUICK3WAY_HPP
 
 #include <algorithm>
+#include <cassert>
 #include <concepts>
 #include <cstddef>
 #include <random>
@@ -45,8 +46,8 @@ constexpr void algs4::Quick3way::internal::sort(std::vector<T> &a, std::ptrdiff_
     auto lt = lo, i = lo + 1, gt = hi;
     T v = a[lo];
     while (i <= gt) {
-        if (less(a[i], v)) exch(a, lt++, i++);
-        else if (less(v, a[i])) exch(a, i, gt--);
+        if (a[i] < v) exch(a, lt++, i++);
+        else if (a[i] > v) exch(a, i, gt--);
         else ++i;
     } // Now a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi].
     sort(a, lo, lt - 1);
@@ -57,6 +58,7 @@ template<std::totally_ordered T>
 void algs4::Quick3way::sort(std::vector<T> &a) {
     std::ranges::shuffle(a, std::default_random_engine(std::random_device()()));
     internal::sort(a, 0, std::ssize(a) - 1);
+    assert(SortUtils::isSorted(a));
 }
 
 #endif // ALGS4_QUICK3WAY_HPP

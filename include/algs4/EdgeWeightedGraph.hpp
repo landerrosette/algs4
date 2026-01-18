@@ -18,11 +18,10 @@
 #ifndef ALGS4_EDGEWEIGHTEDGRAPH_HPP
 #define ALGS4_EDGEWEIGHTEDGRAPH_HPP
 
-#include <algorithm>
 #include <cassert>
 #include <cstddef>
-#include <vector>
 
+#include "Bag.hpp"
 #include "Edge.hpp"
 #include "GraphBase.hpp"
 
@@ -33,7 +32,7 @@ namespace algs4 {
         explicit EdgeWeightedGraph(std::istream &in);
 
         constexpr void addEdge(const Edge &e);
-        constexpr std::vector<Edge> edges() const;
+        constexpr Bag<Edge> edges() const;
     };
 }
 
@@ -51,18 +50,17 @@ inline algs4::EdgeWeightedGraph::EdgeWeightedGraph(std::istream &in) : GraphBase
 
 constexpr void algs4::EdgeWeightedGraph::addEdge(const Edge &e) {
     int v = e.either(), w = e.other(v);
-    adj_[v].push_back(e);
-    adj_[w].push_back(e);
+    adj_[v].add(e);
+    adj_[w].add(e);
     ++E_;
 }
 
-constexpr std::vector<algs4::Edge> algs4::EdgeWeightedGraph::edges() const {
-    std::vector<Edge> bag;
+constexpr algs4::Bag<algs4::Edge> algs4::EdgeWeightedGraph::edges() const {
+    Bag<Edge> bag;
     for (int v = 0; v < V_; ++v)
         for (const auto &e: adj(v))
             if (e.other(v) > v)
-                bag.push_back(e);
-    std::ranges::reverse(bag);
+                bag.add(e);
     return bag;
 }
 

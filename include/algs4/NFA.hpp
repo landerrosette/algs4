@@ -18,13 +18,14 @@
 #ifndef ALGS4_NFA_HPP
 #define ALGS4_NFA_HPP
 
-#include <stack>
 #include <string>
 #include <string_view>
-#include <vector>
+#include <utility>
 
+#include "Bag.hpp"
 #include "Digraph.hpp"
 #include "DirectedDFS.hpp"
+#include "Stack.hpp"
 
 namespace algs4 {
     class NFA {
@@ -34,51 +35,52 @@ namespace algs4 {
         Digraph G_;      // epsilon transitions
 
     public:
-        explicit NFA(std::string regexp);
+        constexpr explicit NFA(std::string regexp);
 
-        bool recognizes(std::string_view txt) const;
+        constexpr bool recognizes(std::string_view txt) const;
     };
 }
 
-inline algs4::NFA::NFA(std::string regexp) : re_(std::move(regexp)), M_(static_cast<int>(std::ssize(re_))), G_(M_ + 1) {
-    std::stack<int> ops;
+constexpr algs4::NFA::NFA(std::string regexp)
+    : re_(std::move(regexp)), M_(static_cast<int>(std::ssize(re_))), G_(M_ + 1) {
+    Stack<int> ops;
     for (int i = 0; i < M_; ++i) {
         int lp = i; // left position
-        if (re_[i] == '(' || re_[i] == '|') ops.push(i);
+        if (re_[i] == '(' || re_[i] == '|')
+            ops.push(i);
         else if (re_[i] == ')') {
-            int orPos = ops.top();
-            ops.pop();
+            int orPos = ops.pop();
             if (re_[orPos] == '|') {
-                lp = ops.top();
-                ops.pop();
+                lp = ops.pop();
                 G_.addEdge(lp, orPos + 1);
                 G_.addEdge(orPos, i);
             } else lp = orPos;
         }
         if (i < M_ - 1 && re_[i + 1] == '*') {
+            // lookahead
             G_.addEdge(lp, i + 1);
             G_.addEdge(i + 1, lp);
-        } // lookahead
-        if (re_[i] == '(' || re_[i] == '*' || re_[i] == ')') G_.addEdge(i, i + 1);
+        }
+        if (re_[i] == '(' || re_[i] == '*' || re_[i] == ')')
+            G_.addEdge(i, i + 1);
     }
 }
 
-inline bool algs4::NFA::recognizes(std::string_view txt) const {
-    std::vector<int> pc;
+constexpr bool algs4::NFA::recognizes(std::string_view txt) const {
+    Bag<int> pc;
     DirectedDFS dfs(G_, 0);
     for (int v = 0; v < G_.V(); ++v)
-        if (dfs.marked(v)) pc.push_back(v);
+        if (dfs.marked(v)) pc.add(v);
 
-    // Compute possible NFA states for txt[i+1].
     for (char c: txt) {
-        std::vector<int> match;
+        Bag<int> match;
         for (int v: pc)
             if (v < M_)
-                if (re_[v] == c || re_[v] == '.') match.push_back(v + 1);
-        pc.clear();
+                if (re_[v] == c || re_[v] == '.') match.add(v + 1);
+        pc = Bag<int>();
         dfs = DirectedDFS(G_, match);
         for (int v = 0; v < G_.V(); ++v)
-            if (dfs.marked(v)) pc.push_back(v);
+            if (dfs.marked(v)) pc.add(v);
     }
     for (int v: pc) if (v == M_) return true;
     return false;

@@ -42,14 +42,15 @@ namespace algs4 {
 constexpr algs4::BoyerMoore::BoyerMoore(std::string pat) : pat_(std::move(pat)) {
     auto M = std::ssize(pat_);
     int R = 256;
-    right_.assign(R, -1);
-    for (decltype(M) j = 0; j < M; ++j) right_[static_cast<unsigned char>(pat_[j])] = j;
+    right_.assign(R, -1); // -1 for chars not in pattern
+    for (decltype(M) j = 0; j < M; ++j)
+        right_[static_cast<unsigned char>(pat_[j])] = j; // rightmost position for chars in pattern
 }
 
 constexpr std::ptrdiff_t algs4::BoyerMoore::search(std::string_view txt) const {
     auto N = std::ssize(txt), M = std::ssize(pat_);
-    // Does the pattern match the text at position i?
     for (decltype(N) skip, i = 0; i <= N - M; i += skip) {
+        // Does the pattern match the text at position i?
         skip = 0;
         for (auto j = M - 1; j >= 0; --j) {
             if (pat_[j] != txt[i + j]) {

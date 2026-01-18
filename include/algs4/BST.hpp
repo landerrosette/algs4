@@ -41,10 +41,10 @@ namespace algs4 {
         std::unique_ptr<Node> removeMax(std::unique_ptr<Node> x);
 
     public:
-        void put(Key key, Value val) override { this->root_ = put(std::move(this->root_), key, val); }
+        void put(Key key, Value val) override;
         void remove(const Key &key) override { this->root_ = remove(std::move(this->root_), key); }
-        void removeMin() override { this->root_ = removeMin(std::move(this->root_)); }
-        void removeMax() override { this->root_ = removeMax(std::move(this->root_)); }
+        void removeMin() override;
+        void removeMax() override;
     };
 }
 
@@ -91,7 +91,6 @@ auto algs4::BST<Key, Value>::remove(std::unique_ptr<Node> x, const Key &key) -> 
 
 template<std::totally_ordered Key, typename Value>
 auto algs4::BST<Key, Value>::removeMin(std::unique_ptr<Node> x) -> std::unique_ptr<Node> {
-    if (!x) return nullptr;
     if (!x->left_) return std::move(x->right_);
     x->left_ = removeMin(std::move(x->left_));
     x->N_ = this->size(x->left_.get()) + this->size(x->right_.get()) + 1;
@@ -100,11 +99,27 @@ auto algs4::BST<Key, Value>::removeMin(std::unique_ptr<Node> x) -> std::unique_p
 
 template<std::totally_ordered Key, typename Value>
 auto algs4::BST<Key, Value>::removeMax(std::unique_ptr<Node> x) -> std::unique_ptr<Node> {
-    if (!x) return nullptr;
     if (!x->right_) return std::move(x->left_);
     x->right_ = removeMax(std::move(x->right_));
     x->N_ = this->size(x->left_.get()) + this->size(x->right_.get()) + 1;
     return x;
+}
+
+template<std::totally_ordered Key, typename Value>
+void algs4::BST<Key, Value>::put(Key key, Value val) {
+    this->root_ = put(std::move(this->root_), std::move(key), std::move(val));
+}
+
+template<std::totally_ordered Key, typename Value>
+void algs4::BST<Key, Value>::removeMin() {
+    if (this->isEmpty()) return;
+    this->root_ = removeMin(std::move(this->root_));
+}
+
+template<std::totally_ordered Key, typename Value>
+void algs4::BST<Key, Value>::removeMax() {
+    if (this->isEmpty()) return;
+    this->root_ = removeMax(std::move(this->root_));
 }
 
 #endif // ALGS4_BST_HPP

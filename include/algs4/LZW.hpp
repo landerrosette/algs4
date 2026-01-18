@@ -48,11 +48,12 @@ inline void algs4::LZW::compress() {
     while (!input.empty()) {
         auto s = st.longestPrefixOf(input); // Find max prefix match.
         BinaryStdIO::write(*st.get(s), W);  // Print s's encoding.
-        if (auto t = std::ssize(s); t < std::ssize(input) && code < L)
-            st.put(input.substr(0, t + 1), code++);
-        input.erase(0, std::ssize(s));
+        auto t = std::ssize(s);
+        if (t < std::ssize(input) && code < L)
+            st.put(input.substr(0, t + 1), code++); // Add s to symbol table.
+        input.erase(0, t);                          // Scan past s in input.
     }
-    BinaryStdIO::write(R, W);
+    BinaryStdIO::write(R, W); // Write EOF.
     BinaryStdIO::closeOut();
 }
 
@@ -62,7 +63,7 @@ inline void algs4::LZW::expand() {
     int i; // next available codeword value
     for (i = 0; i < R; ++i)
         st[i] = std::string(1, static_cast<char>(i));
-    st[i++] = "";
+    st[i++] = ""; // (unused) lookahead for EOF
     int codeword = BinaryStdIO::read<int>(W);
     auto val = st[codeword];
     while (true) {

@@ -50,8 +50,7 @@ constexpr void algs4::CCBase::dfs(const GraphBase<int> &G, int v) {
     marked_[v] = true;
     id_[v] = count_;
     for (int w: G.adj(v))
-        if (!marked_[w])
-            dfs(G, w);
+        if (!marked_[w]) dfs(G, w);
 }
 
 constexpr bool algs4::CCBase::connected(int v, int w) const {

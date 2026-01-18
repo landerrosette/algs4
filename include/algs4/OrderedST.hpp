@@ -20,13 +20,16 @@
 
 #include <concepts>
 #include <cstddef>
-#include <vector>
 
+#include "Queue.hpp"
 #include "ST.hpp"
 
 namespace algs4 {
     template<std::totally_ordered Key, typename Value>
     class OrderedST : public ST<Key, Value> {
+    protected:
+        constexpr OrderedST() = default;
+
     public:
         virtual constexpr const Key *min() const = 0;
         virtual constexpr const Key *max() const = 0;
@@ -38,8 +41,8 @@ namespace algs4 {
         virtual constexpr void removeMax();
         using ST<Key, Value>::size;
         constexpr std::ptrdiff_t size(const Key &lo, const Key &hi) const;
-        constexpr std::vector<Key> keys() const override;
-        virtual constexpr std::vector<Key> keys(const Key &lo, const Key &hi) const = 0;
+        Queue<Key> keys() const override;
+        virtual Queue<Key> keys(const Key &lo, const Key &hi) const = 0;
     };
 }
 
@@ -63,7 +66,7 @@ constexpr std::ptrdiff_t algs4::OrderedST<Key, Value>::size(const Key &lo, const
 }
 
 template<std::totally_ordered Key, typename Value>
-constexpr std::vector<Key> algs4::OrderedST<Key, Value>::keys() const {
+algs4::Queue<Key> algs4::OrderedST<Key, Value>::keys() const {
     if (this->isEmpty()) return {};
     return keys(*min(), *max());
 }

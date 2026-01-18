@@ -18,9 +18,8 @@
 #ifndef ALGS4_BREADTHFIRSTPATHS_HPP
 #define ALGS4_BREADTHFIRSTPATHS_HPP
 
-#include <queue>
-
 #include "Paths.hpp"
+#include "Queue.hpp"
 
 namespace algs4 {
     class BreadthFirstPaths : public Paths {
@@ -33,17 +32,16 @@ namespace algs4 {
 }
 
 inline void algs4::BreadthFirstPaths::bfs(const Graph &G, int s) {
-    std::queue<int> queue;
+    Queue<int> queue;
     marked_[s] = true;
-    queue.push(s);
-    while (!queue.empty()) {
-        int v = queue.front();
-        queue.pop();
+    queue.enqueue(s);
+    while (!queue.isEmpty()) {
+        int v = queue.dequeue();
         for (int w: G.adj(v)) {
             if (!marked_[w]) {
                 edgeTo_[w] = v;
                 marked_[w] = true;
-                queue.push(w);
+                queue.enqueue(w);
             }
         }
     }

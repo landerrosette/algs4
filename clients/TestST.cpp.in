@@ -73,8 +73,7 @@ int main(int argc, char *argv[]) {
     STTestUtils::removeAll(st, std::cout);
 #ifdef BALANCED_TREE
     if (argc > 1) {
-        int n = std::stoi(argv[1]);
-        if (n > 0) {
+        if (int n = std::stoi(argv[1]); n > 0) {
             std::cout << std::endl;
             algs4::@ST@<int, int> st2{@ST_INIT_ARGS@};
             STTestUtils::testRedBlackBST(st2, n, std::cout);

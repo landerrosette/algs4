@@ -18,26 +18,25 @@
 #ifndef ALGS4_KRUSKALMST_HPP
 #define ALGS4_KRUSKALMST_HPP
 
-#include <vector>
-
 #include "EdgeWeightedGraph.hpp"
 #include "MinPQ.hpp"
 #include "MST.hpp"
+#include "Queue.hpp"
 #include "UF.hpp"
 
 namespace algs4 {
     class KruskalMST : public MST {
     private:
-        std::vector<Edge> mst_;
+        Queue<Edge> mst_;
 
     public:
-        constexpr explicit KruskalMST(const EdgeWeightedGraph &G);
+        explicit KruskalMST(const EdgeWeightedGraph &G);
 
-        constexpr std::vector<Edge> edges() const override { return mst_; }
+        Queue<Edge> edges() const override { return mst_; }
     };
 }
 
-constexpr algs4::KruskalMST::KruskalMST(const EdgeWeightedGraph &G) {
+inline algs4::KruskalMST::KruskalMST(const EdgeWeightedGraph &G) {
     MinPQ<Edge> pq;
     for (const auto &e: G.edges())
         pq.insert(e);
@@ -47,7 +46,7 @@ constexpr algs4::KruskalMST::KruskalMST(const EdgeWeightedGraph &G) {
         int v = e.either(), w = e.other(v);
         if (uf.connected(v, w)) continue;
         uf.unionize(v, w);
-        mst_.push_back(e);
+        mst_.enqueue(e);
     }
 }
 

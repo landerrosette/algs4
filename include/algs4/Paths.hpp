@@ -18,11 +18,11 @@
 #ifndef ALGS4_PATHS_HPP
 #define ALGS4_PATHS_HPP
 
-#include <algorithm>
 #include <cassert>
 #include <vector>
 
 #include "Graph.hpp"
+#include "Stack.hpp"
 
 namespace algs4 {
     class Paths {
@@ -42,7 +42,7 @@ namespace algs4 {
         virtual constexpr ~Paths() = default;
 
         constexpr bool hasPathTo(int v) const { return marked_[v]; }
-        constexpr std::vector<int> pathTo(int v) const;
+        constexpr Stack<int> pathTo(int v) const;
     };
 }
 
@@ -50,13 +50,13 @@ constexpr algs4::Paths::Paths(const Graph &G, int s) : marked_(G.V()), edgeTo_(G
     assert(s >= 0 && s < std::ssize(marked_));
 }
 
-constexpr std::vector<int> algs4::Paths::pathTo(int v) const {
+constexpr algs4::Stack<int> algs4::Paths::pathTo(int v) const {
     assert(v >= 0 && v < std::ssize(marked_));
-    std::vector<int> path;
+    if (!hasPathTo(v)) return {};
+    Stack<int> path;
     for (int x = v; x != s_; x = edgeTo_[x])
-        path.push_back(x);
-    path.push_back(s_);
-    std::ranges::reverse(path);
+        path.push(x);
+    path.push(s_);
     return path;
 }
 

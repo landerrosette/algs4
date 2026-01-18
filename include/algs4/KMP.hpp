@@ -44,8 +44,8 @@ constexpr algs4::KMP::KMP(std::string pat) : pat_(std::move(pat)) {
     int R = 256;
     dfa_.assign(R, std::vector<std::ptrdiff_t>(M));
     dfa_[static_cast<unsigned char>(pat_[0])][0] = 1;
-    // Compute dfa_[][j].
     for (decltype(M) X = 0, j = 1; j < M; ++j) {
+        // Compute dfa_[][j].
         for (int c = 0; c < R; ++c) dfa_[c][j] = dfa_[c][X];  // Copy mismatch cases.
         dfa_[static_cast<unsigned char>(pat_[j])][j] = j + 1; // Set match case.
         X = dfa_[static_cast<unsigned char>(pat_[j])][X];     // Update restart state.

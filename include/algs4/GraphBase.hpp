@@ -22,16 +22,17 @@
 #include <cstddef>
 #include <istream>
 #include <ostream>
-#include <ranges>
 #include <vector>
+
+#include "Bag.hpp"
 
 namespace algs4 {
     template<typename EdgeType>
     class GraphBase {
     protected:
-        int V_;                                   // number of vertices
-        std::ptrdiff_t E_;                        // number of edges
-        std::vector<std::vector<EdgeType> > adj_; // adjacency lists
+        int V_;                           // number of vertices
+        std::ptrdiff_t E_;                // number of edges
+        std::vector<Bag<EdgeType> > adj_; // adjacency lists
 
         constexpr explicit GraphBase(int V) : V_(V), E_(0), adj_(V) { assert(V >= 0); }
         explicit GraphBase(std::istream &in);
@@ -44,7 +45,7 @@ namespace algs4 {
     public:
         constexpr int V() const { return V_; }
         constexpr auto E() const { return E_; }
-        constexpr auto adj(int v) const &;
+        constexpr const Bag<EdgeType> &adj(int v) const &;
     };
 }
 
@@ -56,9 +57,9 @@ algs4::GraphBase<EdgeType>::GraphBase(std::istream &in) : GraphBase([&in] {
 }()) {}
 
 template<typename EdgeType>
-constexpr auto algs4::GraphBase<EdgeType>::adj(int v) const & {
+constexpr const algs4::Bag<EdgeType> &algs4::GraphBase<EdgeType>::adj(int v) const & {
     assert(v >= 0 && v < V());
-    return std::views::reverse(adj_[v]);
+    return adj_[v];
 }
 
 template<typename EdgeType>

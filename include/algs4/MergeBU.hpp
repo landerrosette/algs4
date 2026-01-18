@@ -19,6 +19,7 @@
 #define ALGS4_MERGEBU_HPP
 
 #include <algorithm>
+#include <cassert>
 #include <concepts>
 #include <vector>
 
@@ -39,6 +40,7 @@ constexpr void algs4::MergeBU::sort(std::vector<T> &a) {
     for (decltype(N) sz = 1; sz < N; sz = sz + sz)           // sz: subarray size
         for (decltype(N) lo = 0; lo < N - sz; lo += sz + sz) // lo: subarray index
             merge(a, aux, lo, lo + sz - 1, std::min(lo + sz + sz - 1, N - 1));
+    assert(SortUtils::isSorted(a));
 }
 
 #endif // ALGS4_MERGEBU_HPP

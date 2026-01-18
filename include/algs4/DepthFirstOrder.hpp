@@ -19,35 +19,41 @@
 #define ALGS4_DEPTHFIRSTORDER_HPP
 
 #include <concepts>
-#include <ranges>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 #include "DirectedEdge.hpp"
 #include "GraphBase.hpp"
+#include "Queue.hpp"
+#include "Stack.hpp"
 
 namespace algs4 {
     class DepthFirstOrder {
     private:
         std::vector<bool> marked_;
-        std::vector<int> pre_, post_;
+        Queue<int> pre_, post_;
+        Stack<int> reversePost_;
 
         template<typename EdgeType>
-        constexpr void dfs(const GraphBase<EdgeType> &G, int v);
+        void dfs(const GraphBase<EdgeType> &G, int v);
 
     public:
         template<typename EdgeType>
-        constexpr explicit DepthFirstOrder(const GraphBase<EdgeType> &G);
+        explicit DepthFirstOrder(const GraphBase<EdgeType> &G);
 
-        constexpr auto pre() const & { return std::views::all(pre_); }
-        constexpr auto post() const & { return std::views::all(post_); }
-        constexpr auto reversePost() const & { return std::views::reverse(post_); }
+        const auto &pre() const & { return pre_; }
+        auto &&pre() && { return std::move(pre_); }
+        const auto &post() const & { return post_; }
+        auto &&post() && { return std::move(post_); }
+        const auto &reversePost() const & { return reversePost_; }
+        auto &&reversePost() && { return std::move(reversePost_); }
     };
 }
 
 template<typename EdgeType>
-constexpr void algs4::DepthFirstOrder::dfs(const GraphBase<EdgeType> &G, int v) {
-    pre_.push_back(v);
+void algs4::DepthFirstOrder::dfs(const GraphBase<EdgeType> &G, int v) {
+    pre_.enqueue(v);
     marked_[v] = true;
     for (const auto &e: G.adj(v)) {
         int w;
@@ -56,14 +62,14 @@ constexpr void algs4::DepthFirstOrder::dfs(const GraphBase<EdgeType> &G, int v) 
         if (!marked_[w])
             dfs(G, w);
     }
-    post_.push_back(v);
+    post_.enqueue(v);
+    reversePost_.push(v);
 }
 
 template<typename EdgeType>
-constexpr algs4::DepthFirstOrder::DepthFirstOrder(const GraphBase<EdgeType> &G) : marked_(G.V()) {
+algs4::DepthFirstOrder::DepthFirstOrder(const GraphBase<EdgeType> &G) : marked_(G.V()) {
     for (int v = 0; v < G.V(); ++v)
-        if (!marked_[v])
-            dfs(G, v);
+        if (!marked_[v]) dfs(G, v);
 }
 
 #endif // ALGS4_DEPTHFIRSTORDER_HPP

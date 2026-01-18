@@ -18,11 +18,13 @@
 #ifndef ALGS4_LSD_HPP
 #define ALGS4_LSD_HPP
 
+#include <cassert>
 #include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>
 
+#include "SortUtils.hpp"
 #include "StringSortUtils.h"
 
 namespace algs4 {
@@ -48,6 +50,8 @@ constexpr void algs4::LSD::sort(std::vector<std::string> &a, std::ptrdiff_t W) {
         // Copy back.
         for (decltype(N) i = 0; i < N; ++i) a[i] = std::move(aux[i]);
     }
+
+    assert(SortUtils::isSorted(a));
 }
 
 #endif // ALGS4_LSD_HPP

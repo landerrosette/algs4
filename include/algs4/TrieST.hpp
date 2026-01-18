@@ -41,32 +41,24 @@ namespace algs4 {
 
         std::unique_ptr<Node> root_;
 
-        const Node *get(const Node *x, std::string_view key, std::ptrdiff_t d) const;
         std::unique_ptr<Node> put(std::unique_ptr<Node> x, std::string_view key, Value val, std::ptrdiff_t d);
+        const Node *get(const Node *x, std::string_view key, std::ptrdiff_t d) const;
         std::unique_ptr<Node> remove(std::unique_ptr<Node> x, std::string_view key, std::ptrdiff_t d);
-        void collect(const Node *x, const std::string &pre, std::vector<std::string> &q) const;
-        void collect(const Node *x, const std::string &pre, std::string_view pat, std::vector<std::string> &q) const;
+        void collect(const Node *x, const std::string &pre, Queue<std::string> &q) const;
+        void collect(const Node *x, const std::string &pre, std::string_view pat, Queue<std::string> &q) const;
         std::ptrdiff_t search(const Node *x, std::string_view s, std::ptrdiff_t d, std::ptrdiff_t length) const;
 
     public:
+        void put(std::string key, Value val) override;
         using ST<std::string, Value>::get;
         const Value *get(const std::string &key) const override;
-        void put(std::string key, Value val) override;
         void remove(const std::string &key) override { root_ = remove(std::move(root_), key, 0); }
         std::ptrdiff_t size() const override { return N_; }
-        std::vector<std::string> keys() const override { return keysWithPrefix(""); }
+        Queue<std::string> keys() const override { return keysWithPrefix(""); }
         std::string longestPrefixOf(std::string_view s) const override;
-        std::vector<std::string> keysWithPrefix(const std::string &pre) const override;
-        std::vector<std::string> keysThatMatch(std::string_view pat) const override;
+        Queue<std::string> keysWithPrefix(const std::string &pre) const override;
+        Queue<std::string> keysThatMatch(std::string_view pat) const override;
     };
-}
-
-template<typename Value>
-auto algs4::TrieST<Value>::get(const Node *x, std::string_view key, std::ptrdiff_t d) const -> const Node * {
-    if (!x) return nullptr;
-    if (d == std::ssize(key)) return x;
-    unsigned char c = key[d];
-    return get(x->next_[c].get(), key, d + 1);
 }
 
 template<typename Value>
@@ -81,6 +73,14 @@ auto algs4::TrieST<Value>::put(std::unique_ptr<Node> x, std::string_view key, Va
     unsigned char c = key[d];
     x->next_[c] = put(std::move(x->next_[c]), key, std::move(val), d + 1);
     return x;
+}
+
+template<typename Value>
+auto algs4::TrieST<Value>::get(const Node *x, std::string_view key, std::ptrdiff_t d) const -> const Node * {
+    if (!x) return nullptr;
+    if (d == std::ssize(key)) return x;
+    unsigned char c = key[d];
+    return get(x->next_[c].get(), key, d + 1);
 }
 
 template<typename Value>
@@ -103,19 +103,19 @@ auto algs4::TrieST<Value>::remove(std::unique_ptr<Node> x, std::string_view key,
 }
 
 template<typename Value>
-void algs4::TrieST<Value>::collect(const Node *x, const std::string &pre, std::vector<std::string> &q) const {
+void algs4::TrieST<Value>::collect(const Node *x, const std::string &pre, Queue<std::string> &q) const {
     if (!x) return;
-    if (x->val_) q.push_back(pre);
+    if (x->val_) q.enqueue(pre);
     for (int c = 0; c < R; ++c)
         collect(x->next_[c].get(), pre + static_cast<char>(c), q);
 }
 
 template<typename Value>
 void algs4::TrieST<Value>::collect(const Node *x, const std::string &pre, std::string_view pat,
-                                   std::vector<std::string> &q) const {
+                                   Queue<std::string> &q) const {
     if (!x) return;
     auto d = std::ssize(pre);
-    if (d == std::ssize(pat) && x->val_) q.push_back(pre);
+    if (d == std::ssize(pat) && x->val_) q.enqueue(pre);
     if (d == std::ssize(pat)) return;
 
     char next = pat[d];
@@ -135,15 +135,15 @@ std::ptrdiff_t algs4::TrieST<Value>::search(const Node *x, std::string_view s, s
 }
 
 template<typename Value>
+void algs4::TrieST<Value>::put(std::string key, Value val) {
+    root_ = put(std::move(root_), key, std::move(val), 0);
+}
+
+template<typename Value>
 const Value *algs4::TrieST<Value>::get(const std::string &key) const {
     const Node *x = get(root_.get(), key, 0);
     if (!x) return nullptr;
     return &*x->val_;
-}
-
-template<typename Value>
-void algs4::TrieST<Value>::put(std::string key, Value val) {
-    root_ = put(std::move(root_), key, std::move(val), 0);
 }
 
 template<typename Value>
@@ -153,15 +153,15 @@ std::string algs4::TrieST<Value>::longestPrefixOf(std::string_view s) const {
 }
 
 template<typename Value>
-std::vector<std::string> algs4::TrieST<Value>::keysWithPrefix(const std::string &pre) const {
-    std::vector<std::string> q;
+algs4::Queue<std::string> algs4::TrieST<Value>::keysWithPrefix(const std::string &pre) const {
+    Queue<std::string> q;
     collect(get(root_.get(), pre, 0), pre, q);
     return q;
 }
 
 template<typename Value>
-std::vector<std::string> algs4::TrieST<Value>::keysThatMatch(std::string_view pat) const {
-    std::vector<std::string> q;
+algs4::Queue<std::string> algs4::TrieST<Value>::keysThatMatch(std::string_view pat) const {
+    Queue<std::string> q;
     collect(root_.get(), "", pat, q);
     return q;
 }

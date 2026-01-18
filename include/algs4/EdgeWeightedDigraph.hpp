@@ -18,11 +18,10 @@
 #ifndef ALGS4_EDGEWEIGHTEDDIGRAPH_HPP
 #define ALGS4_EDGEWEIGHTEDDIGRAPH_HPP
 
-#include <algorithm>
 #include <cassert>
 #include <cstddef>
-#include <vector>
 
+#include "Bag.hpp"
 #include "DirectedEdge.hpp"
 #include "GraphBase.hpp"
 
@@ -33,7 +32,7 @@ namespace algs4 {
         explicit EdgeWeightedDigraph(std::istream &in);
 
         constexpr void addEdge(const DirectedEdge &e);
-        constexpr std::vector<DirectedEdge> edges() const;
+        constexpr Bag<DirectedEdge> edges() const;
     };
 }
 
@@ -50,16 +49,15 @@ inline algs4::EdgeWeightedDigraph::EdgeWeightedDigraph(std::istream &in) : Graph
 }
 
 constexpr void algs4::EdgeWeightedDigraph::addEdge(const DirectedEdge &e) {
-    adj_[e.from()].push_back(e);
+    adj_[e.from()].add(e);
     ++E_;
 }
 
-constexpr std::vector<algs4::DirectedEdge> algs4::EdgeWeightedDigraph::edges() const {
-    std::vector<DirectedEdge> bag;
+constexpr algs4::Bag<algs4::DirectedEdge> algs4::EdgeWeightedDigraph::edges() const {
+    Bag<DirectedEdge> bag;
     for (int v = 0; v < V_; ++v)
         for (const auto &e: adj(v))
-            bag.push_back(e);
-    std::ranges::reverse(bag);
+            bag.add(e);
     return bag;
 }
 

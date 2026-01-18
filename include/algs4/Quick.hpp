@@ -19,6 +19,7 @@
 #define ALGS4_QUICK_HPP
 
 #include <algorithm>
+#include <cassert>
 #include <concepts>
 #include <cstddef>
 #include <random>
@@ -46,8 +47,8 @@ constexpr std::ptrdiff_t algs4::Quick::internal::partition(std::vector<T> &a, st
     using namespace SortUtils::internal;
     auto i = lo, j = hi + 1;
     T v = a[lo];
-    // Scan right, scan left, check for scan complete, and exchange.
     while (true) {
+        // Scan right, scan left, check for scan complete, and exchange.
         while (less(a[++i], v)) if (i == hi) break;
         while (less(v, a[--j])) if (j == lo) break;
         if (i >= j) break;
@@ -69,6 +70,7 @@ template<std::totally_ordered T>
 void algs4::Quick::sort(std::vector<T> &a) {
     std::ranges::shuffle(a, std::default_random_engine(std::random_device()()));
     internal::sort(a, 0, std::ssize(a) - 1);
+    assert(SortUtils::isSorted(a));
 }
 
 #endif // ALGS4_QUICK_HPP

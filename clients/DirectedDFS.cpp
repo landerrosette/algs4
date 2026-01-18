@@ -28,11 +28,11 @@
 
 #include "algs4/DirectedDFS.hpp"
 
-#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <vector>
+
+#include "algs4/Bag.hpp"
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {
@@ -45,16 +45,15 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     algs4::Digraph G(in);
-    std::vector<int> sources;
+    algs4::Bag<int> sources;
     for (int i = 2; i < argc; ++i) {
         int s = std::stoi(argv[i]);
         if (s < 0 || s >= G.V()) {
             std::cerr << "Source vertex out of range" << std::endl;
             return 1;
         }
-        sources.push_back(s);
+        sources.add(s);
     }
-    std::ranges::reverse(sources);
     algs4::DirectedDFS reachable(G, sources);
     for (int v = 0; v < G.V(); ++v)
         if (reachable.marked(v))

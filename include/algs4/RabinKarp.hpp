@@ -33,21 +33,15 @@ namespace algs4 {
         static constexpr int R = 256;     // alphabet size
         long long RM_ = 1;                // R^(M_-1) % Q_
 
-        long long hash(std::string_view key, std::ptrdiff_t M) const;
         static long long longRandomPrime();
-        bool check(int i) const { return true; } // monte carlo
+        long long hash(std::string_view key, std::ptrdiff_t M) const;
+        bool check(int i) const { return true; } // Monte Carlo
 
     public:
         explicit RabinKarp(std::string_view pat);
 
         std::ptrdiff_t search(std::string_view txt) const override;
     };
-}
-
-inline long long algs4::RabinKarp::hash(std::string_view key, std::ptrdiff_t M) const {
-    long long h = 0;
-    for (decltype(M) j = 0; j < M; ++j) h = (R * h + key[j]) % Q_;
-    return h;
 }
 
 // a random 31-bit prime
@@ -68,6 +62,13 @@ inline long long algs4::RabinKarp::longRandomPrime() {
     }
 }
 
+inline long long algs4::RabinKarp::hash(std::string_view key, std::ptrdiff_t M) const {
+    long long h = 0;
+    for (decltype(M) j = 0; j < M; ++j)
+        h = (R * h + key[j]) % Q_;
+    return h;
+}
+
 inline algs4::RabinKarp::RabinKarp(std::string_view pat) : M_(std::ssize(pat)) {
     // Compute R^(M_-1) % Q_ for use in removing leading digit.
     for (decltype(M_) i = 1; i <= M_ - 1; ++i)
@@ -79,8 +80,8 @@ inline std::ptrdiff_t algs4::RabinKarp::search(std::string_view txt) const {
     auto N = std::ssize(txt);
     long long txtHash = hash(txt, M_);
     if (patHash_ == txtHash && check(0)) return 0; // match at beginning
-    // Remove leading digit, add trailing digit, check for match.
     for (auto i = M_; i < N; ++i) {
+        // Remove leading digit, add trailing digit, check for match.
         txtHash = (txtHash + Q_ - RM_ * txt[i - M_] % Q_) % Q_;
         txtHash = (txtHash * R + txt[i]) % Q_;
         if (patHash_ == txtHash && check(i - M_ + 1)) return i - M_ + 1; // match

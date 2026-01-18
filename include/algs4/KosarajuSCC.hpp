@@ -25,13 +25,13 @@
 namespace algs4 {
     class KosarajuSCC : public CCBase {
     public:
-        constexpr explicit KosarajuSCC(const Digraph &G);
+        explicit KosarajuSCC(const Digraph &G);
 
-        constexpr bool stronglyConnected(int v, int w) const { return connected(v, w); }
+        bool stronglyConnected(int v, int w) const { return connected(v, w); }
     };
 }
 
-constexpr algs4::KosarajuSCC::KosarajuSCC(const Digraph &G) : CCBase(G) {
+inline algs4::KosarajuSCC::KosarajuSCC(const Digraph &G) : CCBase(G) {
     DepthFirstOrder order(G.reverse());
     for (int s: order.reversePost()) {
         if (!marked_[s]) {

@@ -18,6 +18,7 @@
 #ifndef ALGS4_MSD_HPP
 #define ALGS4_MSD_HPP
 
+#include <cassert>
 #include <cstddef>
 #include <string>
 #include <string_view>
@@ -89,6 +90,7 @@ constexpr void algs4::MSD::sort(std::vector<std::string> &a) {
     auto N = std::ssize(a);
     std::vector<std::string> aux(N);
     internal::sort(a, aux, 0, N - 1, 0);
+    assert(SortUtils::isSorted(a));
 }
 
 #endif // ALGS4_MSD_HPP

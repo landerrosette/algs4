@@ -24,6 +24,7 @@
 #include <utility>
 
 #include "OrderedST.hpp"
+#include "Queue.hpp"
 
 namespace algs4 {
     namespace internal {
@@ -43,6 +44,8 @@ namespace algs4 {
     protected:
         std::unique_ptr<Node> root_;
 
+        constexpr BSTBase() = default;
+
         const Value *get(const Node *x, const Key &key) const;
         std::ptrdiff_t size(const Node *x) const;
         const Node *min(const Node *x) const;
@@ -51,7 +54,7 @@ namespace algs4 {
         const Node *ceiling(const Node *x, const Key &key) const;
         std::ptrdiff_t rank(const Node *x, const Key &key) const;
         const Node *select(const Node *x, std::ptrdiff_t k) const;
-        void keys(const Node *x, std::vector<Key> &queue, const Key &lo, const Key &hi) const;
+        void keys(const Node *x, Queue<Key> &queue, const Key &lo, const Key &hi) const;
 
     public:
         using OrderedST<Key, Value>::get;
@@ -64,7 +67,7 @@ namespace algs4 {
         std::ptrdiff_t rank(const Key &key) const override { return rank(root_.get(), key); }
         const Key *select(std::ptrdiff_t k) const override;
         using OrderedST<Key, Value>::keys;
-        std::vector<Key> keys(const Key &lo, const Key &hi) const override;
+        Queue<Key> keys(const Key &lo, const Key &hi) const override;
     };
 }
 
@@ -116,8 +119,7 @@ template<std::totally_ordered Key, typename Value, typename Node>
 std::ptrdiff_t algs4::BSTBase<Key, Value, Node>::rank(const Node *x, const Key &key) const {
     if (!x) return 0;
     if (key < x->key_) return rank(x->left_.get(), key);
-    else if (key > x->key_)
-        return size(x->left_.get()) /* nodes in left subtree */ + 1 /* root */ + rank(x->right_.get(), key);
+    else if (key > x->key_) return 1 /* root */ + size(x->left_.get()) /* left subtree */ + rank(x->right_.get(), key);
     else return size(x->left_.get());
 }
 
@@ -130,28 +132,24 @@ const Node *algs4::BSTBase<Key, Value, Node>::select(const Node *x, std::ptrdiff
 }
 
 template<std::totally_ordered Key, typename Value, typename Node>
-void algs4::BSTBase<Key, Value, Node>::keys(const Node *x, std::vector<Key> &queue,
+void algs4::BSTBase<Key, Value, Node>::keys(const Node *x, Queue<Key> &queue,
                                             const Key &lo, const Key &hi) const {
     if (!x) return;
     if (lo < x->key_) keys(x->left_.get(), queue, lo, hi);
-    if (lo <= x->key_ && hi >= x->key_) queue.push_back(x->key_);
+    if (lo <= x->key_ && hi >= x->key_) queue.enqueue(x->key_);
     if (hi > x->key_) keys(x->right_.get(), queue, lo, hi);
 }
 
 template<std::totally_ordered Key, typename Value, typename Node>
 const Key *algs4::BSTBase<Key, Value, Node>::min() const {
     if (this->isEmpty()) return nullptr;
-    const Node *x = min(root_.get());
-    if (!x) return nullptr;
-    return &x->key_;
+    return &min(root_.get())->key_;
 }
 
 template<std::totally_ordered Key, typename Value, typename Node>
 const Key *algs4::BSTBase<Key, Value, Node>::max() const {
     if (this->isEmpty()) return nullptr;
-    const Node *x = max(root_.get());
-    if (!x) return nullptr;
-    return &x->key_;
+    return &max(root_.get())->key_;
 }
 
 template<std::totally_ordered Key, typename Value, typename Node>
@@ -177,8 +175,8 @@ const Key *algs4::BSTBase<Key, Value, Node>::select(std::ptrdiff_t k) const {
 }
 
 template<std::totally_ordered Key, typename Value, typename Node>
-std::vector<Key> algs4::BSTBase<Key, Value, Node>::keys(const Key &lo, const Key &hi) const {
-    std::vector<Key> queue;
+algs4::Queue<Key> algs4::BSTBase<Key, Value, Node>::keys(const Key &lo, const Key &hi) const {
+    Queue<Key> queue;
     keys(root_.get(), queue, lo, hi);
     return queue;
 }

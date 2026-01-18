@@ -24,7 +24,7 @@
 #include "algs4/ST.hpp"
 
 namespace STTestUtils {
-    constexpr char INVALID_KEY[] = "null";
+    constexpr char INVALID_KEY[] = "-";
     constexpr int INVALID_VALUE = -1;
 
     void init(algs4::ST<std::string, int> &st, std::istream &is, std::ostream &os);

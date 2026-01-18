@@ -70,9 +70,10 @@ constexpr void algs4::PQBase<Key, Compare>::swim(std::ptrdiff_t k) {
 
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
 constexpr void algs4::PQBase<Key, Compare>::sink(std::ptrdiff_t k) {
-    while (2 * k <= size()) {
+    auto N = size();
+    while (2 * k <= N) {
         auto j = 2 * k;
-        if (j < size() && less(j, j + 1))
+        if (j < N && less(j, j + 1))
             ++j;
         if (!less(k, j))
             break;
@@ -84,7 +85,7 @@ constexpr void algs4::PQBase<Key, Compare>::sink(std::ptrdiff_t k) {
 template<typename Key, std::strict_weak_order<Key, Key> Compare>
 constexpr Key algs4::PQBase<Key, Compare>::delTop() {
     assert(!isEmpty());
-    auto top = std::move(pq_[0]);
+    auto top = std::move(pq_.front());
     exch(1, size());
     pq_.pop_back();
     sink(1);

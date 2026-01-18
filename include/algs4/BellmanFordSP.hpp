@@ -18,19 +18,21 @@
 #ifndef ALGS4_BELLMANFORDSP_HPP
 #define ALGS4_BELLMANFORDSP_HPP
 
-#include <queue>
+#include <utility>
 #include <vector>
 
 #include "DirectedCycle.hpp"
+#include "Queue.hpp"
 #include "SP.hpp"
+#include "Stack.hpp"
 
 namespace algs4 {
     class BellmanFordSP : public SP {
     private:
-        std::vector<bool> onQ_;           // Is this vertex on the queue?
-        std::queue<int> queue_;           // vertices being relaxed
-        int cost_ = 0;                    // number of calls to relax()
-        std::vector<DirectedEdge> cycle_; // negative cycle in edgeTo_[]?
+        std::vector<bool> onQ_;     // Is this vertex on the queue?
+        Queue<int> queue_;          // vertices being relaxed
+        int cost_ = 0;              // number of calls to relax()
+        Stack<DirectedEdge> cycle_; // negative cycle in edgeTo_[]?
 
         void onEdgeRelaxed(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) override;
         void afterRelaxation(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) override;
@@ -39,14 +41,15 @@ namespace algs4 {
     public:
         BellmanFordSP(const EdgeWeightedDigraph &G, int s);
 
-        bool hasNegativeCycle() const { return !cycle_.empty(); }
-        std::vector<DirectedEdge> negativeCycle() const { return cycle_; }
+        bool hasNegativeCycle() const { return !cycle_.isEmpty(); }
+        const Stack<DirectedEdge> &negativeCycle() const & { return cycle_; }
+        Stack<DirectedEdge> &&negativeCycle() && { return std::move(cycle_); }
     };
 }
 
 inline void algs4::BellmanFordSP::onEdgeRelaxed(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) {
     if (!onQ_[w]) {
-        queue_.push(w);
+        queue_.enqueue(w);
         onQ_[w] = true;
     }
 }
@@ -59,21 +62,17 @@ inline void algs4::BellmanFordSP::afterRelaxation(const EdgeWeightedDigraph &G, 
 inline void algs4::BellmanFordSP::findNegativeCycle() {
     int V = static_cast<int>(std::ssize(edgeTo_));
     EdgeWeightedDigraph spt(V);
-    for (int v = 0; v < V; ++v) {
+    for (int v = 0; v < V; ++v)
         if (edgeTo_[v])
             spt.addEdge(edgeTo_[v]);
-    }
-    DirectedCycle cf(spt);
-    auto c = cf.cycle();
-    cycle_ = {c.begin(), c.end()};
+    cycle_ = DirectedCycle(spt).cycle();
 }
 
 inline algs4::BellmanFordSP::BellmanFordSP(const EdgeWeightedDigraph &G, int s) : SP(G, s), onQ_(G.V()) {
-    queue_.push(s);
+    queue_.enqueue(s);
     onQ_[s] = true;
-    while (!queue_.empty() && !hasNegativeCycle()) {
-        int v = queue_.front();
-        queue_.pop();
+    while (!queue_.isEmpty() && !hasNegativeCycle()) {
+        int v = queue_.dequeue();
         onQ_[v] = false;
         relax(G, v);
     }

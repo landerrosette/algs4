@@ -47,8 +47,8 @@ inline algs4::Graph::Graph(std::istream &in) : GraphBase(in) {
 constexpr void algs4::Graph::addEdge(int v, int w) {
     assert(v >= 0 && v < V_);
     assert(w >= 0 && w < V_);
-    adj_[v].push_back(w);
-    adj_[w].push_back(v);
+    adj_[v].add(w);
+    adj_[w].add(v);
     ++E_;
 }
 

@@ -24,6 +24,7 @@
 #include <utility>
 #include <vector>
 
+#include "Queue.hpp"
 #include "SequentialSearchST.hpp"
 #include "ST.hpp"
 
@@ -40,29 +41,29 @@ namespace algs4 {
         SeparateChainingHashST() : SeparateChainingHashST(997) {}
         explicit SeparateChainingHashST(std::ptrdiff_t M) : M_(M), st_(M) { assert(M >= 0); }
 
+        void put(Key key, Value val) override { st_[hash(key)].put(std::move(key), std::move(val)); }
         using ST<Key, Value>::get;
         const Value *get(const Key &key) const override { return st_[hash(key)].get(key); }
-        void put(Key key, Value val) override { st_[hash(key)].put(std::move(key), std::move(val)); }
         void remove(const Key &key) override { st_[hash(key)].remove(key); }
         std::ptrdiff_t size() const override;
-        std::vector<Key> keys() const override;
+        Queue<Key> keys() const override;
     };
 }
 
 template<typename Key, typename Value>
 std::ptrdiff_t algs4::SeparateChainingHashST<Key, Value>::size() const {
     std::ptrdiff_t N = 0;
-    for (const auto &t: st_)
-        N += t.size();
+    for (decltype(M_) i = 0; i < M_; ++i)
+        N += st_[i].size();
     return N;
 }
 
 template<typename Key, typename Value>
-std::vector<Key> algs4::SeparateChainingHashST<Key, Value>::keys() const {
-    std::vector<Key> queue;
-    for (const auto &t: st_) {
-        for (const auto &key: t.keys())
-            queue.push_back(key);
+algs4::Queue<Key> algs4::SeparateChainingHashST<Key, Value>::keys() const {
+    Queue<Key> queue;
+    for (decltype(M_) i = 0; i < M_; ++i) {
+        for (const auto &key: st_[i].keys())
+            queue.enqueue(key);
     }
     return queue;
 }

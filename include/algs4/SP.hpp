@@ -18,13 +18,13 @@
 #ifndef ALGS4_SP_HPP
 #define ALGS4_SP_HPP
 
-#include <algorithm>
 #include <cassert>
 #include <limits>
 #include <vector>
 
 #include "DirectedEdge.hpp"
 #include "EdgeWeightedDigraph.hpp"
+#include "Stack.hpp"
 
 namespace algs4 {
     class SP {
@@ -47,7 +47,7 @@ namespace algs4 {
 
         constexpr double distTo(int v) const;
         constexpr bool hasPathTo(int v) const;
-        constexpr std::vector<DirectedEdge> pathTo(int v) const;
+        constexpr Stack<DirectedEdge> pathTo(int v) const;
     };
 }
 
@@ -79,12 +79,12 @@ constexpr bool algs4::SP::hasPathTo(int v) const {
     return distTo_[v] < std::numeric_limits<double>::infinity();
 }
 
-constexpr std::vector<algs4::DirectedEdge> algs4::SP::pathTo(int v) const {
+constexpr algs4::Stack<algs4::DirectedEdge> algs4::SP::pathTo(int v) const {
     assert(v >= 0 && v < std::ssize(distTo_));
-    std::vector<DirectedEdge> path;
+    if (!hasPathTo(v)) return {};
+    Stack<DirectedEdge> path;
     for (auto e = edgeTo_[v]; e; e = edgeTo_[e.from()])
-        path.push_back(e);
-    std::ranges::reverse(path);
+        path.push(e);
     return path;
 }
 

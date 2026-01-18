@@ -32,7 +32,6 @@
  * are by sea seashells seashells sells sells she she shells shore surely the the
  ******************************************************************************/
 
-#include <cassert>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -45,7 +44,6 @@ int main(int argc, char *argv[]) {
     for (std::string item; std::cin >> item;)
         a.push_back(item);
     algs4::@SORTER@::sort(a);
-    assert(algs4::SortUtils::isSorted(a));
     algs4::SortUtils::show(a);
     return 0;
 }

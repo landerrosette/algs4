@@ -44,7 +44,6 @@ namespace algs4 {
     public:
         SymbolDigraph(const std::filesystem::path &filepath, char sp);
 
-        bool contains(const std::string &s) const { return st_.contains(s); }
         std::string_view name(int v) const &;
         const Digraph &G() const & { return *G_; }
     };

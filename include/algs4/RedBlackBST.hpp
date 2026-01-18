@@ -56,12 +56,13 @@ namespace algs4 {
         std::unique_ptr<Node> removeMin(std::unique_ptr<Node> h);
         std::unique_ptr<Node> removeMax(std::unique_ptr<Node> h);
         int height(const Node *h) const;
-        bool is23(const Node *h) const;
         // Does the tree have no red right links, and at most one (left) red links in a row on any path?
         bool is23() const { return is23(this->root_.get()); }
+        bool is23(const Node *h) const;
+        // Do all paths from root to leaf have same number of black edges?
+        bool isBalanced() const;
         // Does every path from the root to a leaf have the given number of black links?
         bool isBalanced(const Node *h, int black) const;
-        bool isBalanced() const; // Do all paths from root to leaf have same number of black edges?
 
     public:
         void put(Key key, Value val) override;
@@ -140,12 +141,11 @@ auto algs4::RedBlackBST<Key, Value>::balance(std::unique_ptr<Node> h) -> std::un
 }
 
 template<std::totally_ordered Key, typename Value>
-auto algs4::RedBlackBST<Key, Value>::put(std::unique_ptr<Node> h, Key key,
-                                         Value val) -> std::unique_ptr<Node> {
+auto algs4::RedBlackBST<Key, Value>::put(std::unique_ptr<Node> h, Key key, Value val) -> std::unique_ptr<Node> {
     if (!h) return std::make_unique<Node>(std::move(key), std::move(val), 1, RED);
     if (key < h->key_) h->left_ = put(std::move(h->left_), std::move(key), std::move(val));
     else if (key > h->key_) h->right_ = put(std::move(h->right_), std::move(key), std::move(val));
-    else h->val_ = val;
+    else h->val_ = std::move(val);
     return balance(std::move(h));
 }
 
@@ -175,7 +175,6 @@ auto algs4::RedBlackBST<Key, Value>::remove(std::unique_ptr<Node> h, const Key &
 
 template<std::totally_ordered Key, typename Value>
 auto algs4::RedBlackBST<Key, Value>::removeMin(std::unique_ptr<Node> h) -> std::unique_ptr<Node> {
-    if (!h) return nullptr;
     if (!h->left_)
         return nullptr;
     if (!isRed(h->left_.get()) && !isRed(h->left_->left_.get()))
@@ -186,7 +185,6 @@ auto algs4::RedBlackBST<Key, Value>::removeMin(std::unique_ptr<Node> h) -> std::
 
 template<std::totally_ordered Key, typename Value>
 auto algs4::RedBlackBST<Key, Value>::removeMax(std::unique_ptr<Node> h) -> std::unique_ptr<Node> {
-    if (!h) return nullptr;
     if (isRed(h->left_.get()))
         h = rotateRight(std::move(h));
     if (!h->right_)
@@ -214,19 +212,19 @@ bool algs4::RedBlackBST<Key, Value>::is23(const Node *h) const {
 }
 
 template<std::totally_ordered Key, typename Value>
-bool algs4::RedBlackBST<Key, Value>::isBalanced(const Node *h, int black) const {
-    if (!h) return black == 0;
-    if (!isRed(h)) --black;
-    return isBalanced(h->left_.get(), black) && isBalanced(h->right_.get(), black);
-}
-
-template<std::totally_ordered Key, typename Value>
 bool algs4::RedBlackBST<Key, Value>::isBalanced() const {
     int black = 0; // number of black links on path from root to min
     for (const Node *x = this->root_.get(); x; x = x->left_.get())
         if (!isRed(x))
             ++black;
     return isBalanced(this->root_.get(), black);
+}
+
+template<std::totally_ordered Key, typename Value>
+bool algs4::RedBlackBST<Key, Value>::isBalanced(const Node *h, int black) const {
+    if (!h) return black == 0;
+    if (!isRed(h)) --black;
+    return isBalanced(h->left_.get(), black) && isBalanced(h->right_.get(), black);
 }
 
 template<std::totally_ordered Key, typename Value>
@@ -249,6 +247,7 @@ void algs4::RedBlackBST<Key, Value>::remove(const Key &key) {
 
 template<std::totally_ordered Key, typename Value>
 void algs4::RedBlackBST<Key, Value>::removeMin() {
+    if (this->isEmpty()) return;
     if (!isRed(this->root_->left_.get()) && !isRed(this->root_->right_.get()))
         this->root_->color = RED;
     this->root_ = removeMin(std::move(this->root_));
@@ -259,6 +258,7 @@ void algs4::RedBlackBST<Key, Value>::removeMin() {
 
 template<std::totally_ordered Key, typename Value>
 void algs4::RedBlackBST<Key, Value>::removeMax() {
+    if (this->isEmpty()) return;
     if (!isRed(this->root_->left_.get()) && !isRed(this->root_->right_.get()))
         this->root_->color = RED;
     this->root_ = removeMax(std::move(this->root_));

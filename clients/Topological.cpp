@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
         algs4::Topological top(sg.G());
         for (int v: top.order())
             std::cout << sg.name(v) << std::endl;
-    } catch (std::invalid_argument &e) {
+    } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
         return 1;
     }

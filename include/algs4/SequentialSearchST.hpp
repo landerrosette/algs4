@@ -43,34 +43,24 @@ namespace algs4 {
         std::unique_ptr<Node> remove(std::unique_ptr<Node> x, const Key &key);
 
     public:
-        constexpr SequentialSearchST() = default;
+        void put(Key key, Value val) override;
         using ST<Key, Value>::get;
         const Value *get(const Key &key) const override;
-        void put(Key key, Value val) override;
         void remove(const Key &key) override { first_ = remove(std::move(first_), key); }
         std::ptrdiff_t size() const override { return N_; }
-        std::vector<Key> keys() const override;
+        Queue<Key> keys() const override;
     };
 }
 
 template<typename Key, typename Value>
 auto algs4::SequentialSearchST<Key, Value>::remove(std::unique_ptr<Node> x, const Key &key) -> std::unique_ptr<Node> {
-    if (!x)
-        return nullptr;
+    if (!x) return nullptr;
     if (key == x->key_) {
         --N_;
         return std::move(x->next_);
     }
     x->next_ = remove(std::move(x->next_), key);
     return x;
-}
-
-template<typename Key, typename Value>
-const Value *algs4::SequentialSearchST<Key, Value>::get(const Key &key) const {
-    for (const Node *x = first_.get(); x; x = x->next_.get())
-        if (key == x->key_)
-            return &x->val_;
-    return nullptr;
 }
 
 template<typename Key, typename Value>
@@ -85,10 +75,18 @@ void algs4::SequentialSearchST<Key, Value>::put(Key key, Value val) {
 }
 
 template<typename Key, typename Value>
-std::vector<Key> algs4::SequentialSearchST<Key, Value>::keys() const {
-    std::vector<Key> queue;
+const Value *algs4::SequentialSearchST<Key, Value>::get(const Key &key) const {
     for (const Node *x = first_.get(); x; x = x->next_.get())
-        queue.push_back(x->key_);
+        if (key == x->key_)
+            return &x->val_;
+    return nullptr;
+}
+
+template<typename Key, typename Value>
+algs4::Queue<Key> algs4::SequentialSearchST<Key, Value>::keys() const {
+    Queue<Key> queue;
+    for (const Node *x = first_.get(); x; x = x->next_.get())
+        queue.enqueue(x->key_);
     return queue;
 }
 
