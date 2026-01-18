@@ -37,8 +37,8 @@ namespace algs4 {
                 : key_(std::move(key)), val_(std::move(val)), next_(std::move(next)) {}
         };
 
-        std::ptrdiff_t N_ = 0;
         std::unique_ptr<Node> first_;
+        std::ptrdiff_t N_ = 0;
 
         std::unique_ptr<Node> remove(std::unique_ptr<Node> x, const Key &key);
 

@@ -10,6 +10,7 @@ For the original Java source code, visit the [official repository](https://githu
 ### Fundamentals
 
 - **1.1** Pushdown stack (resizing array): [Stack.hpp](include/algs4/Stack.hpp)
+- **1.2** Pushdown stack (linked-list): [LinkedStack.hpp](include/algs4/LinkedStack.hpp)
 - **1.3** FIFO queue: [Queue.hpp](include/algs4/Queue.hpp)
 - **1.4** Bag: [Bag.hpp](include/algs4/Bag.hpp)
 - **1.5** Union-find: [UF.hpp](include/algs4/UF.hpp)

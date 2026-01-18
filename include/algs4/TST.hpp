@@ -31,8 +31,6 @@ namespace algs4 {
     template<typename Value>
     class TST : public StringST<Value> {
     private:
-        std::ptrdiff_t N_ = 0;
-
         struct Node {
             char c_;
             std::unique_ptr<Node> left_, mid_, right_;
@@ -42,6 +40,7 @@ namespace algs4 {
         };
 
         std::unique_ptr<Node> root_;
+        std::ptrdiff_t N_ = 0;
 
         std::unique_ptr<Node> put(std::unique_ptr<Node> x, std::string_view key, Value val, std::ptrdiff_t d);
         const Node *get(const Node *x, std::string_view key, std::ptrdiff_t d) const;

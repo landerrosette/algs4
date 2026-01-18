@@ -35,12 +35,13 @@ namespace algs4 {
         using iterator = internal::IteratorWrapper<std::deque<T>, false, false>;
         using const_iterator = internal::IteratorWrapper<std::deque<T>, false, true>;
 
+        bool isEmpty() const { return a_.empty(); }
+        std::ptrdiff_t size() const { return std::ssize(a_); }
+
         template<typename U> requires std::constructible_from<T, U>
         void enqueue(U &&item) { a_.emplace_back(std::forward<U>(item)); }
 
         T dequeue();
-        bool isEmpty() const { return a_.empty(); }
-        std::ptrdiff_t size() const { return std::ssize(a_); }
         iterator begin() { return iterator(a_.begin()); }
         iterator end() { return iterator(a_.end()); }
         const_iterator begin() const { return const_iterator(a_.begin()); }

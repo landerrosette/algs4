@@ -35,12 +35,13 @@ namespace algs4 {
         using iterator = internal::IteratorWrapper<std::vector<T>, true, false>;
         using const_iterator = internal::IteratorWrapper<std::vector<T>, true, true>;
 
+        constexpr bool isEmpty() const { return a_.empty(); }
+        constexpr std::ptrdiff_t size() const { return std::ssize(a_); }
+
         template<typename U> requires std::constructible_from<T, U>
         constexpr void push(U &&item) { a_.emplace_back(std::forward<U>(item)); }
 
         constexpr T pop();
-        constexpr bool isEmpty() const { return a_.empty(); }
-        constexpr std::ptrdiff_t size() const { return std::ssize(a_); }
         constexpr iterator begin() { return iterator(a_.rbegin()); }
         constexpr iterator end() { return iterator(a_.rend()); }
         constexpr const_iterator begin() const { return const_iterator(a_.rbegin()); }
