@@ -1,4 +1,4 @@
-# Copyright (C) 2024 landerrosette
+# Copyright (C) 2024-2026 landerrosette
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
