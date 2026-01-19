@@ -1,4 +1,4 @@
-# Copyright (C) 2024-2026 landerrosette
+# Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
