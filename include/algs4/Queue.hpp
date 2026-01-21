@@ -23,22 +23,22 @@
 #include <deque>
 #include <utility>
 
-#include "IteratorWrapper.hpp"
+#include "MonodirectionalIterator.hpp"
 
 namespace algs4 {
-    template<typename T>
+    template<std::movable T>
     class Queue {
     private:
         std::deque<T> a_;
 
     public:
-        using iterator = internal::IteratorWrapper<std::deque<T>, false, false>;
-        using const_iterator = internal::IteratorWrapper<std::deque<T>, false, true>;
+        using iterator = detail::MonodirectionalIterator<typename std::deque<T>::iterator>;
+        using const_iterator = detail::MonodirectionalIterator<typename std::deque<T>::const_iterator>;
 
         bool isEmpty() const { return a_.empty(); }
         std::ptrdiff_t size() const { return std::ssize(a_); }
 
-        template<typename U> requires std::constructible_from<T, U>
+        template<std::convertible_to<T> U>
         void enqueue(U &&item) { a_.emplace_back(std::forward<U>(item)); }
 
         T dequeue();
@@ -51,7 +51,7 @@ namespace algs4 {
     };
 }
 
-template<typename T>
+template<std::movable T>
 T algs4::Queue<T>::dequeue() {
     assert(!isEmpty());
     T item = std::move(a_.front());

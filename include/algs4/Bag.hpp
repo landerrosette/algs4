@@ -22,22 +22,22 @@
 #include <utility>
 #include <vector>
 
-#include "IteratorWrapper.hpp"
+#include "MonodirectionalIterator.hpp"
 
 namespace algs4 {
-    template<typename T>
+    template<std::movable T>
     class Bag {
     private:
         std::vector<T> a_;
 
     public:
-        using iterator = internal::IteratorWrapper<std::vector<T>, true, false>;
-        using const_iterator = internal::IteratorWrapper<std::vector<T>, true, true>;
+        using iterator = detail::MonodirectionalIterator<typename std::vector<T>::reverse_iterator>;
+        using const_iterator = detail::MonodirectionalIterator<typename std::vector<T>::const_reverse_iterator>;
 
         constexpr bool isEmpty() const { return a_.empty(); }
         constexpr std::ptrdiff_t size() const { return std::ssize(a_); }
 
-        template<typename U> requires std::constructible_from<T, U>
+        template<std::convertible_to<T> U>
         constexpr void add(U &&item) { a_.emplace_back(std::forward<U>(item)); }
 
         constexpr iterator begin() { return iterator(a_.rbegin()); }
