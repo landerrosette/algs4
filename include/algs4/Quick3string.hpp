@@ -28,18 +28,18 @@
 
 namespace algs4 {
     namespace Quick3string {
-        namespace internal {
+        namespace detail {
             constexpr void sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi, std::ptrdiff_t d);
         }
 
-        constexpr void sort(std::vector<std::string> &a) { internal::sort(a, 0, std::ssize(a) - 1, 0); }
+        constexpr void sort(std::vector<std::string> &a) { detail::sort(a, 0, std::ssize(a) - 1, 0); }
     }
 }
 
-constexpr void algs4::Quick3string::internal::sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
-                                                   std::ptrdiff_t d) {
-    using namespace SortUtils::internal;
-    using namespace StringSortUtils::internal;
+constexpr void algs4::Quick3string::detail::sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
+                                                 std::ptrdiff_t d) {
+    using namespace SortUtils::detail;
+    using namespace StringSortUtils::detail;
     if (hi <= lo) return;
     auto lt = lo, i = lo + 1, gt = hi;
     int v = charAt(a[lo], d);

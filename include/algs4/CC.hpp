@@ -22,7 +22,7 @@
 #include "Graph.hpp"
 
 namespace algs4 {
-    class CC : public CCBase {
+    class CC : public detail::CCBase {
     public:
         constexpr explicit CC(const Graph &G);
     };

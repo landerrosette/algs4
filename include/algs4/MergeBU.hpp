@@ -27,14 +27,14 @@
 
 namespace algs4 {
     namespace MergeBU {
-        template<std::totally_ordered T>
+        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
         constexpr void sort(std::vector<T> &a);
     }
 }
 
-template<std::totally_ordered T>
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
 constexpr void algs4::MergeBU::sort(std::vector<T> &a) {
-    using namespace Merge::internal;
+    using namespace Merge::detail;
     auto N = std::ssize(a);
     std::vector<T> aux(N);
     for (decltype(N) sz = 1; sz < N; sz = sz + sz)           // sz: subarray size

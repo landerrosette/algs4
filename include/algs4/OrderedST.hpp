@@ -25,7 +25,7 @@
 #include "ST.hpp"
 
 namespace algs4 {
-    template<std::totally_ordered Key, typename Value>
+    template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
     class OrderedST : public ST<Key, Value> {
     protected:
         constexpr OrderedST() = default;
@@ -46,26 +46,26 @@ namespace algs4 {
     };
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 constexpr void algs4::OrderedST<Key, Value>::removeMin() {
     if (this->isEmpty()) return;
     this->remove(*min());
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 constexpr void algs4::OrderedST<Key, Value>::removeMax() {
     if (this->isEmpty()) return;
     this->remove(*max());
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 constexpr std::ptrdiff_t algs4::OrderedST<Key, Value>::size(const Key &lo, const Key &hi) const {
     if (hi < lo) return 0;
     else if (this->contains(hi)) return rank(hi) - rank(lo) + 1;
     else return rank(hi) - rank(lo);
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 algs4::Queue<Key> algs4::OrderedST<Key, Value>::keys() const {
     if (this->isEmpty()) return {};
     return keys(*min(), *max());

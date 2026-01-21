@@ -18,6 +18,7 @@
 #ifndef ALGS4_LINEARPROBINGHASHST_HPP
 #define ALGS4_LINEARPROBINGHASHST_HPP
 
+#include <concepts>
 #include <cstddef>
 #include <functional>
 #include <optional>
@@ -28,7 +29,7 @@
 #include "ST.hpp"
 
 namespace algs4 {
-    template<typename Key, typename Value>
+    template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
     class LinearProbingHashST : public ST<Key, Value> {
     private:
         std::ptrdiff_t N_ = 0;  // number of key-value pairs in the table
@@ -53,7 +54,7 @@ namespace algs4 {
     };
 }
 
-template<typename Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 constexpr void algs4::LinearProbingHashST<Key, Value>::resize(std::ptrdiff_t cap) {
     LinearProbingHashST t(cap);
     for (decltype(M_) i = 0; i < M_; ++i)
@@ -64,7 +65,7 @@ constexpr void algs4::LinearProbingHashST<Key, Value>::resize(std::ptrdiff_t cap
     M_ = t.M_;
 }
 
-template<typename Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 constexpr void algs4::LinearProbingHashST<Key, Value>::put(Key key, Value val) {
     if (N_ >= M_ / 2) resize(2 * M_);
 
@@ -79,7 +80,7 @@ constexpr void algs4::LinearProbingHashST<Key, Value>::put(Key key, Value val) {
     ++N_;
 }
 
-template<typename Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 constexpr const Value *algs4::LinearProbingHashST<Key, Value>::get(const Key &key) const {
     for (auto i = hash(key); keys_[i]; i = (i + 1) % M_)
         if (keys_[i] == key)
@@ -87,7 +88,7 @@ constexpr const Value *algs4::LinearProbingHashST<Key, Value>::get(const Key &ke
     return nullptr;
 }
 
-template<typename Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 constexpr void algs4::LinearProbingHashST<Key, Value>::remove(const Key &key) {
     if (!this->contains(key)) return;
     auto i = hash(key);
@@ -108,7 +109,7 @@ constexpr void algs4::LinearProbingHashST<Key, Value>::remove(const Key &key) {
     if (N_ > 0 && N_ == M_ / 8) resize(M_ / 2);
 }
 
-template<typename Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 algs4::Queue<Key> algs4::LinearProbingHashST<Key, Value>::keys() const {
     Queue<Key> queue;
     for (decltype(M_) i = 0; i < M_; ++i)

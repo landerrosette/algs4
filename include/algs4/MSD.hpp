@@ -30,7 +30,7 @@
 
 namespace algs4 {
     namespace MSD {
-        namespace internal {
+        namespace detail {
             constexpr int R = 256; // radix
             constexpr int M = 15;  // cutoff for small subarrays
 
@@ -38,7 +38,7 @@ namespace algs4 {
                                 std::ptrdiff_t hi, std::ptrdiff_t d);
 
             namespace Insertion {
-                namespace internal {
+                namespace detail {
                     constexpr bool less(std::string_view v, std::string_view w, std::ptrdiff_t d);
                 }
 
@@ -51,10 +51,10 @@ namespace algs4 {
     }
 }
 
-constexpr void algs4::MSD::internal::sort(std::vector<std::string> &a, std::vector<std::string> &aux, std::ptrdiff_t lo,
-                                          std::ptrdiff_t hi, std::ptrdiff_t d) {
-    using namespace internal;
-    using namespace StringSortUtils::internal;
+constexpr void algs4::MSD::detail::sort(std::vector<std::string> &a, std::vector<std::string> &aux, std::ptrdiff_t lo,
+                                        std::ptrdiff_t hi, std::ptrdiff_t d) {
+    using namespace detail;
+    using namespace StringSortUtils::detail;
     if (hi <= lo + M) {
         Insertion::sort(a, lo, hi, d);
         return;
@@ -72,15 +72,14 @@ constexpr void algs4::MSD::internal::sort(std::vector<std::string> &a, std::vect
     for (int r = 0; r < R; ++r) sort(a, aux, lo + count[r], lo + count[r + 1] - 1, d + 1);
 }
 
-constexpr bool algs4::MSD::internal::Insertion::internal::less(std::string_view v, std::string_view w,
-                                                               std::ptrdiff_t d) {
-    return SortUtils::internal::less(v.substr(d), w.substr(d));
+constexpr bool algs4::MSD::detail::Insertion::detail::less(std::string_view v, std::string_view w, std::ptrdiff_t d) {
+    return SortUtils::detail::less(v.substr(d), w.substr(d));
 }
 
-constexpr void algs4::MSD::internal::Insertion::sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
-                                                     std::ptrdiff_t d) {
-    using namespace internal;
-    using namespace SortUtils::internal;
+constexpr void algs4::MSD::detail::Insertion::sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
+                                                   std::ptrdiff_t d) {
+    using namespace detail;
+    using namespace SortUtils::detail;
     for (auto i = lo; i <= hi; ++i)
         for (auto j = i; j > lo && less(a[j], a[j - 1], d); --j)
             exch(a, j, j - 1);
@@ -89,7 +88,7 @@ constexpr void algs4::MSD::internal::Insertion::sort(std::vector<std::string> &a
 constexpr void algs4::MSD::sort(std::vector<std::string> &a) {
     auto N = std::ssize(a);
     std::vector<std::string> aux(N);
-    internal::sort(a, aux, 0, N - 1, 0);
+    detail::sort(a, aux, 0, N - 1, 0);
     assert(SortUtils::isSorted(a));
 }
 

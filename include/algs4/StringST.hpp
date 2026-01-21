@@ -18,6 +18,7 @@
 #ifndef ALGS4_STRINGST_HPP
 #define ALGS4_STRINGST_HPP
 
+#include <concepts>
 #include <string>
 #include <string_view>
 
@@ -25,7 +26,7 @@
 #include "ST.hpp"
 
 namespace algs4 {
-    template<typename Value>
+    template<std::movable Value>
     class StringST : public ST<std::string, Value> {
     protected:
         constexpr StringST() = default;

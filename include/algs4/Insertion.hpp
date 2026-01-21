@@ -26,14 +26,14 @@
 
 namespace algs4 {
     namespace Insertion {
-        template<std::totally_ordered T>
+        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
         constexpr void sort(std::vector<T> &a);
     }
 }
 
-template<std::totally_ordered T>
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
 constexpr void algs4::Insertion::sort(std::vector<T> &a) {
-    using namespace SortUtils::internal;
+    using namespace SortUtils::detail;
     auto N = std::ssize(a);
     for (decltype(N) i = 1; i < N; ++i)
         // Insert a[i] among a[i-1], a[i-2], a[i-3]...

@@ -26,7 +26,7 @@
 #include <vector>
 
 namespace algs4 {
-    template<std::totally_ordered Key>
+    template<typename Key> requires std::movable<Key> && std::totally_ordered<Key>
     class IndexMinPQ {
     private:
         std::ptrdiff_t N_ = 0;
@@ -45,17 +45,17 @@ namespace algs4 {
         constexpr bool isEmpty() const { return N_ == 0; }
         constexpr bool contains(std::ptrdiff_t k) const;
 
-        template<typename K> requires std::constructible_from<Key, K>
+        template<std::convertible_to<Key> K>
         constexpr void insert(std::ptrdiff_t k, K &&key);
 
-        template<typename K> requires std::constructible_from<Key, K>
+        template<std::convertible_to<Key> K>
         constexpr void change(std::ptrdiff_t k, K &&key);
 
         constexpr std::ptrdiff_t delMin();
     };
 }
 
-template<std::totally_ordered Key>
+template<typename Key> requires std::movable<Key> && std::totally_ordered<Key>
 constexpr void algs4::IndexMinPQ<Key>::exch(std::ptrdiff_t i, std::ptrdiff_t j) {
     using std::swap;
     swap(pq_[i], pq_[j]);
@@ -63,7 +63,7 @@ constexpr void algs4::IndexMinPQ<Key>::exch(std::ptrdiff_t i, std::ptrdiff_t j) 
     qp_[pq_[j]] = j;
 }
 
-template<std::totally_ordered Key>
+template<typename Key> requires std::movable<Key> && std::totally_ordered<Key>
 constexpr void algs4::IndexMinPQ<Key>::swim(std::ptrdiff_t k) {
     while (k > 1 && greater(k / 2, k)) {
         exch(k / 2, k);
@@ -71,7 +71,7 @@ constexpr void algs4::IndexMinPQ<Key>::swim(std::ptrdiff_t k) {
     }
 }
 
-template<std::totally_ordered Key>
+template<typename Key> requires std::movable<Key> && std::totally_ordered<Key>
 constexpr void algs4::IndexMinPQ<Key>::sink(std::ptrdiff_t k) {
     while (2 * k <= N_) {
         auto j = 2 * k;
@@ -84,19 +84,19 @@ constexpr void algs4::IndexMinPQ<Key>::sink(std::ptrdiff_t k) {
     }
 }
 
-template<std::totally_ordered Key>
+template<typename Key> requires std::movable<Key> && std::totally_ordered<Key>
 constexpr algs4::IndexMinPQ<Key>::IndexMinPQ(std::ptrdiff_t maxN) : pq_(maxN + 1), qp_(maxN + 1, -1), keys_(maxN + 1) {
     assert(maxN >= 0);
 }
 
-template<std::totally_ordered Key>
+template<typename Key> requires std::movable<Key> && std::totally_ordered<Key>
 constexpr bool algs4::IndexMinPQ<Key>::contains(std::ptrdiff_t k) const {
     assert(k >= 0 && k < std::ssize(qp_) - 1);
     return qp_[k] != -1;
 }
 
-template<std::totally_ordered Key>
-template<typename K> requires std::constructible_from<Key, K>
+template<typename Key> requires std::movable<Key> && std::totally_ordered<Key>
+template<std::convertible_to<Key> K>
 constexpr void algs4::IndexMinPQ<Key>::insert(std::ptrdiff_t k, K &&key) {
     assert(k >= 0 && k < std::ssize(qp_) - 1);
     assert(!contains(k));
@@ -106,8 +106,8 @@ constexpr void algs4::IndexMinPQ<Key>::insert(std::ptrdiff_t k, K &&key) {
     swim(N_);
 }
 
-template<std::totally_ordered Key>
-template<typename K> requires std::constructible_from<Key, K>
+template<typename Key> requires std::movable<Key> && std::totally_ordered<Key>
+template<std::convertible_to<Key> K>
 constexpr void algs4::IndexMinPQ<Key>::change(std::ptrdiff_t k, K &&key) {
     assert(k >= 0 && k < std::ssize(qp_) - 1);
     assert(contains(k));
@@ -116,7 +116,7 @@ constexpr void algs4::IndexMinPQ<Key>::change(std::ptrdiff_t k, K &&key) {
     sink(qp_[k]);
 }
 
-template<std::totally_ordered Key>
+template<typename Key> requires std::movable<Key> && std::totally_ordered<Key>
 constexpr std::ptrdiff_t algs4::IndexMinPQ<Key>::delMin() {
     assert(!isEmpty());
     auto indexOfMin = pq_[1];

@@ -29,22 +29,22 @@
 
 namespace algs4 {
     namespace Quick {
-        namespace internal {
-            template<std::totally_ordered T>
+        namespace detail {
+            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
             constexpr std::ptrdiff_t partition(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi);
 
-            template<std::totally_ordered T>
+            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
             constexpr void sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi);
         }
 
-        template<std::totally_ordered T>
+        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
         void sort(std::vector<T> &a);
     }
 }
 
-template<std::totally_ordered T>
-constexpr std::ptrdiff_t algs4::Quick::internal::partition(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
-    using namespace SortUtils::internal;
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
+constexpr std::ptrdiff_t algs4::Quick::detail::partition(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
+    using namespace SortUtils::detail;
     auto i = lo, j = hi + 1;
     T v = a[lo];
     while (true) {
@@ -58,18 +58,18 @@ constexpr std::ptrdiff_t algs4::Quick::internal::partition(std::vector<T> &a, st
     return j;       // with a[lo..j-1] <= a[j] <= a[j+1..hi].
 }
 
-template<std::totally_ordered T>
-constexpr void algs4::Quick::internal::sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
+constexpr void algs4::Quick::detail::sort(std::vector<T> &a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
     if (hi <= lo) return;
     auto j = partition(a, lo, hi);
     sort(a, lo, j - 1);
     sort(a, j + 1, hi);
 }
 
-template<std::totally_ordered T>
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
 void algs4::Quick::sort(std::vector<T> &a) {
     std::ranges::shuffle(a, std::default_random_engine(std::random_device()()));
-    internal::sort(a, 0, std::ssize(a) - 1);
+    detail::sort(a, 0, std::ssize(a) - 1);
     assert(SortUtils::isSorted(a));
 }
 

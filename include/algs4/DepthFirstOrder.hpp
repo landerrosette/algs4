@@ -18,7 +18,6 @@
 #ifndef ALGS4_DEPTHFIRSTORDER_HPP
 #define ALGS4_DEPTHFIRSTORDER_HPP
 
-#include <concepts>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -35,12 +34,12 @@ namespace algs4 {
         Queue<int> pre_, post_;
         Stack<int> reversePost_;
 
-        template<typename EdgeType>
-        void dfs(const GraphBase<EdgeType> &G, int v);
+        template<std::semiregular EdgeType>
+        void dfs(const detail::GraphBase<EdgeType> &G, int v);
 
     public:
-        template<typename EdgeType>
-        explicit DepthFirstOrder(const GraphBase<EdgeType> &G);
+        template<std::semiregular EdgeType>
+        explicit DepthFirstOrder(const detail::GraphBase<EdgeType> &G);
 
         const auto &pre() const & { return pre_; }
         auto &&pre() && { return std::move(pre_); }
@@ -51,13 +50,13 @@ namespace algs4 {
     };
 }
 
-template<typename EdgeType>
-void algs4::DepthFirstOrder::dfs(const GraphBase<EdgeType> &G, int v) {
+template<std::semiregular EdgeType>
+void algs4::DepthFirstOrder::dfs(const detail::GraphBase<EdgeType> &G, int v) {
     pre_.enqueue(v);
     marked_[v] = true;
     for (const auto &e: G.adj(v)) {
         int w;
-        if constexpr (std::same_as<std::remove_cvref_t<decltype(e)>, DirectedEdge>) w = e.to();
+        if constexpr (std::is_same_v<std::remove_cvref_t<decltype(e)>, DirectedEdge>) w = e.to();
         else w = e;
         if (!marked_[w])
             dfs(G, w);
@@ -66,8 +65,8 @@ void algs4::DepthFirstOrder::dfs(const GraphBase<EdgeType> &G, int v) {
     reversePost_.push(v);
 }
 
-template<typename EdgeType>
-algs4::DepthFirstOrder::DepthFirstOrder(const GraphBase<EdgeType> &G) : marked_(G.V()) {
+template<std::semiregular EdgeType>
+algs4::DepthFirstOrder::DepthFirstOrder(const detail::GraphBase<EdgeType> &G) : marked_(G.V()) {
     for (int v = 0; v < G.V(); ++v)
         if (!marked_[v]) dfs(G, v);
 }

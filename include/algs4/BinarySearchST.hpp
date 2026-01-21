@@ -27,7 +27,7 @@
 #include "SequentialSearchST.hpp"
 
 namespace algs4 {
-    template<std::totally_ordered Key, typename Value>
+    template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
     class BinarySearchST : public OrderedST<Key, Value> {
     private:
         std::vector<Key> keys_;
@@ -49,7 +49,7 @@ namespace algs4 {
     };
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 constexpr void algs4::BinarySearchST<Key, Value>::put(Key key, Value val) {
     auto i = rank(key);
     if (i < size() && keys_[i] == key) {
@@ -71,7 +71,7 @@ constexpr void algs4::BinarySearchST<Key, Value>::put(Key key, Value val) {
     vals_[i] = std::move(val);
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 constexpr const Value *algs4::BinarySearchST<Key, Value>::get(const Key &key) const {
     if (this->isEmpty()) return nullptr;
     auto i = rank(key);
@@ -79,7 +79,7 @@ constexpr const Value *algs4::BinarySearchST<Key, Value>::get(const Key &key) co
     else return nullptr;
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 constexpr void algs4::BinarySearchST<Key, Value>::remove(const Key &key) {
     if (this->isEmpty()) return;
     auto i = rank(key);
@@ -93,19 +93,19 @@ constexpr void algs4::BinarySearchST<Key, Value>::remove(const Key &key) {
     vals_.pop_back();
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 constexpr const Key *algs4::BinarySearchST<Key, Value>::min() const {
     if (this->isEmpty()) return nullptr;
     return &keys_[0];
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 constexpr const Key *algs4::BinarySearchST<Key, Value>::max() const {
     if (this->isEmpty()) return nullptr;
     return &keys_[size() - 1];
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 constexpr const Key *algs4::BinarySearchST<Key, Value>::floor(const Key &key) const {
     auto i = rank(key);
     if (i < size() && keys_[i] == key) return &keys_[i];
@@ -113,14 +113,14 @@ constexpr const Key *algs4::BinarySearchST<Key, Value>::floor(const Key &key) co
     else return &keys_[i - 1];
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 constexpr const Key *algs4::BinarySearchST<Key, Value>::ceiling(const Key &key) const {
     auto i = rank(key);
     if (i == size()) return nullptr;
     else return &keys_[i];
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 constexpr std::ptrdiff_t algs4::BinarySearchST<Key, Value>::rank(const Key &key) const {
     std::ptrdiff_t lo = 0, hi = size() - 1;
     while (lo <= hi) {
@@ -132,13 +132,13 @@ constexpr std::ptrdiff_t algs4::BinarySearchST<Key, Value>::rank(const Key &key)
     return lo;
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 constexpr const Key *algs4::BinarySearchST<Key, Value>::select(ptrdiff_t k) const {
     assert(k >= 0 && k < size());
     return &keys_[k];
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 algs4::Queue<Key> algs4::BinarySearchST<Key, Value>::keys(const Key &lo, const Key &hi) const {
     Queue<Key> queue;
     for (auto i = rank(lo); i < rank(hi); ++i)

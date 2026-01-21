@@ -20,12 +20,13 @@
 
 #include <cassert>
 #include <concepts>
+#include <iterator>
 #include <memory>
 #include <type_traits>
 #include <utility>
 
 namespace algs4 {
-    template<typename T>
+    template<std::movable T>
     class LinkedStack {
     private:
         struct Node {
@@ -38,43 +39,45 @@ namespace algs4 {
         std::unique_ptr<Node> first_;
         std::ptrdiff_t N_ = 0;
 
-    public:
-        bool isEmpty() const { return N_ == 0; }
-        std::ptrdiff_t size() const { return N_; }
-
-        template<typename U> requires std::constructible_from<T, U>
-        void push(U &&item);
-
-        T pop();
-
         template<bool Const>
         class Iterator {
             friend class Iterator<!Const>;
 
         private:
-            std::conditional_t<Const, const Node *, Node *> curr_;
+            std::conditional_t<Const, const Node *, Node *> current_ = nullptr;
 
         public:
-            using difference_type = std::ptrdiff_t;
+            using iterator_category = std::forward_iterator_tag;
+            using iterator_concept = std::forward_iterator_tag;
             using value_type = std::remove_cv_t<T>;
+            using difference_type = std::ptrdiff_t;
             using pointer = std::conditional_t<Const, const T *, T *>;
             using reference = std::conditional_t<Const, const T &, T &>;
-            using iterator_category = std::forward_iterator_tag;
 
-            constexpr explicit Iterator(std::conditional_t<Const, const Node *, Node *> curr) : curr_(curr) {}
+            constexpr Iterator() = default;
+            constexpr explicit Iterator(std::conditional_t<Const, const Node *, Node *> curr) : current_(curr) {}
 
-            template<bool OtherConst, typename = std::enable_if_t<Const && !OtherConst> >
-            constexpr Iterator(const Iterator<OtherConst> &other) : curr_(other.curr_) {}
+            template<bool OtherConst> requires (Const && !OtherConst)
+            constexpr Iterator(const Iterator<OtherConst> &other) : current_(other.current_) {}
 
-            constexpr reference operator*() const { return curr_->item_; }
-            constexpr pointer operator->() const { return &curr_->item_; }
+            constexpr reference operator*() const { return current_->item_; }
+            constexpr pointer operator->() const { return &current_->item_; }
             constexpr Iterator &operator++();
             constexpr Iterator operator++(int);
-            friend constexpr bool operator==(const Iterator &l, const Iterator &r) { return l.curr_ == r.curr_; }
+            friend constexpr bool operator==(const Iterator &l, const Iterator &r) { return l.current_ == r.current_; }
         };
 
+    public:
         using iterator = Iterator<false>;
         using const_iterator = Iterator<true>;
+
+        bool isEmpty() const { return N_ == 0; }
+        std::ptrdiff_t size() const { return N_; }
+
+        template<std::convertible_to<T> U>
+        void push(U &&item);
+
+        T pop();
 
         iterator begin() { return iterator(first_.get()); }
         iterator end() { return iterator(nullptr); }
@@ -85,14 +88,14 @@ namespace algs4 {
     };
 }
 
-template<typename T>
-template<typename U> requires std::constructible_from<T, U>
+template<std::movable T>
+template<std::convertible_to<T> U>
 void algs4::LinkedStack<T>::push(U &&item) {
     first_ = std::make_unique<Node>(std::forward<U>(item), std::move(first_));
     ++N_;
 }
 
-template<typename T>
+template<std::movable T>
 T algs4::LinkedStack<T>::pop() {
     assert(!isEmpty());
     T item = std::move(first_->item_);
@@ -101,14 +104,14 @@ T algs4::LinkedStack<T>::pop() {
     return item;
 }
 
-template<typename T>
+template<std::movable T>
 template<bool Const>
 constexpr auto algs4::LinkedStack<T>::Iterator<Const>::operator++() -> Iterator & {
-    curr_ = curr_->next_.get();
+    current_ = current_->next_.get();
     return *this;
 }
 
-template<typename T>
+template<std::movable T>
 template<bool Const>
 constexpr auto algs4::LinkedStack<T>::Iterator<Const>::operator++(int) -> Iterator {
     Iterator t = *this;

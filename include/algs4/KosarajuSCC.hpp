@@ -23,7 +23,7 @@
 #include "Digraph.hpp"
 
 namespace algs4 {
-    class KosarajuSCC : public CCBase {
+    class KosarajuSCC : public detail::CCBase {
     public:
         explicit KosarajuSCC(const Digraph &G);
 

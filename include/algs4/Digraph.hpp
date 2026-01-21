@@ -24,7 +24,7 @@
 #include "GraphBase.hpp"
 
 namespace algs4 {
-    class Digraph : public GraphBase<int> {
+    class Digraph : public detail::GraphBase<int> {
     public:
         constexpr explicit Digraph(int V) : GraphBase(V) {}
         explicit Digraph(std::istream &in);

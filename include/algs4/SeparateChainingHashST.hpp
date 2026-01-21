@@ -19,6 +19,7 @@
 #define ALGS4_SEPARATECHAININGHASHST_HPP
 
 #include <cassert>
+#include <concepts>
 #include <cstddef>
 #include <functional>
 #include <utility>
@@ -29,7 +30,7 @@
 #include "ST.hpp"
 
 namespace algs4 {
-    template<typename Key, typename Value>
+    template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
     class SeparateChainingHashST : public ST<Key, Value> {
     private:
         std::ptrdiff_t M_; // hash table size
@@ -50,7 +51,7 @@ namespace algs4 {
     };
 }
 
-template<typename Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 std::ptrdiff_t algs4::SeparateChainingHashST<Key, Value>::size() const {
     std::ptrdiff_t N = 0;
     for (decltype(M_) i = 0; i < M_; ++i)
@@ -58,7 +59,7 @@ std::ptrdiff_t algs4::SeparateChainingHashST<Key, Value>::size() const {
     return N;
 }
 
-template<typename Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 algs4::Queue<Key> algs4::SeparateChainingHashST<Key, Value>::keys() const {
     Queue<Key> queue;
     for (decltype(M_) i = 0; i < M_; ++i) {

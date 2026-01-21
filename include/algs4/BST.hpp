@@ -21,18 +21,18 @@
 #include "BSTBase.hpp"
 
 namespace algs4 {
-    namespace internal {
-        template<std::totally_ordered Key, typename Value>
+    namespace detail {
+        template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
         struct BSTNode : public BSTNodeBase<Key, Value, BSTNode<Key, Value> > {
             BSTNode(Key key, Value val, std::ptrdiff_t N)
                 : BSTNodeBase<Key, Value, BSTNode>(std::move(key), std::move(val), N) {}
         };
     }
 
-    template<std::totally_ordered Key, typename Value>
-    class BST : public BSTBase<Key, Value, internal::BSTNode<Key, Value> > {
+    template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
+    class BST : public detail::BSTBase<Key, Value, detail::BSTNode<Key, Value> > {
     private:
-        using Node = internal::BSTNode<Key, Value>;
+        using Node = detail::BSTNode<Key, Value>;
 
         std::unique_ptr<Node> put(std::unique_ptr<Node> x, Key key, Value val);
         std::unique_ptr<Node> extractMin(std::unique_ptr<Node> &x);
@@ -48,7 +48,7 @@ namespace algs4 {
     };
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::BST<Key, Value>::put(std::unique_ptr<Node> x, Key key, Value val) -> std::unique_ptr<Node> {
     if (!x) return std::make_unique<Node>(std::move(key), std::move(val), 1);
     if (key < x->key_) x->left_ = put(std::move(x->left_), std::move(key), std::move(val));
@@ -58,7 +58,7 @@ auto algs4::BST<Key, Value>::put(std::unique_ptr<Node> x, Key key, Value val) ->
     return x;
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::BST<Key, Value>::extractMin(std::unique_ptr<Node> &x) -> std::unique_ptr<Node> {
     if (!x) return nullptr;
     if (!x->left_) {
@@ -72,7 +72,7 @@ auto algs4::BST<Key, Value>::extractMin(std::unique_ptr<Node> &x) -> std::unique
     return min;
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::BST<Key, Value>::remove(std::unique_ptr<Node> x, const Key &key) -> std::unique_ptr<Node> {
     if (!x) return nullptr;
     if (key < x->key_) x->left_ = remove(std::move(x->left_), key);
@@ -89,7 +89,7 @@ auto algs4::BST<Key, Value>::remove(std::unique_ptr<Node> x, const Key &key) -> 
     return x;
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::BST<Key, Value>::removeMin(std::unique_ptr<Node> x) -> std::unique_ptr<Node> {
     if (!x->left_) return std::move(x->right_);
     x->left_ = removeMin(std::move(x->left_));
@@ -97,7 +97,7 @@ auto algs4::BST<Key, Value>::removeMin(std::unique_ptr<Node> x) -> std::unique_p
     return x;
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::BST<Key, Value>::removeMax(std::unique_ptr<Node> x) -> std::unique_ptr<Node> {
     if (!x->right_) return std::move(x->left_);
     x->right_ = removeMax(std::move(x->right_));
@@ -105,18 +105,18 @@ auto algs4::BST<Key, Value>::removeMax(std::unique_ptr<Node> x) -> std::unique_p
     return x;
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 void algs4::BST<Key, Value>::put(Key key, Value val) {
     this->root_ = put(std::move(this->root_), std::move(key), std::move(val));
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 void algs4::BST<Key, Value>::removeMin() {
     if (this->isEmpty()) return;
     this->root_ = removeMin(std::move(this->root_));
 }
 
-template<std::totally_ordered Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 void algs4::BST<Key, Value>::removeMax() {
     if (this->isEmpty()) return;
     this->root_ = removeMax(std::move(this->root_));

@@ -27,34 +27,34 @@
 
 namespace algs4 {
     namespace Heap {
-        namespace internal {
-            template<std::totally_ordered T>
+        namespace detail {
+            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
             constexpr bool less(const std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j);
 
-            template<std::totally_ordered T>
+            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
             constexpr void exch(std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j);
 
-            template<std::totally_ordered T>
+            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
             constexpr void sink(std::vector<T> &a, std::ptrdiff_t k, std::ptrdiff_t N);
         }
 
-        template<std::totally_ordered T>
+        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
         constexpr void sort(std::vector<T> &a);
     }
 }
 
-template<std::totally_ordered T>
-constexpr bool algs4::Heap::internal::less(const std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j) {
-    return SortUtils::internal::less(a[i - 1], a[j - 1]);
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
+constexpr bool algs4::Heap::detail::less(const std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j) {
+    return SortUtils::detail::less(a[i - 1], a[j - 1]);
 }
 
-template<std::totally_ordered T>
-constexpr void algs4::Heap::internal::exch(std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j) {
-    SortUtils::internal::exch(a, i - 1, j - 1);
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
+constexpr void algs4::Heap::detail::exch(std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j) {
+    SortUtils::detail::exch(a, i - 1, j - 1);
 }
 
-template<std::totally_ordered T>
-constexpr void algs4::Heap::internal::sink(std::vector<T> &a, std::ptrdiff_t k, std::ptrdiff_t N) {
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
+constexpr void algs4::Heap::detail::sink(std::vector<T> &a, std::ptrdiff_t k, std::ptrdiff_t N) {
     while (2 * k <= N) {
         auto j = 2 * k;
         if (j < N && less(a, j, j + 1))
@@ -66,9 +66,9 @@ constexpr void algs4::Heap::internal::sink(std::vector<T> &a, std::ptrdiff_t k, 
     }
 }
 
-template<std::totally_ordered T>
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
 constexpr void algs4::Heap::sort(std::vector<T> &a) {
-    using namespace internal;
+    using namespace detail;
     auto N = std::ssize(a);
     for (auto k = N / 2; k >= 1; --k)
         sink(a, k, N);

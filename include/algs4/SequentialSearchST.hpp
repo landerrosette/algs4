@@ -18,6 +18,7 @@
 #ifndef ALGS4_SEQUENTIALSEARCHST_HPP
 #define ALGS4_SEQUENTIALSEARCHST_HPP
 
+#include <concepts>
 #include <cstddef>
 #include <memory>
 #include <utility>
@@ -25,7 +26,7 @@
 #include "ST.hpp"
 
 namespace algs4 {
-    template<typename Key, typename Value>
+    template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
     class SequentialSearchST : public ST<Key, Value> {
     private:
         struct Node {
@@ -52,7 +53,7 @@ namespace algs4 {
     };
 }
 
-template<typename Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 auto algs4::SequentialSearchST<Key, Value>::remove(std::unique_ptr<Node> x, const Key &key) -> std::unique_ptr<Node> {
     if (!x) return nullptr;
     if (key == x->key_) {
@@ -63,7 +64,7 @@ auto algs4::SequentialSearchST<Key, Value>::remove(std::unique_ptr<Node> x, cons
     return x;
 }
 
-template<typename Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 void algs4::SequentialSearchST<Key, Value>::put(Key key, Value val) {
     for (Node *x = first_.get(); x; x = x->next_.get())
         if (key == x->key_) {
@@ -74,7 +75,7 @@ void algs4::SequentialSearchST<Key, Value>::put(Key key, Value val) {
     ++N_;
 }
 
-template<typename Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 const Value *algs4::SequentialSearchST<Key, Value>::get(const Key &key) const {
     for (const Node *x = first_.get(); x; x = x->next_.get())
         if (key == x->key_)
@@ -82,7 +83,7 @@ const Value *algs4::SequentialSearchST<Key, Value>::get(const Key &key) const {
     return nullptr;
 }
 
-template<typename Key, typename Value>
+template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 algs4::Queue<Key> algs4::SequentialSearchST<Key, Value>::keys() const {
     Queue<Key> queue;
     for (const Node *x = first_.get(); x; x = x->next_.get())

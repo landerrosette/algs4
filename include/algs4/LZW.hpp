@@ -27,7 +27,7 @@
 
 namespace algs4 {
     namespace LZW {
-        namespace internal {
+        namespace detail {
             constexpr int R = 256;  // number of input chars
             constexpr int L = 4096; // number of codewords = 2^12
             constexpr int W = 12;   // codeword width
@@ -39,7 +39,7 @@ namespace algs4 {
 }
 
 inline void algs4::LZW::compress() {
-    using namespace internal;
+    using namespace detail;
     auto input = BinaryStdIO::read<std::string>();
     TST<int> st;
     for (int i = 0; i < R; ++i)
@@ -58,7 +58,7 @@ inline void algs4::LZW::compress() {
 }
 
 inline void algs4::LZW::expand() {
-    using namespace internal;
+    using namespace detail;
     std::vector<std::string> st(L);
     int i; // next available codeword value
     for (i = 0; i < R; ++i)

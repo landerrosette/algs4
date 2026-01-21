@@ -26,7 +26,7 @@
 #include "GraphBase.hpp"
 
 namespace algs4 {
-    class EdgeWeightedDigraph : public GraphBase<DirectedEdge> {
+    class EdgeWeightedDigraph : public detail::GraphBase<DirectedEdge> {
     public:
         constexpr explicit EdgeWeightedDigraph(int V) : GraphBase(V) {}
         explicit EdgeWeightedDigraph(std::istream &in);

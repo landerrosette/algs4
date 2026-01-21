@@ -24,10 +24,11 @@
 #include <iostream>
 #include <limits>
 #include <string>
+#include <type_traits>
 
 namespace algs4 {
     namespace BinaryStdIO {
-        namespace internal {
+        namespace detail {
             inline std::byte outBuffer_;
             inline int outN_ = 0;
             inline std::byte inBuffer_;
@@ -41,31 +42,31 @@ namespace algs4 {
             std::byte readByte();
         }
 
-        inline void write(bool x) { internal::writeBit(x); }
+        inline void write(bool x) { detail::writeBit(x); }
 
         template<std::integral T>
         void write(T x);
 
-        template<std::integral T> requires (!std::same_as<T, bool>)
+        template<std::integral T> requires (!std::is_same_v<std::remove_cvref_t<T>, bool>)
         void write(T x, int r);
 
         inline void write(const std::string &x) { for (char c: x) write(c); }
 
-        inline bool isEmpty() { return internal::inN_ < 0; }
+        inline bool isEmpty() { return detail::inN_ < 0; }
 
-        template<std::same_as<bool> T>
-        T read() { return internal::readBit(); }
+        template<typename T> requires std::is_same_v<std::remove_cvref_t<T>, bool>
+        T read() { return detail::readBit(); }
 
-        template<std::integral T> requires (!std::same_as<T, bool> && sizeof(T) == 1)
-        T read() { return std::to_integer<T>(internal::readByte()); }
+        template<std::integral T> requires (!std::is_same_v<std::remove_cvref_t<T>, bool> && sizeof(T) == 1)
+        T read() { return std::to_integer<T>(detail::readByte()); }
 
         template<std::integral T> requires (sizeof(T) > 1)
         T read();
 
-        template<std::integral T> requires (!std::same_as<T, bool>)
+        template<std::integral T> requires (!std::is_same_v<std::remove_cvref_t<T>, bool>)
         T read(int r);
 
-        template<std::same_as<std::string> T>
+        template<typename T> requires std::is_same_v<std::remove_cvref_t<T>, std::string>
         T read();
 
         void closeOut();
@@ -73,7 +74,7 @@ namespace algs4 {
     }
 }
 
-inline void algs4::BinaryStdIO::internal::writeBit(bool bit) {
+inline void algs4::BinaryStdIO::detail::writeBit(bool bit) {
     // Add bit to buffer.
     outBuffer_ <<= 1;
     if (bit) outBuffer_ |= std::byte{1};
@@ -86,7 +87,7 @@ inline void algs4::BinaryStdIO::internal::writeBit(bool bit) {
     }
 }
 
-inline void algs4::BinaryStdIO::internal::writeByte(std::byte byte) {
+inline void algs4::BinaryStdIO::detail::writeByte(std::byte byte) {
     // optimized if byte-aligned
     if (outN_ == 0) {
         std::cout.put(std::to_integer<char>(byte));
@@ -100,7 +101,7 @@ inline void algs4::BinaryStdIO::internal::writeByte(std::byte byte) {
     }
 }
 
-inline void algs4::BinaryStdIO::internal::fillInBuffer() {
+inline void algs4::BinaryStdIO::detail::fillInBuffer() {
     auto c = std::cin.get();
     if (c == std::char_traits<char>::eof()) {
         inN_ = -1;
@@ -110,7 +111,7 @@ inline void algs4::BinaryStdIO::internal::fillInBuffer() {
     if (inN_ == 0) inN_ = std::numeric_limits<unsigned char>::digits;
 }
 
-inline bool algs4::BinaryStdIO::internal::readBit() {
+inline bool algs4::BinaryStdIO::detail::readBit() {
     assert(!isEmpty());
     if (inN_ == 0) fillInBuffer();
     bool bit = ((inBuffer_ >> --inN_) & std::byte{1}) == std::byte{1};
@@ -118,7 +119,7 @@ inline bool algs4::BinaryStdIO::internal::readBit() {
     return bit;
 }
 
-inline std::byte algs4::BinaryStdIO::internal::readByte() {
+inline std::byte algs4::BinaryStdIO::detail::readByte() {
     assert(!isEmpty());
     if (inN_ == 0) fillInBuffer();
     auto x = inBuffer_;
@@ -134,14 +135,14 @@ inline std::byte algs4::BinaryStdIO::internal::readByte() {
 
 template<std::integral T>
 void algs4::BinaryStdIO::write(T x) {
-    using namespace internal;
+    using namespace detail;
     for (int i = sizeof(T) - 1; i >= 0; --i)
         writeByte(static_cast<std::byte>((x >> i * std::numeric_limits<unsigned char>::digits) & 0xFF));
 }
 
-template<std::integral T> requires (!std::same_as<T, bool>)
+template<std::integral T> requires (!std::is_same_v<std::remove_cvref_t<T>, bool>)
 void algs4::BinaryStdIO::write(T x, int r) {
-    using namespace internal;
+    using namespace detail;
     if (r == std::numeric_limits<T>::digits + (std::numeric_limits<T>::is_signed ? 1 : 0)) {
         write(x);
         return;
@@ -155,7 +156,7 @@ void algs4::BinaryStdIO::write(T x, int r) {
 
 template<std::integral T> requires (sizeof(T) > 1)
 T algs4::BinaryStdIO::read() {
-    using namespace internal;
+    using namespace detail;
     T x = 0;
     for (int i = 0; i < sizeof(T); ++i) {
         x <<= std::numeric_limits<unsigned char>::digits;
@@ -164,9 +165,9 @@ T algs4::BinaryStdIO::read() {
     return x;
 }
 
-template<std::integral T> requires (!std::same_as<T, bool>)
+template<std::integral T> requires (!std::is_same_v<std::remove_cvref_t<T>, bool>)
 T algs4::BinaryStdIO::read(int r) {
-    using namespace internal;
+    using namespace detail;
     if (r == std::numeric_limits<T>::digits + (std::numeric_limits<T>::is_signed ? 1 : 0))
         return read<T>();
     assert(r >= 1 && r <= std::numeric_limits<T>::digits + (std::numeric_limits<T>::is_signed ? 1 : 0));
@@ -178,7 +179,7 @@ T algs4::BinaryStdIO::read(int r) {
     return x;
 }
 
-template<std::same_as<std::string> T>
+template<typename T> requires std::is_same_v<std::remove_cvref_t<T>, std::string>
 T algs4::BinaryStdIO::read() {
     std::string s;
     while (!isEmpty()) s += read<char>();
@@ -186,7 +187,7 @@ T algs4::BinaryStdIO::read() {
 }
 
 inline void algs4::BinaryStdIO::closeOut() {
-    using namespace internal;
+    using namespace detail;
     if (outN_ > 0) {
         // Pad 0s if number of bits written so far is not a multiple of 8.
         outBuffer_ <<= std::numeric_limits<unsigned char>::digits - outN_;
@@ -197,7 +198,7 @@ inline void algs4::BinaryStdIO::closeOut() {
 }
 
 inline void algs4::BinaryStdIO::closeIn() {
-    using namespace internal;
+    using namespace detail;
     inN_ = 0;
     inBuffer_ = std::byte();
 }

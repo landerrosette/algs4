@@ -24,8 +24,8 @@
 #include "PQBase.hpp"
 
 namespace algs4 {
-    template<std::totally_ordered Key>
-    class MinPQ : public PQBase<Key, std::greater<Key> > {
+    template<std::movable Key> requires std::totally_ordered<Key>
+    class MinPQ : public detail::PQBase<Key, std::greater<Key> > {
     public:
         constexpr Key delMin() { return this->delTop(); }
     };

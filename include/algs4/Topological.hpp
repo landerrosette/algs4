@@ -31,8 +31,8 @@ namespace algs4 {
         Stack<int> order_; // topological order
 
     public:
-        template<typename EdgeType>
-        constexpr explicit Topological(const GraphBase<EdgeType> &G);
+        template<std::semiregular EdgeType>
+        constexpr explicit Topological(const detail::GraphBase<EdgeType> &G);
 
         constexpr const auto &order() const & { return order_; }
         constexpr auto &&order() && { return std::move(order_); }
@@ -40,8 +40,8 @@ namespace algs4 {
     };
 }
 
-template<typename EdgeType>
-constexpr algs4::Topological::Topological(const GraphBase<EdgeType> &G) {
+template<std::semiregular EdgeType>
+constexpr algs4::Topological::Topological(const detail::GraphBase<EdgeType> &G) {
     if (!DirectedCycle(G).hasCycle())
         order_ = DepthFirstOrder(G).reversePost();
 }

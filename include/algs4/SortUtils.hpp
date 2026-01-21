@@ -26,38 +26,38 @@
 
 namespace algs4 {
     namespace SortUtils {
-        namespace internal {
-            template<std::totally_ordered T>
+        namespace detail {
+            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
             constexpr bool less(const T &v, const T &w) { return v < w; }
 
-            template<std::totally_ordered T>
+            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
             constexpr void exch(std::vector<T> &a, std::integral auto i, std::integral auto j);
         }
 
-        template<std::totally_ordered T>
+        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
         void show(const std::vector<T> &a);
 
-        template<std::totally_ordered T>
+        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
         constexpr bool isSorted(const std::vector<T> &a);
     }
 }
 
-template<std::totally_ordered T>
-constexpr void algs4::SortUtils::internal::exch(std::vector<T> &a, std::integral auto i, std::integral auto j) {
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
+constexpr void algs4::SortUtils::detail::exch(std::vector<T> &a, std::integral auto i, std::integral auto j) {
     using std::swap;
     swap(a[i], a[j]);
 }
 
-template<std::totally_ordered T>
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
 void algs4::SortUtils::show(const std::vector<T> &a) {
     for (const auto &item: a)
         std::cout << item << " ";
     std::cout << std::endl;
 }
 
-template<std::totally_ordered T>
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
 constexpr bool algs4::SortUtils::isSorted(const std::vector<T> &a) {
-    using namespace internal;
+    using namespace detail;
     for (std::ptrdiff_t i = 1; i < std::ssize(a); ++i)
         if (less(a[i], a[i - 1])) return false;
     return true;

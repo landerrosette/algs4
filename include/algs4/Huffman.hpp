@@ -29,7 +29,7 @@
 
 namespace algs4 {
     namespace Huffman {
-        namespace internal {
+        namespace detail {
             constexpr int R = 256; // ASCII alphabet
 
             struct Node {
@@ -58,15 +58,15 @@ namespace algs4 {
 }
 
 // Make a lookup table from trie.
-inline std::vector<std::string> algs4::Huffman::internal::buildCode(const std::shared_ptr<const Node> &root) {
+inline std::vector<std::string> algs4::Huffman::detail::buildCode(const std::shared_ptr<const Node> &root) {
     std::vector<std::string> st(R);
     buildCode(st, root, "");
     return st;
 }
 
 // Make a lookup table from trie (recursive).
-inline void algs4::Huffman::internal::buildCode(std::vector<std::string> &st, const std::shared_ptr<const Node> &x,
-                                                const std::string &s) {
+inline void algs4::Huffman::detail::buildCode(std::vector<std::string> &st, const std::shared_ptr<const Node> &x,
+                                              const std::string &s) {
     if (x->isLeaf()) {
         st[static_cast<unsigned char>(x->ch_)] = s;
         return;
@@ -76,9 +76,8 @@ inline void algs4::Huffman::internal::buildCode(std::vector<std::string> &st, co
 }
 
 // Initialize priority queue with singleton trees.
-inline auto algs4::Huffman::internal::buildTrie(const std::vector<std::ptrdiff_t> &freq)
-    -> std::shared_ptr<const Node> {
-    class NodeMinPQ : public PQBase<std::shared_ptr<const Node>,
+inline auto algs4::Huffman::detail::buildTrie(const std::vector<std::ptrdiff_t> &freq) -> std::shared_ptr<const Node> {
+    class NodeMinPQ : public algs4::detail::PQBase<std::shared_ptr<const Node>,
                 decltype([](const std::shared_ptr<const Node> &l, const std::shared_ptr<const Node> &r) {
                     return *l > *r;
                 })> {
@@ -101,7 +100,7 @@ inline auto algs4::Huffman::internal::buildTrie(const std::vector<std::ptrdiff_t
 }
 
 // Write bitstring-encoded trie.
-inline void algs4::Huffman::internal::writeTrie(const std::shared_ptr<const Node> &x) {
+inline void algs4::Huffman::detail::writeTrie(const std::shared_ptr<const Node> &x) {
     if (x->isLeaf()) {
         BinaryStdIO::write(true);
         BinaryStdIO::write(x->ch_);
@@ -112,14 +111,14 @@ inline void algs4::Huffman::internal::writeTrie(const std::shared_ptr<const Node
     writeTrie(x->right_);
 }
 
-inline auto algs4::Huffman::internal::readTrie() -> std::shared_ptr<const Node> {
+inline auto algs4::Huffman::detail::readTrie() -> std::shared_ptr<const Node> {
     if (BinaryStdIO::read<bool>())
         return std::make_shared<Node>(BinaryStdIO::read<char>(), 0, nullptr, nullptr);
     return std::make_shared<Node>('\0', 0, readTrie(), readTrie());
 }
 
 inline void algs4::Huffman::compress() {
-    using namespace internal;
+    using namespace detail;
 
     auto input = BinaryStdIO::read<std::string>();
 
@@ -151,7 +150,7 @@ inline void algs4::Huffman::compress() {
 }
 
 inline void algs4::Huffman::expand() {
-    using namespace internal;
+    using namespace detail;
     auto root = readTrie();
     auto N = BinaryStdIO::read<int>();
     while (N--) {

@@ -34,7 +34,7 @@ namespace algs4 {
 }
 
 constexpr void algs4::LSD::sort(std::vector<std::string> &a, std::ptrdiff_t W) {
-    using namespace StringSortUtils::internal;
+    using namespace StringSortUtils::detail;
     auto N = std::ssize(a);
     int R = 256;
     std::vector<std::string> aux(N);

@@ -24,7 +24,7 @@
 #include "EdgeBase.hpp"
 
 namespace algs4 {
-    class DirectedEdge : public EdgeBase {
+    class DirectedEdge : public detail::EdgeBase {
         friend std::ostream &operator<<(std::ostream &os, const DirectedEdge &e);
 
     public:

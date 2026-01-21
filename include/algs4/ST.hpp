@@ -18,13 +18,14 @@
 #ifndef ALGS4_ST_HPP
 #define ALGS4_ST_HPP
 
+#include <concepts>
 #include <cstddef>
 #include <utility>
 
 #include "Queue.hpp"
 
 namespace algs4 {
-    template<typename Key, typename Value>
+    template<std::copyable Key, std::movable Value>
     class ST {
     protected:
         constexpr ST() = default;

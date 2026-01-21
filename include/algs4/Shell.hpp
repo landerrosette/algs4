@@ -26,14 +26,14 @@
 
 namespace algs4 {
     namespace Shell {
-        template<std::totally_ordered T>
+        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
         constexpr void sort(std::vector<T> &a);
     }
 }
 
-template<std::totally_ordered T>
+template<typename T> requires std::totally_ordered<T> && std::swappable<T>
 constexpr void algs4::Shell::sort(std::vector<T> &a) {
-    using namespace SortUtils::internal;
+    using namespace SortUtils::detail;
     auto N = std::ssize(a);
     decltype(N) h = 1;
     while (h < N / 3) h = 3 * h + 1;
