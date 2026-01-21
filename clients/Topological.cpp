@@ -30,7 +30,6 @@
  * Databases
  * Scientific Computing
  * Computational Biology
- *
  ******************************************************************************/
 
 #include "algs4/Topological.hpp"
