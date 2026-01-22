@@ -60,6 +60,9 @@ namespace algs4 {
             requires std::equality_comparable_with<IterL, IterR>
         constexpr bool operator==(const MonodirectionalIterator<IterL> &l, const MonodirectionalIterator<IterR> &r);
 
+        template<std::forward_iterator Iter, std::sentinel_for<Iter> S>
+        constexpr bool operator==(const MonodirectionalIterator<Iter> &i, const S &s) { return i.base() == s; }
+
         template<std::forward_iterator Iter>
         constexpr decltype(auto) iter_move(const MonodirectionalIterator<Iter> &i)
             noexcept(noexcept(std::ranges::iter_move(i.base())));
