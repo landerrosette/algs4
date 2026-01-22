@@ -54,9 +54,6 @@ namespace algs4 {
                 requires std::is_pointer_v<Iter> || requires(const Iter i) { i.operator->(); };
             constexpr MonodirectionalIterator &operator++();
             constexpr MonodirectionalIterator operator++(int);
-
-            template<std::sentinel_for<Iter> S>
-            friend constexpr bool operator==(const MonodirectionalIterator &i, const S &s) { return i.base() == s; }
         };
 
         template<std::forward_iterator IterL, std::forward_iterator IterR>
