@@ -59,6 +59,10 @@ namespace algs4 {
             friend constexpr bool operator==(const MonodirectionalIterator &i, const S &s) { return i.base() == s; }
         };
 
+        template<std::forward_iterator IterL, std::forward_iterator IterR>
+            requires std::equality_comparable_with<IterL, IterR>
+        constexpr bool operator==(const MonodirectionalIterator<IterL> &l, const MonodirectionalIterator<IterR> &r);
+
         template<std::forward_iterator Iter>
         constexpr decltype(auto) iter_move(const MonodirectionalIterator<Iter> &i)
             noexcept(noexcept(std::ranges::iter_move(i.base())));
@@ -90,6 +94,13 @@ constexpr auto algs4::detail::MonodirectionalIterator<Iter>::operator++(int) -> 
     MonodirectionalIterator t = *this;
     ++*this;
     return t;
+}
+
+template<std::forward_iterator IterL, std::forward_iterator IterR>
+    requires std::equality_comparable_with<IterL, IterR>
+constexpr bool algs4::detail::operator==(const MonodirectionalIterator<IterL> &l,
+                                         const MonodirectionalIterator<IterR> &r) {
+    return l.base() == r.base();
 }
 
 template<std::forward_iterator Iter>
