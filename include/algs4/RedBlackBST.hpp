@@ -27,7 +27,7 @@
 namespace algs4 {
     namespace detail {
         template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-        struct RedBlackBSTNode : public BSTNodeBase<Key, Value, RedBlackBSTNode<Key, Value> > {
+        struct RedBlackBSTNode : BSTNodeBase<Key, Value, RedBlackBSTNode<Key, Value> > {
             bool color;
 
             RedBlackBSTNode(Key key, Value val, std::ptrdiff_t N, bool color)
@@ -46,9 +46,9 @@ namespace algs4 {
         std::unique_ptr<Node> rotateRight(std::unique_ptr<Node> h); // Make a left-leaning link lean to the right.
         void flipColors(Node *h);                                   // Flip the colors of a node and its two children.
 
-        // Assuming that h is red and both h->left_ and h->left_->left_ are black, make h->left_ or one of its children red.
+        // Assuming that h is red and both h->left and h->left->left are black, make h->left or one of its children red.
         std::unique_ptr<Node> moveRedLeft(std::unique_ptr<Node> h);
-        // Assuming that h is red and both h->right_ and h->right_->left_ are black, make h->right_ or one of its children red.
+        // Assuming that h is red and both h->right and h->right->left are black, make h->right or one of its children red.
         std::unique_ptr<Node> moveRedRight(std::unique_ptr<Node> h);
         std::unique_ptr<Node> balance(std::unique_ptr<Node> h); // Restore red-black tree invariant.
         std::unique_ptr<Node> put(std::unique_ptr<Node> h, Key key, Value val);
@@ -81,40 +81,40 @@ bool algs4::RedBlackBST<Key, Value>::isRed(const Node *h) const {
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::RedBlackBST<Key, Value>::rotateLeft(std::unique_ptr<Node> h) -> std::unique_ptr<Node> {
-    auto x = std::move(h->right_);
-    h->right_ = std::move(x->left_);
+    auto x = std::move(h->right);
+    h->right = std::move(x->left);
     x->color = h->color;
     h->color = RED;
-    x->N_ = h->N_;
-    h->N_ = this->size(h->left_.get()) + this->size(h->right_.get()) + 1;
-    x->left_ = std::move(h);
+    x->N = h->N;
+    h->N = this->size(h->left.get()) + this->size(h->right.get()) + 1;
+    x->left = std::move(h);
     return x;
 }
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::RedBlackBST<Key, Value>::rotateRight(std::unique_ptr<Node> h) -> std::unique_ptr<Node> {
-    auto x = std::move(h->left_);
-    h->left_ = std::move(x->right_);
+    auto x = std::move(h->left);
+    h->left = std::move(x->right);
     x->color = h->color;
     h->color = RED;
-    x->N_ = h->N_;
-    h->N_ = this->size(h->left_.get()) + this->size(h->right_.get()) + 1;
-    x->right_ = std::move(h);
+    x->N = h->N;
+    h->N = this->size(h->left.get()) + this->size(h->right.get()) + 1;
+    x->right = std::move(h);
     return x;
 }
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 void algs4::RedBlackBST<Key, Value>::flipColors(Node *h) {
     h->color = !h->color;
-    h->left_->color = !h->left_->color;
-    h->right_->color = !h->right_->color;
+    h->left->color = !h->left->color;
+    h->right->color = !h->right->color;
 }
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::RedBlackBST<Key, Value>::moveRedLeft(std::unique_ptr<Node> h) -> std::unique_ptr<Node> {
     flipColors(h.get());
-    if (isRed(h->right_->left_.get())) {
-        h->right_ = rotateRight(std::move(h->right_));
+    if (isRed(h->right->left.get())) {
+        h->right = rotateRight(std::move(h->right));
         h = rotateLeft(std::move(h));
         flipColors(h.get());
     }
@@ -124,7 +124,7 @@ auto algs4::RedBlackBST<Key, Value>::moveRedLeft(std::unique_ptr<Node> h) -> std
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::RedBlackBST<Key, Value>::moveRedRight(std::unique_ptr<Node> h) -> std::unique_ptr<Node> {
     flipColors(h.get());
-    if (isRed(h->left_->left_.get())) {
+    if (isRed(h->left->left.get())) {
         h = rotateRight(std::move(h));
         flipColors(h.get());
     }
@@ -133,88 +133,88 @@ auto algs4::RedBlackBST<Key, Value>::moveRedRight(std::unique_ptr<Node> h) -> st
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::RedBlackBST<Key, Value>::balance(std::unique_ptr<Node> h) -> std::unique_ptr<Node> {
-    if (isRed(h->right_.get()) && !isRed(h->left_.get())) h = rotateLeft(std::move(h));
-    if (isRed(h->left_.get()) && isRed(h->left_->left_.get())) h = rotateRight(std::move(h));
-    if (isRed(h->left_.get()) && isRed(h->right_.get())) flipColors(h.get());
-    h->N_ = this->size(h->left_.get()) + this->size(h->right_.get()) + 1;
+    if (isRed(h->right.get()) && !isRed(h->left.get())) h = rotateLeft(std::move(h));
+    if (isRed(h->left.get()) && isRed(h->left->left.get())) h = rotateRight(std::move(h));
+    if (isRed(h->left.get()) && isRed(h->right.get())) flipColors(h.get());
+    h->N = this->size(h->left.get()) + this->size(h->right.get()) + 1;
     return h;
 }
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::RedBlackBST<Key, Value>::put(std::unique_ptr<Node> h, Key key, Value val) -> std::unique_ptr<Node> {
     if (!h) return std::make_unique<Node>(std::move(key), std::move(val), 1, RED);
-    if (key < h->key_) h->left_ = put(std::move(h->left_), std::move(key), std::move(val));
-    else if (key > h->key_) h->right_ = put(std::move(h->right_), std::move(key), std::move(val));
-    else h->val_ = std::move(val);
+    if (key < h->key) h->left = put(std::move(h->left), std::move(key), std::move(val));
+    else if (key > h->key) h->right = put(std::move(h->right), std::move(key), std::move(val));
+    else h->val = std::move(val);
     return balance(std::move(h));
 }
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::RedBlackBST<Key, Value>::remove(std::unique_ptr<Node> h, const Key &key) -> std::unique_ptr<Node> {
     if (!h) return nullptr;
-    if (key < h->key_) {
-        if (!isRed(h->left_.get()) && !isRed(h->left_->left_.get()))
+    if (key < h->key) {
+        if (!isRed(h->left.get()) && !isRed(h->left->left.get()))
             h = moveRedLeft(std::move(h));
-        h->left_ = remove(std::move(h->left_), key);
+        h->left = remove(std::move(h->left), key);
     } else {
-        if (isRed(h->left_.get()))
+        if (isRed(h->left.get()))
             h = rotateRight(std::move(h));
-        if (key == h->key_ && !h->right_)
+        if (key == h->key && !h->right)
             return nullptr;
-        if (!isRed(h->right_.get()) && !isRed(h->right_->left_.get()))
+        if (!isRed(h->right.get()) && !isRed(h->right->left.get()))
             h = moveRedRight(std::move(h));
-        if (key == h->key_) {
-            const Node *x = this->min(h->right_.get());
-            h->key_ = x->key_;
-            h->val_ = x->val_;
-            h->right_ = removeMin(std::move(h->right_));
-        } else h->right_ = remove(std::move(h->right_), key);
+        if (key == h->key) {
+            const Node *x = this->min(h->right.get());
+            h->key = x->key;
+            h->val = x->val;
+            h->right = removeMin(std::move(h->right));
+        } else h->right = remove(std::move(h->right), key);
     }
     return balance(std::move(h));
 }
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::RedBlackBST<Key, Value>::removeMin(std::unique_ptr<Node> h) -> std::unique_ptr<Node> {
-    if (!h->left_)
+    if (!h->left)
         return nullptr;
-    if (!isRed(h->left_.get()) && !isRed(h->left_->left_.get()))
+    if (!isRed(h->left.get()) && !isRed(h->left->left.get()))
         h = moveRedLeft(std::move(h));
-    h->left_ = removeMin(std::move(h->left_));
+    h->left = removeMin(std::move(h->left));
     return balance(std::move(h));
 }
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 auto algs4::RedBlackBST<Key, Value>::removeMax(std::unique_ptr<Node> h) -> std::unique_ptr<Node> {
-    if (isRed(h->left_.get()))
+    if (isRed(h->left.get()))
         h = rotateRight(std::move(h));
-    if (!h->right_)
+    if (!h->right)
         return nullptr;
-    if (!isRed(h->right_.get()) && !isRed(h->right_->left_.get()))
+    if (!isRed(h->right.get()) && !isRed(h->right->left.get()))
         h = moveRedRight(std::move(h));
-    h->right_ = removeMax(std::move(h->right_));
+    h->right = removeMax(std::move(h->right));
     return balance(std::move(h));
 }
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 int algs4::RedBlackBST<Key, Value>::height(const Node *h) const {
     if (!h) return -1;
-    return 1 + std::max(height(h->left_.get()), height(h->right_.get()));
+    return 1 + std::max(height(h->left.get()), height(h->right.get()));
 }
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 bool algs4::RedBlackBST<Key, Value>::is23(const Node *h) const {
     if (!h) return true;
-    if (isRed(h->right_.get()))
+    if (isRed(h->right.get()))
         return false;
-    if (h != this->root_.get() && isRed(h) && isRed(h->left_.get()))
+    if (h != this->root_.get() && isRed(h) && isRed(h->left.get()))
         return false;
-    return is23(h->left_.get()) && is23(h->right_.get());
+    return is23(h->left.get()) && is23(h->right.get());
 }
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 bool algs4::RedBlackBST<Key, Value>::isBalanced() const {
     int black = 0; // number of black links on path from root to min
-    for (const Node *x = this->root_.get(); x; x = x->left_.get())
+    for (const Node *x = this->root_.get(); x; x = x->left.get())
         if (!isRed(x))
             ++black;
     return isBalanced(this->root_.get(), black);
@@ -224,7 +224,7 @@ template<std::copyable Key, std::movable Value> requires std::totally_ordered<Ke
 bool algs4::RedBlackBST<Key, Value>::isBalanced(const Node *h, int black) const {
     if (!h) return black == 0;
     if (!isRed(h)) --black;
-    return isBalanced(h->left_.get(), black) && isBalanced(h->right_.get(), black);
+    return isBalanced(h->left.get(), black) && isBalanced(h->right.get(), black);
 }
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
@@ -237,7 +237,7 @@ void algs4::RedBlackBST<Key, Value>::put(Key key, Value val) {
 
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 void algs4::RedBlackBST<Key, Value>::remove(const Key &key) {
-    if (!isRed(this->root_->left_.get()) && !isRed(this->root_->right_.get()))
+    if (!isRed(this->root_->left.get()) && !isRed(this->root_->right.get()))
         this->root_->color = RED;
     this->root_ = remove(std::move(this->root_), key);
     if (!this->isEmpty()) this->root_->color = BLACK;
@@ -248,7 +248,7 @@ void algs4::RedBlackBST<Key, Value>::remove(const Key &key) {
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 void algs4::RedBlackBST<Key, Value>::removeMin() {
     if (this->isEmpty()) return;
-    if (!isRed(this->root_->left_.get()) && !isRed(this->root_->right_.get()))
+    if (!isRed(this->root_->left.get()) && !isRed(this->root_->right.get()))
         this->root_->color = RED;
     this->root_ = removeMin(std::move(this->root_));
     if (!this->isEmpty()) this->root_->color = BLACK;
@@ -259,7 +259,7 @@ void algs4::RedBlackBST<Key, Value>::removeMin() {
 template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
 void algs4::RedBlackBST<Key, Value>::removeMax() {
     if (this->isEmpty()) return;
-    if (!isRed(this->root_->left_.get()) && !isRed(this->root_->right_.get()))
+    if (!isRed(this->root_->left.get()) && !isRed(this->root_->right.get()))
         this->root_->color = RED;
     this->root_ = removeMax(std::move(this->root_));
     if (!this->isEmpty()) this->root_->color = BLACK;

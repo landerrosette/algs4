@@ -30,12 +30,12 @@ namespace algs4 {
     namespace detail {
         template<std::copyable Key, std::movable Value, typename Derived> requires std::totally_ordered<Key>
         struct BSTNodeBase {
-            Key key_;
-            Value val_;
-            std::unique_ptr<Derived> left_, right_;
-            std::ptrdiff_t N_; // number of nodes in subtree rooted here
+            Key key;
+            Value val;
+            std::unique_ptr<Derived> left, right;
+            std::ptrdiff_t N; // number of nodes in subtree rooted here
 
-            BSTNodeBase(Key key, Value val, std::ptrdiff_t N) : key_(std::move(key)), val_(std::move(val)), N_(N) {}
+            BSTNodeBase(Key key, Value val, std::ptrdiff_t N) : key(std::move(key)), val(std::move(val)), N(N) {}
         };
 
         template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
@@ -74,60 +74,60 @@ namespace algs4 {
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
 const Value *algs4::detail::BSTBase<Key, Value, Node>::get(const Node *x, const Key &key) const {
     if (!x) return nullptr;
-    if (key < x->key_) return get(x->left_.get(), key);
-    else if (key > x->key_) return get(x->right_.get(), key);
-    else return &x->val_;
+    if (key < x->key) return get(x->left.get(), key);
+    else if (key > x->key) return get(x->right.get(), key);
+    else return &x->val;
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
 std::ptrdiff_t algs4::detail::BSTBase<Key, Value, Node>::size(const Node *x) const {
     if (!x) return 0;
-    return x->N_;
+    return x->N;
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
 const Node *algs4::detail::BSTBase<Key, Value, Node>::min(const Node *x) const {
-    if (!x->left_) return x;
-    return min(x->left_.get());
+    if (!x->left) return x;
+    return min(x->left.get());
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
 const Node *algs4::detail::BSTBase<Key, Value, Node>::max(const Node *x) const {
-    if (!x->right_) return x;
-    return max(x->right_.get());
+    if (!x->right) return x;
+    return max(x->right.get());
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
 const Node *algs4::detail::BSTBase<Key, Value, Node>::floor(const Node *x, const Key &key) const {
     if (!x) return nullptr;
-    if (key == x->key_) return x;
-    if (key < x->key_) return floor(x->left_.get(), key);
-    if (const Node *t = floor(x->right_.get(), key)) return t;
+    if (key == x->key) return x;
+    if (key < x->key) return floor(x->left.get(), key);
+    if (const Node *t = floor(x->right.get(), key)) return t;
     else return x;
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
 const Node *algs4::detail::BSTBase<Key, Value, Node>::ceiling(const Node *x, const Key &key) const {
     if (!x) return nullptr;
-    if (key == x->key_) return x;
-    if (key > x->key_) return ceiling(x->right_.get(), key);
-    if (const Node *t = ceiling(x->left_.get(), key)) return t;
+    if (key == x->key) return x;
+    if (key > x->key) return ceiling(x->right.get(), key);
+    if (const Node *t = ceiling(x->left.get(), key)) return t;
     else return x;
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
 std::ptrdiff_t algs4::detail::BSTBase<Key, Value, Node>::rank(const Node *x, const Key &key) const {
     if (!x) return 0;
-    if (key < x->key_) return rank(x->left_.get(), key);
-    else if (key > x->key_) return 1 /* root */ + size(x->left_.get()) /* left subtree */ + rank(x->right_.get(), key);
-    else return size(x->left_.get());
+    if (key < x->key) return rank(x->left.get(), key);
+    else if (key > x->key) return 1 /* root */ + size(x->left.get()) /* left subtree */ + rank(x->right.get(), key);
+    else return size(x->left.get());
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
 const Node *algs4::detail::BSTBase<Key, Value, Node>::select(const Node *x, std::ptrdiff_t k) const {
     if (!x) return nullptr;
-    if (auto t = size(x->left_.get()); t > k) return select(x->left_.get(), k);
-    else if (t < k) return select(x->right_.get(), k - t - 1);
+    if (auto t = size(x->left.get()); t > k) return select(x->left.get(), k);
+    else if (t < k) return select(x->right.get(), k - t - 1);
     else return x;
 }
 
@@ -135,21 +135,21 @@ template<std::copyable Key, std::movable Value, typename Node> requires std::tot
 void algs4::detail::BSTBase<Key, Value, Node>::keys(const Node *x, Queue<Key> &queue, const Key &lo,
                                                     const Key &hi) const {
     if (!x) return;
-    if (lo < x->key_) keys(x->left_.get(), queue, lo, hi);
-    if (lo <= x->key_ && hi >= x->key_) queue.enqueue(x->key_);
-    if (hi > x->key_) keys(x->right_.get(), queue, lo, hi);
+    if (lo < x->key) keys(x->left.get(), queue, lo, hi);
+    if (lo <= x->key && hi >= x->key) queue.enqueue(x->key);
+    if (hi > x->key) keys(x->right.get(), queue, lo, hi);
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
 const Key *algs4::detail::BSTBase<Key, Value, Node>::min() const {
     if (this->isEmpty()) return nullptr;
-    return &min(root_.get())->key_;
+    return &min(root_.get())->key;
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
 const Key *algs4::detail::BSTBase<Key, Value, Node>::max() const {
     if (this->isEmpty()) return nullptr;
-    return &max(root_.get())->key_;
+    return &max(root_.get())->key;
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
@@ -157,7 +157,7 @@ const Key *algs4::detail::BSTBase<Key, Value, Node>::floor(const Key &key) const
     if (this->isEmpty()) return nullptr;
     const Node *x = floor(root_.get(), key);
     if (!x) return nullptr;
-    return &x->key_;
+    return &x->key;
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
@@ -165,13 +165,13 @@ const Key *algs4::detail::BSTBase<Key, Value, Node>::ceiling(const Key &key) con
     if (this->isEmpty()) return nullptr;
     const Node *x = ceiling(root_.get(), key);
     if (!x) return nullptr;
-    return &x->key_;
+    return &x->key;
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>
 const Key *algs4::detail::BSTBase<Key, Value, Node>::select(std::ptrdiff_t k) const {
     assert(k >= 0 && k < size());
-    return &select(root_.get(), k)->key_;
+    return &select(root_.get(), k)->key;
 }
 
 template<std::copyable Key, std::movable Value, typename Node> requires std::totally_ordered<Key>

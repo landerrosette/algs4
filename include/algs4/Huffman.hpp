@@ -33,16 +33,16 @@ namespace algs4 {
             constexpr int R = 256; // ASCII alphabet
 
             struct Node {
-                char ch_;
-                std::ptrdiff_t freq_;
-                const std::shared_ptr<const Node> left_, right_;
+                char ch;
+                std::ptrdiff_t freq;
+                const std::shared_ptr<const Node> left, right;
 
                 Node(char ch, std::ptrdiff_t freq, const std::shared_ptr<const Node> &left,
-                     const std::shared_ptr<const Node> &right) : ch_(ch), freq_(freq), left_(left), right_(right) {}
+                     const std::shared_ptr<const Node> &right) : ch(ch), freq(freq), left(left), right(right) {}
 
-                bool isLeaf() const { return !left_ && !right_; }
-                friend auto operator<=>(const Node &l, const Node &r) { return l.freq_ <=> r.freq_; }
-                friend bool operator==(const Node &l, const Node &r) { return l.freq_ == r.freq_; }
+                bool isLeaf() const { return !left && !right; }
+                friend auto operator<=>(const Node &l, const Node &r) { return l.freq <=> r.freq; }
+                friend bool operator==(const Node &l, const Node &r) { return l.freq == r.freq; }
             };
 
             std::vector<std::string> buildCode(const std::shared_ptr<const Node> &root);
@@ -68,11 +68,11 @@ inline std::vector<std::string> algs4::Huffman::detail::buildCode(const std::sha
 inline void algs4::Huffman::detail::buildCode(std::vector<std::string> &st, const std::shared_ptr<const Node> &x,
                                               const std::string &s) {
     if (x->isLeaf()) {
-        st[static_cast<unsigned char>(x->ch_)] = s;
+        st[static_cast<unsigned char>(x->ch)] = s;
         return;
     }
-    buildCode(st, x->left_, s + '0');
-    buildCode(st, x->right_, s + '1');
+    buildCode(st, x->left, s + '0');
+    buildCode(st, x->right, s + '1');
 }
 
 // Initialize priority queue with singleton trees.
@@ -94,7 +94,7 @@ inline auto algs4::Huffman::detail::buildTrie(const std::vector<std::ptrdiff_t> 
     while (pq.size() > 1) {
         auto x = pq.delMin();
         auto y = pq.delMin();
-        pq.insert(std::make_shared<Node>('\0', x->freq_ + y->freq_, x, y));
+        pq.insert(std::make_shared<Node>('\0', x->freq + y->freq, x, y));
     }
     return pq.delMin();
 }
@@ -103,12 +103,12 @@ inline auto algs4::Huffman::detail::buildTrie(const std::vector<std::ptrdiff_t> 
 inline void algs4::Huffman::detail::writeTrie(const std::shared_ptr<const Node> &x) {
     if (x->isLeaf()) {
         BinaryStdIO::write(true);
-        BinaryStdIO::write(x->ch_);
+        BinaryStdIO::write(x->ch);
         return;
     }
     BinaryStdIO::write(false);
-    writeTrie(x->left_);
-    writeTrie(x->right_);
+    writeTrie(x->left);
+    writeTrie(x->right);
 }
 
 inline auto algs4::Huffman::detail::readTrie() -> std::shared_ptr<const Node> {
@@ -156,9 +156,9 @@ inline void algs4::Huffman::expand() {
     while (N--) {
         auto x = root;
         while (!x->isLeaf())
-            if (BinaryStdIO::read<bool>()) x = x->right_;
-            else x = x->left_;
-        BinaryStdIO::write(x->ch_);
+            if (BinaryStdIO::read<bool>()) x = x->right;
+            else x = x->left;
+        BinaryStdIO::write(x->ch);
     }
     BinaryStdIO::closeOut();
 }

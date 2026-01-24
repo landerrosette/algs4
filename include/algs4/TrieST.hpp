@@ -32,14 +32,14 @@ namespace algs4 {
     class TrieST : public StringST<Value> {
     private:
         static constexpr int R = 256; // radix
-        std::ptrdiff_t N_ = 0;
 
         struct Node {
-            std::optional<Value> val_;
-            std::array<std::unique_ptr<Node>, R> next_;
+            std::optional<Value> val;
+            std::array<std::unique_ptr<Node>, R> next;
         };
 
         std::unique_ptr<Node> root_;
+        std::ptrdiff_t N_ = 0;
 
         std::unique_ptr<Node> put(std::unique_ptr<Node> x, std::string_view key, Value val, std::ptrdiff_t d);
         const Node *get(const Node *x, std::string_view key, std::ptrdiff_t d) const;
@@ -66,12 +66,12 @@ auto algs4::TrieST<Value>::put(std::unique_ptr<Node> x, std::string_view key, Va
                                std::ptrdiff_t d) -> std::unique_ptr<Node> {
     if (!x) x = std::make_unique<Node>();
     if (d == std::ssize(key)) {
-        if (!x->val_) ++N_;
-        x->val_ = std::move(val);
+        if (!x->val) ++N_;
+        x->val = std::move(val);
         return x;
     }
     unsigned char c = key[d];
-    x->next_[c] = put(std::move(x->next_[c]), key, std::move(val), d + 1);
+    x->next[c] = put(std::move(x->next[c]), key, std::move(val), d + 1);
     return x;
 }
 
@@ -80,7 +80,7 @@ auto algs4::TrieST<Value>::get(const Node *x, std::string_view key, std::ptrdiff
     if (!x) return nullptr;
     if (d == std::ssize(key)) return x;
     unsigned char c = key[d];
-    return get(x->next_[c].get(), key, d + 1);
+    return get(x->next[c].get(), key, d + 1);
 }
 
 template<std::movable Value>
@@ -88,26 +88,26 @@ auto algs4::TrieST<Value>::remove(std::unique_ptr<Node> x, std::string_view key,
                                   std::ptrdiff_t d) -> std::unique_ptr<Node> {
     if (!x) return nullptr;
     if (d == std::ssize(key)) {
-        if (x->val_) --N_;
-        x->val_ = std::nullopt;
+        if (x->val) --N_;
+        x->val = std::nullopt;
     } else {
         unsigned char c = key[d];
-        x->next_[c] = remove(std::move(x->next_[c]), key, d + 1);
+        x->next[c] = remove(std::move(x->next[c]), key, d + 1);
     }
 
     // Remove subtrie rooted at x if it is completely empty.
-    if (x->val_) return x;
+    if (x->val) return x;
     for (int c = 0; c < R; ++c)
-        if (x->next_[c]) return x;
+        if (x->next[c]) return x;
     return nullptr;
 }
 
 template<std::movable Value>
 void algs4::TrieST<Value>::collect(const Node *x, const std::string &pre, Queue<std::string> &q) const {
     if (!x) return;
-    if (x->val_) q.enqueue(pre);
+    if (x->val) q.enqueue(pre);
     for (int c = 0; c < R; ++c)
-        collect(x->next_[c].get(), pre + static_cast<char>(c), q);
+        collect(x->next[c].get(), pre + static_cast<char>(c), q);
 }
 
 template<std::movable Value>
@@ -115,23 +115,23 @@ void algs4::TrieST<Value>::collect(const Node *x, const std::string &pre, std::s
                                    Queue<std::string> &q) const {
     if (!x) return;
     auto d = std::ssize(pre);
-    if (d == std::ssize(pat) && x->val_) q.enqueue(pre);
+    if (d == std::ssize(pat) && x->val) q.enqueue(pre);
     if (d == std::ssize(pat)) return;
 
     char next = pat[d];
     for (int c = 0; c < R; ++c)
         if (next == '.' || next == c)
-            collect(x->next_[c].get(), pre + static_cast<char>(c), pat, q);
+            collect(x->next[c].get(), pre + static_cast<char>(c), pat, q);
 }
 
 template<std::movable Value>
 std::ptrdiff_t algs4::TrieST<Value>::search(const Node *x, std::string_view s, std::ptrdiff_t d,
                                             std::ptrdiff_t length) const {
     if (!x) return length;
-    if (x->val_) length = d;
+    if (x->val) length = d;
     if (d == std::ssize(s)) return length;
     unsigned char c = s[d];
-    return search(x->next_[c].get(), s, d + 1, length);
+    return search(x->next[c].get(), s, d + 1, length);
 }
 
 template<std::movable Value>
@@ -143,7 +143,7 @@ template<std::movable Value>
 const Value *algs4::TrieST<Value>::get(const std::string &key) const {
     const Node *x = get(root_.get(), key, 0);
     if (!x) return nullptr;
-    return &*x->val_;
+    return &*x->val;
 }
 
 template<std::movable Value>

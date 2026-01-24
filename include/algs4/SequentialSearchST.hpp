@@ -30,12 +30,12 @@ namespace algs4 {
     class SequentialSearchST : public ST<Key, Value> {
     private:
         struct Node {
-            Key key_;
-            Value val_;
-            std::unique_ptr<Node> next_;
+            Key key;
+            Value val;
+            std::unique_ptr<Node> next;
 
             Node(Key key, Value val, std::unique_ptr<Node> next)
-                : key_(std::move(key)), val_(std::move(val)), next_(std::move(next)) {}
+                : key(std::move(key)), val(std::move(val)), next(std::move(next)) {}
         };
 
         std::unique_ptr<Node> first_;
@@ -56,19 +56,19 @@ namespace algs4 {
 template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 auto algs4::SequentialSearchST<Key, Value>::remove(std::unique_ptr<Node> x, const Key &key) -> std::unique_ptr<Node> {
     if (!x) return nullptr;
-    if (key == x->key_) {
+    if (key == x->key) {
         --N_;
-        return std::move(x->next_);
+        return std::move(x->next);
     }
-    x->next_ = remove(std::move(x->next_), key);
+    x->next = remove(std::move(x->next), key);
     return x;
 }
 
 template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 void algs4::SequentialSearchST<Key, Value>::put(Key key, Value val) {
-    for (Node *x = first_.get(); x; x = x->next_.get())
-        if (key == x->key_) {
-            x->val_ = std::move(val);
+    for (Node *x = first_.get(); x; x = x->next.get())
+        if (key == x->key) {
+            x->val = std::move(val);
             return;
         }
     first_ = std::make_unique<Node>(std::move(key), std::move(val), std::move(first_));
@@ -77,17 +77,17 @@ void algs4::SequentialSearchST<Key, Value>::put(Key key, Value val) {
 
 template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 const Value *algs4::SequentialSearchST<Key, Value>::get(const Key &key) const {
-    for (const Node *x = first_.get(); x; x = x->next_.get())
-        if (key == x->key_)
-            return &x->val_;
+    for (const Node *x = first_.get(); x; x = x->next.get())
+        if (key == x->key)
+            return &x->val;
     return nullptr;
 }
 
 template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
 algs4::Queue<Key> algs4::SequentialSearchST<Key, Value>::keys() const {
     Queue<Key> queue;
-    for (const Node *x = first_.get(); x; x = x->next_.get())
-        queue.enqueue(x->key_);
+    for (const Node *x = first_.get(); x; x = x->next.get())
+        queue.enqueue(x->key);
     return queue;
 }
 

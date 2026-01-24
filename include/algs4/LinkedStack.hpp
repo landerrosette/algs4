@@ -30,10 +30,10 @@ namespace algs4 {
     class LinkedStack {
     private:
         struct Node {
-            T item_;
-            std::unique_ptr<Node> next_;
+            T item;
+            std::unique_ptr<Node> next;
 
-            Node(T item, std::unique_ptr<Node> next) : item_(std::move(item)), next_(std::move(next)) {}
+            Node(T item, std::unique_ptr<Node> next) : item(std::move(item)), next(std::move(next)) {}
         };
 
         std::unique_ptr<Node> first_;
@@ -60,8 +60,8 @@ namespace algs4 {
             template<bool OtherConst> requires (Const && !OtherConst)
             constexpr Iterator(const Iterator<OtherConst> &other) : current_(other.current_) {}
 
-            constexpr reference operator*() const { return current_->item_; }
-            constexpr pointer operator->() const { return &current_->item_; }
+            constexpr reference operator*() const { return current_->item; }
+            constexpr pointer operator->() const { return &current_->item; }
             constexpr Iterator &operator++();
             constexpr Iterator operator++(int);
             friend constexpr bool operator==(const Iterator &l, const Iterator &r) { return l.current_ == r.current_; }
@@ -98,8 +98,8 @@ void algs4::LinkedStack<T>::push(U &&item) {
 template<std::movable T>
 T algs4::LinkedStack<T>::pop() {
     assert(!isEmpty());
-    T item = std::move(first_->item_);
-    first_ = std::move(first_->next_);
+    T item = std::move(first_->item);
+    first_ = std::move(first_->next);
     --N_;
     return item;
 }
@@ -107,7 +107,7 @@ T algs4::LinkedStack<T>::pop() {
 template<std::movable T>
 template<bool Const>
 constexpr auto algs4::LinkedStack<T>::Iterator<Const>::operator++() -> Iterator & {
-    current_ = current_->next_.get();
+    current_ = current_->next.get();
     return *this;
 }
 
