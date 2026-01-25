@@ -29,7 +29,7 @@
  * all bad bed bug dad ... yes yet zoo
  *
  * % ./@SORTER@ < shells.txt
- * are by sea seashells seashells sells sells she she shells shore surely the the
+ * are by sea seashells ... surely the the
  ******************************************************************************/
 
 #include "algs4/@SORTER@.hpp"
