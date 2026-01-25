@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,35 +19,32 @@
 #define ALGS4_KRUSKALMST_HPP
 
 #include "EdgeWeightedGraph.hpp"
-#include "MinPQ.hpp"
 #include "MST.hpp"
+#include "MinPQ.hpp"
 #include "Queue.hpp"
 #include "UF.hpp"
 
 namespace algs4 {
-    class KruskalMST : public MST {
-    private:
-        Queue<Edge> mst_;
+class KruskalMST : public MST {
+private:
+    Queue<Edge> mst_;
 
-    public:
-        explicit KruskalMST(const EdgeWeightedGraph &G);
-
-        Queue<Edge> edges() const override { return mst_; }
-    };
-}
-
-inline algs4::KruskalMST::KruskalMST(const EdgeWeightedGraph &G) {
-    MinPQ<Edge> pq;
-    for (const auto &e: G.edges())
-        pq.insert(e);
-    UF uf(G.V());
-    while (!pq.isEmpty() && std::ssize(mst_) < G.V() - 1) {
-        auto e = pq.delMin();
-        int v = e.either(), w = e.other(v);
-        if (uf.connected(v, w)) continue;
-        uf.unionize(v, w);
-        mst_.enqueue(e);
+public:
+    explicit KruskalMST(const EdgeWeightedGraph& G) {
+        MinPQ<Edge> pq;
+        for (const auto& e : G.edges()) pq.insert(e);
+        UF uf(G.V());
+        while (!pq.isEmpty() && std::ssize(mst_) < G.V() - 1) {
+            auto e = pq.delMin();
+            int v = e.either(), w = e.other(v);
+            if (uf.connected(v, w)) continue;
+            uf.unionize(v, w);
+            mst_.enqueue(e);
+        }
     }
-}
 
-#endif // ALGS4_KRUSKALMST_HPP
+    Queue<Edge> edges() const override { return mst_; }
+};
+}  // namespace algs4
+
+#endif  // ALGS4_KRUSKALMST_HPP

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,55 +27,49 @@
 #include "Stack.hpp"
 
 namespace algs4 {
-    class BellmanFordSP : public SP {
-    private:
-        std::vector<bool> onQ_;     // Is this vertex on the queue?
-        Queue<int> queue_;          // vertices being relaxed
-        int cost_ = 0;              // number of calls to relax()
-        Stack<DirectedEdge> cycle_; // negative cycle in edgeTo_[]?
+class BellmanFordSP : public SP {
+private:
+    std::vector<bool> onQ_;      // Is this vertex on the queue?
+    Queue<int> queue_;           // vertices being relaxed
+    int cost_ = 0;               // number of calls to relax()
+    Stack<DirectedEdge> cycle_;  // negative cycle in edgeTo_[]
 
-        void onEdgeRelaxed(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) override;
-        void afterRelaxation(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) override;
-        void findNegativeCycle();
-
-    public:
-        BellmanFordSP(const EdgeWeightedDigraph &G, int s);
-
-        bool hasNegativeCycle() const { return !cycle_.isEmpty(); }
-        const Stack<DirectedEdge> &negativeCycle() const & { return cycle_; }
-        Stack<DirectedEdge> &&negativeCycle() && { return std::move(cycle_); }
-    };
-}
-
-inline void algs4::BellmanFordSP::onEdgeRelaxed(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) {
-    if (!onQ_[w]) {
-        queue_.enqueue(w);
-        onQ_[w] = true;
+    void onEdgeRelaxed(const EdgeWeightedDigraph& G, int v, const DirectedEdge& e, int w) override {
+        if (!onQ_[w]) {
+            queue_.enqueue(w);
+            onQ_[w] = true;
+        }
     }
-}
 
-inline void algs4::BellmanFordSP::afterRelaxation(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) {
-    if (cost_++ % G.V() == 0)
-        findNegativeCycle();
-}
-
-inline void algs4::BellmanFordSP::findNegativeCycle() {
-    int V = static_cast<int>(std::ssize(edgeTo_));
-    EdgeWeightedDigraph spt(V);
-    for (int v = 0; v < V; ++v)
-        if (edgeTo_[v])
-            spt.addEdge(edgeTo_[v]);
-    cycle_ = DirectedCycle(spt).cycle();
-}
-
-inline algs4::BellmanFordSP::BellmanFordSP(const EdgeWeightedDigraph &G, int s) : SP(G, s), onQ_(G.V()) {
-    queue_.enqueue(s);
-    onQ_[s] = true;
-    while (!queue_.isEmpty() && !hasNegativeCycle()) {
-        int v = queue_.dequeue();
-        onQ_[v] = false;
-        relax(G, v);
+    void afterRelaxation(const EdgeWeightedDigraph& G, int v, const DirectedEdge& e, int w) override {
+        if (cost_++ % G.V() == 0) findNegativeCycle();
     }
-}
 
-#endif // ALGS4_BELLMANFORDSP_HPP
+    void findNegativeCycle() {
+        int V = static_cast<int>(std::ssize(edgeTo_));
+        EdgeWeightedDigraph spt(V);
+        for (int v = 0; v < V; ++v)
+            if (edgeTo_[v]) spt.addEdge(edgeTo_[v]);
+        cycle_ = DirectedCycle(spt).cycle();
+    }
+
+public:
+    BellmanFordSP(const EdgeWeightedDigraph& G, int s) : SP(G, s), onQ_(G.V()) {
+        queue_.enqueue(s);
+        onQ_[s] = true;
+        while (!queue_.isEmpty() && !hasNegativeCycle()) {
+            int v = queue_.dequeue();
+            onQ_[v] = false;
+            relax(G, v);
+        }
+    }
+
+    bool hasNegativeCycle() const { return !cycle_.isEmpty(); }
+
+    const Stack<DirectedEdge>& negativeCycle() const& { return cycle_; }
+
+    Stack<DirectedEdge>&& negativeCycle() && { return std::move(cycle_); }
+};
+}  // namespace algs4
+
+#endif  // ALGS4_BELLMANFORDSP_HPP

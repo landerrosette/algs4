@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,16 +22,13 @@
 #include "Topological.hpp"
 
 namespace algs4 {
-    class AcyclicSP : public SP {
-    public:
-        constexpr AcyclicSP(const EdgeWeightedDigraph &G, int s);
-    };
-}
+class AcyclicSP : public SP {
+public:
+    constexpr AcyclicSP(const EdgeWeightedDigraph& G, int s) : SP(G, s) {
+        Topological top(G);
+        for (int v : top.order()) relax(G, v);
+    }
+};
+}  // namespace algs4
 
-constexpr algs4::AcyclicSP::AcyclicSP(const EdgeWeightedDigraph &G, int s) : SP(G, s) {
-    Topological top(G);
-    for (int v: top.order())
-        relax(G, v);
-}
-
-#endif // ALGS4_ACYCLICSP_HPP
+#endif  // ALGS4_ACYCLICSP_HPP

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@
 
 #include "algs4/Bag.hpp"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     if (argc < 3) {
         std::cerr << "Not enough arguments" << std::endl;
         return 1;
@@ -56,8 +56,7 @@ int main(int argc, char *argv[]) {
     }
     algs4::DirectedDFS reachable(G, sources);
     for (int v = 0; v < G.V(); ++v)
-        if (reachable.marked(v))
-            std::cout << v << " ";
+        if (reachable.marked(v)) std::cout << v << " ";
     std::cout << std::endl;
     return 0;
 }

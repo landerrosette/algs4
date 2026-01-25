@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@
 
 #include <iostream>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     int N;
     std::cin >> N;
     if (N < 0) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,29 +22,27 @@
 #include "Queue.hpp"
 
 namespace algs4 {
-    class BreadthFirstPaths : public Paths {
-    private:
-        void bfs(const Graph &G, int s);
-
-    public:
-        BreadthFirstPaths(const Graph &G, int s) : Paths(G, s) { bfs(G, s); }
-    };
-}
-
-inline void algs4::BreadthFirstPaths::bfs(const Graph &G, int s) {
-    Queue<int> queue;
-    marked_[s] = true;
-    queue.enqueue(s);
-    while (!queue.isEmpty()) {
-        int v = queue.dequeue();
-        for (int w: G.adj(v)) {
-            if (!marked_[w]) {
-                edgeTo_[w] = v;
-                marked_[w] = true;
-                queue.enqueue(w);
+class BreadthFirstPaths : public Paths {
+private:
+    void bfs(const Graph& G, int s) {
+        Queue<int> queue;
+        marked_[s] = true;
+        queue.enqueue(s);
+        while (!queue.isEmpty()) {
+            int v = queue.dequeue();
+            for (int w : G.adj(v)) {
+                if (!marked_[w]) {
+                    edgeTo_[w] = v;
+                    marked_[w] = true;
+                    queue.enqueue(w);
+                }
             }
         }
     }
-}
 
-#endif // ALGS4_BREADTHFIRSTPATHS_HPP
+public:
+    BreadthFirstPaths(const Graph& G, int s) : Paths(G, s) { bfs(G, s); }
+};
+}  // namespace algs4
+
+#endif  // ALGS4_BREADTHFIRSTPATHS_HPP

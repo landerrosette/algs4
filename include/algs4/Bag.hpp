@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,28 +25,30 @@
 #include "MonodirectionalIterator.hpp"
 
 namespace algs4 {
-    template<std::movable T>
-    class Bag {
-    private:
-        std::vector<T> a_;
+template <std::movable T>
+class Bag {
+private:
+    std::vector<T> a_;
 
-    public:
-        using iterator = detail::MonodirectionalIterator<typename std::vector<T>::reverse_iterator>;
-        using const_iterator = detail::MonodirectionalIterator<typename std::vector<T>::const_reverse_iterator>;
+public:
+    using iterator = detail::MonodirectionalIterator<typename std::vector<T>::reverse_iterator>;
+    using const_iterator = detail::MonodirectionalIterator<typename std::vector<T>::const_reverse_iterator>;
 
-        constexpr bool isEmpty() const { return a_.empty(); }
-        constexpr std::ptrdiff_t size() const { return std::ssize(a_); }
+    constexpr bool isEmpty() const { return a_.empty(); }
+    constexpr std::ptrdiff_t size() const { return std::ssize(a_); }
 
-        template<std::convertible_to<T> U>
-        constexpr void add(U &&item) { a_.emplace_back(std::forward<U>(item)); }
+    template <std::convertible_to<T> U>
+    constexpr void add(U&& item) {
+        a_.emplace_back(std::forward<U>(item));
+    }
 
-        constexpr iterator begin() { return iterator(a_.rbegin()); }
-        constexpr iterator end() { return iterator(a_.rend()); }
-        constexpr const_iterator begin() const { return const_iterator(a_.rbegin()); }
-        constexpr const_iterator end() const { return const_iterator(a_.rend()); }
-        constexpr const_iterator cbegin() const { return const_iterator(a_.crbegin()); }
-        constexpr const_iterator cend() const { return const_iterator(a_.crend()); }
-    };
-}
+    constexpr iterator begin() { return iterator(a_.rbegin()); }
+    constexpr iterator end() { return iterator(a_.rend()); }
+    constexpr const_iterator begin() const { return const_iterator(a_.rbegin()); }
+    constexpr const_iterator end() const { return const_iterator(a_.rend()); }
+    constexpr const_iterator cbegin() const { return const_iterator(a_.crbegin()); }
+    constexpr const_iterator cend() const { return const_iterator(a_.crend()); }
+};
+}  // namespace algs4
 
-#endif // ALGS4_BAG_HPP
+#endif  // ALGS4_BAG_HPP

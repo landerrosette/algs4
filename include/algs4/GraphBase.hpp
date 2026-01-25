@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,52 +28,49 @@
 #include "Bag.hpp"
 
 namespace algs4 {
-    namespace detail {
-        template<std::semiregular EdgeType>
-        class GraphBase {
-        protected:
-            int V_;                           // number of vertices
-            std::ptrdiff_t E_;                // number of edges
-            std::vector<Bag<EdgeType> > adj_; // adjacency lists
+namespace detail {
+    template <std::semiregular EdgeType>
+    class GraphBase {
+    protected:
+        int V_;                           // number of vertices
+        std::ptrdiff_t E_;                // number of edges
+        std::vector<Bag<EdgeType>> adj_;  // adjacency lists
 
-            constexpr explicit GraphBase(int V) : V_(V), E_(0), adj_(V) { assert(V >= 0); }
-            explicit GraphBase(std::istream &in);
-            constexpr ~GraphBase() = default;
-            constexpr GraphBase(const GraphBase &) = default;
-            constexpr GraphBase &operator=(const GraphBase &) = default;
-            constexpr GraphBase(GraphBase &&) noexcept = default;
-            constexpr GraphBase &operator=(GraphBase &&) noexcept = default;
+        constexpr explicit GraphBase(int V) : V_(V), E_(0), adj_(V) { assert(V >= 0); }
 
-        public:
-            constexpr int V() const { return V_; }
-            constexpr auto E() const { return E_; }
-            constexpr const Bag<EdgeType> &adj(int v) const &;
-        };
-    }
-}
+        explicit GraphBase(std::istream& in)
+            : GraphBase([&in] {
+                  int i;
+                  in >> i;
+                  return i;
+              }()) {}
 
-template<std::semiregular EdgeType>
-algs4::detail::GraphBase<EdgeType>::GraphBase(std::istream &in) : GraphBase([&in] {
-    int i;
-    in >> i;
-    return i;
-}()) {}
+        constexpr ~GraphBase() = default;
+        constexpr GraphBase(const GraphBase&) = default;
+        constexpr GraphBase& operator=(const GraphBase&) = default;
+        constexpr GraphBase(GraphBase&&) noexcept = default;
+        constexpr GraphBase& operator=(GraphBase&&) noexcept = default;
 
-template<std::semiregular EdgeType>
-constexpr const algs4::Bag<EdgeType> &algs4::detail::GraphBase<EdgeType>::adj(int v) const & {
-    assert(v >= 0 && v < V());
-    return adj_[v];
-}
+    public:
+        constexpr int V() const { return V_; }
+        constexpr auto E() const { return E_; }
 
-template<std::semiregular EdgeType>
-std::ostream &operator<<(std::ostream &os, const algs4::detail::GraphBase<EdgeType> &G) {
-    os << G.V() << " vertices, " << G.E() << " edges" << std::endl;
-    for (int v = 0; v < G.V(); ++v) {
-        os << v << ": ";
-        for (const EdgeType &w: G.adj(v)) os << w << " ";
-        os << std::endl;
-    }
-    return os;
-}
+        constexpr const Bag<EdgeType>& adj(int v) const& {
+            assert(v >= 0 && v < V());
+            return adj_[v];
+        }
 
-#endif // ALGS4_GRAPHBASE_HPP
+        friend std::ostream& operator<<(std::ostream& os, const GraphBase& G) {
+            os << G.V_ << " vertices, " << G.E_ << " edges" << std::endl;
+            for (int v = 0; v < G.V_; ++v) {
+                os << v << ": ";
+                for (const EdgeType& w : G.adj_[v]) os << w << " ";
+                os << std::endl;
+            }
+            return os;
+        }
+    };
+}  // namespace detail
+}  // namespace algs4
+
+#endif  // ALGS4_GRAPHBASE_HPP

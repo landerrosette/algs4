@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,68 +25,60 @@
 #include "SubstrSearcher.hpp"
 
 namespace algs4 {
-    class RabinKarp : public SubstrSearcher {
-    private:
-        long long patHash_;               // pattern hash value
-        std::ptrdiff_t M_;                // pattern length
-        long long Q_ = longRandomPrime(); // a large prime
-        static constexpr int R = 256;     // alphabet size
-        long long RM_ = 1;                // R^(M_-1) % Q_
+class RabinKarp : public SubstrSearcher {
+private:
+    long long patHash_;                // pattern hash value
+    std::ptrdiff_t M_;                 // pattern length
+    long long Q_ = longRandomPrime();  // a large prime
+    static constexpr int R = 256;      // alphabet size
+    long long RM_ = 1;                 // R^(M_-1) % Q_
 
-        static long long longRandomPrime();
-        long long hash(std::string_view key, std::ptrdiff_t M) const;
-        bool check(int i) const { return true; } // Monte Carlo
-
-    public:
-        explicit RabinKarp(std::string_view pat);
-
-        std::ptrdiff_t search(std::string_view txt) const override;
-    };
-}
-
-// a random 31-bit prime
-inline long long algs4::RabinKarp::longRandomPrime() {
-    std::default_random_engine e(std::random_device{}());
-    std::uniform_int_distribution u(1LL << 30, (1LL << 31) - 1);
-    while (true) {
-        long long num = u(e);
-        if (num % 3 == 0) continue;
-        bool isPrime = true;
-        for (long i = 5; i <= num / i; i += 6) {
-            if (num % i == 0 || num % (i + 2) == 0) {
-                isPrime = false;
-                break;
+    // a random 31-bit prime
+    static long long longRandomPrime() {
+        std::default_random_engine e(std::random_device{}());
+        std::uniform_int_distribution u(1LL << 30, (1LL << 31) - 1);
+        while (true) {
+            long long num = u(e);
+            if (num % 3 == 0) continue;
+            bool isPrime = true;
+            for (long i = 5; i <= num / i; i += 6) {
+                if (num % i == 0 || num % (i + 2) == 0) {
+                    isPrime = false;
+                    break;
+                }
             }
+            if (isPrime) return num;
         }
-        if (isPrime) return num;
     }
-}
 
-inline long long algs4::RabinKarp::hash(std::string_view key, std::ptrdiff_t M) const {
-    long long h = 0;
-    for (decltype(M) j = 0; j < M; ++j)
-        h = (R * h + key[j]) % Q_;
-    return h;
-}
-
-inline algs4::RabinKarp::RabinKarp(std::string_view pat) : M_(std::ssize(pat)) {
-    // Compute R^(M_-1) % Q_ for use in removing leading digit.
-    for (decltype(M_) i = 1; i <= M_ - 1; ++i)
-        RM_ = (R * RM_) % Q_;
-    patHash_ = hash(pat, M_);
-}
-
-inline std::ptrdiff_t algs4::RabinKarp::search(std::string_view txt) const {
-    auto N = std::ssize(txt);
-    long long txtHash = hash(txt, M_);
-    if (patHash_ == txtHash && check(0)) return 0; // match at beginning
-    for (auto i = M_; i < N; ++i) {
-        // Remove leading digit, add trailing digit, check for match.
-        txtHash = (txtHash + Q_ - RM_ * txt[i - M_] % Q_) % Q_;
-        txtHash = (txtHash * R + txt[i]) % Q_;
-        if (patHash_ == txtHash && check(i - M_ + 1)) return i - M_ + 1; // match
+    long long hash(std::string_view key, std::ptrdiff_t M) const {
+        long long h = 0;
+        for (decltype(M) j = 0; j < M; ++j) h = (R * h + key[j]) % Q_;
+        return h;
     }
-    return N; // no match found
-}
 
-#endif // ALGS4_RABINKARP_HPP
+    bool check(int i) const { return true; }  // Monte Carlo
+
+public:
+    explicit RabinKarp(std::string_view pat) : M_(std::ssize(pat)) {
+        // Compute R^(M_-1) % Q_ for use in removing leading digit.
+        for (decltype(M_) i = 1; i <= M_ - 1; ++i) RM_ = (R * RM_) % Q_;
+        patHash_ = hash(pat, M_);
+    }
+
+    std::ptrdiff_t search(std::string_view txt) const override {
+        auto N = std::ssize(txt);
+        long long txtHash = hash(txt, M_);
+        if (patHash_ == txtHash && check(0)) return 0;  // match at beginning
+        for (auto i = M_; i < N; ++i) {
+            // Remove leading digit, add trailing digit, check for match.
+            txtHash = (txtHash + Q_ - RM_ * txt[i - M_] % Q_) % Q_;
+            txtHash = (txtHash * R + txt[i]) % Q_;
+            if (patHash_ == txtHash && check(i - M_ + 1)) return i - M_ + 1;  // match
+        }
+        return N;  // no match found
+    }
+};
+}  // namespace algs4
+
+#endif  // ALGS4_RABINKARP_HPP

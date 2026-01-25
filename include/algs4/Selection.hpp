@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,25 +25,22 @@
 #include "SortUtils.hpp"
 
 namespace algs4 {
-    namespace Selection {
-        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-        constexpr void sort(std::vector<T> &a);
+namespace Selection {
+    template <typename T>
+        requires std::totally_ordered<T> && std::swappable<T>
+    constexpr void sort(std::vector<T>& a) {
+        using namespace SortUtils::detail;
+        auto N = std::ssize(a);
+        // Exchange a[i] with the smallest entry in a[i+1..N).
+        for (decltype(N) i = 0; i < N; ++i) {
+            auto min = i;
+            for (auto j = i + 1; j < N; ++j)
+                if (less(a[j], a[min])) min = j;
+            exch(a, i, min);
+        }
+        assert(SortUtils::isSorted(a));
     }
-}
+}  // namespace Selection
+}  // namespace algs4
 
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-constexpr void algs4::Selection::sort(std::vector<T> &a) {
-    using namespace SortUtils::detail;
-    auto N = std::ssize(a);
-    // Exchange a[i] with the smallest entry in a[i+1..N).
-    for (decltype(N) i = 0; i < N; ++i) {
-        auto min = i;
-        for (auto j = i + 1; j < N; ++j)
-            if (less(a[j], a[min]))
-                min = j;
-        exch(a, i, min);
-    }
-    assert(SortUtils::isSorted(a));
-}
-
-#endif // ALGS4_SELECTION_HPP
+#endif  // ALGS4_SELECTION_HPP

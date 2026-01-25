@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,16 +26,16 @@
 #include "ST.hpp"
 
 namespace algs4 {
-    template<std::movable Value>
-    class StringST : public ST<std::string, Value> {
-    protected:
-        constexpr StringST() = default;
+template <std::movable Value>
+class StringST : public ST<std::string, Value> {
+protected:
+    constexpr StringST() = default;
 
-    public:
-        virtual constexpr std::string longestPrefixOf(std::string_view s) const = 0;
-        virtual Queue<std::string> keysWithPrefix(const std::string &pre) const = 0;
-        virtual Queue<std::string> keysThatMatch(std::string_view pat) const = 0;
-    };
-}
+public:
+    virtual constexpr std::string longestPrefixOf(std::string_view s) const = 0;
+    virtual Queue<std::string> keysWithPrefix(const std::string& pre) const = 0;
+    virtual Queue<std::string> keysThatMatch(std::string_view pat) const = 0;
+};
+}  // namespace algs4
 
-#endif // ALGS4_STRINGST_HPP
+#endif  // ALGS4_STRINGST_HPP

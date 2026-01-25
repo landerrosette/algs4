@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,12 +43,10 @@
 #include <string>
 #include <utility>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     algs4::Bag<std::string> b;
-    for (std::string item; std::cin >> item;)
-        b.add(std::move(item));
+    for (std::string item; std::cin >> item;) b.add(std::move(item));
     std::cout << "size of bag = " << b.size() << std::endl;
-    for (const auto &item: b)
-        std::cout << item << std::endl;
+    for (const auto& item : b) std::cout << item << std::endl;
     return 0;
 }

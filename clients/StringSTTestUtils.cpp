@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 
 #include <ostream>
 
-void STTestUtils::testStringST(const algs4::StringST<int> &st, std::ostream &os) {
+void STTestUtils::testStringST(const algs4::StringST<int>& st, std::ostream& os) {
     os << "longestPrefixOf(\"shellsort\"):" << std::endl;
     os << "--------------------------------" << std::endl;
     os << st.longestPrefixOf("shellsort") << std::endl;
@@ -32,12 +32,10 @@ void STTestUtils::testStringST(const algs4::StringST<int> &st, std::ostream &os)
 
     os << "keysWithPrefix(\"shor\"):" << std::endl;
     os << "--------------------------------" << std::endl;
-    for (const auto &s: st.keysWithPrefix("shor"))
-        os << s << std::endl;
+    for (const auto& s : st.keysWithPrefix("shor")) os << s << std::endl;
     os << std::endl;
 
     os << "keysThatMatch(\".he.l.\"):" << std::endl;
     os << "--------------------------------" << std::endl;
-    for (const auto &s: st.keysThatMatch(".he.l."))
-        os << s << std::endl;
+    for (const auto& s : st.keysThatMatch(".he.l.")) os << s << std::endl;
 }

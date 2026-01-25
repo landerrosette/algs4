@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,57 +26,46 @@
 #include "SortUtils.hpp"
 
 namespace algs4 {
-    namespace Heap {
-        namespace detail {
-            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-            constexpr bool less(const std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j);
-
-            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-            constexpr void exch(std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j);
-
-            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-            constexpr void sink(std::vector<T> &a, std::ptrdiff_t k, std::ptrdiff_t N);
+namespace Heap {
+    namespace detail {
+        template <typename T>
+            requires std::totally_ordered<T> && std::swappable<T>
+        constexpr bool less(const std::vector<T>& a, std::ptrdiff_t i, std::ptrdiff_t j) {
+            return SortUtils::detail::less(a[i - 1], a[j - 1]);
         }
 
-        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-        constexpr void sort(std::vector<T> &a);
+        template <typename T>
+            requires std::totally_ordered<T> && std::swappable<T>
+        constexpr void exch(std::vector<T>& a, std::ptrdiff_t i, std::ptrdiff_t j) {
+            SortUtils::detail::exch(a, i - 1, j - 1);
+        }
+
+        template <typename T>
+            requires std::totally_ordered<T> && std::swappable<T>
+        constexpr void sink(std::vector<T>& a, std::ptrdiff_t k, std::ptrdiff_t N) {
+            while (2 * k <= N) {
+                auto j = 2 * k;
+                if (j < N && less(a, j, j + 1)) ++j;
+                if (!less(a, k, j)) break;
+                exch(a, k, j);
+                k = j;
+            }
+        }
+    }  // namespace detail
+
+    template <typename T>
+        requires std::totally_ordered<T> && std::swappable<T>
+    constexpr void sort(std::vector<T>& a) {
+        using namespace detail;
+        auto N = std::ssize(a);
+        for (auto k = N / 2; k >= 1; --k) sink(a, k, N);
+        while (N > 1) {
+            exch(a, 1, N--);
+            sink(a, 1, N);
+        }
+        assert(SortUtils::isSorted(a));
     }
-}
+}  // namespace Heap
+}  // namespace algs4
 
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-constexpr bool algs4::Heap::detail::less(const std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j) {
-    return SortUtils::detail::less(a[i - 1], a[j - 1]);
-}
-
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-constexpr void algs4::Heap::detail::exch(std::vector<T> &a, std::ptrdiff_t i, std::ptrdiff_t j) {
-    SortUtils::detail::exch(a, i - 1, j - 1);
-}
-
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-constexpr void algs4::Heap::detail::sink(std::vector<T> &a, std::ptrdiff_t k, std::ptrdiff_t N) {
-    while (2 * k <= N) {
-        auto j = 2 * k;
-        if (j < N && less(a, j, j + 1))
-            ++j;
-        if (!less(a, k, j))
-            break;
-        exch(a, k, j);
-        k = j;
-    }
-}
-
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-constexpr void algs4::Heap::sort(std::vector<T> &a) {
-    using namespace detail;
-    auto N = std::ssize(a);
-    for (auto k = N / 2; k >= 1; --k)
-        sink(a, k, N);
-    while (N > 1) {
-        exch(a, 1, N--);
-        sink(a, 1, N);
-    }
-    assert(SortUtils::isSorted(a));
-}
-
-#endif // ALGS4_HEAP_HPP
+#endif  // ALGS4_HEAP_HPP

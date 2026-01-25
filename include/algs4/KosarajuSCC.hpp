@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,22 +23,20 @@
 #include "Digraph.hpp"
 
 namespace algs4 {
-    class KosarajuSCC : public detail::CCBase {
-    public:
-        explicit KosarajuSCC(const Digraph &G);
-
-        bool stronglyConnected(int v, int w) const { return connected(v, w); }
-    };
-}
-
-inline algs4::KosarajuSCC::KosarajuSCC(const Digraph &G) : CCBase(G) {
-    DepthFirstOrder order(G.reverse());
-    for (int s: order.reversePost()) {
-        if (!marked_[s]) {
-            dfs(G, s);
-            ++count_;
+class KosarajuSCC : public detail::CCBase {
+public:
+    explicit KosarajuSCC(const Digraph& G) : CCBase(G) {
+        DepthFirstOrder order(G.reverse());
+        for (int s : order.reversePost()) {
+            if (!marked_[s]) {
+                dfs(G, s);
+                ++count_;
+            }
         }
     }
-}
 
-#endif // ALGS4_KOSARAJUSCC_HPP
+    bool stronglyConnected(int v, int w) const { return connected(v, w); }
+};
+}  // namespace algs4
+
+#endif  // ALGS4_KOSARAJUSCC_HPP

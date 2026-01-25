@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,69 +26,60 @@
 #include "ST.hpp"
 
 namespace algs4 {
-    template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
-    class SequentialSearchST : public ST<Key, Value> {
-    private:
-        struct Node {
-            Key key;
-            Value val;
-            std::unique_ptr<Node> next;
+template <std::copyable Key, std::movable Value>
+    requires std::equality_comparable<Key>
+class SequentialSearchST : public ST<Key, Value> {
+private:
+    struct Node {
+        Key key;
+        Value val;
+        std::unique_ptr<Node> next;
 
-            Node(Key key, Value val, std::unique_ptr<Node> next)
-                : key(std::move(key)), val(std::move(val)), next(std::move(next)) {}
-        };
-
-        std::unique_ptr<Node> first_;
-        std::ptrdiff_t N_ = 0;
-
-        std::unique_ptr<Node> remove(std::unique_ptr<Node> x, const Key &key);
-
-    public:
-        void put(Key key, Value val) override;
-        using ST<Key, Value>::get;
-        const Value *get(const Key &key) const override;
-        void remove(const Key &key) override { first_ = remove(std::move(first_), key); }
-        std::ptrdiff_t size() const override { return N_; }
-        Queue<Key> keys() const override;
+        Node(Key key, Value val, std::unique_ptr<Node> next)
+            : key(std::move(key)), val(std::move(val)), next(std::move(next)) {}
     };
-}
 
-template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
-auto algs4::SequentialSearchST<Key, Value>::remove(std::unique_ptr<Node> x, const Key &key) -> std::unique_ptr<Node> {
-    if (!x) return nullptr;
-    if (key == x->key) {
-        --N_;
-        return std::move(x->next);
-    }
-    x->next = remove(std::move(x->next), key);
-    return x;
-}
+    std::unique_ptr<Node> first_;
+    std::ptrdiff_t N_ = 0;
 
-template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
-void algs4::SequentialSearchST<Key, Value>::put(Key key, Value val) {
-    for (Node *x = first_.get(); x; x = x->next.get())
+    std::unique_ptr<Node> remove(std::unique_ptr<Node> x, const Key& key) {
+        if (!x) return nullptr;
         if (key == x->key) {
-            x->val = std::move(val);
-            return;
+            --N_;
+            return std::move(x->next);
         }
-    first_ = std::make_unique<Node>(std::move(key), std::move(val), std::move(first_));
-    ++N_;
-}
+        x->next = remove(std::move(x->next), key);
+        return x;
+    }
 
-template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
-const Value *algs4::SequentialSearchST<Key, Value>::get(const Key &key) const {
-    for (const Node *x = first_.get(); x; x = x->next.get())
-        if (key == x->key)
-            return &x->val;
-    return nullptr;
-}
+public:
+    void put(Key key, Value val) override {
+        for (Node* x = first_.get(); x; x = x->next.get())
+            if (key == x->key) {
+                x->val = std::move(val);
+                return;
+            }
+        first_ = std::make_unique<Node>(std::move(key), std::move(val), std::move(first_));
+        ++N_;
+    }
 
-template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
-algs4::Queue<Key> algs4::SequentialSearchST<Key, Value>::keys() const {
-    Queue<Key> queue;
-    for (const Node *x = first_.get(); x; x = x->next.get())
-        queue.enqueue(x->key);
-    return queue;
-}
+    using ST<Key, Value>::get;
+    const Value* get(const Key& key) const override {
+        for (const Node* x = first_.get(); x; x = x->next.get())
+            if (key == x->key) return &x->val;
+        return nullptr;
+    }
 
-#endif // ALGS4_SEQUENTIALSEARCHST_HPP
+    void remove(const Key& key) override { first_ = remove(std::move(first_), key); }
+
+    std::ptrdiff_t size() const override { return N_; }
+
+    Queue<Key> keys() const override {
+        Queue<Key> queue;
+        for (const Node* x = first_.get(); x; x = x->next.get()) queue.enqueue(x->key);
+        return queue;
+    }
+};
+}  // namespace algs4
+
+#endif  // ALGS4_SEQUENTIALSEARCHST_HPP

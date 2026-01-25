@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,26 +25,23 @@
 #include "SortUtils.hpp"
 
 namespace algs4 {
-    namespace Shell {
-        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-        constexpr void sort(std::vector<T> &a);
+namespace Shell {
+    template <typename T>
+        requires std::totally_ordered<T> && std::swappable<T>
+    constexpr void sort(std::vector<T>& a) {
+        using namespace SortUtils::detail;
+        auto N = std::ssize(a);
+        decltype(N) h = 1;
+        while (h < N / 3) h = 3 * h + 1;
+        while (h >= 1) {
+            for (auto i = h; i < N; ++i)
+                // Insert a[i] among a[i-h], a[i-2*h], a[i-3*h]...
+                for (auto j = i; j >= h && less(a[j], a[j - h]); j -= h) exch(a, j, j - h);
+            h /= 3;
+        }
+        assert(SortUtils::isSorted(a));
     }
-}
+}  // namespace Shell
+}  // namespace algs4
 
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-constexpr void algs4::Shell::sort(std::vector<T> &a) {
-    using namespace SortUtils::detail;
-    auto N = std::ssize(a);
-    decltype(N) h = 1;
-    while (h < N / 3) h = 3 * h + 1;
-    while (h >= 1) {
-        for (auto i = h; i < N; ++i)
-            // Insert a[i] among a[i-h], a[i-2*h], a[i-3*h]...
-            for (auto j = i; j >= h && less(a[j], a[j - h]); j -= h)
-                exch(a, j, j - h);
-        h /= 3;
-    }
-    assert(SortUtils::isSorted(a));
-}
-
-#endif // ALGS4_SHELL_HPP
+#endif  // ALGS4_SHELL_HPP

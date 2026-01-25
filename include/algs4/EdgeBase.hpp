@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2025-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,34 +23,34 @@
 #include <limits>
 
 namespace algs4 {
-    namespace detail {
-        class EdgeBase {
-        protected:
-            int v_{}, w_{};
-            double weight_ = std::numeric_limits<double>::quiet_NaN();
+namespace detail {
+    class EdgeBase {
+    protected:
+        int v_{}, w_{};
+        double weight_ = std::numeric_limits<double>::quiet_NaN();
 
-            constexpr EdgeBase() = default;
-            constexpr EdgeBase(int v, int w, double weight);
-            constexpr ~EdgeBase() = default;
-            constexpr EdgeBase(const EdgeBase &) = default;
-            constexpr EdgeBase &operator=(const EdgeBase &) = default;
-            constexpr EdgeBase(EdgeBase &&) noexcept = default;
-            constexpr EdgeBase &operator=(EdgeBase &&) noexcept = default;
+        constexpr EdgeBase() = default;
 
-        public:
-            constexpr double weight() const { return weight_; }
-            constexpr explicit operator bool() const { return weight_ == weight_; }
-        };
+        constexpr EdgeBase(int v, int w, double weight) : v_(v), w_(w), weight_(weight) {
+            assert(v >= 0);
+            assert(w >= 0);
+            assert(weight == weight);
+        }
 
-        constexpr auto operator<=>(const EdgeBase &l, const EdgeBase &r) { return l.weight() <=> r.weight(); }
-        constexpr bool operator==(const EdgeBase &l, const EdgeBase &r) { return l.weight() == r.weight(); }
-    }
-}
+        constexpr ~EdgeBase() = default;
+        constexpr EdgeBase(const EdgeBase&) = default;
+        constexpr EdgeBase& operator=(const EdgeBase&) = default;
+        constexpr EdgeBase(EdgeBase&&) noexcept = default;
+        constexpr EdgeBase& operator=(EdgeBase&&) noexcept = default;
 
-constexpr algs4::detail::EdgeBase::EdgeBase(int v, int w, double weight) : v_(v), w_(w), weight_(weight) {
-    assert(v >= 0);
-    assert(w >= 0);
-    assert(weight == weight);
-}
+    public:
+        constexpr double weight() const { return weight_; }
+        constexpr explicit operator bool() const { return weight_ == weight_; }
+        friend constexpr auto operator<=>(const EdgeBase& l, const EdgeBase& r) { return l.weight_ <=> r.weight_; }
+        friend constexpr bool operator==(const EdgeBase& l, const EdgeBase& r) { return l.weight_ == r.weight_; }
+    };
 
-#endif // ALGS4_EDGEBASE_HPP
+}  // namespace detail
+}  // namespace algs4
+
+#endif  // ALGS4_EDGEBASE_HPP

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,105 +21,92 @@
 #include "BSTBase.hpp"
 
 namespace algs4 {
-    namespace detail {
-        template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-        struct BSTNode : BSTNodeBase<Key, Value, BSTNode<Key, Value> > {
-            BSTNode(Key key, Value val, std::ptrdiff_t N)
-                : BSTNodeBase<Key, Value, BSTNode>(std::move(key), std::move(val), N) {}
-        };
+namespace detail {
+    template <std::copyable Key, std::movable Value>
+        requires std::totally_ordered<Key>
+    struct BSTNode : BSTNodeBase<Key, Value, BSTNode<Key, Value>> {
+        BSTNode(Key key, Value val, std::ptrdiff_t N)
+            : BSTNodeBase<Key, Value, BSTNode>(std::move(key), std::move(val), N) {}
+    };
+}  // namespace detail
+
+template <std::copyable Key, std::movable Value>
+    requires std::totally_ordered<Key>
+class BST : public detail::BSTBase<Key, Value, detail::BSTNode<Key, Value>> {
+private:
+    using Node = detail::BSTNode<Key, Value>;
+
+    std::unique_ptr<Node> put(std::unique_ptr<Node> x, Key key, Value val) {
+        if (!x) return std::make_unique<Node>(std::move(key), std::move(val), 1);
+        if (key < x->key)
+            x->left = put(std::move(x->left), std::move(key), std::move(val));
+        else if (key > x->key)
+            x->right = put(std::move(x->right), std::move(key), std::move(val));
+        else
+            x->val = std::move(val);
+        x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
+        return x;
     }
 
-    template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-    class BST : public detail::BSTBase<Key, Value, detail::BSTNode<Key, Value> > {
-    private:
-        using Node = detail::BSTNode<Key, Value>;
-
-        std::unique_ptr<Node> put(std::unique_ptr<Node> x, Key key, Value val);
-        std::unique_ptr<Node> extractMin(std::unique_ptr<Node> &x);
-        std::unique_ptr<Node> remove(std::unique_ptr<Node> x, const Key &key);
-        std::unique_ptr<Node> removeMin(std::unique_ptr<Node> x);
-        std::unique_ptr<Node> removeMax(std::unique_ptr<Node> x);
-
-    public:
-        void put(Key key, Value val) override;
-        void remove(const Key &key) override { this->root_ = remove(std::move(this->root_), key); }
-        void removeMin() override;
-        void removeMax() override;
-    };
-}
-
-template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-auto algs4::BST<Key, Value>::put(std::unique_ptr<Node> x, Key key, Value val) -> std::unique_ptr<Node> {
-    if (!x) return std::make_unique<Node>(std::move(key), std::move(val), 1);
-    if (key < x->key) x->left = put(std::move(x->left), std::move(key), std::move(val));
-    else if (key > x->key) x->right = put(std::move(x->right), std::move(key), std::move(val));
-    else x->val = std::move(val);
-    x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
-    return x;
-}
-
-template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-auto algs4::BST<Key, Value>::extractMin(std::unique_ptr<Node> &x) -> std::unique_ptr<Node> {
-    if (!x) return nullptr;
-    if (!x->left) {
-        auto min = std::move(x);
-        x = std::move(min->right);
-        min->right = nullptr;
+    std::unique_ptr<Node> extractMin(std::unique_ptr<Node>& x) {
+        if (!x) return nullptr;
+        if (!x->left) {
+            auto min = std::move(x);
+            x = std::move(min->right);
+            min->right = nullptr;
+            return min;
+        }
+        auto min = extractMin(x->left);
+        x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
         return min;
     }
-    auto min = extractMin(x->left);
-    x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
-    return min;
-}
 
-template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-auto algs4::BST<Key, Value>::remove(std::unique_ptr<Node> x, const Key &key) -> std::unique_ptr<Node> {
-    if (!x) return nullptr;
-    if (key < x->key) x->left = remove(std::move(x->left), key);
-    else if (key > x->key) x->right = remove(std::move(x->right), key);
-    else {
-        if (!x->right) return std::move(x->left);
-        if (!x->left) return std::move(x->right);
-        auto t = std::move(x);
-        x = extractMin(t->right);
-        x->right = std::move(t->right);
-        x->left = std::move(t->left);
+    std::unique_ptr<Node> remove(std::unique_ptr<Node> x, const Key& key) {
+        if (!x) return nullptr;
+        if (key < x->key)
+            x->left = remove(std::move(x->left), key);
+        else if (key > x->key)
+            x->right = remove(std::move(x->right), key);
+        else {
+            if (!x->right) return std::move(x->left);
+            if (!x->left) return std::move(x->right);
+            auto t = std::move(x);
+            x = extractMin(t->right);
+            x->right = std::move(t->right);
+            x->left = std::move(t->left);
+        }
+        x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
+        return x;
     }
-    x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
-    return x;
-}
 
-template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-auto algs4::BST<Key, Value>::removeMin(std::unique_ptr<Node> x) -> std::unique_ptr<Node> {
-    if (!x->left) return std::move(x->right);
-    x->left = removeMin(std::move(x->left));
-    x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
-    return x;
-}
+    std::unique_ptr<Node> removeMin(std::unique_ptr<Node> x) {
+        if (!x->left) return std::move(x->right);
+        x->left = removeMin(std::move(x->left));
+        x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
+        return x;
+    }
 
-template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-auto algs4::BST<Key, Value>::removeMax(std::unique_ptr<Node> x) -> std::unique_ptr<Node> {
-    if (!x->right) return std::move(x->left);
-    x->right = removeMax(std::move(x->right));
-    x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
-    return x;
-}
+    std::unique_ptr<Node> removeMax(std::unique_ptr<Node> x) {
+        if (!x->right) return std::move(x->left);
+        x->right = removeMax(std::move(x->right));
+        x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
+        return x;
+    }
 
-template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-void algs4::BST<Key, Value>::put(Key key, Value val) {
-    this->root_ = put(std::move(this->root_), std::move(key), std::move(val));
-}
+public:
+    void put(Key key, Value val) override { this->root_ = put(std::move(this->root_), std::move(key), std::move(val)); }
+    void remove(const Key& key) override { this->root_ = remove(std::move(this->root_), key); }
 
-template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-void algs4::BST<Key, Value>::removeMin() {
-    if (this->isEmpty()) return;
-    this->root_ = removeMin(std::move(this->root_));
-}
+    void removeMin() override {
+        if (this->isEmpty()) return;
+        this->root_ = removeMin(std::move(this->root_));
+    }
 
-template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-void algs4::BST<Key, Value>::removeMax() {
-    if (this->isEmpty()) return;
-    this->root_ = removeMax(std::move(this->root_));
-}
+    void removeMax() override {
+        if (this->isEmpty()) return;
+        this->root_ = removeMax(std::move(this->root_));
+    }
+};
+}  // namespace algs4
 
-#endif // ALGS4_BST_HPP
+#endif  // ALGS4_BST_HPP

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,26 +22,23 @@
 #include "SP.hpp"
 
 namespace algs4 {
-    class DijkstraSP : public SP {
-    private:
-        IndexMinPQ<double> pq_;
+class DijkstraSP : public SP {
+private:
+    IndexMinPQ<double> pq_;
 
-        constexpr void onEdgeRelaxed(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) override;
+    constexpr void onEdgeRelaxed(const EdgeWeightedDigraph& G, int v, const DirectedEdge& e, int w) override {
+        if (pq_.contains(w))
+            pq_.change(w, distTo_[w]);
+        else
+            pq_.insert(w, distTo_[w]);
+    }
 
-    public:
-        constexpr DijkstraSP(const EdgeWeightedDigraph &G, int s);
-    };
-}
+public:
+    constexpr DijkstraSP(const EdgeWeightedDigraph& G, int s) : SP(G, s), pq_(G.V()) {
+        pq_.insert(s, 0.0);
+        while (!pq_.isEmpty()) relax(G, static_cast<int>(pq_.delMin()));
+    }
+};
+}  // namespace algs4
 
-constexpr void algs4::DijkstraSP::onEdgeRelaxed(const EdgeWeightedDigraph &G, int v, const DirectedEdge &e, int w) {
-    if (pq_.contains(w)) pq_.change(w, distTo_[w]);
-    else pq_.insert(w, distTo_[w]);
-}
-
-constexpr algs4::DijkstraSP::DijkstraSP(const EdgeWeightedDigraph &G, int s) : SP(G, s), pq_(G.V()) {
-    pq_.insert(s, 0.0);
-    while (!pq_.isEmpty())
-        relax(G, static_cast<int>(pq_.delMin()));
-}
-
-#endif // ALGS4_DIJKSTRASP_HPP
+#endif  // ALGS4_DIJKSTRASP_HPP

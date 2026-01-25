@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,97 +26,86 @@
 #include <utility>
 
 namespace algs4 {
-    template<std::movable T>
-    class LinkedStack {
+template <std::movable T>
+class LinkedStack {
+private:
+    struct Node {
+        T item;
+        std::unique_ptr<Node> next;
+
+        Node(T item, std::unique_ptr<Node> next) : item(std::move(item)), next(std::move(next)) {}
+    };
+
+    std::unique_ptr<Node> first_;
+    std::ptrdiff_t N_ = 0;
+
+    template <bool Const>
+    class Iterator {
+        friend class Iterator<!Const>;
+
     private:
-        struct Node {
-            T item;
-            std::unique_ptr<Node> next;
-
-            Node(T item, std::unique_ptr<Node> next) : item(std::move(item)), next(std::move(next)) {}
-        };
-
-        std::unique_ptr<Node> first_;
-        std::ptrdiff_t N_ = 0;
-
-        template<bool Const>
-        class Iterator {
-            friend class Iterator<!Const>;
-
-        private:
-            std::conditional_t<Const, const Node *, Node *> current_ = nullptr;
-
-        public:
-            using iterator_category = std::forward_iterator_tag;
-            using iterator_concept = std::forward_iterator_tag;
-            using value_type = std::remove_cv_t<T>;
-            using difference_type = std::ptrdiff_t;
-            using pointer = std::conditional_t<Const, const T *, T *>;
-            using reference = std::conditional_t<Const, const T &, T &>;
-
-            constexpr Iterator() = default;
-            constexpr explicit Iterator(std::conditional_t<Const, const Node *, Node *> curr) : current_(curr) {}
-
-            template<bool OtherConst> requires (Const && !OtherConst)
-            constexpr Iterator(const Iterator<OtherConst> &other) : current_(other.current_) {}
-
-            constexpr reference operator*() const { return current_->item; }
-            constexpr pointer operator->() const { return &current_->item; }
-            constexpr Iterator &operator++();
-            constexpr Iterator operator++(int);
-            friend constexpr bool operator==(const Iterator &l, const Iterator &r) { return l.current_ == r.current_; }
-        };
+        std::conditional_t<Const, const Node*, Node*> current_ = nullptr;
 
     public:
-        using iterator = Iterator<false>;
-        using const_iterator = Iterator<true>;
+        using iterator_category = std::forward_iterator_tag;
+        using iterator_concept = std::forward_iterator_tag;
+        using value_type = std::remove_cv_t<T>;
+        using difference_type = std::ptrdiff_t;
+        using pointer = std::conditional_t<Const, const T*, T*>;
+        using reference = std::conditional_t<Const, const T&, T&>;
 
-        bool isEmpty() const { return N_ == 0; }
-        std::ptrdiff_t size() const { return N_; }
+        constexpr Iterator() = default;
+        constexpr explicit Iterator(std::conditional_t<Const, const Node*, Node*> curr) : current_(curr) {}
 
-        template<std::convertible_to<T> U>
-        void push(U &&item);
+        template <bool OtherConst>
+            requires(Const && !OtherConst)
+        constexpr Iterator(const Iterator<OtherConst>& other) : current_(other.current_) {}
 
-        T pop();
+        constexpr reference operator*() const { return current_->item; }
+        constexpr pointer operator->() const { return &current_->item; }
 
-        iterator begin() { return iterator(first_.get()); }
-        iterator end() { return iterator(nullptr); }
-        const_iterator begin() const { return const_iterator(first_.get()); }
-        const_iterator end() const { return const_iterator(nullptr); }
-        const_iterator cbegin() const { return const_iterator(first_.get()); }
-        const_iterator cend() const { return const_iterator(nullptr); }
+        constexpr Iterator& operator++() {
+            current_ = current_->next.get();
+            return *this;
+        }
+
+        constexpr Iterator operator++(int) {
+            Iterator t = *this;
+            ++*this;
+            return t;
+        }
+
+        friend constexpr bool operator==(const Iterator& l, const Iterator& r) { return l.current_ == r.current_; }
     };
-}
 
-template<std::movable T>
-template<std::convertible_to<T> U>
-void algs4::LinkedStack<T>::push(U &&item) {
-    first_ = std::make_unique<Node>(std::forward<U>(item), std::move(first_));
-    ++N_;
-}
+public:
+    using iterator = Iterator<false>;
+    using const_iterator = Iterator<true>;
 
-template<std::movable T>
-T algs4::LinkedStack<T>::pop() {
-    assert(!isEmpty());
-    T item = std::move(first_->item);
-    first_ = std::move(first_->next);
-    --N_;
-    return item;
-}
+    bool isEmpty() const { return N_ == 0; }
+    std::ptrdiff_t size() const { return N_; }
 
-template<std::movable T>
-template<bool Const>
-constexpr auto algs4::LinkedStack<T>::Iterator<Const>::operator++() -> Iterator & {
-    current_ = current_->next.get();
-    return *this;
-}
+    template <std::convertible_to<T> U>
+    void push(U&& item) {
+        first_ = std::make_unique<Node>(std::forward<U>(item), std::move(first_));
+        ++N_;
+    }
 
-template<std::movable T>
-template<bool Const>
-constexpr auto algs4::LinkedStack<T>::Iterator<Const>::operator++(int) -> Iterator {
-    Iterator t = *this;
-    ++*this;
-    return t;
-}
+    T pop() {
+        assert(!isEmpty());
+        T item = std::move(first_->item);
+        first_ = std::move(first_->next);
+        --N_;
+        return item;
+    }
 
-#endif // ALGS4_LINKEDSTACK_HPP
+    iterator begin() { return iterator(first_.get()); }
+    iterator end() { return iterator(nullptr); }
+    const_iterator begin() const { return const_iterator(first_.get()); }
+    const_iterator end() const { return const_iterator(nullptr); }
+    const_iterator cbegin() const { return const_iterator(first_.get()); }
+    const_iterator cend() const { return const_iterator(nullptr); }
+};
+}  // namespace algs4
+
+#endif  // ALGS4_LINKEDSTACK_HPP

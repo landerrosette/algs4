@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,19 +22,19 @@
 #include <string_view>
 
 namespace algs4 {
-    class SubstrSearcher {
-    protected:
-        constexpr SubstrSearcher() = default;
-        constexpr SubstrSearcher(const SubstrSearcher &) = default;
-        constexpr SubstrSearcher &operator=(const SubstrSearcher &) = default;
-        constexpr SubstrSearcher(SubstrSearcher &&) noexcept = default;
-        constexpr SubstrSearcher &operator=(SubstrSearcher &&) noexcept = default;
+class SubstrSearcher {
+protected:
+    constexpr SubstrSearcher() = default;
+    constexpr SubstrSearcher(const SubstrSearcher&) = default;
+    constexpr SubstrSearcher& operator=(const SubstrSearcher&) = default;
+    constexpr SubstrSearcher(SubstrSearcher&&) noexcept = default;
+    constexpr SubstrSearcher& operator=(SubstrSearcher&&) noexcept = default;
 
-    public:
-        virtual constexpr ~SubstrSearcher() = default;
+public:
+    virtual constexpr ~SubstrSearcher() = default;
 
-        virtual constexpr std::ptrdiff_t search(std::string_view txt) const = 0;
-    };
-}
+    virtual constexpr std::ptrdiff_t search(std::string_view txt) const = 0;
+};
+}  // namespace algs4
 
-#endif // ALGS4_SUBSTRSEARCHER_HPP
+#endif  // ALGS4_SUBSTRSEARCHER_HPP

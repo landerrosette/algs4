@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,38 +27,47 @@
 #include "SortUtils.hpp"
 
 namespace algs4 {
-    namespace Merge {
-        namespace detail {
-            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-            constexpr void merge(std::vector<T> &a, std::vector<T> &aux, std::ptrdiff_t lo, std::ptrdiff_t mid,
-                                 std::ptrdiff_t hi);
+namespace Merge {
+    namespace detail {
+        template <typename T>
+            requires std::totally_ordered<T> && std::swappable<T>
+        constexpr void merge(std::vector<T>& a, std::vector<T>& aux, std::ptrdiff_t lo, std::ptrdiff_t mid,
+                             std::ptrdiff_t hi);
 
-            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-            constexpr void sort(std::vector<T> &a, std::vector<T> &aux, std::ptrdiff_t lo, std::ptrdiff_t hi);
-        }
+        template <typename T>
+            requires std::totally_ordered<T> && std::swappable<T>
+        constexpr void sort(std::vector<T>& a, std::vector<T>& aux, std::ptrdiff_t lo, std::ptrdiff_t hi);
+    }  // namespace detail
 
-        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-        constexpr void sort(std::vector<T> &a);
-    }
-}
+    template <typename T>
+        requires std::totally_ordered<T> && std::swappable<T>
+    constexpr void sort(std::vector<T>& a);
+}  // namespace Merge
+}  // namespace algs4
 
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-constexpr void algs4::Merge::detail::merge(std::vector<T> &a, std::vector<T> &aux, std::ptrdiff_t lo,
+template <typename T>
+    requires std::totally_ordered<T> && std::swappable<T>
+constexpr void algs4::Merge::detail::merge(std::vector<T>& a, std::vector<T>& aux, std::ptrdiff_t lo,
                                            std::ptrdiff_t mid, std::ptrdiff_t hi) {
     using namespace detail;
     using namespace SortUtils::detail;
     auto i = lo, j = mid + 1;
     for (auto k = lo; k <= hi; ++k) aux[k] = std::move(a[k]);
     for (auto k = lo; k <= hi; ++k) {
-        if (i > mid) a[k] = std::move(aux[j++]);
-        else if (j > hi) a[k] = std::move(aux[i++]);
-        else if (less(aux[j], aux[i])) a[k] = std::move(aux[j++]);
-        else a[k] = std::move(aux[i++]);
+        if (i > mid)
+            a[k] = std::move(aux[j++]);
+        else if (j > hi)
+            a[k] = std::move(aux[i++]);
+        else if (less(aux[j], aux[i]))
+            a[k] = std::move(aux[j++]);
+        else
+            a[k] = std::move(aux[i++]);
     }
 }
 
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-constexpr void algs4::Merge::detail::sort(std::vector<T> &a, std::vector<T> &aux, std::ptrdiff_t lo,
+template <typename T>
+    requires std::totally_ordered<T> && std::swappable<T>
+constexpr void algs4::Merge::detail::sort(std::vector<T>& a, std::vector<T>& aux, std::ptrdiff_t lo,
                                           std::ptrdiff_t hi) {
     if (hi <= lo) return;
     auto mid = lo + (hi - lo) / 2;
@@ -67,11 +76,12 @@ constexpr void algs4::Merge::detail::sort(std::vector<T> &a, std::vector<T> &aux
     merge(a, aux, lo, mid, hi);
 }
 
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-constexpr void algs4::Merge::sort(std::vector<T> &a) {
+template <typename T>
+    requires std::totally_ordered<T> && std::swappable<T>
+constexpr void algs4::Merge::sort(std::vector<T>& a) {
     std::vector<T> aux(std::ssize(a));
     detail::sort(a, aux, 0, std::ssize(a) - 1);
     assert(SortUtils::isSorted(a));
 }
 
-#endif // ALGS4_MERGE_HPP
+#endif  // ALGS4_MERGE_HPP

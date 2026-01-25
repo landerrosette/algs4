@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #include <ostream>
 #include <random>
 
-void STTestUtils::testRedBlackBST(algs4::RedBlackBST<int, int> &st, int n, std::ostream &os) {
+void STTestUtils::testRedBlackBST(algs4::RedBlackBST<int, int>& st, int n, std::ostream& os) {
     // Insert N elements in order.
     os << "Inserting " << n << " elements in order" << std::endl;
     os << "--------------------------------" << std::endl;

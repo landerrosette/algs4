@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,19 +22,17 @@
 #include "Graph.hpp"
 
 namespace algs4 {
-    class CC : public detail::CCBase {
-    public:
-        constexpr explicit CC(const Graph &G);
-    };
-}
-
-constexpr algs4::CC::CC(const Graph &G) : CCBase(G) {
-    for (int s = 0; s < G.V(); ++s) {
-        if (!marked_[s]) {
-            dfs(G, s);
-            ++count_;
+class CC : public detail::CCBase {
+public:
+    constexpr explicit CC(const Graph& G) : CCBase(G) {
+        for (int s = 0; s < G.V(); ++s) {
+            if (!marked_[s]) {
+                dfs(G, s);
+                ++count_;
+            }
         }
     }
-}
+};
+}  // namespace algs4
 
-#endif // ALGS4_CC_HPP
+#endif  // ALGS4_CC_HPP

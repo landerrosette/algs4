@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,7 +54,7 @@
 #include <iostream>
 #include <string>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     if (argc < 3) {
         std::cerr << "Not enough arguments" << std::endl;
         return 1;
@@ -75,8 +75,7 @@ int main(int argc, char *argv[]) {
         std::cout << s << " to " << t;
         std::cout << " (" << std::fixed << std::setprecision(2) << std::setw(4) << sp.distTo(t) << "): ";
         if (sp.hasPathTo(t))
-            for (const auto &e: sp.pathTo(t))
-                std::cout << e << " ";
+            for (const auto& e : sp.pathTo(t)) std::cout << e << " ";
         std::cout << std::endl;
     }
     return 0;

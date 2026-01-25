@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,17 +23,15 @@
 #include <string>
 
 namespace algs4 {
-    namespace StringSortUtils {
-        namespace detail {
-            constexpr int charAt(const std::string &s, std::ptrdiff_t d);
+namespace StringSortUtils {
+    namespace detail {
+        constexpr int charAt(const std::string& s, std::ptrdiff_t d) {
+            assert(d >= 0 && d <= std::ssize(s));
+            if (d == std::ssize(s)) return -1;
+            return static_cast<unsigned char>(s[d]);
         }
-    }
-}
+    }  // namespace detail
+}  // namespace StringSortUtils
+}  // namespace algs4
 
-constexpr int algs4::StringSortUtils::detail::charAt(const std::string &s, std::ptrdiff_t d) {
-    assert(d >= 0 && d <= std::ssize(s));
-    if (d == std::ssize(s)) return -1;
-    return static_cast<unsigned char>(s[d]);
-}
-
-#endif // ALGS4_STRINGSORTUTILS_H
+#endif  // ALGS4_STRINGSORTUTILS_H

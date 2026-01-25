@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,39 +25,32 @@
 #include "Digraph.hpp"
 
 namespace algs4 {
-    class DirectedDFS {
-    private:
-        std::vector<bool> marked_;
+class DirectedDFS {
+private:
+    std::vector<bool> marked_;
 
-        constexpr void dfs(const Digraph &G, int v);
-
-    public:
-        constexpr DirectedDFS(const Digraph &G, int s);
-        constexpr DirectedDFS(const Digraph &G, const Bag<int> &sources);
-
-        constexpr bool marked(int v) const { return marked_[v]; }
-    };
-}
-
-constexpr void algs4::DirectedDFS::dfs(const Digraph &G, int v) {
-    marked_[v] = true;
-    for (int w: G.adj(v))
-        if (!marked_[w])
-            dfs(G, w);
-}
-
-constexpr algs4::DirectedDFS::DirectedDFS(const Digraph &G, int s) : marked_(G.V()) {
-    assert(s >= 0 && s < std::ssize(marked_));
-    dfs(G, s);
-}
-
-constexpr algs4::DirectedDFS::DirectedDFS(const Digraph &G, const Bag<int> &sources) : marked_(G.V()) {
-    assert(!sources.isEmpty());
-    for (int s: sources) {
-        assert(s >= 0 && s < std::ssize(marked_));
-        if (!marked_[s])
-            dfs(G, s);
+    constexpr void dfs(const Digraph& G, int v) {
+        marked_[v] = true;
+        for (int w : G.adj(v))
+            if (!marked_[w]) dfs(G, w);
     }
-}
 
-#endif // ALGS4_DIRECTEDDFS_HPP
+public:
+    constexpr DirectedDFS(const Digraph& G, int s) : marked_(G.V()) {
+        assert(s >= 0 && s < std::ssize(marked_));
+        dfs(G, s);
+    }
+
+    constexpr DirectedDFS(const Digraph& G, const Bag<int>& sources) : marked_(G.V()) {
+        assert(!sources.isEmpty());
+        for (int s : sources) {
+            assert(s >= 0 && s < std::ssize(marked_));
+            if (!marked_[s]) dfs(G, s);
+        }
+    }
+
+    constexpr bool marked(int v) const { return marked_[v]; }
+};
+}  // namespace algs4
+
+#endif  // ALGS4_DIRECTEDDFS_HPP

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,47 +26,42 @@
 #include <vector>
 
 #include "Queue.hpp"
-#include "SequentialSearchST.hpp"
 #include "ST.hpp"
+#include "SequentialSearchST.hpp"
 
 namespace algs4 {
-    template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
-    class SeparateChainingHashST : public ST<Key, Value> {
-    private:
-        std::ptrdiff_t M_; // hash table size
-        std::vector<SequentialSearchST<Key, Value> > st_;
+template <std::copyable Key, std::movable Value>
+    requires std::equality_comparable<Key>
+class SeparateChainingHashST : public ST<Key, Value> {
+private:
+    std::ptrdiff_t M_;  // hash table size
+    std::vector<SequentialSearchST<Key, Value>> st_;
 
-        auto hash(const Key &key) const { return std::hash<Key>()(key) % M_; }
+    auto hash(const Key& key) const { return std::hash<Key>()(key) % M_; }
 
-    public:
-        SeparateChainingHashST() : SeparateChainingHashST(997) {}
-        explicit SeparateChainingHashST(std::ptrdiff_t M) : M_(M), st_(M) { assert(M >= 0); }
+public:
+    SeparateChainingHashST() : SeparateChainingHashST(997) {}
+    explicit SeparateChainingHashST(std::ptrdiff_t M) : M_(M), st_(M) { assert(M >= 0); }
 
-        void put(Key key, Value val) override { st_[hash(key)].put(std::move(key), std::move(val)); }
-        using ST<Key, Value>::get;
-        const Value *get(const Key &key) const override { return st_[hash(key)].get(key); }
-        void remove(const Key &key) override { st_[hash(key)].remove(key); }
-        std::ptrdiff_t size() const override;
-        Queue<Key> keys() const override;
-    };
-}
+    void put(Key key, Value val) override { st_[hash(key)].put(std::move(key), std::move(val)); }
+    using ST<Key, Value>::get;
+    const Value* get(const Key& key) const override { return st_[hash(key)].get(key); }
+    void remove(const Key& key) override { st_[hash(key)].remove(key); }
 
-template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
-std::ptrdiff_t algs4::SeparateChainingHashST<Key, Value>::size() const {
-    std::ptrdiff_t N = 0;
-    for (decltype(M_) i = 0; i < M_; ++i)
-        N += st_[i].size();
-    return N;
-}
-
-template<std::copyable Key, std::movable Value> requires std::equality_comparable<Key>
-algs4::Queue<Key> algs4::SeparateChainingHashST<Key, Value>::keys() const {
-    Queue<Key> queue;
-    for (decltype(M_) i = 0; i < M_; ++i) {
-        for (const auto &key: st_[i].keys())
-            queue.enqueue(key);
+    std::ptrdiff_t size() const override {
+        std::ptrdiff_t N = 0;
+        for (decltype(M_) i = 0; i < M_; ++i) N += st_[i].size();
+        return N;
     }
-    return queue;
-}
 
-#endif // ALGS4_SEPARATECHAININGHASHST_HPP
+    Queue<Key> keys() const override {
+        Queue<Key> queue;
+        for (decltype(M_) i = 0; i < M_; ++i) {
+            for (const auto& key : st_[i].keys()) queue.enqueue(key);
+        }
+        return queue;
+    }
+};
+}  // namespace algs4
+
+#endif  // ALGS4_SEPARATECHAININGHASHST_HPP

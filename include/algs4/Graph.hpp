@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,32 +24,29 @@
 #include "GraphBase.hpp"
 
 namespace algs4 {
-    class Graph : public detail::GraphBase<int> {
-    public:
-        constexpr explicit Graph(int V) : GraphBase(V) {}
-        explicit Graph(std::istream &in);
+class Graph : public detail::GraphBase<int> {
+public:
+    constexpr explicit Graph(int V) : GraphBase(V) {}
 
-        constexpr void addEdge(int v, int w);
-    };
-}
-
-inline algs4::Graph::Graph(std::istream &in) : GraphBase(in) {
-    std::ptrdiff_t E;
-    in >> E;
-    assert(E >= 0);
-    for (decltype(E) i = 0; i < E; ++i) {
-        int v, w;
-        in >> v >> w;
-        addEdge(v, w);
+    explicit Graph(std::istream& in) : GraphBase(in) {
+        std::ptrdiff_t E;
+        in >> E;
+        assert(E >= 0);
+        for (decltype(E) i = 0; i < E; ++i) {
+            int v, w;
+            in >> v >> w;
+            addEdge(v, w);
+        }
     }
-}
 
-constexpr void algs4::Graph::addEdge(int v, int w) {
-    assert(v >= 0 && v < V_);
-    assert(w >= 0 && w < V_);
-    adj_[v].add(w);
-    adj_[w].add(v);
-    ++E_;
-}
+    constexpr void addEdge(int v, int w) {
+        assert(v >= 0 && v < V_);
+        assert(w >= 0 && w < V_);
+        adj_[v].add(w);
+        adj_[w].add(v);
+        ++E_;
+    }
+};
+}  // namespace algs4
 
-#endif // ALGS4_GRAPH_HPP
+#endif  // ALGS4_GRAPH_HPP

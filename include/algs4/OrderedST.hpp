@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,50 +25,47 @@
 #include "ST.hpp"
 
 namespace algs4 {
-    template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-    class OrderedST : public ST<Key, Value> {
-    protected:
-        constexpr OrderedST() = default;
+template <std::copyable Key, std::movable Value>
+    requires std::totally_ordered<Key>
+class OrderedST : public ST<Key, Value> {
+protected:
+    constexpr OrderedST() = default;
 
-    public:
-        virtual constexpr const Key *min() const = 0;
-        virtual constexpr const Key *max() const = 0;
-        virtual constexpr const Key *floor(const Key &key) const = 0;
-        virtual constexpr const Key *ceiling(const Key &key) const = 0;
-        virtual constexpr std::ptrdiff_t rank(const Key &key) const = 0;
-        virtual constexpr const Key *select(std::ptrdiff_t k) const = 0;
-        virtual constexpr void removeMin();
-        virtual constexpr void removeMax();
-        using ST<Key, Value>::size;
-        constexpr std::ptrdiff_t size(const Key &lo, const Key &hi) const;
-        Queue<Key> keys() const override;
-        virtual Queue<Key> keys(const Key &lo, const Key &hi) const = 0;
-    };
-}
+public:
+    virtual constexpr const Key* min() const = 0;
+    virtual constexpr const Key* max() const = 0;
+    virtual constexpr const Key* floor(const Key& key) const = 0;
+    virtual constexpr const Key* ceiling(const Key& key) const = 0;
+    virtual constexpr std::ptrdiff_t rank(const Key& key) const = 0;
+    virtual constexpr const Key* select(std::ptrdiff_t k) const = 0;
 
-template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-constexpr void algs4::OrderedST<Key, Value>::removeMin() {
-    if (this->isEmpty()) return;
-    this->remove(*min());
-}
+    virtual constexpr void removeMin() {
+        if (this->isEmpty()) return;
+        this->remove(*min());
+    }
 
-template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-constexpr void algs4::OrderedST<Key, Value>::removeMax() {
-    if (this->isEmpty()) return;
-    this->remove(*max());
-}
+    virtual constexpr void removeMax() {
+        if (this->isEmpty()) return;
+        this->remove(*max());
+    }
 
-template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-constexpr std::ptrdiff_t algs4::OrderedST<Key, Value>::size(const Key &lo, const Key &hi) const {
-    if (hi < lo) return 0;
-    else if (this->contains(hi)) return rank(hi) - rank(lo) + 1;
-    else return rank(hi) - rank(lo);
-}
+    using ST<Key, Value>::size;
+    constexpr std::ptrdiff_t size(const Key& lo, const Key& hi) const {
+        if (hi < lo)
+            return 0;
+        else if (this->contains(hi))
+            return rank(hi) - rank(lo) + 1;
+        else
+            return rank(hi) - rank(lo);
+    }
 
-template<std::copyable Key, std::movable Value> requires std::totally_ordered<Key>
-algs4::Queue<Key> algs4::OrderedST<Key, Value>::keys() const {
-    if (this->isEmpty()) return {};
-    return keys(*min(), *max());
-}
+    Queue<Key> keys() const override {
+        if (this->isEmpty()) return {};
+        return keys(*min(), *max());
+    }
 
-#endif // ALGS4_ORDEREDST_HPP
+    virtual Queue<Key> keys(const Key& lo, const Key& hi) const = 0;
+};
+}  // namespace algs4
+
+#endif  // ALGS4_ORDEREDST_HPP

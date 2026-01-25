@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@
 
 #include "algs4/SymbolDigraph.hpp"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     if (argc < 3) {
         std::cerr << "Not enough arguments" << std::endl;
         return 1;
@@ -46,9 +46,8 @@ int main(int argc, char *argv[]) {
     try {
         algs4::SymbolDigraph sg(argv[1], *argv[2]);
         algs4::Topological top(sg.G());
-        for (int v: top.order())
-            std::cout << sg.name(v) << std::endl;
-    } catch (std::exception &e) {
+        for (int v : top.order()) std::cout << sg.name(v) << std::endl;
+    } catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
         return 1;
     }

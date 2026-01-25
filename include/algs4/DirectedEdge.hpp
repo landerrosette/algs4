@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,22 +24,18 @@
 #include "EdgeBase.hpp"
 
 namespace algs4 {
-    class DirectedEdge : public detail::EdgeBase {
-        friend std::ostream &operator<<(std::ostream &os, const DirectedEdge &e);
+class DirectedEdge : public detail::EdgeBase {
+public:
+    constexpr DirectedEdge() = default;
+    constexpr DirectedEdge(int v, int w, double weight) : EdgeBase(v, w, weight) {}
 
-    public:
-        constexpr DirectedEdge() = default;
-        constexpr DirectedEdge(int v, int w, double weight) : EdgeBase(v, w, weight) {}
+    constexpr int from() const { return v_; }
+    constexpr int to() const { return w_; }
 
-        constexpr int from() const { return v_; }
-        constexpr int to() const { return w_; }
-    };
+    friend std::ostream& operator<<(std::ostream& os, const DirectedEdge& e) {
+        return os << e.v_ << "->" << e.w_ << " " << std::fixed << std::setprecision(2) << e.weight_ << " ";
+    }
+};
+}  // namespace algs4
 
-    std::ostream &operator<<(std::ostream &os, const DirectedEdge &e);
-}
-
-inline std::ostream &algs4::operator<<(std::ostream &os, const DirectedEdge &e) {
-    return os << e.v_ << "->" << e.w_ << " " << std::fixed << std::setprecision(2) << e.weight_ << " ";
-}
-
-#endif // ALGS4_DIRECTEDEDGE_HPP
+#endif  // ALGS4_DIRECTEDEDGE_HPP

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,29 +25,26 @@
 #include "EdgeBase.hpp"
 
 namespace algs4 {
-    class Edge : public detail::EdgeBase {
-        friend std::ostream &operator<<(std::ostream &os, const Edge &e);
+class Edge : public detail::EdgeBase {
+public:
+    constexpr Edge() = default;
+    constexpr Edge(int v, int w, double weight) : EdgeBase(v, w, weight) {}
 
-    public:
-        constexpr Edge() = default;
-        constexpr Edge(int v, int w, double weight) : EdgeBase(v, w, weight) {}
+    constexpr int either() const { return v_; }
 
-        constexpr int either() const { return v_; }
-        constexpr int other(int vertex) const;
-    };
+    constexpr int other(int vertex) const {
+        if (vertex == v_)
+            return w_;
+        else if (vertex == w_)
+            return v_;
+        else
+            assert(false);
+    }
 
-    std::ostream &operator<<(std::ostream &os, const Edge &e);
-}
+    friend std::ostream& operator<<(std::ostream& os, const Edge& e) {
+        return os << e.v_ << "-" << e.w_ << " " << std::fixed << std::setprecision(2) << e.weight_ << " ";
+    }
+};
+}  // namespace algs4
 
-constexpr int algs4::Edge::other(int vertex) const {
-    if (vertex == v_) return w_;
-    else if (vertex == w_) return v_;
-    else
-        assert(false);
-}
-
-inline std::ostream &algs4::operator<<(std::ostream &os, const Edge &e) {
-    return os << e.v_ << "-" << e.w_ << " " << std::fixed << std::setprecision(2) << e.weight_ << " ";
-}
-
-#endif // ALGS4_EDGE_HPP
+#endif  // ALGS4_EDGE_HPP

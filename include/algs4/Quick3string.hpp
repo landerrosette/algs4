@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,32 +27,32 @@
 #include "StringSortUtils.h"
 
 namespace algs4 {
-    namespace Quick3string {
-        namespace detail {
-            constexpr void sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi, std::ptrdiff_t d);
+namespace Quick3string {
+    namespace detail {
+        constexpr void sort(std::vector<std::string>& a, std::ptrdiff_t lo, std::ptrdiff_t hi, std::ptrdiff_t d) {
+            using namespace SortUtils::detail;
+            using namespace StringSortUtils::detail;
+            if (hi <= lo) return;
+            auto lt = lo, i = lo + 1, gt = hi;
+            int v = charAt(a[lo], d);
+            while (i <= gt) {
+                int t = charAt(a[i], d);
+                if (t < v)
+                    exch(a, lt++, i++);
+                else if (t > v)
+                    exch(a, i, gt--);
+                else
+                    ++i;
+            }  // a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi]
+            sort(a, lo, lt - 1, d);
+            if (v >= 0) sort(a, lt, gt, d + 1);
+            sort(a, gt + 1, hi, d);
+            assert(SortUtils::isSorted(a));
         }
+    }  // namespace detail
 
-        constexpr void sort(std::vector<std::string> &a) { detail::sort(a, 0, std::ssize(a) - 1, 0); }
-    }
-}
+    constexpr void sort(std::vector<std::string>& a) { detail::sort(a, 0, std::ssize(a) - 1, 0); }
+}  // namespace Quick3string
+}  // namespace algs4
 
-constexpr void algs4::Quick3string::detail::sort(std::vector<std::string> &a, std::ptrdiff_t lo, std::ptrdiff_t hi,
-                                                 std::ptrdiff_t d) {
-    using namespace SortUtils::detail;
-    using namespace StringSortUtils::detail;
-    if (hi <= lo) return;
-    auto lt = lo, i = lo + 1, gt = hi;
-    int v = charAt(a[lo], d);
-    while (i <= gt) {
-        int t = charAt(a[i], d);
-        if (t < v) exch(a, lt++, i++);
-        else if (t > v) exch(a, i, gt--);
-        else ++i;
-    } // a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi]
-    sort(a, lo, lt - 1, d);
-    if (v >= 0) sort(a, lt, gt, d + 1);
-    sort(a, gt + 1, hi, d);
-    assert(SortUtils::isSorted(a));
-}
-
-#endif // ALGS4_QUICK3STRING_HPP
+#endif  // ALGS4_QUICK3STRING_HPP

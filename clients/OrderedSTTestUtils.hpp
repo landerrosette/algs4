@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,10 +24,10 @@
 #include "algs4/OrderedST.hpp"
 
 namespace STTestUtils {
-    void init(algs4::OrderedST<std::string, int> &st, std::istream &is, std::ostream &os);
-    void removeSome(algs4::OrderedST<std::string, int> &st, std::ostream &os);
-    void removeAll(algs4::OrderedST<std::string, int> &st, std::ostream &os);
-    void testOrderedST(const algs4::OrderedST<std::string, int> &st, std::ostream &os);
-}
+void init(algs4::OrderedST<std::string, int>& st, std::istream& is, std::ostream& os);
+void removeSome(algs4::OrderedST<std::string, int>& st, std::ostream& os);
+void removeAll(algs4::OrderedST<std::string, int>& st, std::ostream& os);
+void testOrderedST(const algs4::OrderedST<std::string, int>& st, std::ostream& os);
+}  // namespace STTestUtils
 
-#endif // ALGS4_ORDEREDSTTESTUTILS_HPP
+#endif  // ALGS4_ORDEREDSTTESTUTILS_HPP

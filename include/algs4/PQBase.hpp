@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2025-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,80 +25,66 @@
 #include <vector>
 
 namespace algs4 {
-    namespace detail {
-        template<std::movable Key, std::strict_weak_order<Key, Key> Compare>
-        class PQBase {
-        protected:
-            std::vector<Key> pq_;
-            [[no_unique_address]] Compare comp_;
+namespace detail {
+    template <std::movable Key, std::strict_weak_order<Key, Key> Compare>
+    class PQBase {
+    protected:
+        std::vector<Key> pq_;
+        [[no_unique_address]] Compare comp_;
 
-            constexpr PQBase() = default;
-            constexpr explicit PQBase(const Compare &comp) : comp_(comp) {}
-            constexpr ~PQBase() = default;
-            constexpr PQBase(const PQBase &) = default;
-            constexpr PQBase &operator=(const PQBase &) = default;
-            constexpr PQBase(PQBase &&) noexcept = default;
-            constexpr PQBase &operator=(PQBase &&) noexcept = default;
+        constexpr PQBase() = default;
+        constexpr explicit PQBase(const Compare& comp) : comp_(comp) {}
+        constexpr ~PQBase() = default;
+        constexpr PQBase(const PQBase&) = default;
+        constexpr PQBase& operator=(const PQBase&) = default;
+        constexpr PQBase(PQBase&&) noexcept = default;
+        constexpr PQBase& operator=(PQBase&&) noexcept = default;
 
-            constexpr bool less(std::ptrdiff_t i, std::ptrdiff_t j) { return comp_(pq_[i - 1], pq_[j - 1]); }
-            constexpr void exch(std::ptrdiff_t i, std::ptrdiff_t j);
-            constexpr void swim(std::ptrdiff_t k);
-            constexpr void sink(std::ptrdiff_t k);
-            constexpr Key delTop();
+        constexpr bool less(std::ptrdiff_t i, std::ptrdiff_t j) { return comp_(pq_[i - 1], pq_[j - 1]); }
 
-        public:
-            constexpr bool isEmpty() const { return pq_.empty(); }
-            constexpr std::ptrdiff_t size() const { return std::ssize(pq_); }
+        constexpr void exch(std::ptrdiff_t i, std::ptrdiff_t j) {
+            using std::swap;
+            swap(pq_[i - 1], pq_[j - 1]);
+        }
 
-            template<std::convertible_to<Key> K>
-            constexpr void insert(K &&v);
-        };
-    }
-}
+        constexpr void swim(std::ptrdiff_t k) {
+            while (k > 1 && less(k / 2, k)) {
+                exch(k / 2, k);
+                k = k / 2;
+            }
+        }
 
-template<std::movable Key, std::strict_weak_order<Key, Key> Compare>
-constexpr void algs4::detail::PQBase<Key, Compare>::exch(std::ptrdiff_t i, std::ptrdiff_t j) {
-    using std::swap;
-    swap(pq_[i - 1], pq_[j - 1]);
-}
+        constexpr void sink(std::ptrdiff_t k) {
+            auto N = size();
+            while (2 * k <= N) {
+                auto j = 2 * k;
+                if (j < N && less(j, j + 1)) ++j;
+                if (!less(k, j)) break;
+                exch(k, j);
+                k = j;
+            }
+        }
 
-template<std::movable Key, std::strict_weak_order<Key, Key> Compare>
-constexpr void algs4::detail::PQBase<Key, Compare>::swim(std::ptrdiff_t k) {
-    while (k > 1 && less(k / 2, k)) {
-        exch(k / 2, k);
-        k = k / 2;
-    }
-}
+        constexpr Key delTop() {
+            assert(!isEmpty());
+            auto top = std::move(pq_.front());
+            exch(1, size());
+            pq_.pop_back();
+            sink(1);
+            return top;
+        }
 
-template<std::movable Key, std::strict_weak_order<Key, Key> Compare>
-constexpr void algs4::detail::PQBase<Key, Compare>::sink(std::ptrdiff_t k) {
-    auto N = size();
-    while (2 * k <= N) {
-        auto j = 2 * k;
-        if (j < N && less(j, j + 1))
-            ++j;
-        if (!less(k, j))
-            break;
-        exch(k, j);
-        k = j;
-    }
-}
+    public:
+        constexpr bool isEmpty() const { return pq_.empty(); }
+        constexpr std::ptrdiff_t size() const { return std::ssize(pq_); }
 
-template<std::movable Key, std::strict_weak_order<Key, Key> Compare>
-constexpr Key algs4::detail::PQBase<Key, Compare>::delTop() {
-    assert(!isEmpty());
-    auto top = std::move(pq_.front());
-    exch(1, size());
-    pq_.pop_back();
-    sink(1);
-    return top;
-}
+        template <std::convertible_to<Key> K>
+        constexpr void insert(K&& v) {
+            pq_.emplace_back(std::forward<K>(v));
+            swim(size());
+        }
+    };
+}  // namespace detail
+}  // namespace algs4
 
-template<std::movable Key, std::strict_weak_order<Key, Key> Compare>
-template<std::convertible_to<Key> K>
-constexpr void algs4::detail::PQBase<Key, Compare>::insert(K &&v) {
-    pq_.emplace_back(std::forward<K>(v));
-    swim(size());
-}
-
-#endif // ALGS4_PQBASE_HPP
+#endif  // ALGS4_PQBASE_HPP

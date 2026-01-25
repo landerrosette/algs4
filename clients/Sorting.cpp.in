@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,17 +32,17 @@
  * are by sea seashells seashells sells sells she she shells shore surely the the
  ******************************************************************************/
 
+#include "algs4/@SORTER@.hpp"
+
 #include <iostream>
 #include <string>
 #include <vector>
 
-#include "algs4/@SORTER@.hpp"
 #include "algs4/SortUtils.hpp"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     std::vector<std::string> a;
-    for (std::string item; std::cin >> item;)
-        a.push_back(item);
+    for (std::string item; std::cin >> item;) a.push_back(item);
     algs4::@SORTER@::sort(a);
     algs4::SortUtils::show(a);
     return 0;

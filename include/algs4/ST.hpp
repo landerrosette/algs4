@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,27 +25,27 @@
 #include "Queue.hpp"
 
 namespace algs4 {
-    template<std::copyable Key, std::movable Value>
-    class ST {
-    protected:
-        constexpr ST() = default;
-        constexpr ST(const ST &) = default;
-        constexpr ST &operator=(const ST &) = default;
-        constexpr ST(ST &&) noexcept = default;
-        constexpr ST &operator=(ST &&) noexcept = default;
+template <std::copyable Key, std::movable Value>
+class ST {
+protected:
+    constexpr ST() = default;
+    constexpr ST(const ST&) = default;
+    constexpr ST& operator=(const ST&) = default;
+    constexpr ST(ST&&) noexcept = default;
+    constexpr ST& operator=(ST&&) noexcept = default;
 
-    public:
-        virtual constexpr ~ST() = default;
+public:
+    virtual constexpr ~ST() = default;
 
-        virtual constexpr void put(Key key, Value val) = 0;
-        virtual constexpr const Value *get(const Key &key) const = 0;
-        constexpr Value *get(const Key &key) { return const_cast<Value *>(std::as_const(*this).get(key)); }
-        virtual constexpr void remove(const Key &key) = 0;
-        constexpr bool contains(const Key &key) const { return get(key) != nullptr; }
-        constexpr bool isEmpty() const { return size() == 0; }
-        virtual constexpr std::ptrdiff_t size() const = 0;
-        virtual Queue<Key> keys() const = 0;
-    };
-}
+    virtual constexpr void put(Key key, Value val) = 0;
+    virtual constexpr const Value* get(const Key& key) const = 0;
+    constexpr Value* get(const Key& key) { return const_cast<Value*>(std::as_const(*this).get(key)); }
+    virtual constexpr void remove(const Key& key) = 0;
+    constexpr bool contains(const Key& key) const { return get(key) != nullptr; }
+    constexpr bool isEmpty() const { return size() == 0; }
+    virtual constexpr std::ptrdiff_t size() const = 0;
+    virtual Queue<Key> keys() const = 0;
+};
+}  // namespace algs4
 
-#endif // ALGS4_ST_HPP
+#endif  // ALGS4_ST_HPP

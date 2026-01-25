@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,24 +26,20 @@
 #include "Stack.hpp"
 
 namespace algs4 {
-    class Topological {
-    private:
-        Stack<int> order_; // topological order
+class Topological {
+private:
+    Stack<int> order_;  // topological order
 
-    public:
-        template<std::semiregular EdgeType>
-        constexpr explicit Topological(const detail::GraphBase<EdgeType> &G);
+public:
+    template <std::semiregular EdgeType>
+    constexpr explicit Topological(const detail::GraphBase<EdgeType>& G) {
+        if (!DirectedCycle(G).hasCycle()) order_ = DepthFirstOrder(G).reversePost();
+    }
 
-        constexpr const auto &order() const & { return order_; }
-        constexpr auto &&order() && { return std::move(order_); }
-        constexpr bool isDAG() const { return !order_.isEmpty(); }
-    };
-}
+    constexpr const auto& order() const& { return order_; }
+    constexpr auto&& order() && { return std::move(order_); }
+    constexpr bool isDAG() const { return !order_.isEmpty(); }
+};
+}  // namespace algs4
 
-template<std::semiregular EdgeType>
-constexpr algs4::Topological::Topological(const detail::GraphBase<EdgeType> &G) {
-    if (!DirectedCycle(G).hasCycle())
-        order_ = DepthFirstOrder(G).reversePost();
-}
-
-#endif // ALGS4_TOPOLOGICAL_HPP
+#endif  // ALGS4_TOPOLOGICAL_HPP

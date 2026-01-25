@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,39 +25,35 @@
 #include "Stack.hpp"
 
 namespace algs4 {
-    class Paths {
-    protected:
-        std::vector<bool> marked_; // Has dfs() been called for this vertex?
-        std::vector<int> edgeTo_;  // last vertex on known path for this vertex
-        int s_;                    // source
+class Paths {
+protected:
+    std::vector<bool> marked_;  // Has dfs() been called for this vertex?
+    std::vector<int> edgeTo_;   // last vertex on known path for this vertex
+    int s_;                     // source
 
-        constexpr Paths(const Graph &G, int s);
+    constexpr Paths(const Graph& G, int s) : marked_(G.V()), edgeTo_(G.V()), s_(s) {
+        assert(s >= 0 && s < std::ssize(marked_));
+    }
 
-        constexpr Paths(const Paths &) = default;
-        constexpr Paths &operator=(const Paths &) = default;
-        constexpr Paths(Paths &&) noexcept = default;
-        constexpr Paths &operator=(Paths &&) noexcept = default;
+    constexpr Paths(const Paths&) = default;
+    constexpr Paths& operator=(const Paths&) = default;
+    constexpr Paths(Paths&&) noexcept = default;
+    constexpr Paths& operator=(Paths&&) noexcept = default;
 
-    public:
-        virtual constexpr ~Paths() = default;
+public:
+    virtual constexpr ~Paths() = default;
 
-        constexpr bool hasPathTo(int v) const { return marked_[v]; }
-        constexpr Stack<int> pathTo(int v) const;
-    };
-}
+    constexpr bool hasPathTo(int v) const { return marked_[v]; }
 
-constexpr algs4::Paths::Paths(const Graph &G, int s) : marked_(G.V()), edgeTo_(G.V()), s_(s) {
-    assert(s >= 0 && s < std::ssize(marked_));
-}
+    constexpr Stack<int> pathTo(int v) const {
+        assert(v >= 0 && v < std::ssize(marked_));
+        if (!hasPathTo(v)) return {};
+        Stack<int> path;
+        for (int x = v; x != s_; x = edgeTo_[x]) path.push(x);
+        path.push(s_);
+        return path;
+    }
+};
+}  // namespace algs4
 
-constexpr algs4::Stack<int> algs4::Paths::pathTo(int v) const {
-    assert(v >= 0 && v < std::ssize(marked_));
-    if (!hasPathTo(v)) return {};
-    Stack<int> path;
-    for (int x = v; x != s_; x = edgeTo_[x])
-        path.push(x);
-    path.push(s_);
-    return path;
-}
-
-#endif // ALGS4_PATHS_HPP
+#endif  // ALGS4_PATHS_HPP

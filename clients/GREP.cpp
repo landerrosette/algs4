@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@
 
 #include "algs4/NFA.hpp"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     if (argc < 2) {
         std::cerr << "Not enough arguments" << std::endl;
         return 1;
@@ -46,7 +46,6 @@ int main(int argc, char *argv[]) {
     std::string regexp = "(.*" + std::string(argv[1]) + ".*)";
     algs4::NFA nfa(std::move(regexp));
     for (std::string txt; std::getline(std::cin, txt);)
-        if (nfa.recognizes(txt))
-            std::cout << txt << std::endl;
+        if (nfa.recognizes(txt)) std::cout << txt << std::endl;
     return 0;
 }

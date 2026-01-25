@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,21 +26,19 @@
 #include "Merge.hpp"
 
 namespace algs4 {
-    namespace MergeBU {
-        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-        constexpr void sort(std::vector<T> &a);
+namespace MergeBU {
+    template <typename T>
+        requires std::totally_ordered<T> && std::swappable<T>
+    constexpr void sort(std::vector<T>& a) {
+        using namespace Merge::detail;
+        auto N = std::ssize(a);
+        std::vector<T> aux(N);
+        for (decltype(N) sz = 1; sz < N; sz = sz + sz)            // sz: subarray size
+            for (decltype(N) lo = 0; lo < N - sz; lo += sz + sz)  // lo: subarray index
+                merge(a, aux, lo, lo + sz - 1, std::min(lo + sz + sz - 1, N - 1));
+        assert(SortUtils::isSorted(a));
     }
-}
+}  // namespace MergeBU
+}  // namespace algs4
 
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-constexpr void algs4::MergeBU::sort(std::vector<T> &a) {
-    using namespace Merge::detail;
-    auto N = std::ssize(a);
-    std::vector<T> aux(N);
-    for (decltype(N) sz = 1; sz < N; sz = sz + sz)           // sz: subarray size
-        for (decltype(N) lo = 0; lo < N - sz; lo += sz + sz) // lo: subarray index
-            merge(a, aux, lo, lo + sz - 1, std::min(lo + sz + sz - 1, N - 1));
-    assert(SortUtils::isSorted(a));
-}
-
-#endif // ALGS4_MERGEBU_HPP
+#endif  // ALGS4_MERGEBU_HPP

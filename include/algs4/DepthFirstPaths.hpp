@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,23 +21,21 @@
 #include "Paths.hpp"
 
 namespace algs4 {
-    class DepthFirstPaths : public Paths {
-    private:
-        constexpr void dfs(const Graph &G, int v);
-
-    public:
-        constexpr DepthFirstPaths(const Graph &G, int s) : Paths(G, s) { dfs(G, s); }
-    };
-}
-
-constexpr void algs4::DepthFirstPaths::dfs(const Graph &G, int v) {
-    marked_[v] = true;
-    for (int w: G.adj(v)) {
-        if (!marked_[w]) {
-            edgeTo_[w] = v;
-            dfs(G, w);
+class DepthFirstPaths : public Paths {
+private:
+    constexpr void dfs(const Graph& G, int v) {
+        marked_[v] = true;
+        for (int w : G.adj(v)) {
+            if (!marked_[w]) {
+                edgeTo_[w] = v;
+                dfs(G, w);
+            }
         }
     }
-}
 
-#endif // ALGS4_DEPTHFIRSTPATHS_HPP
+public:
+    constexpr DepthFirstPaths(const Graph& G, int s) : Paths(G, s) { dfs(G, s); }
+};
+}  // namespace algs4
+
+#endif  // ALGS4_DEPTHFIRSTPATHS_HPP

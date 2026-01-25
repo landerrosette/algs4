@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,42 +26,37 @@
 #include "GraphBase.hpp"
 
 namespace algs4 {
-    class EdgeWeightedGraph : public detail::GraphBase<Edge> {
-    public:
-        constexpr explicit EdgeWeightedGraph(int V) : GraphBase(V) {}
-        explicit EdgeWeightedGraph(std::istream &in);
+class EdgeWeightedGraph : public detail::GraphBase<Edge> {
+public:
+    constexpr explicit EdgeWeightedGraph(int V) : GraphBase(V) {}
 
-        constexpr void addEdge(const Edge &e);
-        constexpr Bag<Edge> edges() const;
-    };
-}
-
-inline algs4::EdgeWeightedGraph::EdgeWeightedGraph(std::istream &in) : GraphBase(in) {
-    std::ptrdiff_t E;
-    in >> E;
-    assert(E >= 0);
-    for (decltype(E) i = 0; i < E; ++i) {
-        int v, w;
-        double weight;
-        in >> v >> w >> weight;
-        addEdge(Edge(v, w, weight));
+    explicit EdgeWeightedGraph(std::istream& in) : GraphBase(in) {
+        std::ptrdiff_t E;
+        in >> E;
+        assert(E >= 0);
+        for (decltype(E) i = 0; i < E; ++i) {
+            int v, w;
+            double weight;
+            in >> v >> w >> weight;
+            addEdge(Edge(v, w, weight));
+        }
     }
-}
 
-constexpr void algs4::EdgeWeightedGraph::addEdge(const Edge &e) {
-    int v = e.either(), w = e.other(v);
-    adj_[v].add(e);
-    adj_[w].add(e);
-    ++E_;
-}
+    constexpr void addEdge(const Edge& e) {
+        int v = e.either(), w = e.other(v);
+        adj_[v].add(e);
+        adj_[w].add(e);
+        ++E_;
+    }
 
-constexpr algs4::Bag<algs4::Edge> algs4::EdgeWeightedGraph::edges() const {
-    Bag<Edge> bag;
-    for (int v = 0; v < V_; ++v)
-        for (const auto &e: adj(v))
-            if (e.other(v) > v)
-                bag.add(e);
-    return bag;
-}
+    constexpr Bag<Edge> edges() const {
+        Bag<Edge> bag;
+        for (int v = 0; v < V_; ++v)
+            for (const auto& e : adj(v))
+                if (e.other(v) > v) bag.add(e);
+        return bag;
+    }
+};
+}  // namespace algs4
 
-#endif // ALGS4_EDGEWEIGHTEDGRAPH_HPP
+#endif  // ALGS4_EDGEWEIGHTEDGRAPH_HPP

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2025-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,42 +25,38 @@
 #include <vector>
 
 namespace algs4 {
-    namespace SortUtils {
-        namespace detail {
-            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-            constexpr bool less(const T &v, const T &w) { return v < w; }
-
-            template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-            constexpr void exch(std::vector<T> &a, std::integral auto i, std::integral auto j);
+namespace SortUtils {
+    namespace detail {
+        template <typename T>
+            requires std::totally_ordered<T> && std::swappable<T>
+        constexpr bool less(const T& v, const T& w) {
+            return v < w;
         }
 
-        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-        void show(const std::vector<T> &a);
+        template <typename T>
+            requires std::totally_ordered<T> && std::swappable<T>
+        constexpr void exch(std::vector<T>& a, std::integral auto i, std::integral auto j) {
+            using std::swap;
+            swap(a[i], a[j]);
+        }
+    }  // namespace detail
 
-        template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-        constexpr bool isSorted(const std::vector<T> &a);
+    template <typename T>
+        requires std::totally_ordered<T> && std::swappable<T>
+    void show(const std::vector<T>& a) {
+        for (const auto& item : a) std::cout << item << " ";
+        std::cout << std::endl;
     }
-}
 
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-constexpr void algs4::SortUtils::detail::exch(std::vector<T> &a, std::integral auto i, std::integral auto j) {
-    using std::swap;
-    swap(a[i], a[j]);
-}
+    template <typename T>
+        requires std::totally_ordered<T> && std::swappable<T>
+    constexpr bool isSorted(const std::vector<T>& a) {
+        using namespace detail;
+        for (std::ptrdiff_t i = 1; i < std::ssize(a); ++i)
+            if (less(a[i], a[i - 1])) return false;
+        return true;
+    }
+}  // namespace SortUtils
+}  // namespace algs4
 
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-void algs4::SortUtils::show(const std::vector<T> &a) {
-    for (const auto &item: a)
-        std::cout << item << " ";
-    std::cout << std::endl;
-}
-
-template<typename T> requires std::totally_ordered<T> && std::swappable<T>
-constexpr bool algs4::SortUtils::isSorted(const std::vector<T> &a) {
-    using namespace detail;
-    for (std::ptrdiff_t i = 1; i < std::ssize(a); ++i)
-        if (less(a[i], a[i - 1])) return false;
-    return true;
-}
-
-#endif // ALGS4_SORTUTILS_HPP
+#endif  // ALGS4_SORTUTILS_HPP

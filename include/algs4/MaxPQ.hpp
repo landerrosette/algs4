@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #include "PQBase.hpp"
 
 namespace algs4 {
-    template<std::movable Key> requires std::totally_ordered<Key>
-    class MaxPQ : public detail::PQBase<Key, std::less<Key> > {
-    public:
-        constexpr Key delMax() { return this->delTop(); }
-    };
-}
+template <std::movable Key>
+    requires std::totally_ordered<Key>
+class MaxPQ : public detail::PQBase<Key, std::less<Key>> {
+public:
+    constexpr Key delMax() { return this->delTop(); }
+};
+}  // namespace algs4
 
-#endif // ALGS4_MAXPQ_HPP
+#endif  // ALGS4_MAXPQ_HPP

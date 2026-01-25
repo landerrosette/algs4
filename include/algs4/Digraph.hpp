@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2024-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,40 +24,35 @@
 #include "GraphBase.hpp"
 
 namespace algs4 {
-    class Digraph : public detail::GraphBase<int> {
-    public:
-        constexpr explicit Digraph(int V) : GraphBase(V) {}
-        explicit Digraph(std::istream &in);
+class Digraph : public detail::GraphBase<int> {
+public:
+    constexpr explicit Digraph(int V) : GraphBase(V) {}
 
-        constexpr void addEdge(int v, int w);
-        constexpr Digraph reverse() const;
-    };
-}
-
-inline algs4::Digraph::Digraph(std::istream &in) : GraphBase(in) {
-    std::ptrdiff_t E;
-    in >> E;
-    assert(E >= 0);
-    for (decltype(E) i = 0; i < E; ++i) {
-        int v, w;
-        in >> v >> w;
-        addEdge(v, w);
+    explicit Digraph(std::istream& in) : GraphBase(in) {
+        std::ptrdiff_t E;
+        in >> E;
+        assert(E >= 0);
+        for (decltype(E) i = 0; i < E; ++i) {
+            int v, w;
+            in >> v >> w;
+            addEdge(v, w);
+        }
     }
-}
 
-constexpr void algs4::Digraph::addEdge(int v, int w) {
-    assert(v >= 0 && v < V_);
-    assert(w >= 0 && w < V_);
-    adj_[v].add(w);
-    ++E_;
-}
+    constexpr void addEdge(int v, int w) {
+        assert(v >= 0 && v < V_);
+        assert(w >= 0 && w < V_);
+        adj_[v].add(w);
+        ++E_;
+    }
 
-constexpr algs4::Digraph algs4::Digraph::reverse() const {
-    Digraph R(V_);
-    for (int v = 0; v < V_; ++v)
-        for (int w: adj(v))
-            R.addEdge(w, v);
-    return R;
-}
+    constexpr Digraph reverse() const {
+        Digraph R(V_);
+        for (int v = 0; v < V_; ++v)
+            for (int w : adj(v)) R.addEdge(w, v);
+        return R;
+    }
+};
+}  // namespace algs4
 
-#endif // ALGS4_DIGRAPH_HPP
+#endif  // ALGS4_DIGRAPH_HPP

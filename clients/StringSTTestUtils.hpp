@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025-2026 landerrosette <57791410+landerrosette@users.noreply.github.com>
+ * Copyright (C) 2025-2026  landerrosette <57791410+landerrosette@users.noreply.github.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 #include "algs4/StringST.hpp"
 
 namespace STTestUtils {
-    void testStringST(const algs4::StringST<int> &st, std::ostream &os);
+void testStringST(const algs4::StringST<int>& st, std::ostream& os);
 }
 
-#endif // ALGS4_STRINGSTTESTUTILS_HPP
+#endif  // ALGS4_STRINGSTTESTUTILS_HPP
