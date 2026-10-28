@@ -31,6 +31,7 @@ namespace Selection {
     constexpr void sort(std::vector<T>& a) {
         using namespace SortUtils::detail;
         auto N = std::ssize(a);
+
         // Exchange a[i] with the smallest entry in a[i+1..N).
         for (decltype(N) i = 0; i < N; ++i) {
             auto min = i;
@@ -38,6 +39,7 @@ namespace Selection {
                 if (less(a[j], a[min])) min = j;
             exch(a, i, min);
         }
+
         assert(SortUtils::isSorted(a));
     }
 }  // namespace Selection

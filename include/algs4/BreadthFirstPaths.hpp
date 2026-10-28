@@ -28,6 +28,7 @@ private:
         Queue<int> queue;
         marked_[s] = true;
         queue.enqueue(s);
+
         while (!queue.isEmpty()) {
             int v = queue.dequeue();
             for (int w : G.adj(v)) {

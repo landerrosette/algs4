@@ -69,13 +69,16 @@ public:
     std::ptrdiff_t search(std::string_view txt) const override {
         auto N = std::ssize(txt);
         long long txtHash = hash(txt, M_);
+
         if (patHash_ == txtHash && check(0)) return 0;  // match at beginning
+
         for (auto i = M_; i < N; ++i) {
             // Remove leading digit, add trailing digit, check for match.
             txtHash = (txtHash + Q_ - RM_ * txt[i - M_] % Q_) % Q_;
             txtHash = (txtHash * R + txt[i]) % Q_;
             if (patHash_ == txtHash && check(i - M_ + 1)) return i - M_ + 1;  // match
         }
+
         return N;  // no match found
     }
 };

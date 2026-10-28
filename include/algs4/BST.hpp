@@ -38,6 +38,7 @@ private:
 
     std::unique_ptr<Node> put(std::unique_ptr<Node> x, Key key, Value val) {
         if (!x) return std::make_unique<Node>(std::move(key), std::move(val), 1);
+
         if (key < x->key)
             x->left = put(std::move(x->left), std::move(key), std::move(val));
         else if (key > x->key)
@@ -50,12 +51,14 @@ private:
 
     std::unique_ptr<Node> extractMin(std::unique_ptr<Node>& x) {
         if (!x) return nullptr;
+
         if (!x->left) {
             auto min = std::move(x);
             x = std::move(min->right);
             min->right = nullptr;
             return min;
         }
+
         auto min = extractMin(x->left);
         x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
         return min;
@@ -63,6 +66,7 @@ private:
 
     std::unique_ptr<Node> remove(std::unique_ptr<Node> x, const Key& key) {
         if (!x) return nullptr;
+
         if (key < x->key)
             x->left = remove(std::move(x->left), key);
         else if (key > x->key)
@@ -81,6 +85,7 @@ private:
 
     std::unique_ptr<Node> removeMin(std::unique_ptr<Node> x) {
         if (!x->left) return std::move(x->right);
+
         x->left = removeMin(std::move(x->left));
         x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
         return x;
@@ -88,6 +93,7 @@ private:
 
     std::unique_ptr<Node> removeMax(std::unique_ptr<Node> x) {
         if (!x->right) return std::move(x->left);
+
         x->right = removeMax(std::move(x->right));
         x->N = this->size(x->left.get()) + this->size(x->right.get()) + 1;
         return x;
@@ -99,11 +105,13 @@ public:
 
     void removeMin() override {
         if (this->isEmpty()) return;
+
         this->root_ = removeMin(std::move(this->root_));
     }
 
     void removeMax() override {
         if (this->isEmpty()) return;
+
         this->root_ = removeMax(std::move(this->root_));
     }
 };

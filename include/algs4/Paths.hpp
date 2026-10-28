@@ -48,6 +48,7 @@ public:
     constexpr Stack<int> pathTo(int v) const {
         assert(v >= 0 && v < std::ssize(marked_));
         if (!hasPathTo(v)) return {};
+
         Stack<int> path;
         for (int x = v; x != s_; x = edgeTo_[x]) path.push(x);
         path.push(s_);

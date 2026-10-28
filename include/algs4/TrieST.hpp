@@ -43,25 +43,31 @@ private:
 
     std::unique_ptr<Node> put(std::unique_ptr<Node> x, std::string_view key, Value val, std::ptrdiff_t d) {
         if (!x) x = std::make_unique<Node>();
+
         if (d == std::ssize(key)) {
             if (!x->val) ++N_;
             x->val = std::move(val);
             return x;
         }
+
         unsigned char c = key[d];
         x->next[c] = put(std::move(x->next[c]), key, std::move(val), d + 1);
+
         return x;
     }
 
     const Node* get(const Node* x, std::string_view key, std::ptrdiff_t d) const {
         if (!x) return nullptr;
+
         if (d == std::ssize(key)) return x;
+
         unsigned char c = key[d];
         return get(x->next[c].get(), key, d + 1);
     }
 
     std::unique_ptr<Node> remove(std::unique_ptr<Node> x, std::string_view key, std::ptrdiff_t d) {
         if (!x) return nullptr;
+
         if (d == std::ssize(key)) {
             if (x->val) --N_;
             x->val = std::nullopt;
@@ -74,17 +80,20 @@ private:
         if (x->val) return x;
         for (int c = 0; c < R; ++c)
             if (x->next[c]) return x;
+
         return nullptr;
     }
 
     void collect(const Node* x, const std::string& pre, Queue<std::string>& q) const {
         if (!x) return;
+
         if (x->val) q.enqueue(pre);
         for (int c = 0; c < R; ++c) collect(x->next[c].get(), pre + static_cast<char>(c), q);
     }
 
     void collect(const Node* x, const std::string& pre, std::string_view pat, Queue<std::string>& q) const {
         if (!x) return;
+
         auto d = std::ssize(pre);
         if (d == std::ssize(pat) && x->val) q.enqueue(pre);
         if (d == std::ssize(pat)) return;
@@ -96,8 +105,10 @@ private:
 
     std::ptrdiff_t search(const Node* x, std::string_view s, std::ptrdiff_t d, std::ptrdiff_t length) const {
         if (!x) return length;
+
         if (x->val) length = d;
         if (d == std::ssize(s)) return length;
+
         unsigned char c = s[d];
         return search(x->next[c].get(), s, d + 1, length);
     }
@@ -109,6 +120,7 @@ public:
     const Value* get(const std::string& key) const override {
         const Node* x = get(root_.get(), key, 0);
         if (!x) return nullptr;
+
         return &*x->val;
     }
 

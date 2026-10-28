@@ -49,11 +49,13 @@ namespace detail {
         constexpr bool connected(int v, int w) const {
             assert(v >= 0 && v < std::ssize(marked_));
             assert(w >= 0 && w < std::ssize(marked_));
+
             return id_[v] == id_[w];
         }
 
         constexpr int id(int v) const {
             assert(v >= 0 && v < std::ssize(marked_));
+
             return id_[v];
         }
 

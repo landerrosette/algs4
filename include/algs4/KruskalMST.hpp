@@ -33,6 +33,7 @@ public:
     explicit KruskalMST(const EdgeWeightedGraph& G) {
         MinPQ<Edge> pq;
         for (const auto& e : G.edges()) pq.insert(e);
+
         UF uf(G.V());
         while (!pq.isEmpty() && std::ssize(mst_) < G.V() - 1) {
             auto e = pq.delMin();

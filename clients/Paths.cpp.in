@@ -49,12 +49,14 @@ int main(int argc, char* argv[]) {
         std::cerr << "Cannot open file: " << argv[1] << std::endl;
         return 1;
     }
+
     algs4::Graph G(in);
     int s = std::stoi(argv[2]);
     if (s < 0 || s >= G.V()) {
         std::cerr << "Source vertex out of range" << std::endl;
         return 1;
     }
+
     algs4::@PATHS_SEARCHER@ search(G, s);
     for (int v = 0; v < G.V(); ++v) {
         std::cout << s << " to " << v << ": ";
@@ -68,5 +70,6 @@ int main(int argc, char* argv[]) {
         }
         std::cout << std::endl;
     }
+
     return 0;
 }

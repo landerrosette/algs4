@@ -52,9 +52,12 @@ int main(int argc, char* argv[]) {
         std::cerr << "Cannot open file: " << argv[1] << std::endl;
         return 1;
     }
+
     algs4::EdgeWeightedGraph G(in);
     algs4::@MST@ mst(G);
+
     for (const auto& e : mst.edges()) std::cout << e << std::endl;
     std::cout << mst.weight() << std::endl;
+
     return 0;
 }

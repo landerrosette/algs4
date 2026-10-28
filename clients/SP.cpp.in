@@ -64,12 +64,14 @@ int main(int argc, char* argv[]) {
         std::cerr << "Cannot open file: " << argv[1] << std::endl;
         return 1;
     }
+
     algs4::EdgeWeightedDigraph G(in);
     int s = std::stoi(argv[2]);
     if (s < 0 || s >= G.V()) {
         std::cerr << "Source vertex out of range" << std::endl;
         return 1;
     }
+
     algs4::@SP@ sp(G, s);
     for (int t = 0; t < G.V(); ++t) {
         std::cout << s << " to " << t;
@@ -78,5 +80,6 @@ int main(int argc, char* argv[]) {
             for (const auto& e : sp.pathTo(t)) std::cout << e << " ";
         std::cout << std::endl;
     }
+
     return 0;
 }

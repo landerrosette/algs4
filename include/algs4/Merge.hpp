@@ -53,6 +53,7 @@ constexpr void algs4::Merge::detail::merge(std::vector<T>& a, std::vector<T>& au
     using namespace SortUtils::detail;
     auto i = lo, j = mid + 1;
     for (auto k = lo; k <= hi; ++k) aux[k] = std::move(a[k]);
+
     for (auto k = lo; k <= hi; ++k) {
         if (i > mid)
             a[k] = std::move(aux[j++]);
@@ -70,6 +71,7 @@ template <typename T>
 constexpr void algs4::Merge::detail::sort(std::vector<T>& a, std::vector<T>& aux, std::ptrdiff_t lo,
                                           std::ptrdiff_t hi) {
     if (hi <= lo) return;
+
     auto mid = lo + (hi - lo) / 2;
     sort(a, aux, lo, mid);
     sort(a, aux, mid + 1, hi);
@@ -81,6 +83,7 @@ template <typename T>
 constexpr void algs4::Merge::sort(std::vector<T>& a) {
     std::vector<T> aux(std::ssize(a));
     detail::sort(a, aux, 0, std::ssize(a) - 1);
+
     assert(SortUtils::isSorted(a));
 }
 

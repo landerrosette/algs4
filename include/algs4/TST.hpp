@@ -44,7 +44,9 @@ private:
 
     std::unique_ptr<Node> put(std::unique_ptr<Node> x, std::string_view key, Value val, std::ptrdiff_t d) {
         char c = key[d];
+
         if (!x) x = std::make_unique<Node>(c);
+
         if (c < x->c)
             x->left = put(std::move(x->left), key, std::move(val), d);
         else if (c > x->c)
@@ -55,11 +57,13 @@ private:
             if (!x->val) ++N_;
             x->val = std::move(val);
         }
+
         return x;
     }
 
     const Node* get(const Node* x, std::string_view key, std::ptrdiff_t d) const {
         if (!x) return nullptr;
+
         char c = key[d];
         if (c < x->c)
             return get(x->left.get(), key, d);
@@ -73,16 +77,19 @@ private:
 
     std::unique_ptr<Node> extractMin(std::unique_ptr<Node>& x) {
         if (!x) return nullptr;
+
         if (!x->left) {
             auto min = std::move(x);
             x = std::move(min->right);
             return min;
         }
+
         return extractMin(x->left);
     }
 
     std::unique_ptr<Node> remove(std::unique_ptr<Node> x, std::string_view key, std::ptrdiff_t d) {
         if (!x) return nullptr;
+
         char c = key[d];
         if (c < x->c)
             x->left = remove(std::move(x->left), key, d);
@@ -103,11 +110,13 @@ private:
             x->right = std::move(t->right);
             x->left = std::move(t->left);
         }
+
         return x;
     }
 
     void collect(const Node* x, const std::string& pre, Queue<std::string>& q) const {
         if (!x) return;
+
         collect(x->left.get(), pre, q);
         if (x->val) q.enqueue(pre + x->c);
         collect(x->mid.get(), pre + x->c, q);
@@ -116,6 +125,7 @@ private:
 
     void collect(const Node* x, const std::string& pre, std::string_view pat, Queue<std::string>& q) const {
         if (!x) return;
+
         auto d = std::ssize(pre);
         char next = pat[d];
         if (next == '.' || next < x->c) collect(x->left.get(), pre, pat, q);
@@ -128,6 +138,7 @@ private:
 
     std::ptrdiff_t search(const Node* x, std::string_view s, std::ptrdiff_t d, std::ptrdiff_t length) const {
         if (!x) return length;
+
         char c = s[d];
         if (c < x->c)
             return search(x->left.get(), s, d, length);
@@ -143,19 +154,23 @@ private:
 public:
     void put(std::string key, Value val) override {
         assert(!key.empty());
+
         root_ = put(std::move(root_), key, std::move(val), 0);
     }
 
     using ST<std::string, Value>::get;
     const Value* get(const std::string& key) const override {
         assert(!key.empty());
+
         const Node* x = get(root_.get(), key, 0);
         if (!x) return nullptr;
+
         return &*x->val;
     }
 
     void remove(const std::string& key) override {
         assert(!key.empty());
+
         root_ = remove(std::move(root_), key, 0);
     }
 
@@ -169,6 +184,7 @@ public:
 
     std::string longestPrefixOf(std::string_view s) const override {
         if (s.empty()) return "";
+
         auto length = search(root_.get(), s, 0, 0);
         return std::string(s.substr(0, length));
     }

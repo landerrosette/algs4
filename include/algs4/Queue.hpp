@@ -45,6 +45,7 @@ public:
 
     T dequeue() {
         assert(!isEmpty());
+
         T item = std::move(a_.front());
         a_.pop_front();
         return item;

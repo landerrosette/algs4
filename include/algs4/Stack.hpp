@@ -45,6 +45,7 @@ public:
 
     constexpr T pop() {
         assert(!isEmpty());
+
         T item = std::move(a_.back());
         a_.pop_back();
         return item;

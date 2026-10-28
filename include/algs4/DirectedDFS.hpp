@@ -38,11 +38,13 @@ private:
 public:
     constexpr DirectedDFS(const Digraph& G, int s) : marked_(G.V()) {
         assert(s >= 0 && s < std::ssize(marked_));
+
         dfs(G, s);
     }
 
     constexpr DirectedDFS(const Digraph& G, const Bag<int>& sources) : marked_(G.V()) {
         assert(!sources.isEmpty());
+
         for (int s : sources) {
             assert(s >= 0 && s < std::ssize(marked_));
             if (!marked_[s]) dfs(G, s);

@@ -32,6 +32,7 @@ public:
         std::ptrdiff_t E;
         in >> E;
         assert(E >= 0);
+
         for (decltype(E) i = 0; i < E; ++i) {
             int v, w;
             in >> v >> w;
@@ -42,6 +43,7 @@ public:
     constexpr void addEdge(int v, int w) {
         assert(v >= 0 && v < V_);
         assert(w >= 0 && w < V_);
+
         adj_[v].add(w);
         adj_[w].add(v);
         ++E_;

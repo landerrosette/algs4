@@ -31,6 +31,7 @@ private:
 public:
     constexpr explicit UF(int N) : id_(N), sz_(N), count_(N) {
         assert(N >= 0);
+
         for (int i = 0; i < N; i++) {
             id_[i] = i;
             sz_[i] = 1;
@@ -42,6 +43,7 @@ public:
 
     constexpr int find(int p) const {
         assert(p >= 0 && p < std::ssize(id_));
+
         while (p != id_[p]) p = id_[p];
         return p;
     }
@@ -50,6 +52,7 @@ public:
         int i = find(p);
         int j = find(q);
         if (i == j) return;
+
         if (sz_[i] < sz_[j]) {
             id_[i] = j;
             sz_[j] += sz_[i];
@@ -57,6 +60,7 @@ public:
             id_[j] = i;
             sz_[i] += sz_[j];
         }
+
         --count_;
     }
 };

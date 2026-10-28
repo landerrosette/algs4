@@ -30,6 +30,7 @@ int main(int argc, char* argv[]) {
         std::cerr << "Width must be nonnegative" << std::endl;
         return 1;
     }
+
     int cnt;
     for (cnt = 0; !algs4::BinaryStdIO::isEmpty(); ++cnt) {
         if (width == 0) {
@@ -44,5 +45,6 @@ int main(int argc, char* argv[]) {
     }
     if (width != 0) std::cout << std::endl;
     std::cout << cnt << " bits" << std::endl;
+
     return 0;
 }

@@ -41,11 +41,13 @@ public:
 
     virtual constexpr void removeMin() {
         if (this->isEmpty()) return;
+
         this->remove(*min());
     }
 
     virtual constexpr void removeMax() {
         if (this->isEmpty()) return;
+
         this->remove(*max());
     }
 

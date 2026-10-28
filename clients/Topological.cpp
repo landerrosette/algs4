@@ -43,13 +43,16 @@ int main(int argc, char* argv[]) {
         std::cerr << "Not enough arguments" << std::endl;
         return 1;
     }
+
     try {
         algs4::SymbolDigraph sg(argv[1], *argv[2]);
         algs4::Topological top(sg.G());
+
         for (int v : top.order()) std::cout << sg.name(v) << std::endl;
     } catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
         return 1;
     }
+
     return 0;
 }

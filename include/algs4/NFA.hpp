@@ -76,8 +76,10 @@ public:
             for (int v = 0; v < G_.V(); ++v)
                 if (dfs.marked(v)) pc.add(v);
         }
+
         for (int v : pc)
             if (v == M_) return true;
+
         return false;
     }
 };

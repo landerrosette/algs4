@@ -44,10 +44,12 @@ private:
 
     std::unique_ptr<Node> remove(std::unique_ptr<Node> x, const Key& key) {
         if (!x) return nullptr;
+
         if (key == x->key) {
             --N_;
             return std::move(x->next);
         }
+
         x->next = remove(std::move(x->next), key);
         return x;
     }
@@ -59,6 +61,7 @@ public:
                 x->val = std::move(val);
                 return;
             }
+
         first_ = std::make_unique<Node>(std::move(key), std::move(val), std::move(first_));
         ++N_;
     }
@@ -67,6 +70,7 @@ public:
     const Value* get(const Key& key) const override {
         for (const Node* x = first_.get(); x; x = x->next.get())
             if (key == x->key) return &x->val;
+
         return nullptr;
     }
 

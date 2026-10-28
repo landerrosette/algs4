@@ -57,6 +57,7 @@ namespace MSD {
                 Insertion::sort(a, lo, hi, d);
                 return;
             }
+
             std::vector<std::ptrdiff_t> count(R + 2);
             // Compute frequency counts.
             for (auto i = lo; i <= hi; ++i) ++count[charAt(a[i], d) + 2];
@@ -75,6 +76,7 @@ namespace MSD {
         auto N = std::ssize(a);
         std::vector<std::string> aux(N);
         detail::sort(a, aux, 0, N - 1, 0);
+
         assert(SortUtils::isSorted(a));
     }
 }  // namespace MSD

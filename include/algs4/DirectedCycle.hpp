@@ -44,6 +44,7 @@ private:
                 w = e.to();
             else
                 w = e;
+
             if (hasCycle())
                 return;
             else if (!marked_[w]) {

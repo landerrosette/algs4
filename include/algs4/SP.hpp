@@ -74,6 +74,7 @@ public:
     constexpr Stack<DirectedEdge> pathTo(int v) const {
         assert(v >= 0 && v < std::ssize(distTo_));
         if (!hasPathTo(v)) return {};
+
         Stack<DirectedEdge> path;
         for (auto e = edgeTo_[v]; e; e = edgeTo_[e.from()]) path.push(e);
         return path;

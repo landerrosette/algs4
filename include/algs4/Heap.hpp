@@ -58,11 +58,13 @@ namespace Heap {
     constexpr void sort(std::vector<T>& a) {
         using namespace detail;
         auto N = std::ssize(a);
+
         for (auto k = N / 2; k >= 1; --k) sink(a, k, N);
         while (N > 1) {
             exch(a, 1, N--);
             sink(a, 1, N);
         }
+
         assert(SortUtils::isSorted(a));
     }
 }  // namespace Heap

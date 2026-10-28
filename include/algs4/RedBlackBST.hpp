@@ -45,6 +45,7 @@ private:
 
     bool isRed(const Node* h) const {
         if (!h) return false;
+
         return h->color == RED;
     }
 
@@ -111,6 +112,7 @@ private:
 
     std::unique_ptr<Node> put(std::unique_ptr<Node> h, Key key, Value val) {
         if (!h) return std::make_unique<Node>(std::move(key), std::move(val), 1, RED);
+
         if (key < h->key)
             h->left = put(std::move(h->left), std::move(key), std::move(val));
         else if (key > h->key)
@@ -122,6 +124,7 @@ private:
 
     std::unique_ptr<Node> remove(std::unique_ptr<Node> h, const Key& key) {
         if (!h) return nullptr;
+
         if (key < h->key) {
             if (!isRed(h->left.get()) && !isRed(h->left->left.get())) h = moveRedLeft(std::move(h));
             h->left = remove(std::move(h->left), key);
@@ -157,11 +160,13 @@ private:
 
     int height(const Node* h) const {
         if (!h) return -1;
+
         return 1 + std::max(height(h->left.get()), height(h->right.get()));
     }
 
     bool is23(const Node* h) const {
         if (!h) return true;
+
         if (isRed(h->right.get())) return false;
         if (h != this->root_.get() && isRed(h) && isRed(h->left.get())) return false;
         return is23(h->left.get()) && is23(h->right.get());
@@ -173,6 +178,7 @@ private:
     // Does every path from the root to a leaf have the given number of black links?
     bool isBalanced(const Node* h, int black) const {
         if (!h) return black == 0;
+
         if (!isRed(h)) --black;
         return isBalanced(h->left.get(), black) && isBalanced(h->right.get(), black);
     }
@@ -189,6 +195,7 @@ public:
     void put(Key key, Value val) override {
         this->root_ = put(std::move(this->root_), std::move(key), std::move(val));
         this->root_->color = BLACK;
+
         assert(is23());
         assert(isBalanced());
     }
@@ -197,24 +204,29 @@ public:
         if (!isRed(this->root_->left.get()) && !isRed(this->root_->right.get())) this->root_->color = RED;
         this->root_ = remove(std::move(this->root_), key);
         if (!this->isEmpty()) this->root_->color = BLACK;
+
         assert(is23());
         assert(isBalanced());
     }
 
     void removeMin() override {
         if (this->isEmpty()) return;
+
         if (!isRed(this->root_->left.get()) && !isRed(this->root_->right.get())) this->root_->color = RED;
         this->root_ = removeMin(std::move(this->root_));
         if (!this->isEmpty()) this->root_->color = BLACK;
+
         assert(is23());
         assert(isBalanced());
     }
 
     void removeMax() override {
         if (this->isEmpty()) return;
+
         if (!isRed(this->root_->left.get()) && !isRed(this->root_->right.get())) this->root_->color = RED;
         this->root_ = removeMax(std::move(this->root_));
         if (!this->isEmpty()) this->root_->color = BLACK;
+
         assert(is23());
         assert(isBalanced());
     }

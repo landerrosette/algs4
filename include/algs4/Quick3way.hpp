@@ -35,6 +35,7 @@ namespace Quick3way {
         constexpr void sort(std::vector<T>& a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
             using namespace SortUtils::detail;
             if (hi <= lo) return;
+
             auto lt = lo, i = lo + 1, gt = hi;
             T v = a[lo];
             while (i <= gt) {
@@ -45,6 +46,7 @@ namespace Quick3way {
                 else
                     ++i;
             }  // Now a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi].
+
             sort(a, lo, lt - 1);
             sort(a, gt + 1, hi);
         }
@@ -55,6 +57,7 @@ namespace Quick3way {
     void sort(std::vector<T>& a) {
         std::ranges::shuffle(a, std::default_random_engine(std::random_device()()));
         detail::sort(a, 0, std::ssize(a) - 1);
+
         assert(SortUtils::isSorted(a));
     }
 }  // namespace Quick3way

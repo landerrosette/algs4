@@ -50,6 +50,7 @@ private:
         EdgeWeightedDigraph spt(V);
         for (int v = 0; v < V; ++v)
             if (edgeTo_[v]) spt.addEdge(edgeTo_[v]);
+
         cycle_ = DirectedCycle(spt).cycle();
     }
 
@@ -57,6 +58,7 @@ public:
     BellmanFordSP(const EdgeWeightedDigraph& G, int s) : SP(G, s), onQ_(G.V()) {
         queue_.enqueue(s);
         onQ_[s] = true;
+
         while (!queue_.isEmpty() && !hasNegativeCycle()) {
             int v = queue_.dequeue();
             onQ_[v] = false;

@@ -33,9 +33,11 @@ namespace MergeBU {
         using namespace Merge::detail;
         auto N = std::ssize(a);
         std::vector<T> aux(N);
+
         for (decltype(N) sz = 1; sz < N; sz = sz + sz)            // sz: subarray size
             for (decltype(N) lo = 0; lo < N - sz; lo += sz + sz)  // lo: subarray index
                 merge(a, aux, lo, lo + sz - 1, std::min(lo + sz + sz - 1, N - 1));
+
         assert(SortUtils::isSorted(a));
     }
 }  // namespace MergeBU

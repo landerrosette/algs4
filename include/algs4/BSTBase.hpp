@@ -49,6 +49,7 @@ namespace detail {
 
         const Value* get(const Node* x, const Key& key) const {
             if (!x) return nullptr;
+
             if (key < x->key)
                 return get(x->left.get(), key);
             else if (key > x->key)
@@ -59,21 +60,25 @@ namespace detail {
 
         std::ptrdiff_t size(const Node* x) const {
             if (!x) return 0;
+
             return x->N;
         }
 
         const Node* min(const Node* x) const {
             if (!x->left) return x;
+
             return min(x->left.get());
         }
 
         const Node* max(const Node* x) const {
             if (!x->right) return x;
+
             return max(x->right.get());
         }
 
         const Node* floor(const Node* x, const Key& key) const {
             if (!x) return nullptr;
+
             if (key == x->key) return x;
             if (key < x->key) return floor(x->left.get(), key);
             if (const Node* t = floor(x->right.get(), key))
@@ -84,6 +89,7 @@ namespace detail {
 
         const Node* ceiling(const Node* x, const Key& key) const {
             if (!x) return nullptr;
+
             if (key == x->key) return x;
             if (key > x->key) return ceiling(x->right.get(), key);
             if (const Node* t = ceiling(x->left.get(), key))
@@ -94,6 +100,7 @@ namespace detail {
 
         std::ptrdiff_t rank(const Node* x, const Key& key) const {
             if (!x) return 0;
+
             if (key < x->key)
                 return rank(x->left.get(), key);
             else if (key > x->key)
@@ -104,6 +111,7 @@ namespace detail {
 
         const Node* select(const Node* x, std::ptrdiff_t k) const {
             if (!x) return nullptr;
+
             if (auto t = size(x->left.get()); t > k)
                 return select(x->left.get(), k);
             else if (t < k)
@@ -114,6 +122,7 @@ namespace detail {
 
         void keys(const Node* x, Queue<Key>& queue, const Key& lo, const Key& hi) const {
             if (!x) return;
+
             if (lo < x->key) keys(x->left.get(), queue, lo, hi);
             if (lo <= x->key && hi >= x->key) queue.enqueue(x->key);
             if (hi > x->key) keys(x->right.get(), queue, lo, hi);
@@ -126,25 +135,31 @@ namespace detail {
 
         const Key* min() const override {
             if (this->isEmpty()) return nullptr;
+
             return &min(root_.get())->key;
         }
 
         const Key* max() const override {
             if (this->isEmpty()) return nullptr;
+
             return &max(root_.get())->key;
         }
 
         const Key* floor(const Key& key) const override {
             if (this->isEmpty()) return nullptr;
+
             const Node* x = floor(root_.get(), key);
             if (!x) return nullptr;
+
             return &x->key;
         }
 
         const Key* ceiling(const Key& key) const override {
             if (this->isEmpty()) return nullptr;
+
             const Node* x = ceiling(root_.get(), key);
             if (!x) return nullptr;
+
             return &x->key;
         }
 
@@ -152,6 +167,7 @@ namespace detail {
 
         const Key* select(std::ptrdiff_t k) const override {
             assert(k >= 0 && k < size());
+
             return &select(root_.get(), k)->key;
         }
 

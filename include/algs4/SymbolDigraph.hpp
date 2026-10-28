@@ -45,6 +45,7 @@ public:
     SymbolDigraph(const std::filesystem::path& filepath, char sp) {
         std::ifstream in(filepath);
         if (!in.is_open()) throw std::invalid_argument("Cannot open file: " + filepath.string());
+
         // First pass builds the index by reading strings to associate each distinct string with an index.
         for (std::string line; std::getline(in, line);) {
             std::string name;
@@ -57,6 +58,7 @@ public:
         G_ = std::make_unique<Digraph>(st_.size());
         in = std::ifstream(filepath);
         if (!in.is_open()) throw std::invalid_argument("Cannot open file: " + filepath.string());
+
         // Second pass builds the graph by connecting the first vertex on each line to all the others.
         for (std::string line; std::getline(in, line);) {
             std::string name;
@@ -69,6 +71,7 @@ public:
 
     std::string_view name(int v) const& {
         assert(v >= 0 && v < G_->V());
+
         return keys_[v];
     }
 

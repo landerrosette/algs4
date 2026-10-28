@@ -36,6 +36,7 @@ namespace Quick {
             using namespace SortUtils::detail;
             auto i = lo, j = hi + 1;
             T v = a[lo];
+
             while (true) {
                 // Scan right, scan left, check for scan complete, and exchange.
                 while (less(a[++i], v))
@@ -53,6 +54,7 @@ namespace Quick {
             requires std::totally_ordered<T> && std::swappable<T>
         constexpr void sort(std::vector<T>& a, std::ptrdiff_t lo, std::ptrdiff_t hi) {
             if (hi <= lo) return;
+
             auto j = partition(a, lo, hi);
             sort(a, lo, j - 1);
             sort(a, j + 1, hi);
@@ -64,6 +66,7 @@ namespace Quick {
     void sort(std::vector<T>& a) {
         std::ranges::shuffle(a, std::default_random_engine(std::random_device()()));
         detail::sort(a, 0, std::ssize(a) - 1);
+
         assert(SortUtils::isSorted(a));
     }
 }  // namespace Quick

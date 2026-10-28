@@ -27,6 +27,7 @@
 void STTestUtils::init(algs4::ST<std::string, int>& st, std::istream& is, std::ostream& os) {
     std::string word;
     for (int i = 0; is >> word; ++i) st.put(std::move(word), i);
+
     os << "size = " << st.size() << std::endl;
 }
 
@@ -45,6 +46,7 @@ void STTestUtils::removeSome(algs4::ST<std::string, int>& st, std::ostream& os) 
     std::vector keysVec(std::make_move_iterator(keys.begin()), std::make_move_iterator(keys.end()));
     std::ranges::shuffle(keysVec, std::default_random_engine(std::random_device()()));
     for (int i = 0; i < N / 2; ++i) st.remove(keysVec[i]);
+
     os << "After removing " << N / 2 << " randomly selected keys, size = " << st.size() << std::endl;
     os << "--------------------------------" << std::endl;
     listAll(st, os);
@@ -53,6 +55,7 @@ void STTestUtils::removeSome(algs4::ST<std::string, int>& st, std::ostream& os) 
 // Remove all the remaining keys.
 void STTestUtils::removeAll(algs4::ST<std::string, int>& st, std::ostream& os) {
     for (const auto& s : st.keys()) st.remove(s);
+
     os << "After removing the remaining keys, size = " << st.size() << std::endl;
     os << "--------------------------------" << std::endl;
     listAll(st, os);

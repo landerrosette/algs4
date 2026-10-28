@@ -57,16 +57,19 @@ namespace detail {
 
         constexpr const Bag<EdgeType>& adj(int v) const& {
             assert(v >= 0 && v < V());
+
             return adj_[v];
         }
 
         friend std::ostream& operator<<(std::ostream& os, const GraphBase& G) {
             os << G.V_ << " vertices, " << G.E_ << " edges" << std::endl;
+
             for (int v = 0; v < G.V_; ++v) {
                 os << v << ": ";
                 for (const EdgeType& w : G.adj_[v]) os << w << " ";
                 os << std::endl;
             }
+
             return os;
         }
     };

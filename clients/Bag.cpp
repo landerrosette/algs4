@@ -46,7 +46,9 @@
 int main(int argc, char* argv[]) {
     algs4::Bag<std::string> b;
     for (std::string item; std::cin >> item;) b.add(std::move(item));
+
     std::cout << "size of bag = " << b.size() << std::endl;
     for (const auto& item : b) std::cout << item << std::endl;
+
     return 0;
 }

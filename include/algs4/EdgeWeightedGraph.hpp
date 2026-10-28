@@ -34,6 +34,7 @@ public:
         std::ptrdiff_t E;
         in >> E;
         assert(E >= 0);
+
         for (decltype(E) i = 0; i < E; ++i) {
             int v, w;
             double weight;

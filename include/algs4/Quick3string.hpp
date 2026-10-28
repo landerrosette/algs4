@@ -33,6 +33,7 @@ namespace Quick3string {
             using namespace SortUtils::detail;
             using namespace StringSortUtils::detail;
             if (hi <= lo) return;
+
             auto lt = lo, i = lo + 1, gt = hi;
             int v = charAt(a[lo], d);
             while (i <= gt) {
@@ -44,9 +45,11 @@ namespace Quick3string {
                 else
                     ++i;
             }  // a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi]
+
             sort(a, lo, lt - 1, d);
             if (v >= 0) sort(a, lt, gt, d + 1);
             sort(a, gt + 1, hi, d);
+
             assert(SortUtils::isSorted(a));
         }
     }  // namespace detail

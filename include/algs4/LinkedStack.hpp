@@ -93,6 +93,7 @@ public:
 
     T pop() {
         assert(!isEmpty());
+
         T item = std::move(first_->item);
         first_ = std::move(first_->next);
         --N_;

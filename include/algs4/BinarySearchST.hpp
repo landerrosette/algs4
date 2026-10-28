@@ -41,11 +41,13 @@ public:
             vals_[i] = std::move(val);
             return;
         }
+
         if (i == size()) {
             keys_.push_back(std::move(key));
             vals_.push_back(std::move(val));
             return;
         }
+
         keys_.push_back(std::move(keys_.back()));
         vals_.push_back(std::move(vals_.back()));
         for (auto j = size() - 2; j > i; --j) {
@@ -59,6 +61,7 @@ public:
     using OrderedST<Key, Value>::get;
     constexpr const Value* get(const Key& key) const override {
         if (this->isEmpty()) return nullptr;
+
         auto i = rank(key);
         if (i < size() && keys_[i] == key)
             return &vals_[i];
@@ -68,8 +71,10 @@ public:
 
     constexpr void remove(const Key& key) override {
         if (this->isEmpty()) return;
+
         auto i = rank(key);
         if (i == size() || keys_[i] != key) return;
+
         for (auto j = i; j < size() - 1; ++j) {
             keys_[j] = std::move(keys_[j + 1]);
             vals_[j] = std::move(vals_[j + 1]);
@@ -82,11 +87,13 @@ public:
 
     constexpr const Key* min() const override {
         if (this->isEmpty()) return nullptr;
+
         return &keys_[0];
     }
 
     constexpr const Key* max() const override {
         if (this->isEmpty()) return nullptr;
+
         return &keys_[size() - 1];
     }
 
@@ -123,6 +130,7 @@ public:
 
     constexpr const Key* select(std::ptrdiff_t k) const override {
         assert(k >= 0 && k < size());
+
         return &keys_[k];
     }
 

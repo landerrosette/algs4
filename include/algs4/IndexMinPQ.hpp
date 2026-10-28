@@ -77,6 +77,7 @@ public:
     constexpr void insert(std::ptrdiff_t k, K&& key) {
         assert(k >= 0 && k < std::ssize(qp_) - 1);
         assert(!contains(k));
+
         qp_[k] = ++N_;
         pq_[N_] = k;
         keys_[k].emplace(std::forward<K>(key));
@@ -87,6 +88,7 @@ public:
     constexpr void change(std::ptrdiff_t k, K&& key) {
         assert(k >= 0 && k < std::ssize(qp_) - 1);
         assert(contains(k));
+
         keys_[k].emplace(std::forward<K>(key));
         swim(qp_[k]);
         sink(qp_[k]);
@@ -94,6 +96,7 @@ public:
 
     constexpr std::ptrdiff_t delMin() {
         assert(!isEmpty());
+
         auto indexOfMin = pq_[1];
         exch(1, N_--);
         sink(1);

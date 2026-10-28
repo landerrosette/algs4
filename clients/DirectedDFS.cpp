@@ -44,6 +44,7 @@ int main(int argc, char* argv[]) {
         std::cerr << "Cannot open file: " << argv[1] << std::endl;
         return 1;
     }
+
     algs4::Digraph G(in);
     algs4::Bag<int> sources;
     for (int i = 2; i < argc; ++i) {
@@ -52,11 +53,14 @@ int main(int argc, char* argv[]) {
             std::cerr << "Source vertex out of range" << std::endl;
             return 1;
         }
+
         sources.add(s);
     }
+
     algs4::DirectedDFS reachable(G, sources);
     for (int v = 0; v < G.V(); ++v)
         if (reachable.marked(v)) std::cout << v << " ";
     std::cout << std::endl;
+
     return 0;
 }

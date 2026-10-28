@@ -56,6 +56,7 @@ int main(int argc, char* argv[]) {
 #else
     algs4::@ST@<int> st{@ST_INIT_ARGS@};
 #endif
+
     STTestUtils::init(st, std::cin, std::cout);
     std::cout << std::endl;
     STTestUtils::testKeys(st, std::cout);
@@ -71,6 +72,7 @@ int main(int argc, char* argv[]) {
     STTestUtils::removeSome(st, std::cout);
     std::cout << std::endl;
     STTestUtils::removeAll(st, std::cout);
+
 #ifdef BALANCED_TREE
     if (argc > 1) {
         if (int n = std::stoi(argv[1]); n > 0) {
@@ -80,5 +82,6 @@ int main(int argc, char* argv[]) {
         }
     }
 #endif
+
     return 0;
 }

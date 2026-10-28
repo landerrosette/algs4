@@ -67,6 +67,7 @@ namespace detail {
 
         constexpr Key delTop() {
             assert(!isEmpty());
+
             auto top = std::move(pq_.front());
             exch(1, size());
             pq_.pop_back();

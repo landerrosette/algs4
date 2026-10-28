@@ -38,6 +38,7 @@ public:
         int R = 256;
         dfa_.assign(R, std::vector<std::ptrdiff_t>(M));
         dfa_[static_cast<unsigned char>(pat_[0])][0] = 1;
+
         for (decltype(M) X = 0, j = 1; j < M; ++j) {
             // Compute dfa_[][j].
             for (int c = 0; c < R; ++c) dfa_[c][j] = dfa_[c][X];   // Copy mismatch cases.
@@ -50,6 +51,7 @@ public:
         auto N = std::ssize(txt), M = std::ssize(pat_);
         decltype(N) i, j;
         for (i = 0, j = 0; i < N && j < M; ++i) j = dfa_[static_cast<unsigned char>(txt[i])][j];
+
         if (j == M)
             return i - M;  // found (hit end of pattern)
         else

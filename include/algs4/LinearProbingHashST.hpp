@@ -46,6 +46,7 @@ private:
         LinearProbingHashST t(cap);
         for (decltype(M_) i = 0; i < M_; ++i)
             if (keys_[i]) t.put(std::move(*keys_[i]), std::move(*vals_[i]));
+
         keys_ = std::move(t.keys_);
         vals_ = std::move(t.vals_);
         M_ = t.M_;
@@ -72,15 +73,18 @@ public:
     constexpr const Value* get(const Key& key) const override {
         for (auto i = hash(key); keys_[i]; i = (i + 1) % M_)
             if (keys_[i] == key) return &*vals_[i];
+
         return nullptr;
     }
 
     constexpr void remove(const Key& key) override {
         if (!this->contains(key)) return;
+
         auto i = hash(key);
         while (keys_[i] != key) i = (i + 1) % M_;
         keys_[i] = std::nullopt;
         vals_[i] = std::nullopt;
+
         i = (i + 1) % M_;
         while (keys_[i]) {
             Key keyToRedo = std::move(*keys_[i]);
@@ -92,6 +96,7 @@ public:
             i = (i + 1) % M_;
         }
         --N_;
+
         if (N_ > 0 && N_ == M_ / 8) resize(M_ / 2);
     }
 
