@@ -22,7 +22,8 @@
 #include <utility>
 #include <vector>
 
-#include "BinaryStdIO.hpp"
+#include "BinaryStdIn.hpp"
+#include "BinaryStdOut.hpp"
 #include "TST.hpp"
 
 namespace algs4 {
@@ -35,19 +36,21 @@ namespace LZW {
 
     inline void compress() {
         using namespace detail;
-        auto input = BinaryStdIO::read<std::string>();
+        auto input = BinaryStdIn::read<std::string>();
         TST<int> st;
         for (int i = 0; i < R; ++i) st.put(std::string(1, static_cast<char>(i)), i);
         int code = R + 1;  // R is codeword for EOF.
+
         while (!input.empty()) {
             auto s = st.longestPrefixOf(input);  // Find max prefix match.
-            BinaryStdIO::write(*st.get(s), W);   // Print s's encoding.
+            BinaryStdOut::write(*st.get(s), W);  // Print s's encoding.
             auto t = std::ssize(s);
             if (t < std::ssize(input) && code < L) st.put(input.substr(0, t + 1), code++);  // Add s to symbol table.
             input.erase(0, t);                                                              // Scan past s in input.
         }
-        BinaryStdIO::write(R, W);  // Write EOF.
-        BinaryStdIO::closeOut();
+
+        BinaryStdOut::write(R, W);  // Write EOF.
+        BinaryStdOut::close();
     }
 
     inline void expand() {
@@ -56,11 +59,12 @@ namespace LZW {
         int i;  // next available codeword value
         for (i = 0; i < R; ++i) st[i] = std::string(1, static_cast<char>(i));
         st[i++] = "";  // (unused) lookahead for EOF
-        int codeword = BinaryStdIO::read<int>(W);
+        int codeword = BinaryStdIn::read<int>(W);
         auto val = st[codeword];
+
         while (true) {
-            BinaryStdIO::write(val);  // Write current substring.
-            codeword = BinaryStdIO::read<int>(W);
+            BinaryStdOut::write(val);  // Write current substring.
+            codeword = BinaryStdIn::read<int>(W);
             if (codeword == R) break;
             std::string s;
             if (i == codeword)     // If lookahead is invalid,
@@ -70,7 +74,8 @@ namespace LZW {
             if (i < L) st[i++] = std::move(val) + s[0];  // Add new entry to code table.
             val = std::move(s);                          // Update current codeword.
         }
-        BinaryStdIO::closeOut();
+
+        BinaryStdOut::close();
     }
 }  // namespace LZW
 }  // namespace algs4

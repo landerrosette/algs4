@@ -18,7 +18,8 @@
 #include <iostream>
 #include <string>
 
-#include "algs4/BinaryStdIO.hpp"
+#include "algs4/BinaryStdIn.hpp"
+#include "algs4/BinaryStdOut.hpp"
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -32,13 +33,13 @@ int main(int argc, char* argv[]) {
     }
 
     int cnt;
-    for (cnt = 0; !algs4::BinaryStdIO::isEmpty(); ++cnt) {
+    for (cnt = 0; !algs4::BinaryStdIn::isEmpty(); ++cnt) {
         if (width == 0) {
-            algs4::BinaryStdIO::read<bool>();
+            algs4::BinaryStdIn::read<bool>();
             continue;
         }
         if (cnt != 0 && cnt % width == 0) std::cout << std::endl;
-        if (algs4::BinaryStdIO::read<bool>())
+        if (algs4::BinaryStdIn::read<bool>())
             std::cout << "1";
         else
             std::cout << "0";

@@ -24,7 +24,8 @@
 #include <string>
 #include <vector>
 
-#include "BinaryStdIO.hpp"
+#include "BinaryStdIn.hpp"
+#include "BinaryStdOut.hpp"
 #include "PQBase.hpp"
 
 namespace algs4 {
@@ -84,24 +85,25 @@ namespace Huffman {
                 auto y = pq.delMin();
                 pq.insert(std::make_shared<Node>('\0', x->freq + y->freq, x, y));
             }
+
             return pq.delMin();
         }
 
         // Write bitstring-encoded trie.
         inline void writeTrie(const std::shared_ptr<const Node>& x) {
             if (x->isLeaf()) {
-                BinaryStdIO::write(true);
-                BinaryStdIO::write(x->ch);
+                BinaryStdOut::write(true);
+                BinaryStdOut::write(x->ch);
                 return;
             }
-            BinaryStdIO::write(false);
+            BinaryStdOut::write(false);
             writeTrie(x->left);
             writeTrie(x->right);
         }
 
         inline std::shared_ptr<const Node> readTrie() {
-            if (BinaryStdIO::read<bool>())
-                return std::make_shared<Node>(BinaryStdIO::read<char>(), 0, nullptr, nullptr);
+            if (BinaryStdIn::read<bool>())
+                return std::make_shared<Node>(BinaryStdIn::read<char>(), 0, nullptr, nullptr);
             return std::make_shared<Node>('\0', 0, readTrie(), readTrie());
         }
     }  // namespace detail
@@ -109,7 +111,7 @@ namespace Huffman {
     inline void compress() {
         using namespace detail;
 
-        auto input = BinaryStdIO::read<std::string>();
+        auto input = BinaryStdIn::read<std::string>();
 
         // Tabulate frequency counts.
         std::vector<std::ptrdiff_t> freq(R);
@@ -126,34 +128,37 @@ namespace Huffman {
         writeTrie(root);
 
         // Print number of chars.
-        BinaryStdIO::write(static_cast<int>(std::ssize(input)));
+        BinaryStdOut::write(static_cast<int>(std::ssize(input)));
 
         // Use Huffman code to encode input.
         for (unsigned char i : input) {
             for (const auto& code = st[i]; char c : code) {
                 if (c == '1')
-                    BinaryStdIO::write(true);
+                    BinaryStdOut::write(true);
                 else
-                    BinaryStdIO::write(false);
+                    BinaryStdOut::write(false);
             }
         }
-        BinaryStdIO::closeOut();
+
+        BinaryStdOut::close();
     }
 
     inline void expand() {
         using namespace detail;
         auto root = readTrie();
-        auto N = BinaryStdIO::read<int>();
+        auto N = BinaryStdIn::read<int>();
+
         while (N--) {
             auto x = root;
             while (!x->isLeaf())
-                if (BinaryStdIO::read<bool>())
+                if (BinaryStdIn::read<bool>())
                     x = x->right;
                 else
                     x = x->left;
-            BinaryStdIO::write(x->ch);
+            BinaryStdOut::write(x->ch);
         }
-        BinaryStdIO::closeOut();
+
+        BinaryStdOut::close();
     }
 }  // namespace Huffman
 }  // namespace algs4
