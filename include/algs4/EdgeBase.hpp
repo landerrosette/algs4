@@ -26,7 +26,7 @@ namespace algs4 {
 namespace detail {
     class EdgeBase {
     protected:
-        int v_{}, w_{};
+        int v_ = 0, w_ = 0;
         double weight_ = std::numeric_limits<double>::quiet_NaN();
 
         constexpr EdgeBase() = default;
